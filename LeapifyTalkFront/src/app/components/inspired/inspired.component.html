@@ -1,0 +1,20 @@
+<app-category-bar></app-category-bar>
+<div class="search-wrapper">
+  <app-course-searching-bar (searchInputEmitter)="searchInput($event)" [results]="results"></app-course-searching-bar>
+</div>
+<div class="landing">
+    <div class="landing-left">
+      <p>
+        Get Inspired and learn <br>
+        more about the human <br>
+        mindset.
+      </p>
+      <button mat-raised-button [routerLink]="['/courses']" [queryParams]="{belongs: 'Popular'}" class="btn landing-btn-gs" type="button">
+        Get Started
+      </button>
+    </div>
+    <div class="landing-right">
+      <img src="assets/images/inspired_amico.svg" alt="" />
+    </div>
+  </div>
+<app-footer></app-footer>

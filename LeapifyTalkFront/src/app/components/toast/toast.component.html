@@ -1,0 +1,25 @@
+<div class="custom-toast mx-auto">
+  <div
+    class="custom-toast-body"
+    [ngClass]="{
+      success: data.type == 'success',
+      warning: data.type == 'warning',
+      error: data.type == 'error'
+    }"
+  >
+    <div class="row h-100">
+      <div class="col-2 col-sm-1">
+        <div class="image"></div>
+      </div>
+      <div class="col-8 col-sm-9">
+        <div class="title">{{title}}</div>
+        <div class="body"> {{data.message}} </div>
+      </div>
+      <div class="col-2 d-flex align-items-center justify-content-end">
+        <button class="btn shadow-none close" (click)="dismiss()">
+          &#x2715;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

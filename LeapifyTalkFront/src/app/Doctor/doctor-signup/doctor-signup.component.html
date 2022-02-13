@@ -1,0 +1,474 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center auth-logo-text">
+                        <h4>Doctor SignUp</h4>
+                    </div>
+                    <form [formGroup]="doctorsignup" (ngSubmit)="DoctorReg(doctorsignup)">
+                        <!-- ========================================================================================================= -->
+                        <div class="page">
+                            <ul class="nav">
+                                <li class="page-item">
+                                    <h4>Mandatory Info</h4>
+                                </li>
+                                <li class="page-item">
+                                    <!-- <a class="btn btn-0EA5C6 pb-0"> -->
+                                        <h4>Profile Details</h4>
+                                    <!-- </a> -->
+                                </li>
+                                <li class="page-item">
+                                    <!-- <a class="btn btn-0EA5C6 pb-0"> -->
+                                        <h4>Specialities</h4>
+                                    <!-- </a> -->
+                                </li>
+                                <li class="page-item">
+                                    <!-- <a class="btn btn-0EA5C6 pb-0"> -->
+                                        <h4>Therapy Details</h4>
+                                    <!-- </a> -->
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <h3>Mandatory Info</h3> -->
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify" for="FirstName">First
+                                            Name</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" placeholder="Enter First Name"
+                                                formControlName="FirstName">
+                                            <div class="row error-mt"
+                                                *ngIf="doctorsignup.controls['FirstName'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['FirstName'].hasError('pattern') && showErrormsg==true">*
+                                                    FirstName Invalid *</span>
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['FirstName'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter FirstName *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify" for="LastName">Last
+                                            Name</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" placeholder="Enter Last Name"
+                                                formControlName="LastName">
+                                            <div class="row error-mt"
+                                                *ngIf="doctorsignup.controls['LastName'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['LastName'].hasError('pattern') && showErrormsg==true">*
+                                                    LastName Invalid *</span>
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['LastName'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter LastName *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify" for="Email">Email</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" placeholder="Enter Email Address"
+                                                formControlName="Email">
+                                            <div class="row error-mt" *ngIf="doctorsignup.controls['Email'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Email'].hasError('pattern') && showErrormsg==true">*
+                                                    Email Invalid *</span>
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Email'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Email *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify" for="Phone">Phone</label>
+                                        <div class="col-lg-9">
+                                            <input type="tel" class="form-control" placeholder="Enter Mobile Number"
+                                                formControlName="Mobile">
+                                            <div class="row error-mt" *ngIf="doctorsignup.controls['Mobile'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Mobile'].hasError('pattern') && showErrormsg==true">*
+                                                    LastName Invalid *</span>
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Mobile'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Mobile *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify"
+                                            for="Password">Password</label>
+                                        <div class="col-lg-9">
+                                            <input type="password" class="form-control" placeholder="Set Password"
+                                                formControlName="Password">
+                                            <div class="row error-mt"
+                                                *ngIf="doctorsignup.controls['Password'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Password'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Password *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify" for="CPassword">Confirm
+                                            Password</label>
+                                        <div class="col-lg-9">
+                                            <input type="password" class="form-control"
+                                                placeholder="Enter Same Password" formControlName="CPassword">
+                                            <div class="row error-mt"
+                                                *ngIf="doctorsignup.controls['CPassword'].invalid">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['CPassword'].hasError('pattern') && showErrormsg==true">*
+                                                    Confirm Password Invalid *</span>
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['CPassword'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Confirm Password *</span>
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['CPassword'].hasError('MustMatch') && showErrormsg==true">*
+                                                    Password Not Match *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify">Gender</label>
+                                        <div class="col-lg-9 radiobtn">
+                                            <input class="input" type="radio" value="2" id="female"
+                                                formControlName="Gender" />
+                                            <label class="lable" for="female">Female</label>
+                                            <input class="input" type="radio" value="3" id="male"
+                                                formControlName="Gender" />
+                                            <label class="lable" for="male">Male</label>
+                                            <input class="input" type="radio" value="4" id="other"
+                                                formControlName="Gender" />
+                                            <label class="lable" for="other">Other</label>
+                                            <div class="row error-mt" *ngIf="doctorsignup.controls['Gender'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Gender'].hasError('required') && showErrormsg==true">*
+                                                    Please Select Gender *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify" for="Age">Age</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" placeholder="Enter Age"
+                                                formControlName="Age">
+                                            <div class="row error-mt" *ngIf="doctorsignup.controls['Age'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Age'].hasError('pattern') && showErrormsg==true">*
+                                                    Age Invalid *</span>
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Age'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Age *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify"
+                                            for="Address">Address</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" placeholder="Enter Address"
+                                                formControlName="Address">
+                                            <div class="row error-mt" *ngIf="doctorsignup.controls['Address'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Address'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Address *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="col-md-3">
+                                            <label class="col-form-label text-justify" for="ProfilePic">Profile
+                                                Pic</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type='file' formControlName="UserImage" />
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                    <span class="text-danger field-validation-valid" data-valmsg-for="ProfilePic"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify" for="PaypalId">Paypal
+                                            Id</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" placeholder="Enter Paypal Id"
+                                                formControlName="PaypalId">
+                                            <div class="row error-mt"
+                                                *ngIf="doctorsignup.controls['PaypalId'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['PaypalId'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter PaypaId *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="col-md-3">
+                                            <label class="col-form-label text-justify" for="LicenceFile">Licence
+                                                File</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type='file' accept="application/pdf" data-val="true"
+                                                data-val-required="Please enter LicenceFile" id="LicenceFile"
+                                                formControlName="LicenceFile" />
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                    <span class="text-danger field-validation-valid" data-valmsg-for="LicenceFile"
+                                        data-valmsg-replace="true"></span>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                        </fieldset>
+                        <!--end fieldset-->
+
+                        <!-- <h3>Profile Details</h3> -->
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify"
+                                            for="Qualification">Qualification</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" placeholder="Enter Qualification"
+                                                formControlName="Qualification">
+                                            <div class="row error-mt"
+                                                *ngIf="doctorsignup.controls['Qualification'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Qualification'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Qualification *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify"
+                                            for="Department">Department</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" placeholder="Enter Department"
+                                                formControlName="Department">
+                                            <div class="row error-mt"
+                                                *ngIf="doctorsignup.controls['Department'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Department'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Department *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify"
+                                            for="Experience">Experience</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control"
+                                                placeholder="Enter years of Experience" formControlName="Experience">
+                                            <div class="row error-mt"
+                                                *ngIf="doctorsignup.controls['Experience'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['Experience'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Experience *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-justify" for="LicenceNumber">Licence
+                                            No.</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" class="form-control" placeholder="Enter LicenceNumber"
+                                                formControlName="LicenceNo">
+                                            <div class="row error-mt"
+                                                *ngIf="doctorsignup.controls['LicenceNo'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="doctorsignup.controls['LicenceNo'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter LicenceNumber *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-2 col-form-label text-justify" for="AboutMe">About Me</label>
+                                        </div>
+                                        <textarea rows='7' placeholder='Write about yourself' maxlength='1500'
+                                            class='form-control' data-val="true"
+                                            data-val-length="The field AboutMe must be a string with a maximum length of 1000."
+                                            data-val-length-max="1000" id="AboutMe"
+                                            formControlName="AboutMe"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <!--end fieldset-->
+
+                        <!-- <h3>Specialities</h3> -->
+                        <fieldset>
+                            <div class="row">
+                                <div class="met-basic-detail">
+                                    <h4 class="mb-1">Experience Details</h4>
+                                    <div *ngIf="ExperienceMapping?.type == 'checkbox'" class=""
+                                        style="height:270px; overflow-y: auto;">
+                                        <label class="btn btn-outline-success m-2"
+                                            *ngFor="let choice of ExperienceMapping.choices"
+                                            (change)="selectExperience($event)">
+                                            <input class="" type="checkbox" [value]="choice"
+                                                [checked]="isChecked(choice)" />
+                                            &nbsp; {{ choice }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end row-->
+                            <input type="text" class="form-control" placeholder='Add Experience...'
+                                formControlName="ExpierenceDetails">
+                        </fieldset>
+                        <!--end fieldset-->
+
+                        <!-- <h3>Therapy Details</h3> -->
+                        <fieldset>
+                            <div class="row">
+                                <h5>Specialities</h5>
+                                <div *ngIf="SpecialitesMapping?.type == 'checkbox'" class=""
+                                    style="height:100px; overflow-y: auto;">
+                                    <label class="btn btn-outline-success m-2"
+                                        *ngFor="let choice of SpecialitesMapping.choices"
+                                        (change)="selectSpecialites($event)">
+                                        <input class="" type="checkbox" [value]="choice"
+                                            [checked]="isChecked(choice)" />
+                                        &nbsp; {{ choice }}
+                                    </label>
+                                </div>
+                            </div>
+                            <!--end row-->
+                            <input type="text" class="form-control" placeholder='Add Specialities...'
+                                data-val-length-max="1000" maxlength="1000" formControlName="SpecialitiesDetails">
+                            <div class="row">
+                                <h5 class="mt-2">Therapy Details</h5>
+                                <div *ngIf="TherapyMapping?.type == 'checkbox'" class=""
+                                    style="height:100px; overflow-y: auto;">
+                                    <label class="btn btn-outline-success m-2"
+                                        *ngFor="let choice of TherapyMapping.choices"
+                                        (change)="selectTherapy($event)">
+                                        <input class="" type="checkbox" [value]="choice"
+                                            [checked]="isChecked(choice)" />
+                                        &nbsp; {{ choice }}
+                                    </label>
+                                </div>
+                            </div>
+                            <!--end row-->
+                            <input type="text" class="form-control" placeholder='Add Therapy...'
+                                data-val-length-max="1000" maxlength="1000" formControlName="TherapyDetails">
+                        </fieldset>
+                        <!--end fieldset-->
+                        <!-- ========================================================================================================== -->
+                        <!-- =========================================================================================== -->
+                        <div class="col-md-12 d-flex justify-content-end mt-2">
+                            <button type="button" class="btn btn-0EA5C6" id="previous-step" disabled="disabled">&#171;
+                                Previous</button>
+                            <button type="button" class="btn btn-0EA5C6 mx-3" id="next-step">Next &#187;</button>
+                            <button type="submit" class="btn btn-0EA5C6 mx-3" id="finish-step">Finish &#8629;</button>
+                        </div>
+                        <!-- =========================================================================================== -->
+                    </form>
+                    <!--end form-->
+                    <div class="m-3 text-center text-muted">
+                        <!-- <p class="">Already have an account ? <i routerLink="/signin" class="btn-fefefe rounded-pill px-2 py-1">Log
+                                in</i></p> -->
+                    </div>
+                    <div style="display:flex;text-align:center">
+                        <p style="color:red;margin-left:10%">Note</p>:
+                        <p>All of these details will be submited to the LeapifyTalk Team, Once your details are verified
+                            you will get an Email</p>
+                    </div>
+                </div>
+                <!--end card-body-->
+            </div>
+            <!--end card-->
+        </div>
+        <!--end col-->
+        <div class="col-md-4">
+            <img src="/assets/images/signup.svg" class="signin-image" alt="">
+        </div>
+    </div>
+    <!--end row-->
+</div>

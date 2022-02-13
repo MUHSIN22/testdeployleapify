@@ -1,0 +1,15 @@
+<!-- <app-navbar></app-navbar>
+<div [@fadeAnimation]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div> -->
+<div class="header">
+  <app-navbar></app-navbar>
+</div>
+<div *ngIf="isLoggedIn" class="sidebar">
+  <app-sidebar></app-sidebar>
+</div>
+<div class="mid">
+  <div [@fadeAnimation]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</div>

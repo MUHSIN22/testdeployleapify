@@ -1,0 +1,108 @@
+<div class="container-lg mt-5 mb-3">
+  <div class="row main">
+    <div class="col-12 col-md-4 col-lg-3">
+      <div
+        class="group-container"
+        [ngClass]="{ 'd-none d-md-inline-block': hasRoute('/groups/') }"
+      >
+        <h5 class="fw-bold mb-3">Groups</h5>
+        <div *ngFor="let group of groups; let i = index">
+          <div
+            [routerLink]="group._id"
+            [routerLinkActive]="['selected']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="group"
+          >
+            <i class="fa fa-users ico"></i>
+            <div class="ms-3 d-inline-block text-truncate">
+              <h6 class="fw-bold mb-0">{{ group.name }}</h6>
+              <span
+                *ngIf="lastLoaded && lastMessages[i] && lastMessages[i].message"
+              >
+                <p
+                  *ngIf="lastMessages[i].message.type == 'text'"
+                  class="mb-0"
+                  style="font-size: 14px"
+                >
+                  {{ lastMessages[i].message.message }}
+                </p>
+                <p *ngIf="lastMessages[i].message.type == 'image'" class="mb-0">
+                  <i class="far fa-image"></i> Image
+                </p>
+                <p *ngIf="lastMessages[i].message.type == 'video'" class="mb-0">
+                  <i class="fa fa-video"></i> Video
+                </p>
+                <p *ngIf="lastMessages[i].message.type == 'audio'" class="mb-0">
+                  <i class="fa fa-music"></i> Audio
+                </p>
+              </span>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-8 col-lg-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<div
+  class="navbar d-flex d-md-none"
+  [ngClass]="{ 'd-none': hasRoute('/groups/') }"
+>
+  <a routerLink="/groups" class="nav-link">
+    <mat-icon [ngStyle]="{ color: 'white' }"> comment</mat-icon>
+  </a>
+
+  <div class="dropup">
+    <a
+      class="nav-link"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i
+        *ngIf="notifications.length == 0"
+        style="color: white; font-size: 1.5rem"
+        class="far fa-bell"
+      ></i>
+      <i
+        *ngIf="notifications.length > 0"
+        [matBadge]="notifications.length"
+        style="color: white; font-size: 1.5rem"
+        class="far fa-bell"
+      ></i>
+    </a>
+    <ul
+      class="dropdown-menu custom-dropdown dropdown-menu-center"
+      aria-labelledby="dropdownMenuButton1"
+    >
+      <li *ngIf="notifications.length == 0">
+        <a class="dropdown-item"> No Notifications</a>
+      </li>
+      <li *ngFor="let i of notifications.reverse()">
+        <app-notification [text]="i"></app-notification>
+      </li>
+    </ul>
+  </div>
+  <div class="dropup">
+    <a
+      class="nav-link"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i style="font-size: 1.4rem; color: white" class="far fa-user-circle"></i>
+    </a>
+    <ul
+      class="dropdown-menu dropdown-menu-end"
+      aria-labelledby="dropdownMenuButton1"
+    >
+      <li>
+        <a class="dropdown-item">{{ loggedInUser.name }}</a>
+      </li>
+      <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+    </ul>
+  </div>
+</div>

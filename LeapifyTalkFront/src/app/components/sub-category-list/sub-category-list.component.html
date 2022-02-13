@@ -1,0 +1,10 @@
+<div 
+    [ngClass]="{'sub-category-list-wrapper-active':data.visiblity}" 
+    class="sub-category-list-wrapper"
+    (mouseover)="onMouseOver()" 
+    (mouseout)="onMouseOut()"   
+>
+    <ul>
+        <li *ngFor="let subCategory of data.subCategories" class="sub-category">{{subCategory}}</li>
+    </ul>
+</div>

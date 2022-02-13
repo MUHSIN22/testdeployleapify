@@ -1,0 +1,15 @@
+<div class="category-bar">
+    <ul class="category-list">
+        <li *ngFor="let category of courseCategories"
+            class="category" 
+            (mouseover)="onMouseOver(courseCategories.indexOf(category)+1)" 
+            (mouseout)="onMouseOut()" 
+            [ngClass]="{'active-category':activeCategory === courseCategories.indexOf(category)+1}"
+            [routerLink]="['/courses']"
+            [queryParams]="{belongs:category}"    
+        >
+            {{category}}
+        </li>
+    </ul>
+</div>
+<!-- <app-sub-category-list [data]="data" (categoryActiveness)="setActiveCategory($event)"></app-sub-category-list> -->

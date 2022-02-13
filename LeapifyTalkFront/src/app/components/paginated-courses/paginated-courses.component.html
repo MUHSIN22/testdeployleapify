@@ -1,0 +1,7 @@
+<div class="all-courses-in-category" *ngIf="coursesData">
+    <h3 class="courses-section-title">All {{courseCategory}} courses</h3>
+    <div class="all-courses-in-category-wrapper">
+        <app-long-course-card [allCourse]="true" *ngFor="let course of coursesData.courses" [course]="course"></app-long-course-card>
+    </div>
+    <app-numbered-pagination [totalPages]="coursesData.totalPages" (changePage)="changePage($event)"></app-numbered-pagination>
+</div>

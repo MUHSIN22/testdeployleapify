@@ -1,0 +1,208 @@
+<div class="container text-center mt-4">
+  <img style="max-width: 60px" src="./assets/images/logo_blue.svg" />
+  <h4 class="fw-bold mt-2" style="color: var(--bg-primary)">LEAPIFYTALK</h4>
+  <h3 class="fw-bold my-3 tag">Tag Line of the company</h3>
+  <div class="inner-container" *ngIf="step == 1">
+    <h5 class="fw-bold">Important Terms & Conditions</h5>
+    <img
+      style="max-height: 250px"
+      src="./assets/images/accept_terms.svg"
+      class="m-1"
+      alt=""
+    />
+    <div class="terms">
+      <ul>
+        <li>You have entered this app as an anonymous person.</li>
+        <li>You can like, comment, and share anonymously.</li>
+        <li>You can share supportive/inspirational images and texts.</li>
+      </ul>
+    </div>
+    <button
+      mat-flat-button
+      color="primary"
+      class="btn btn-gs mt-3"
+      (click)="step = 2"
+    >
+      Continue
+    </button>
+  </div>
+  <div class="inner-container" *ngIf="step == 2">
+    <h5 class="fw-bold">Register</h5>
+    <form class="mt-0 mt-md-2" (ngSubmit)="submit(userForm)" #userForm="ngForm">
+      <div class="row text-start">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label class="fw-bold">Name</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              [(ngModel)]="user.name"
+              #name="ngModel"
+              [ngClass]="{
+                'is-invalid': (name.touched || error) && name.errors
+              }"
+              required
+            />
+            <div [hidden]="!name.errors?.required" class="invalid-feedback">
+              <small>Name Required</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label class="fw-bold">Email Address</label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              [(ngModel)]="user.email"
+              [ngClass]="{
+                'is-invalid': email.errors && (email.touched || error)
+              }"
+              #email="ngModel"
+              pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+              required
+            />
+            <div [hidden]="!email.errors?.required" class="invalid-feedback">
+              <small>Email Required</small>
+            </div>
+            <div [hidden]="!email.errors?.pattern" class="invalid-feedback">
+              <small>Email is not valid</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="fw-bold">Age</label>
+          <input
+            type="number"
+            name="age"
+            class="form-control"
+            [(ngModel)]="ageString"
+            #age="ngModel"
+            [ngClass]="{
+              'is-invalid': age.errors && (age.touched || error)
+            }"
+            required
+          />
+          <div [hidden]="!age.errors?.required" class="invalid-feedback">
+            <small>Age Required</small>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="fw-bold">Gender</label>
+          <select
+            name="gender"
+            class="form-select"
+            [ngClass]="{
+              'is-invalid': gender.errors && (gender.touched || error)
+            }"
+            [(ngModel)]="user.gender"
+            #gender="ngModel"
+            required
+          >
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+          </select>
+          <div [hidden]="!gender.errors?.required" class="invalid-feedback">
+            <small>Gender Required</small>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label class="fw-bold">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              [(ngModel)]="user.password"
+              #password="ngModel"
+              [ngClass]="{
+                'is-invalid': password.errors && (error || password.touched)
+              }"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+              required
+            />
+            <div [hidden]="!password.errors?.pattern" class="invalid-feedback">
+              <small>Passowrd does not meet minimum requirements</small>
+            </div>
+            <div [hidden]="!password.errors?.required" class="invalid-feedback">
+              <small>Password Required</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label class="fw-bold">Confirm Password</label>
+            <input
+              type="password"
+              name="cpassword"
+              class="form-control"
+              [(ngModel)]="cpassword"
+              [ngClass]="{
+                'is-invalid':
+                  (user.password != cpassword || cpasswordref.errors) &&
+                  cpasswordref.touched
+              }"
+              #cpasswordref="ngModel"
+              required
+            />
+            <div
+              [hidden]="
+                cpasswordref.errors?.required || !(user.password != cpassword)
+              "
+              class="invalid-feedback"
+            >
+              <small>Password and confirm password are not same</small>
+            </div>
+            <div
+              [hidden]="!cpasswordref.errors?.required"
+              class="invalid-feedback"
+            >
+              <small>This field is required</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-check my-4">
+            <input
+              class="form-check-input mt-1"
+              name="accept"
+              type="checkbox"
+              [(ngModel)]="accept"
+              [ngClass]="{ 'is-invalid': acceptError }"
+              required
+              (change)="acceptError = false"
+            />
+            <label class="form-check-label mt-0"
+              >You accept the terms of
+              <a routerLink="/terms-and-conditions">service</a> and the
+              <a routerLink="/privacy-policy">privacy policy</a>
+            </label>
+            <div class="invalid-feedback">
+              Please agree to our Terms and Conditions
+            </div>
+          </div>
+        </div>
+      </div>
+      <button mat-flat-button class="btn btn-gs my-2" type="submit">
+        Register
+      </button>
+    </form>
+  </div>
+</div>
+<div class="inner-container step3" *ngIf="step == 3">
+  <h5 class="fw-bold text-success">Registration Success</h5>
+  <p>An Email has been sent to your email address. Please check and verify.</p>
+  <button
+    mat-flat-button
+    color="primary"
+    class="btn btn-gs mt-3"
+    routerLink="/signin"
+  >
+    Sign In
+  </button>
+</div>
+<app-footer></app-footer>

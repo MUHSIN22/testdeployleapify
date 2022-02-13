@@ -1,0 +1,174 @@
+.wlt {
+  padding: 0 11% 70px;
+}
+
+.wlt h1 {
+  font-size: 35px;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.wlt .wlt-part {
+  padding-bottom: 30px;
+}
+
+.wlt .wlt-card {
+  box-shadow: -3px 2px 24px 0px #7889a54d;
+  border-radius: 20px;
+  padding: 40px 40px 70px 40px;
+  width: 30%;
+  margin-right: 20px;
+}
+
+.wlt .wlt-part .wlt-card:last-of-type {
+  margin-right: 0;
+}
+
+.wlt .wlt-card img {
+  padding-bottom: 20px;
+}
+
+.wlt .wlt-card h4 {
+  font-size: 18px;
+  font-weight: 700;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+.wlt .wlt-card p {
+  color: #7d7987;
+}
+
+.overlay {
+  width: 100vw;
+  padding-bottom: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.overlay h4 {
+  position: absolute;
+  text-align: center;
+  top: 25%;
+  color: #fff;
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.overlay .overlay-bullets {
+  position: absolute;
+  top: 35%;
+  color: #fff;
+  font-size: 18px;
+  padding-top: 15px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.overlay .overlay-bullets p {
+  padding-right: 22px;
+}
+
+.overlay .overlay-bullets p:last-of-type {
+  padding-right: 0;
+}
+
+.overlay .bulletpoint3 {
+  color: #fff;
+  font-size: 18px;
+  position: absolute;
+  top: 45%;
+  padding-right: 30px;
+  padding-top: 10px;
+  font-weight: 700;
+}
+@media screen and (min-width: 551px) {
+  .overlay-img {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wlt .wlt-part {
+    flex-wrap: wrap;
+    padding: 0;
+  }
+  .wlt .wlt-card {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 40px;
+    margin: 20px;
+  }
+  .wlt .wlt-part .wlt-card:last-of-type {
+    margin-right: 20px;
+  }
+
+  .overlay {
+    padding-bottom: 50px;
+    overflow: hidden;
+    height: 217px;
+  }
+  .overlay img {
+    max-height: 217px;
+  }
+  .overlay h4 {
+    top: 15%;
+    padding: 0 20px;
+    font-size: 25px !important;
+  }
+  .overlay .overlay-bullets {
+    justify-content: center;
+  }
+  .overlay .overlay-bullets,
+  .bulletpoint3 {
+    top: 50%;
+    font-size: 12px !important;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .wlt {
+    padding: 0 5% 0 !important;
+  }
+  .wlt h1 {
+    font-size: 20px;
+    padding-bottom: 20px;
+  }
+  .wlt .wlt-card {
+    padding: 20px 15px;
+    align-items: center;
+  }
+  .wlt .wlt-card img {
+    height: 60px;
+    width: 60px;
+  }
+  .wlt .wlt-card h4 {
+    font-size: 15px;
+  }
+  .wlt .wlt-card p {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .wlt {
+    padding: 0 5% 70px;
+  }
+
+  .overlay h4 {
+    font-size: 2rem;
+  }
+  .overlay .overlay-bullets {
+    font-size: 16px;
+  }
+  .overlay .bulletpoint3 {
+    font-size: 16px;
+  }
+}

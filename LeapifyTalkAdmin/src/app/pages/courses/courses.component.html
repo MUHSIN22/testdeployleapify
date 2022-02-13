@@ -1,0 +1,11 @@
+<nb-card>
+    <nb-card-header>
+      Courses
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustomAction($event)">
+      </ng2-smart-table>
+    </nb-card-body>
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" aria-label="Default pagination" (pageChange)="onPageChange($event)"></ngb-pagination>
+</nb-card>
+  

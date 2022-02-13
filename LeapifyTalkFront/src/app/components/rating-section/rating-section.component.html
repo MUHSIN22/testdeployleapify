@@ -1,0 +1,11 @@
+<div [ngClass]="{'single-course':isSingleCourse}" class="rating-section">
+    <p *ngIf="!isReviewer" class="rating-value">{{ratingDetails.rating}}</p>
+    <div class="rating-stars">
+        <i [ngClass]="setStar(1)"></i>
+        <i [ngClass]="setStar(2)"></i>
+        <i [ngClass]="setStar(3)"></i>
+        <i [ngClass]="setStar(4)"></i>
+        <i [ngClass]="setStar(5)"></i>
+    </div>
+    <p *ngIf="!isReviewer" class="rating-count">({{ratingDetails.number_of_students_rated}})</p>
+</div>

@@ -1,0 +1,23 @@
+.pagination-component{
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--bg-primary);
+}
+.pagination-component i{
+    cursor: pointer;
+}
+.pagination-numbers{
+    margin: 0 1rem;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+.active-number{
+    background: var(--bg-primary);
+    color: #fff;
+}

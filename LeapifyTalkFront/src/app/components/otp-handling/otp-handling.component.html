@@ -1,0 +1,12 @@
+<div class="otp-handler">
+    <form #otpForm="ngForm" class="otp-form" (submit)="otpForm.valid&&onSubmit()">
+        <label for="otp">OTP</label>
+        <input type="text" #otp="ngModel"  required [(ngModel)]="data.otp" name="otp" id="otp">
+        <small class="text-danger" *ngIf="otp.touched&&otp.errors?.required">OTP is required</small>
+        <div class="not-recieve-wrapper">
+            <p class="not-recieve">Didn’t recive code ?</p>
+            <strong class="resend" (click)="resendOtp()" [ngClass]="{'resend-disabled':timeOut>0}">{{timeOut!==0 ? '('+timeOut+')':null}} Resend OTP</strong>
+        </div>
+        <input type="submit" value="Verify" class="btn btn-otp">
+    </form>
+</div>

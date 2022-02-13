@@ -1,0 +1,52 @@
+<div class="review-wrapper" *ngIf="isVisible" (click)="setVisibility($event)">
+    <form #reviewForm="ngForm" (submit)="reviewForm.valid&&addReview()" class="review-container">
+        <h2 class="course-review">Leave a Review</h2>
+        <label for="review">Review</label>
+        <textarea name="review" #review="ngModel" [(ngModel)]="data.review" required id="review" cols="30" rows="3"></textarea>
+        <small class="text-danger" *ngIf="review.touched&&review.errors?.required">Review is required</small>
+        <div class="stars">
+            <i 
+                [ngClass]="{'star-filled':starHover>=1}" 
+                class="fas fa-star" 
+                (mouseover)="onMouseOverStar(1)" 
+                (mouseout)="onMouseOutStar()"
+                (click)="rateTheCourse('thisisId',1)"    
+            >
+            </i>
+            <i 
+                [ngClass]="{'star-filled':starHover>=2}" 
+                class="fas fa-star" 
+                (mouseover)="onMouseOverStar(2)" 
+                (mouseout)="onMouseOutStar()"
+                (click)="rateTheCourse('thisisId',2)"    
+            >
+            </i>
+            <i 
+                [ngClass]="{'star-filled':starHover>=3}" 
+                class="fas fa-star" 
+                (mouseover)="onMouseOverStar(3)" 
+                (mouseout)="onMouseOutStar()"
+                (click)="rateTheCourse('thisisId',3)"    
+            >
+            </i>
+            <i 
+                [ngClass]="{'star-filled':starHover>=4}" 
+                class="fas fa-star" 
+                (mouseover)="onMouseOverStar(4)" 
+                (mouseout)="onMouseOutStar()"
+                (click)="rateTheCourse('thisisId',4)"    
+            >
+            </i>
+            <i 
+                [ngClass]="{'star-filled':starHover>=5}" 
+                class="fas fa-star" 
+                (mouseover)="onMouseOverStar(5)" 
+                (mouseout)="onMouseOutStar()"
+                (click)="rateTheCourse('thisisId',5)"    
+            >
+            </i>
+        </div>
+        <input type="submit" class="btn btn-continue" value="Continue">
+        <i class="far fa-window-close close-icon" (click)="isVisible = false"></i>
+    </form>
+</div>

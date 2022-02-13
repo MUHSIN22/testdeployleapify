@@ -1,0 +1,22 @@
+<div [ngClass]="{'all-course-card':allCourse}" *ngIf="course" class="long-course-card" (click)="route()">
+    <div class="course-thumbnail" [ngStyle]="{backgroundImage:'url('+course.photo+')'}"></div>
+    <div class="card-body" >
+        <h3 class="course-title">{{course.course_title}}</h3>
+        <p class="card-description">{{course.sub_heading}}</p>
+        <p class="course-creator">{{course.instructorName? course.instructorName : course.instructorDetails[0].name}}</p>
+        <app-rating-section class="rating-section" [ratingDetails]="{rating:course.rates,number_of_students_rated:course.ratings.length}"></app-rating-section>
+        <app-card-label class="label" *ngIf="courseData&&course.best_seller" [ngClass]="{'label-admin':courseData && courseData.admin}"></app-card-label>
+        <div class="course-price-wrapper" *ngIf="courseData || course" [ngClass]="{'course-price-wrapper-admin':courseData && courseData.admin}">
+            <strong class="course-offer-price">${{course.offer_price}}</strong>
+            <strong class="course-price">${{course.original_price}}</strong>
+        </div>
+        <div class="edit-delete-lesson" *ngIf="courseData&&courseData.admin">
+            <!-- <p class="view-draft-link text-danger">View draft</p> -->
+            <div class="icons-wrapper">
+                <i class="fas fa-pen edit" [routerLink]="['/therapist/edit-course/'+course._id]"></i>
+                <i class="fas fa-edit add-lesson" [routerLink]="['/therapist/upload-lesson/'+course._id]"></i>
+                <i class="fas fa-trash delete" (click)="deleteCourse()"></i>
+            </div>
+        </div>
+    </div>
+</div>

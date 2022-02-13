@@ -1,0 +1,17 @@
+<div class="most-popular-courses">
+    <h5 class="title">Most Popular</h5>
+    <owl-carousel-o *ngIf="!isMobile" [options]="customOptions">
+        <ng-template  *ngFor="let item of courses" carouselSlide>
+          <div class="slide">
+            <app-square-course-card [course]="item"></app-square-course-card>
+          </div>
+        </ng-template>
+    </owl-carousel-o>
+    <owl-carousel-o *ngIf="isMobile" [options]="customOptions">
+        <ng-template *ngFor="let courses of splittedCourses" carouselSlide>
+          <div class="slide">
+            <app-square-course-card *ngFor="let course of courses" [course]="course"></app-square-course-card>
+          </div>
+        </ng-template>
+    </owl-carousel-o>
+</div>

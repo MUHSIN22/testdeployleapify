@@ -1,0 +1,13 @@
+<div class="square-course-card" *ngIf="course" [routerLink]="['/course/'+course._id]">
+    <img class="course-thumbnail" [src]="course.photo" alt="">
+    <div class="card-body">
+        <h3 class="course-title">{{course.course_title}}</h3>
+        <p class="course-creator">{{course.instructorDetails[0].name}}</p>
+        <app-rating-section class="rating-section" *ngIf="course.ratings" [ratingDetails]="{rating: course.rates? course.rates : 0,number_of_students_rated: course.ratings.length}"></app-rating-section>
+        <app-card-label class="label" *ngIf="course.best_seller"></app-card-label>
+        <div class="course-price-wrapper">
+            <strong class="course-offer-price">${{course.offer_price}}</strong>
+            <strong class="course-price">${{course.original_price}}</strong>
+        </div>
+    </div>
+</div>

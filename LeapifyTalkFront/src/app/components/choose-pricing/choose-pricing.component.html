@@ -1,0 +1,199 @@
+<h1 id="pricing" class="head text-center fw-bold mx-4 my-5">
+  Choose your subscription plan to continue
+</h1>
+<div
+  (window:resize)="resize()"
+  id="pricing-carousel"
+  [ngClass]="{ 'carousel slide': isSmall }"
+  data-bs-ride="carousel"
+  data-bs-interval="false"
+>
+  <div
+    class="carousel-indicators"
+    [ngClass]="{ 'visually-hidden': !isSmall }"
+    #indicator
+  >
+    <button
+      type="button"
+      data-bs-target="#pricing-carousel"
+      data-bs-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#pricing-carousel"
+      data-bs-slide-to="1"
+      aria-label="Slide 2"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#pricing-carousel"
+      data-bs-slide-to="2"
+      aria-label="Slide 3"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#pricing-carousel"
+      data-bs-slide-to="3"
+      aria-label="Slide 4"
+    ></button>
+  </div>
+  <div [ngClass]="{ pricing: !isSmall, 'carousel-inner': isSmall }">
+    <div [ngClass]="{ 'carousel-item active': isSmall }">
+      <div class="pricing-container pricing-container-inactive">
+        <h4 class="heading">Free</h4>
+        <div class="price">
+          <h3>0</h3>
+          <p>
+            $ <br />
+            week
+          </p>
+        </div>
+        <hr />
+        <div class="pc-bottom">
+          <p><span>&check;</span> Video Call</p>
+          <p><span>&check;</span> Audio messages</p>
+          <p class="text-disabled"><span>&check;</span> Sessions</p>
+          <p class="text-disabled"><span>&check;</span> LD video</p>
+          <p class="text-disabled"><span>&check;</span> Video/Audio Call</p>
+          <p class="text-disabled"><span>&check;</span> Personalized room URL</p>
+        </div>
+        <div class="mx-auto" style="width: fit-content">
+          <button
+            routerLink="/startup"
+            mat-raised-button
+            color="primary"
+            class="btn btn-gs"
+            type="button"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+    <div [ngClass]="{ 'carousel-item': isSmall }">
+      <div class="pricing-container pricing-container-inactive">
+        <h4 class="heading">Personal</h4>
+        <div class="price">
+          <h3>49</h3>
+          <p>
+            $ <br />
+            week
+          </p>
+        </div>
+        <hr />
+        <div class="pc-bottom">
+          <p><span>&check;</span> Video Call</p>
+          <p><span>&check;</span> Audio messages</p>
+          <p class="text-disabled"><span>&check;</span> Sessions</p>
+          <p class="text-disabled"><span>&check;</span> LD video</p>
+          <p class="text-disabled"><span>&check;</span> Video/Audio Call</p>
+          <p class="text-disabled">
+            <span>&check;</span> Personalized room URL
+          </p>
+        </div>
+        <div class="mx-auto" style="width: fit-content">
+          <button
+            routerLink="/startup"
+            mat-raised-button
+            color="primary"
+            class="btn btn-gs"
+            type="button"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+    <div [ngClass]="{ 'carousel-item': isSmall }">
+      <div class="pricing-container pricing-container-inactive">
+        <h4 class="heading">Commercial</h4>
+        <div class="price">
+          <h3>79</h3>
+          <p>
+            $ <br />
+            week
+          </p>
+        </div>
+        <hr />
+        <div class="pc-bottom">
+          <p><span>&check;</span> Video Call</p>
+          <p><span>&check;</span> Audio messages</p>
+          <p class=""><span>&check;</span> Sessions</p>
+          <p class=""><span>&check;</span> LD video</p>
+          <p class="text-disabled"><span>&check;</span> Video/Audio Call</p>
+          <p class="text-disabled">
+            <span>&check;</span> Personalized room URL
+          </p>
+        </div>
+        <div class="mx-auto" style="width: fit-content">
+          <button
+            routerLink="/startup"
+            mat-raised-button
+            color="primary"
+            class="btn btn-gs"
+            type="button"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+    <div [ngClass]="{ 'carousel-item': isSmall }">
+      <div class="pricing-container pricing-container-inactive">
+        <h4 class="heading">Enterprise</h4>
+        <div class="price">
+          <h3>99</h3>
+          <p>
+            $ <br />
+            week
+          </p>
+        </div>
+        <hr />
+        <div class="pc-bottom">
+          <p><span>&check;</span> Video Call</p>
+          <p><span>&check;</span> Audio messages</p>
+          <p><span>&check;</span> Sessions</p>
+          <p><span>&check;</span> LD video</p>
+          <p><span>&check;</span> Video/Audio Call</p>
+          <p><span>&check;</span> Personalized room URL</p>
+        </div>
+        <div class="mx-auto" style="width: fit-content">
+          <button
+            routerLink="/startup"
+            mat-raised-button
+            color="primary"
+            class="btn btn-gs"
+            type="button"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    [ngClass]="{ 'visually-hidden': !isSmall }"
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#pricing-carousel"
+    data-bs-slide="prev"
+  >
+    <i class="fa fa-arrow-left"></i>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    [ngClass]="{ 'visually-hidden': !isSmall }"
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#pricing-carousel"
+    data-bs-slide="next"
+  >
+    <i class="fa fa-arrow-right"></i>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<app-footer></app-footer>

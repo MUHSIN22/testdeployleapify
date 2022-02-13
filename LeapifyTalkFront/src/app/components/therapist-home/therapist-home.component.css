@@ -1,0 +1,179 @@
+.therapist-home-wrapper{
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+}
+.therapist-home{
+    width: 84%;
+}
+.analytics-wrapper{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+app-therapist-analytics-card,
+.btn-manage-card{
+    width: calc(100%/4 - 1rem);
+}
+.btn-manage-card{
+    background: var(--bg-primary);
+    border-radius: 20px;
+    box-shadow: -3px 2px 24px rgba(120, 137, 165, 0.3);
+    color:#F2EFB6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+}
+.btn-manage-card i{
+    margin-top: 1rem;
+}
+.students{
+    width: 100%;
+    margin-top: 3rem;
+}
+.student-table-head{
+    color:#667085;
+    font-weight: 600;
+    line-height: 18px;
+    position: relative;
+}
+.student-table-head::after{
+    position: absolute;
+    content: '';
+    height: 2px;
+    background: #E4E7EC;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}   
+.user-name-column{
+    width: 30%;
+    padding: 1rem 0;
+}
+.payment-method-column{
+    width: 30%
+}
+.course-purchased-column{
+    width: 40%;
+}
+.student-card{
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+.student-card img{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+tbody tr{
+    position: relative;
+}
+tbody tr:last-child::after{
+    content: "";
+    height: 2px;
+    width: 100%;
+    background: #E4E7EC;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.pagination-component-mobile{
+    display: none;
+}
+@media only screen and (max-width: 1100px) {
+    app-therapist-analytics-card,
+    .btn-manage-card{
+        width: calc(100%/4 - 0.5rem);
+    }
+}
+@media only screen and (max-width:990px) {
+    .therapist-home{
+        width: 95%;
+    }
+
+}
+@media only screen and (max-width: 768px) {
+    app-therapist-analytics-card,
+    .btn-manage-card{
+        width: calc(100%/2 - 1rem);
+        margin-top: 1rem;
+    }
+    thead th:last-child{
+        display: none;
+    }
+    tbody td:last-child{
+        display: none;
+    }
+    .user-name-column{
+        width: 50%;
+    }
+    .payment-method-column{
+        width: 50%;
+    }
+    .pagination-component{
+        display: none;
+    }
+    .pagination-component-mobile{
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--bg-primary);
+    }
+    .pagination-component-mobile i{
+        cursor: pointer;
+    }
+    .pagination-numbers{
+        margin: 0 1.5rem;
+        cursor: pointer;
+    }
+}
+@media only screen and (max-width:500px){
+    .therapist-home-wrapper{
+        padding-top: 1rem;
+    }
+    .therapist-home{
+        width: 90%
+    }
+    app-therapist-analytics-card,
+    .btn-manage-card{
+        width: 84%;
+    }
+    .analytics-wrapper{
+        justify-content: center;
+    }
+    .btn-manage-card{
+        height: 12rem;
+    }
+    .user-name-column{
+        font-size: 14px;
+        width: auto;
+    }
+    .payment-method-column{
+        width: auto;
+        font-size: 14px;
+    }
+    thead th:nth-child(2){
+        text-align: center;
+    }
+    tbody td:nth-child(2){
+        display: flex;
+        justify-content: center;
+    }
+    .student-card img{
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .student{
+        font-size: 14px;
+    }
+    .date{
+        font-size: 13px;
+    }
+}

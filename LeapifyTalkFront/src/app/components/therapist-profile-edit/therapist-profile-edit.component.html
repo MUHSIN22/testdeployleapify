@@ -1,0 +1,34 @@
+<app-loading [loading]="isLoading"></app-loading>
+<div class="therapist-profile-edit-wrapper">
+    <div class="therapist-profile-edit">
+        <div class="profile-update">
+            <img src="{{hasPhoto? instructor.photo_url:(photoPreview != '')?photoPreview:'/assets/images/profile.svg'}}" class="profile-avatar" alt="">
+            <div class="file-wrapper">
+                <input type="file" id="file" name="file" accept="image/png, image/jpg, image/jpeg, image/svg" (change)="handleFile($event)" class="file">
+                <label for="file">Upload Image</label>
+            </div>
+        </div>
+        <div class="form-title-wrapper">
+            <h1 class="edit-title">Edit Public Profile</h1>
+            <p class="edit-sub-title">Add information about yourself</p>
+        </div>
+        <form #editProfileForm="ngForm" (ngSubmit)="editProfileForm.valid && onSubmit()" action="" class="edit-profile">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="instructor.name" class="edit-input">
+            <label for="headline">Headline</label>
+            <input type="text" id="headline" name="headline" #headline="ngModel" [(ngModel)]="instructor.headline" class="edit-input">
+            <label for="about">About yourself</label>
+            <textarea name="about" id="about" cols="30" rows="10" class="edit-input" #about="ngModel" [(ngModel)]="instructor.about" style="resize: none"></textarea>
+            <hr>
+            <label for="email">Change account email:</label>
+            <input type="email" id="email" name="email" class="edit-input" #email="ngModel" [pattern]="emailPattern" [(ngModel)]="instructor.email">
+            <small class="invalid-message" *ngIf="email.touched&&email.errors?.pattern">Invalid email address</small>
+            <label for="phone">Add Phone no.:</label>
+            <input type="tel" id="phone" name="phone" class="edit-input" #phone="ngModel" [pattern]="mobilePattern" [(ngModel)]="instructor.phone">
+            <small class="invalid-message" *ngIf="phone.touched&&phone.errors?.pattern">Invalid phone number</small>
+            <label for="link">Link:</label>
+            <input type="text" id="link" name="link" class="edit-input" #link="ngModel" [(ngModel)]="instructor.link">
+            <input type="submit" value="Save" class="btn-submit">
+        </form>
+    </div>
+</div>

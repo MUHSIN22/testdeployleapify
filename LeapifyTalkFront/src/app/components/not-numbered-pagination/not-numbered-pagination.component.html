@@ -1,0 +1,7 @@
+<div class="not-numbered-pagination-component">
+    <div class="pagination-btns-wrapper">
+        <button class="btn-pagination btn-previous" [ngClass]="{'btn-disabled':page==1}" (click)="switchToPreviousPage()">Previous</button>
+        <button class="btn-pagination btn-next" [ngClass]="{'btn-disabled':page == totalPages}" (click)="switchToNextPage()">Next</button>
+    </div>
+    <p class="pages-details">Page {{page}} of {{totalPages}}</p>
+</div>

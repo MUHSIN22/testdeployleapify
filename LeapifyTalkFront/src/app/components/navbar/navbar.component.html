@@ -1,0 +1,241 @@
+<div>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/">
+        <img
+          src="assets/images/white_logo.svg"
+          alt=""
+          width="30"
+          height="24"
+          class="d-inline-block align-text-top"
+        />
+        {{ "LeapifyTalk" | uppercase }}
+      </a>
+      <button
+        mat-flat-button
+        *ngIf="!getStarted && !isLoggedIn"
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        #toggle
+      >
+        <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+      </button>
+      <button
+        mat-raised-button
+        *ngIf="getStarted && !isLoggedIn"
+        class="btn nav-btn-signin me-1"
+        type="button"
+        routerLink="/signin"
+      >
+        Sign In
+      </button>
+      <div
+        *ngIf="!getStarted && !isLoggedIn"
+        class="collapse navbar-collapse"
+        [ngClass]="{ 'justify-content-end': getStarted }"
+        id="navbarSupportedContent"
+      >
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="hide()"
+              routerLink="/"
+              [routerLinkActive]="['nav-link-active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              aria-current="page"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="hide()"
+              aria-current="page"
+              href="#about"
+              >About</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="hide()"
+              aria-current="page"
+              routerLink="/our-services"
+              [routerLinkActive]="['nav-link-active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Our Services</a
+            >
+          </li>
+          <!-- <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="hide()"
+              aria-current="page"
+              href="#pricing"
+              >Pricing</a
+            >
+          </li> -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="hide()"
+              aria-current="page"
+              [routerLinkActive]="['nav-link-active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              routerLink="/provider"
+              >Provider</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="hide()"
+              aria-current="page"
+              routerLink="/counselor-job"
+              [routerLinkActive]="['nav-link-active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Course Creater</a
+            >
+          </li>
+          <!-- <li class="nav-item">
+            <a
+              class="nav-link"
+              (click)="hide()"
+              aria-current="page"
+              routerLink="/counselor-job"
+              [routerLinkActive]="['nav-link-active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Counselor Job</a
+            >
+          </li> -->
+        </ul>
+        <form *ngIf="!isLoggedIn" class="justify-content-start p-0">
+          <button
+            mat-raised-button
+            class="
+              btn
+              nav-btn-signin
+              mb-1
+              d-block d-lg-inline-block
+              mx-auto
+              me-lg-1
+            "
+            routerLink="/signin"
+            (click)="hide()"
+            type="button"
+          >
+            Sign In
+          </button>
+          <!-- <button
+            mat-raised-button
+            routerLink="/get-started"
+            class="btn nav-btn-gs d-block d-lg-inline-block mx-auto"
+            (click)="hide()"
+            type="button"
+          >
+            <a> Get Started</a>
+          </button> -->
+          <button
+            mat-raised-button
+            routerLink="/startup"
+            class="btn nav-btn-gs d-block d-lg-inline-block mx-auto"
+            (click)="hide()"
+            type="button"
+          >
+            <a> Get Started</a>
+          </button>
+        </form>
+      </div>
+
+      <div class="chat-nav d-md-inline-block" *ngIf="isLoggedIn">
+        <div class="dropdown d-inline-block">
+          <button
+            routerLink="/groups"
+            type="button"
+            style="z-index: 2080"
+            class="btn shadow-none"
+          >
+            <mat-icon [ngStyle]="{ color: 'white' }"> comment</mat-icon>
+          </button>
+        </div>
+        <div class="dropdown d-inline-block me-2">
+          <button
+            type="button"
+            style="z-index: 2080"
+            class="btn shadow-none"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i
+              
+            *ngIf="notifications.length == 0"
+            style="color: white; font-size: 1.5rem"
+              class="far fa-bell"
+            ></i>
+            <i
+            *ngIf="notifications.length > 0"
+            [matBadge]="notifications.length"
+            style="color: white; font-size: 1.5rem"
+            class="far fa-bell"
+          ></i>
+          </button>
+          <ul
+            class="dropdown-menu custom-dropdown dropdown-menu-center"
+            aria-labelledby="dropdownMenuButton1"
+          >
+          <li *ngIf="notifications.length == 0"  > <a  class="dropdown-item"> No Notifications</a> </li>
+            <li *ngFor="let i of notifications.reverse()">
+              
+              <app-notification [text]="i" ></app-notification>
+            </li>
+          </ul>
+        </div>
+        <div class="dropdown d-inline-block" (click)="toggleNavSlide()">
+          <button
+            type="button"
+            style="z-index: 2080"
+            class="btn shadow-none profile-button dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i style="font-size: 40px" class="far fa-user-circle profile"></i>
+          </button>
+          <ul
+            class="dropdown-menu dropdown-menu-center profile-dropdown"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            <li>
+              <button *ngIf="loggedInUser.name" class="btn btn-primary dropdown-item" (click)="navigateToDashboard()">
+                {{ loggedInUser.name }}
+              </button>
+              <button *ngIf="!loggedInUser.name" class="btn btn-primary dropdown-item" (click)="navigateToDashboard()">
+                {{ loggedInUser.dname }}
+              </button>
+            </li>
+            <li>
+              <button (click)="logout()" class="btn btn-primary dropdown-item">
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="dash-nav-navigation" [hidden]="!isSlideNav">
+      <app-dashboard-navigation 
+        class="nav-slide" 
+        [isDashSlide]="isSlideNav" 
+        [navLinks]="navigation"
+        (toggleNav)="toggleNavSlide()"  
+      ></app-dashboard-navigation>
+    </div>
+  </nav>
+</div>

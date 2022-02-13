@@ -1,0 +1,55 @@
+.file-section{
+    grid-area: drag;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.number-of-files{
+    padding-bottom: 1rem;
+}
+.upload-desc{
+    margin: 1rem 0;
+    text-align: center;
+}
+.drag-upload{
+    width: 100%;
+    border-radius: 20px;
+    border: 2px dashed var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:4rem 1rem;
+}
+.no-file{
+    border-color: red;
+}
+.dragged{
+    border-style: solid;
+}
+.btn-file-upload{
+    border: 2px solid var(--bg-primary);
+    color: var(--bg-primary);
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 1rem 2rem;
+}
+@media only screen and (max-width: 790px){
+    .file-section{
+        margin-bottom: 1rem;
+    }
+}
+@media only screen and (max-width: 550px) {
+    .number-of-files{
+        font-size: 15px;
+    }
+    .drag-upload{
+        padding: 2rem 1rem;
+    }
+    .upload-icon{
+        width: 3rem;
+    }
+    .upload-desc{
+        font-size: 13px;
+    }
+}

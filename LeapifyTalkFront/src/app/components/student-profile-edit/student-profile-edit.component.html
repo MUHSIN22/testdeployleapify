@@ -1,0 +1,28 @@
+<app-loading [loading]="isLoading"></app-loading>
+<div class="student-profile-edit-wrapper">
+    <div class="student-profile-edit">
+        <div class="profile-update">
+            <img [src]="photoPreview?photoPreview:(profileData.photo)?profileData.photo:'/assets/images/temp/profile.svg'" class="profile-avatar" alt="">
+            <div class="file-wrapper">
+                <input type="file" id="file" name="file" (change)="handleFile($event)" accept="image/png, image/jpg, image/jpeg, image/svg" class="file">
+                <label for="file">Upload Image</label>
+            </div>
+        </div>
+        <div class="form-title-wrapper">
+            <h1 class="edit-title">Edit Public Profile</h1>
+            <p class="edit-sub-title">Add information about yourself</p>
+        </div>
+        <form #editForm="ngForm" (submit)="editForm.valid && onSubmit()" class="edit-profile">
+            <label for="name">Name</label>
+            <input type="text" [(ngModel)]="profileData.name" id="name" name="name" class="edit-input">
+            <label for="email">Change account email:</label>
+            <input type="email" #email="ngModel" required [(ngModel)]="profileData.email" id="email" name="email" class="edit-input">
+            <small class="text-danger" *ngIf="email.touched&&email.errors?.required">Email is required</small>
+            <label for="phone">Add Phone no.:</label>
+            <input type="tel" [(ngModel)]="profileData.phone" #phone="ngModel" id="phone" name="phone" class="edit-input">
+            <small class="text-danger" *ngIf="phone.touched&&phone.errors?.pattern">Invalid phone number</small>
+            <hr>
+            <input type="submit" value="Save" class="btn-submit">
+        </form>
+    </div>
+</div>

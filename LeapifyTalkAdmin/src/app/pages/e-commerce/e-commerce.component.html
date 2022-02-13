@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-6">
+    <ngx-progress-section [progressInfoData]="statics"></ngx-progress-section>
+  </div>
+  <div class="col-md-6">
+    <ngx-progress-section [progressInfoData]="courseCounts"></ngx-progress-section>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xxl-7">
+    <nb-card>
+      <nb-card-header>
+        Transactions
+      </nb-card-header>
+    
+      <nb-card-body>
+        <ng2-smart-table [settings]="transactionSettings" [source]="transactions" >
+        </ng2-smart-table>
+        <ngb-pagination 
+          [collectionSize]="totalTransactions" 
+          [(page)]="transactionPage" 
+          aria-label="Default pagination" 
+          (pageChange)="onTransactionPageChange($event)"
+          style="display:flex;justify-content:center;margin-top: 1rem;"
+        ></ngb-pagination>
+      </nb-card-body>
+    </nb-card> 
+  </div>
+  <div class="col-xxl-5">
+    <nb-card>
+      <nb-card-header>
+        Courses Statistics
+      </nb-card-header>
+    
+      <nb-card-body>
+        <ng2-smart-table [settings]="courseSettings" [source]="courses" >
+        </ng2-smart-table>
+        <ngb-pagination 
+          [collectionSize]="totalCourses" 
+          [(page)]="coursePage" 
+          aria-label="Default pagination" 
+          (pageChange)="onCoursePageChange($event)"
+          style="display:flex;justify-content:center;margin-top: 1rem;"
+        ></ngb-pagination>
+      </nb-card-body>
+    </nb-card> 
+  </div>
+</div>
+

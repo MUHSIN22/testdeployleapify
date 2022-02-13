@@ -1,0 +1,46 @@
+<nav *ngIf="navLinks" class="dashboard-navigation" [ngClass]="{'slided-dash':isDashSlide}"  ng-app="ng-animate">
+    <p class="name-welcome">Hy, Muhsin</p>
+    <button 
+        (click)="toggleDash()"
+        (mouseover)="expandNav=true" 
+        class="btn-dashboard-navigation" 
+        [routerLink]="navLinks.dashboard" 
+        [routerLinkActive]="['is-active-link']"
+    >
+        <img class="navigation-icon" src="/assets/icons/dashboard-icon.png" alt="">
+        <span  (mouseover)="expandNav=true">Dashboard</span>
+    </button>
+    <button 
+        (click)="toggleDash()"
+        (mouseover)="expandNav=true" 
+        [routerLink]="navLinks.group"
+        [routerLinkActive]="['is-active-link']"
+        class="btn-dashboard-navigation"
+    >
+        <img  class="navigation-icon" src="/assets/icons/leapify-social-icon.png" alt="">
+        <span  (mouseover)="expandNav=true">LeapifySocial</span>
+    </button>
+    <button  
+        (click)="toggleDash()"
+        class="btn-dashboard-navigation" 
+        [routerLink]="navLinks.learning" 
+        [routerLinkActive]="['is-active-link']"
+    >
+        <img class="navigation-icon" src="/assets/icons/leapify-learning-icon.png" alt="">
+        <span  (mouseover)="expandNav=true">LeapifyLearning</span>
+    </button>
+    <button 
+        (click)="toggleDash()"
+        (mouseover)="expandNav=true" 
+        class="btn-dashboard-navigation" 
+        [routerLink]="navLinks.edit" 
+        [routerLinkActive]="['is-active-link']"
+    >
+        <img class="navigation-icon" src="/assets/icons/edit-profile-icon.png" alt="">
+        <span>Edit Profile</span>
+    </button>
+    <button (mouseover)="expandNav=true" class="btn-dashboard-navigation logout-btn" (click)="logout()" [routerLinkActive]="['is-active-link']">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</nav>

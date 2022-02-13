@@ -1,0 +1,112 @@
+.instructor-section{
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+}
+.instructor-wrapper{
+    width: 84%;
+}
+.profile-section{
+    display: grid;
+    grid-template-columns: 10rem max-content;
+    grid-template-areas: 'profile name''profile graduation''profile rating''profile student-and-courses';
+    grid-column-gap: 1rem;
+    width: 50%;
+}
+.avatar{
+    grid-area: profile;
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 50%;
+    align-self: start;
+}
+.profile-name{
+    grid-area: name;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+}
+.profile-graduation{
+    grid-area: graduation;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 23px;
+    color: #7D7987;
+    ;
+}
+.rating{
+    grid-area: rating;
+    font-family: Quicksand;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+    color: var(--bg-primary);
+}
+.rating i{
+    margin-left: 0.5rem;
+}
+.student-and-courses{
+    grid-area: student-and-courses;
+    display: flex;
+}
+.students{
+    margin-right: 1rem;
+}
+.about-instructor{
+    width: 50%;
+    margin-top: 2rem;
+}
+.section-title{
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+}
+.about-content{
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+    color: #7D7987;
+
+}
+@media only screen and (max-width: 768px) {
+    .about-instructor{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .instructor-section{
+        padding-top: 1rem;
+    }
+    .instructor-wrapper{
+        width: 92%;
+    }
+    .profile-section{
+        grid-template-columns: 7rem max-content;
+    }
+    .avatar{
+        width: 7rem;
+        height: 7rem;
+    }
+    .section-title{
+        font-size: 18px;
+    }
+    .about-content,
+    .profile-graduation,
+    .rating{
+        font-size: 14px;
+    }   
+    .rating,
+    .profile-graduation{
+        margin: 0;
+    }
+    .profile-name{
+        font-size: 20px;
+    }
+    .student-and-courses{
+        font-size: 14px;
+    }
+    .students{
+        margin-right: 0.5rem;
+    }
+}

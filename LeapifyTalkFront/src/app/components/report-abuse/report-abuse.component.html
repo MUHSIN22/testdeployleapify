@@ -1,0 +1,17 @@
+<div class="container">
+  <h4 class="text-center">Report Spam</h4>
+
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">
+      Please mention the reason to report spam.
+    </label>
+    <textarea
+      class="form-control"
+      id="exampleFormControlTextarea1"
+      rows="3"
+      [(ngModel)]="text"
+    ></textarea>
+  </div>
+
+  <button type="submit" (click)="submit()" class="btn btn-gs mx-auto d-block">Report</button>
+</div>

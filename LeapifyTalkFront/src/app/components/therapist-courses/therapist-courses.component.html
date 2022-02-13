@@ -1,0 +1,41 @@
+<div class="therapist-courses-wrapper">
+    <div class="therapist-courses">
+        <div class="search-bar-wrapper">
+            <app-course-searching-bar (searchInputEmitter)="getSearchInput($event)"></app-course-searching-bar>
+        </div>
+        <button class="btn btn-blue btn-new-course" [routerLink]="['/therapist/upload-course']">New Course</button>
+        <h3 class="title">Active Courses</h3>
+        <div class="no-course" *ngIf="isNotCourses">
+            <h1 class="no-course-para">Uh oh! Looks like you have no courses.Try creating one</h1>
+            <button class="btn btn-blue btn-get-started" [routerLink]="['/therapist/upload-course']">Get Started</button>
+        </div>
+        <img src="/assets/images/no-course.svg" *ngIf="isNotCourses"  alt="" class="no-course-img">
+        <div class="active-courses" *ngIf="!isNotCourses">
+            <div *ngIf="!courseData.searchResults[0]">
+                <app-long-course-card 
+                    [courseData]="courseData" 
+                    [isTherapist]="true" 
+                    *ngFor="let course of 
+                    courseData.courses" 
+                    [course]="course"
+                    (deletedCourse)="filterCourse($event)"
+                ></app-long-course-card>
+            </div>
+            <div *ngIf="courseData.searchResults && courseData.searchResults[0]">
+                <app-long-course-card 
+                    [courseData]="courseData" 
+                    [isTherapist]="true" 
+                    *ngFor="let course of 
+                    courseData.searchResults" 
+                    [course]="course"
+                    (deletedCourse)="filterCourse($event)"
+                ></app-long-course-card>
+            </div>
+        </div>
+        <div class="pagination-wrapper" *ngIf="!isNotCourses">
+            <hr>
+            <app-not-numbered-pagination class="not-numbered-pagination" [totalPages]="totalPages" (changePage)="changePage($event)"></app-not-numbered-pagination>
+            <app-numbered-pagination class="numbered-pagination" [totalPages]="totalPages" (changePage)="changePage($event)"></app-numbered-pagination>
+        </div>
+    </div>
+</div>

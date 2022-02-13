@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <!-- ============================================================================ -->
+    <!-- -------------------------- Assessment Section Start ------------------------ -->
+    <h1 class="mb-0">Assessment</h1>
+    <div class="row p-2">
+        <div class="card card-shadow">
+            <div class="card-body" *ngFor="let r of Result; let i=index;">
+                <span>Que{{i+1}}.</span>&nbsp;<span>{{r.ques}}</span><br/>
+                <span>Ans{{i+1}}.</span>&nbsp;<span>{{r.selection}}</span>
+            </div>
+        </div>
+    </div>
+    <!-- -------------------------- Assessment Section End -------------------------- -->
+    <!-- ============================================================================ -->
+</div>

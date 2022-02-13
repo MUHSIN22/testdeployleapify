@@ -1,0 +1,5 @@
+<div class="student-dashboard-wrapper">
+    <app-dashboard-navigation (mouseover)="expandNav=true" (mouseout)="expandNav=false" [expandNav]="expandNav" [navLinks]="navLinks"></app-dashboard-navigation>
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>
+<app-footer></app-footer>

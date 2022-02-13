@@ -1,0 +1,53 @@
+<div class="therapist-home-wrapper">
+    <div class="therapist-home">
+        <div class="analytics-wrapper" *ngIf="stats">
+            <app-therapist-analytics-card 
+                [cardData]="{title:'Total users',count:stats.allUserLength,percent:stats.finalPercentIncreaseTotUsers}">
+            </app-therapist-analytics-card>
+            <app-therapist-analytics-card 
+                [cardData]="{title:'New users this month',count:stats.countOfThisMonth,percent:stats.finalPercentIncreaseTotUsers}">
+            </app-therapist-analytics-card>
+            <app-therapist-analytics-card 
+                [cardData]="{title:'Revenue generated',count:stats.revenueInLastMonth,percent:stats.finalPercentInRevenue}" 
+                [isRevenue]="true">
+            </app-therapist-analytics-card>
+            <button class="btn-manage-card" [routerLink]="['/therapist/courses']">
+                <span>Manage your courses</span>
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <table class="students">
+            <thead>
+                <tr class="student-table-head">
+                    <th class="user-name-column">User Name</th>
+                    <th class="payment-method-column">Payment Method</th>
+                    <th class="course-purchased-column">Course Purchased</th>
+                </tr>
+            </thead>
+            <p *ngIf="!students">No students yet!</p>
+            <tbody *ngIf="students">
+                <tr *ngFor="let student of students">
+                    <td>
+                        <div class="student-card">
+                            <img [src]="student.userID.photo !== ''? student.userID.photo:'/assets/images/temp/profile.svg'" alt="">
+                            <div class="student-and-date">
+                                <strong class="student">{{student.userID.name}}</strong>
+                                <p class="date">{{student.createdAt}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <img src="/assets/icons/paypal.svg" alt="">
+                    </td>
+                    <td>
+                        <p class="course">{{student.courseID.course_title}}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="students">
+            <app-not-numbered-pagination class="pagination-component" [totalPages]="totalCount" (changePage)="changePage($event)"></app-not-numbered-pagination>
+            <app-numbered-pagination class="pagination-component-mobile" [totalPages]="totalCount" (changePage)="changePage($event)"></app-numbered-pagination>
+        </div>
+    </div>
+</div>

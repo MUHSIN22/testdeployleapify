@@ -1,0 +1,44 @@
+.file-upload-progress{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+.file-upload-progress-disabled{
+    display: none;
+}
+.file-upload-progress p{
+    margin: 0;
+}
+.file-name-and-progress{
+    width: 100%;
+    margin: 0 1rem;
+}
+.progress-wrapper{
+    height: 8px;
+    border-radius: 50px;
+}
+.progress{
+    border-radius: 50px;
+    background: var(--bg-primary);
+    height: 100%;
+}
+.close-and-percentage{
+    text-align: center;
+}
+.close-icon{
+    cursor: pointer;
+    color: var(--bg-primary);
+}
+@media only screen and (max-width: 500px) {
+    .file-name{
+        font-size: 12px;
+    }
+    .progress-wrapper{
+        height: 6px
+    }
+    .progress-percentage{
+        font-size: 12px;
+    }
+}

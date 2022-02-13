@@ -1,0 +1,10 @@
+<div class="w-100 p-2 notification">
+  <div class="d-inline-block">
+    <div class="notification-icon">
+      <i *ngIf="!text.endsWith('like')" class="far fa-comment-dots"></i>
+      <i *ngIf="text.endsWith('like')" class="far fa-thumbs-up"></i>
+    </div>
+  </div>
+  <div class="d-inline-block ms-2"> {{text | titlecase}} </div>
+</div>
+<hr class="my-0" />

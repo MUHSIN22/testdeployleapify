@@ -1,0 +1,101 @@
+<div class="page-wrapper">
+
+    <!-- Page Content-->
+    <div class="page-content-tab">
+        <!-- <div class="page_section"> -->
+
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row page-title-box mt-0">
+                        <h4 *ngIf="addblogs" class="col-md-11 page-title">Add Blog</h4>
+                        <h4 *ngIf="!addblogs" class="col-md-11 page-title">Blogs</h4>
+                        <div class="col-md-1">
+                            <i *ngIf="addblogs" class="far fa-arrow-alt-circle-up text-primary fs-5" style="cursor: pointer;" title="Blogs" (click)="OpenAddBlog()"></i>
+                            <i *ngIf="!addblogs" class="far fa-arrow-alt-circle-down text-primary fs-5" style="cursor: pointer;" title="AddBlog" (click)="OpenAddBlog()"></i>
+                        </div>
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div *ngIf="addblogs" class="card">
+                        <div class="card-body">
+                            <form [formGroup]="addblog" (ngSubmit)="AddBlog(addblog)">
+
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label class="">Upload Blog Cover Pic</label>&nbsp;
+                                            <input type="file" class="dropify" formControlName="image" #Image accept="image/*" (change)="onFileSelected($event)">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-muted mb-3">Blog Title</label>
+                                            <input type="text" placeholder="Title" class="form-control" formControlName="Title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-muted mb-3">Blog Content</label>
+                                            <textarea rows='10' placeholder='Write about yourself' maxlength='1500' class='form-control' data-val="true" data-val-length="The field AboutMe must be a string with a maximum length of 1000." data-val-length-max="1000" formControlName="BlogContent"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="text-muted mb-3">Preview Image</label>
+                                        <img *ngIf="!imageUrl" src="assets/uploadimages/sample1.png" style="width:400px;height:300px;">
+                                        <img *ngIf="imageUrl" [src]="imageUrl" style="width:400px;height:300px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-0EA5C6 px-4 mt-3 float-right mb-0">Add Blog</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                </div> <!--end col-->
+                <div *ngIf="!addblogs" class="col-12">
+                    <div class="row">
+                        <div *ngFor="let b of blogsdata" class="col-lg-4">
+                            <div class="card" style="height: 550px;">
+                                <div class="card-body">
+                                    <i class="fa fa-times fs-6 text-danger d-flex justify-content-end" title="Delete" style="margin-top:-10px; cursor: pointer;" (click)="DeleteBlog(b._id)"></i>
+                                    <div class="blog-card">
+                                        <img *ngIf="b.image == null" src="assets/uploadimages/blog.jpg" alt="" class="img-fluid rounded"/>
+                                        <img *ngIf="b.image != null" src="assets/uploadimages/{{b.image}}" alt="" class="img-fluid rounded"> 
+                                        <span class="badge badge-purple px-3 py-2 bg-soft-primary fw-semibold mt-3">Photography</span>   
+                                        <h4 class="my-3">
+                                            <!-- <a href="" class="">{{b.blogtitle}}</a> -->
+                                            <a>{{b.blogtitle}}</a>
+                                        </h4>
+                                        <p class="text-muted" style="height: 65px; overflow-y: hidden;">{{b.blogcontent}}</p>
+                                        <hr class="hr-dashed">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="meta-box">
+                                                <div class="media">
+                                                    <img *ngIf="ProfilePic == null" src="assets/uploadimages/sample.png" alt="" class="thumb-md rounded-circle me-2">  
+                                                    <img *ngIf="ProfilePic != null" src="assets/uploadimages/{{ProfilePic}}" alt="" class="thumb-md rounded-circle me-2">                               
+                                                    <div class="media-body align-self-center text-truncate">
+                                                        <h6 class="m-0 text-dark">{{b.d_name}}</h6>
+                                                        <ul class="p-0 list-inline mb-0">
+                                                            <li class="list-inline-item">{{b.date}}</li>
+                                                            <!-- <li class="list-inline-item">by <a>{{b.d_email}}</a></li> -->
+                                                        </ul>
+                                                    </div><!--end media-body-->
+                                                </div>                                            
+                                            </div><!--end meta-box-->
+                                            <div class="align-self-center">
+                                                <a class="text-primary" style="cursor: pointer;">Read more <i class="fas fa-long-arrow-alt-right"></i></a>
+                                            </div>
+                                        </div>                                        
+                                    </div><!--end blog-card--> 
+                                                               
+                                </div><!--end card-body-->
+                            </div><!--end card-->
+                        </div> <!--end col-->
+                        </div> <!-- end Row-->
+                </div>
+            </div><!--end row-->
+        </div><!-- container -->
+    </div>
+    <!-- end page content -->
+</div>
+<!-- end page-wrapper -->

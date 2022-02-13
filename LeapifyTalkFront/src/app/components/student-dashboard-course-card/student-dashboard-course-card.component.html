@@ -1,0 +1,58 @@
+<div class="student-course-card" *ngIf="course.courses && course.courses !== null" (click)="navigateToSection($event)">
+    <img class="student-course-thumbnail" [src]="course.courses.photo" alt=""> 
+    <div class="card-body">
+        <h4 class="card-title">{{course.courses.course_title}}</h4>
+        <p class="course-creator">{{course.courses.instructor.name}}</p>
+        <div class="course-progress-bar-wrapper" *ngIf="!isPurchased">
+            <div class="course-progress-bar">
+                <div [style.width] = "isCompleted?'100%':course.courses.progress+'%'" class="course-filled"></div>
+            </div>
+            <p class="course-progress">{{isCompleted?100:course.courses.progress}}%</p>
+        </div>
+        <div class="rate-the-course">
+            <p>Leave a rating</p>
+            <div class="stars">
+                <i 
+                    [ngClass]="{'star-filled':starHover>=1}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(1)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',1)"    
+                >
+                </i>
+                <i 
+                    [ngClass]="{'star-filled':starHover>=2}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(2)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',2)"    
+                >
+                </i>
+                <i 
+                    [ngClass]="{'star-filled':starHover>=3}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(3)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',3)"    
+                >
+                </i>
+                <i 
+                    [ngClass]="{'star-filled':starHover>=4}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(4)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',4)"    
+                >
+                </i>
+                <i 
+                    [ngClass]="{'star-filled':starHover>=5}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(5)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',5)"    
+                >
+                </i>
+            </div>
+        </div>
+    </div>
+</div>

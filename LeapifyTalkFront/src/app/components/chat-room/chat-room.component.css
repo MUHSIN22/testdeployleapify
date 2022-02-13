@@ -1,0 +1,149 @@
+.chat-container {
+  border-radius: 20px;
+  border: 1px solid var(--bg-primary);
+  height: 630px;
+  display: block;
+}
+
+.profile-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+.btn-gs {
+  border-radius: 48px;
+  background-color: var(--bg-primary);
+  color: #fff;
+  padding: 0.4em 1.5em;
+}
+
+.message-container {
+  height: 71.5%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.attachment button {
+  height: 45px;
+  width: 45px;
+}
+
+.btn-primary {
+  background-color: var(--bg-primary);
+  border: none;
+}
+
+.btn-primary,
+.btn-secondary {
+  border-radius: 10px;
+}
+
+.dropdown-menu {
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  min-width: fit-content;
+}
+
+.dropdown-menu button {
+  display: block;
+}
+
+button.drop[aria-expanded="true"] {
+  background: transparent;
+  border: 2px solid #455a64;
+}
+
+button.drop::after {
+  content: url(../../../assets/images/paperclip.svg);
+  position: relative;
+  left: 1px;
+  top: 3px;
+}
+
+button.drop[aria-expanded="true"]::after {
+  content: url(../../../assets/images/times.svg);
+  left: 0;
+  top: 1px;
+}
+@media screen and (max-width: 576px) {
+  .chat-container {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+  }
+  .profile-photo {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .btn-gs {
+    padding: 0.4em 1em;
+    font-size: 14px;
+  }
+
+  .group-name h5 {
+    font-size: 16px;
+  }
+
+  .group-name p {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 768px) {
+  hr {
+    margin: 10px 0;
+  }
+  .group-name p {
+    font-size: 12px;
+  }
+
+  .chat-container {
+    border: 0;
+    position: fixed;
+    top: 90px;
+    height: calc(100vh - 70px);
+    width: 100%;
+    left: 0;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .chat-container {
+    position: fixed;
+    top: 50px;
+    height: calc(100% - 10px);
+    width: 100%;
+  }
+
+  .message-container {
+    padding-bottom: 40px !important;
+  }
+
+  .stick {
+    position: sticky;
+    bottom: 32px;
+    background-color: #fff;
+    padding: 5px;
+  }
+}
+
+/* scrollbar width */
+.message-container::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* scrollbar track */
+.message-container::-webkit-scrollbar-track {
+  background: #eee;
+}
+
+/* scrollbar handle */
+.message-container::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background-color: var(--bg-primary);
+}

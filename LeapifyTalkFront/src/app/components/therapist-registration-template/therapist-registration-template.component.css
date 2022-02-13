@@ -1,0 +1,271 @@
+.therapist-signup-wrapper{
+    display: flex;
+    justify-content: center;
+    padding: 3rem 0;
+}
+.therapist-signup{
+    width: 84%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-areas: 'welcome image''form image';
+    grid-gap: 1rem;
+    grid-row-gap: 3rem;
+}
+.welcome-messages{
+    grid-area: welcome;
+    width: 75%;
+    justify-self: start;
+    text-align: center;
+}
+.signin-text{
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 38px;
+}
+.welcome{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+}
+.invalid-message{
+    color: red;
+    margin-bottom: 0.5rem;
+}
+.invalid-input{
+    outline: 1px solid rgba(255, 0, 0, 0.322);
+}
+.signin-form{
+    grid-area: form;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+.signin-label{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+}
+.signin-input,
+.otp-input{
+    width: 100%;
+    margin: 1rem 0;
+    border: 1px solid #CED4DA;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 0.5rem;
+}
+.input-and-otp-wrapper{
+    position: relative;
+}
+.btn-send-otp{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(110%,-50%);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 60px;
+    text-align: center;
+    background: rgba(14, 165, 198, 0.6);
+    border-radius: 50px;
+    border: none;
+    color: #fff;
+    padding: 0 1rem;
+    transition: background 0.3s ease;
+}
+.btn-send-otp:hover{
+    background: var(--bg-primary);
+}
+.remember-and-forgot{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+.remember{
+    display: flex;
+    align-items: center;
+}
+.forgot-password{
+    font-weight: 600;
+    color: var(--bg-primary);
+    cursor: pointer;
+}
+.remember-label{
+    margin-left: 0.5rem;
+}
+.btn-submit{
+    width: 100%;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50px;
+    border: none;
+    margin: 0.5rem 0;
+    color: #fff;
+    background: rgba(14, 165, 198, 0.6);
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+.btn-google{
+    background: #fff;
+    border: 3px solid var(--bg-primary);
+    color: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-google:hover{
+    color: #fff;
+}
+.btn-google img{
+    margin-right: 1rem;
+}
+.btn-submit:hover{
+    background: var(--bg-primary);
+}
+input[type="checkbox"]{
+    cursor: pointer;
+}
+.create-account-link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+.create-account-link span{
+    margin-left: 0.5rem;
+    font-weight: 600;
+    color: var(--bg-primary);
+    cursor: pointer;
+}
+.signin-image{
+    grid-area: image;
+    align-self: center;
+    justify-self: center;
+}
+.show{
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+.modal-content{
+    padding:2rem 1rem;
+    border-radius: 20px;
+    width: 30rem;
+}
+.otp-title,
+.resend-wrapper{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.resend-wrapper{
+    margin-bottom: 2rem;
+}
+.not-recieve-text{
+    margin: 0;
+}
+.btn-resend{
+    cursor: pointer;
+    color: var(--bg-primary);
+    background: transparent;
+    border: none;
+    height:max-content;
+}
+@media only screen and (max-width: 1150px) {
+    .therapist-signup{
+        width: 92%;
+    }
+    .welcome-messages{
+        width: 100%;
+        text-align: left;
+    }
+    .signin-image{
+        width: 100%;
+    }
+    .btn-submit,
+    .btn-send-otp{
+        line-height: 50px;
+    }
+
+}
+@media only screen and (max-width: 768px) {
+    .therapist-signup{
+        grid-template-columns: 1fr;
+        grid-template-areas: 'welcome''image''form';
+        grid-row-gap: 1rem;
+    }
+    .welcome-messages{
+        text-align: center;
+    }
+    .signin-image{
+        width: 50%
+    }
+    .signin-form{
+        justify-self: center;
+    }
+    .btn-send-otp{
+        position: initial;
+        transform: translate(0,0);
+        margin-bottom: 0.5rem;
+    }
+    .input-and-otp-wrapper{
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .therapist-signup-wrapper{
+        padding: 1rem 0;
+    }
+    .signin-image{
+        width: 60%;
+    }
+    .signin-form{
+        width: 100%;
+    }
+    .signin-text{
+        font-size: 25px;
+    }
+    .welcome{
+        font-size: 14px;
+    }
+    .signin-label{
+        font-size: 15px;
+    }
+    .signin-input,
+    .otp-input{
+        font-size: 15px;
+        margin: 0.5rem 0;
+    }
+    .password-condition{
+        font-size: 12px;
+    }
+    .btn-submit,
+    .btn-send-otp{
+        font-size: 15px;
+        line-height: 40px;
+    }
+    .modal-content{
+        width: 100%;
+    }
+    .otp-title,
+    .resend-wrapper{
+        font-size: 15px;
+    }
+    .not-recieve-text{
+        margin-right: 1rem;
+    }
+    .resend-wrapper{
+        margin-bottom: 1rem;
+    }
+}

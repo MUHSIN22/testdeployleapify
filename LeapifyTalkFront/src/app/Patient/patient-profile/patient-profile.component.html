@@ -1,0 +1,374 @@
+<div class="container-fluid pb-4">
+    <!-- ============================================================================================ -->
+    <div class="row p-1">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <!-- <img src="assets/userpic.png" class="w-75"> -->
+                                    <img *ngIf="!imageUrl" src="assets/uploadimages/sample.png" class="w-100 rounded-pill">
+                                    <img *ngIf="imageUrl" [src]="imageUrl" class="w-100 rounded-pill">
+                                    <button class="btn btn-0EA5C6 text-light rounded-pill mt-2"
+                                        (click)="openXl(content)">Update Profile</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <p style="font-weight: bold; color: black !important;">{{loggedInUser.name}}</p>
+                                    <p>Location : {{address}}</p>
+                                    <p>Gender : {{gender}}</p>
+                                </div>
+                                <div class="col-md-5">
+                                    <p>Email : {{loggedInUser.email}}</p>
+                                    <p>Phone : {{mobile}}</p>
+                                    <p>Client Id : {{id}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================ Update Profile Start ================================ -->
+            <!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
+
+            <ng-template #content let-modal let-c="close" let-d="dismiss">
+                <form [formGroup]="updateuser" (ngSubmit)="UserUpdate(updateuser)">
+                    <div class="card card-shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <h2>Edit User Profile</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <p>Add Information About Yourself</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img *ngIf="!imageUrl" src="assets/uploadimages/sample.png" class="img1 mt-5 rounded-pill">
+                                    <img *ngIf="imageUrl" [src]="imageUrl" class="img1 mt-5 rounded-pill">
+                                </div>
+                                <div class="col-md-9">
+                                    <hr>
+                                    <div class="form-group mb-4">
+                                        <label for="Mobile">Mobile</label>
+                                        <input type="text" class="form-control" id="Mobile" placeholder="Enter Mobile" formControlName="Mobile">
+                                        <div class="row error-mt" *ngIf="updateuser.controls['Mobile'].invalid ">
+                                            <span class="text-danger error-mt"
+                                                *ngIf="updateuser.controls['Mobile'].hasError('required') && showErrormsg==true">*
+                                                Please Enter Mobile Number *</span>
+                                            <span class="text-danger error-mt"
+                                                *ngIf="updateuser.controls['Mobile'].hasError('pattern') && showErrormsg==true">*
+                                                Invalid Mobile *</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4" *ngIf="gender == 'NA'">
+                                        <label for="Gender">Gender</label>
+                                        <div class="col-lg-9 radiobtn">
+                                            <input class="input" type="radio" value="NA" id="notselected" formControlName="Gender" />
+                                            <label class="lable" for="notselected">Not Selected</label>
+                                            <input class="input" type="radio" value="Female" id="female" formControlName="Gender" />
+                                            <label class="lable" for="female">Female</label>
+                                            <input class="input" type="radio" value="Male" id="male" formControlName="Gender" />
+                                            <label class="lable" for="male">Male</label>
+                                            <input class="input" type="radio" value="Other" id="other" formControlName="Gender" />
+                                            <label class="lable" for="other">Other</label>
+                                            <div class="row error-mt" *ngIf="updateuser.controls['Gender'].invalid ">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="updateuser.controls['Gender'].hasError('required') && showErrormsg==true">*
+                                                    Please Select Gender *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="Address">Address</label>
+                                        <input type="text" class="form-control" id="Address" placeholder="Enter Mobile" formControlName="Address">
+                                        <div class="row error-mt" *ngIf="updateuser.controls['Address'].invalid ">
+                                            <span class="text-danger error-mt"
+                                                *ngIf="updateuser.controls['Address'].hasError('required') && showErrormsg==true">*
+                                                Please Enter Address *</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-4">
+                                            <button class="btn btn-0EA5C6" type="submit">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+            <!-- ============================================ Update Profile End ===================================== -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card card-shadow">
+                        <div class="card-body">
+                            <h4 class="btn-0EA5C6 p-1">Progress Notes</h4>
+                            <p class="text-muted my-4">
+                                Anim pariatur cliche reprehenderit,
+                                enim eiusmod high life accusamus terry richardson ad squid.
+                            </p>
+                            <div class="row" style="height: 320px; overflow-y: auto;">
+                                <div class="row" id="show1">
+                                    <div class="col-md-12 ">
+                                        <div class="card-header btn-fefefe" (click)="headingOne()">
+                                            <h5 class="my-0">
+                                                <!-- <button class="btn shadow-none"> -->
+                                                    <i class="fa fa-arrow-circle-down fs-4"></i>
+                                                    What is Metrica?
+                                                <!-- </button> -->
+                                            </h5>
+                                        </div>
+                                        <div class="data1">
+                                            <div class="card-body btn-0EA5C6 fs-5">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="show2">
+                                    <div class="col-md-12">
+                                        <div class="card-header btn-fefefe" (click)="headingTwo()">
+                                            <h5 class="my-0">
+                                                <!-- <button class="btn shadow-none"> -->
+                                                    <i class="fa fa-arrow-circle-down fs-4"></i>
+                                                    How buy Metrica on coin?
+                                                <!-- </button> -->
+                                            </h5>
+                                        </div>
+                                        <div class="data2">
+                                            <div class="card-body btn-0EA5C6 fs-5">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+                                                tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                                assumenda shoreditch et.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="show3">
+                                    <div class="col-md-12">
+                                        <div class="card-header btn-fefefe" (click)="headingThree()">
+                                            <h5 class="my-0">
+                                                <!-- <button class="btn shadow-none"> -->
+                                                    <i class="fa fa-arrow-circle-down fs-4"></i>
+                                                    How buy Metrica on coin?
+                                                <!-- </button> -->
+                                            </h5>
+                                        </div>
+                                        <div class="data3">
+                                            <div class="card-body btn-0EA5C6 fs-5">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+                                                tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                                assumenda shoreditch et.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="show4">
+                                    <div class="col-12">
+                                        <div class="card-header btn-fefefe" (click)="headingFour()">
+                                            <h5 class="my-0">
+                                                <!-- <button class="btn collapsed ml-4 shadow-none" type="button"
+                                                    data-toggle="collapse" data-target="#collapseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree"> -->
+                                                    <i class="fa fa-arrow-circle-down fs-4"></i>
+                                                    What cryptocurrency can i use to buy Metrica?
+                                                <!-- </button> -->
+                                            </h5>
+                                        </div>
+                                        <div class="data4">
+                                            <div class="card-body btn-0EA5C6 fs-5">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
+                                                dolor brunch.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card card-shadow w-100">
+                <div class="card-body">
+                    <h4 class="btn-0EA5C6 p-1">Upcoming Appointments</h4>
+                    <div class="w-100" style="height: 272px; overflow-y: auto;">
+                        <table class="table table-striped">
+                            <thead style="color:#667085">
+                                <tr style="text-align: center;">
+                                    <th scope="col" width="6%">Id</th>
+                                    <th scope="col">Doctor</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Slot</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
+                                    <td>13/12/2021</td>
+                                    <td>12:00 - 01:00</td>
+                                    <td>
+                                        <button class="btn btn-0EA5C6">Join</button>
+                                        <button class="btn btn-0EA5C6 mx-4">Cancel</button>
+                                        <button class="btn btn-0EA5C6">Reschedule</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
+                                    <td>13/12/2021</td>
+                                    <td>12:00 - 01:00</td>
+                                    <td>
+                                        <button class="btn btn-0EA5C6">Join</button>
+                                        <button class="btn btn-0EA5C6 mx-4">Cancel</button>
+                                        <button class="btn btn-0EA5C6">Reschedule</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
+                                    <td>13/12/2021</td>
+                                    <td>12:00 - 01:00</td>
+                                    <td>
+                                        <button class="btn btn-0EA5C6">Join</button>
+                                        <button class="btn btn-0EA5C6 mx-4">Cancel</button>
+                                        <button class="btn btn-0EA5C6">Reschedule</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
+                                    <td>13/12/2021</td>
+                                    <td>12:00 - 01:00</td>
+                                    <td>
+                                        <button class="btn btn-0EA5C6">Join</button>
+                                        <button class="btn btn-0EA5C6 mx-4">Cancel</button>
+                                        <button class="btn btn-0EA5C6">Reschedule</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4 class="btn-0EA5C6 p-1 mt-4">Appointment History</h4>
+                    <div class="mt-2" style="height: 272px; overflow-y: auto;">
+                        <table class="table table-striped">
+                            <thead style="color:#667085">
+                                <tr style="text-align: center;">
+                                    <th scope="col" width="6%">Id</th>
+                                    <th scope="col">Doctor</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Slot</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
+                                    <td>13/12/2021</td>
+                                    <td>12:00 - 01:00</td>
+                                    <td>
+                                        <button class="btn btn-0EA5C6">Successfull</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
+                                    <td>13/12/2021</td>
+                                    <td>12:00 - 01:00</td>
+                                    <td>
+                                        <button class="btn btn-0EA5C6">No Show</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
+                                    <td>13/12/2021</td>
+                                    <td>12:00 - 01:00</td>
+                                    <td>
+                                        <button class="btn btn-0EA5C6">Cancel</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
+                                    <td>13/12/2021</td>
+                                    <td>12:00 - 01:00</td>
+                                    <td>
+                                        <button class="btn btn-0EA5C6">Reschedule</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 mx-1">
+            <div class="card card-shadow">
+                <div class="card-body">
+                    <div class="row btn-0EA5C6 p-1">
+                        <div class="col-md-6">
+                            <h4>File History</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fs-5">Add New File : &nbsp;</label>
+                            <input type="file" class="">
+                            <button class="btn btn-fefefe rounded-pill">Upload</button>
+                        </div>
+                    </div>
+                    <table class="table table-striped">
+                        <thead style="color:#667085">
+                            <tr>
+                                <th scope="col" width="6%">Id</th>
+                                <th scope="col">Doctor</th>
+                                <th scope="col">File Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
+                                <td>@mdo</td>
+                                <td>13/12/2021</td>
+                                <td><i class="fa fa-trash text-danger"></i></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Jacob</td>
+                                <td>@fat</td>
+                                <td>12/12/2021</td>
+                                <td><i class="fa fa-trash text-danger"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================================================ -->
+</div>

@@ -1,0 +1,242 @@
+<div class="container-fluid pb-4">
+    <!-- =================================================== -->
+    <!-- <h3>Schedule</h3> -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-shadow">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- <div class="dropdown"> -->
+                            <label class="">Time Zone</label>
+                            <button class="btn btn-0EA5C6  mx-4" type="button" id="dropdownMenu2"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{zone_name}} - {{timezone_local}}
+                            </button>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-end">
+                            <button class="btn btn-0EA5C6 rounded-pill mx-2" (click)="ListView()">List View</button>
+                            <button class="btn btn-0EA5C6 rounded-pill mx-2" (click)="CalendarView()">Calendar
+                                View</button>
+                        </div>
+                        <hr class="my-1">
+                        <!-- -------------------------- List View Start ------------------------------------- -->
+                        <div class="row" *ngIf="listview">
+                            <h5 class="d-flex justify-content-center">Set your weekly hours</h5>
+                            <div class="card">
+                                <div class="card-body">
+                                    <form [formGroup]="timePeriod" (ngSubmit)="TimePeriod(timePeriod)">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label class="mx-2">Select Your Time Period</label>
+                                                <select formControlName="StartTime"
+                                                    class="btn-fefefe rounded m-2 p-2"
+                                                    style=" text-align: center;">
+                                                    <option *ngFor="let h of hoursvalue;" [value]="h.id">
+                                                        {{h.name}}</option>
+                                                </select> -
+                                                <select formControlName="EndTime"
+                                                    class="btn-fefefe rounded m-2 p-2"
+                                                    style=" text-align: center;">
+                                                    <option *ngFor="let h of hoursvalue;" [value]="h.id">
+                                                        {{h.name}}</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-0EA5C6">Ok</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form [formGroup]="DayTimingForm" (ngSubmit)="TimingForm(DayTimingForm)">
+                                        <hr class="">
+                                        <div class="row">
+                                            <table class="table table-hover table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">MONDAY</th>
+                                                        <th scope="col">TUESDAY</th>
+                                                        <th scope="col">WEDNESDAY</th>
+                                                        <th scope="col">THURSDAY</th>
+                                                        <th scope="col">FRIDAY</th>
+                                                        <th scope="col">SATURDAY</th>
+                                                        <th scope="col">SUNDAY</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="ResData != 'null' || ResData != '' " class="table-light">
+                                                    <tr>
+                                                        <th scope="col">
+                                                            <tr *ngFor="let mon of Monday; let i=index;">
+                                                                <th class="btn btn-0EA5C6 px-4 my-1 w-100">
+                                                                    <input *ngIf="mon.check == '0' " type="checkbox" [value]="mon.id" (change)="onMondayTime($event)"> 
+                                                                    <input *ngIf="mon.check == '1'" type="checkbox" [value]="mon.id" checked (change)="onMondayTime($event)"> 
+                                                                    {{mon.name}}
+                                                                </th>
+                                                            </tr>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <tr *ngFor="let tue of Tuesday; let i=index;">
+                                                                <th class="btn btn-0EA5C6 px-4 my-1 w-100">
+                                                                    <input *ngIf="tue.check == '0' " type="checkbox" [value]="tue.id" (change)="onTuesdayTime($event)">
+                                                                    <input *ngIf="tue.check == '1' " type="checkbox" [value]="tue.id" checked (change)="onTuesdayTime($event)"> 
+                                                                    {{tue.name}}
+                                                                </th>
+                                                            </tr>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <tr *ngFor="let wed of Wednesday; let i=index;">
+                                                                <th class="btn btn-0EA5C6 px-4 my-1 w-100">
+                                                                    <input *ngIf="wed.check == '0' " type="checkbox" [value]="wed.id" (change)="onWednesdayTime($event)"> 
+                                                                    <input *ngIf="wed.check == '1' " type="checkbox" [value]="wed.id" checked (change)="onWednesdayTime($event)">
+                                                                    {{wed.name}}
+                                                                </th>
+                                                            </tr>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <tr *ngFor="let thu of Thursday; let i=index;">
+                                                                <th class="btn btn-0EA5C6 px-4 my-1 w-100">
+                                                                    <input *ngIf="thu.check == '0' " type="checkbox" [value]="thu.id" (change)="onThursdayTime($event)">
+                                                                    <input *ngIf="thu.check == '1' " type="checkbox" [value]="thu.id" checked (change)="onThursdayTime($event)">
+                                                                    {{thu.name}}
+                                                                </th>
+                                                            </tr>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <tr *ngFor="let fri of Friday; let i=index;">
+                                                                    <th class="btn btn-0EA5C6 px-4 my-1 w-100">
+                                                                    <input *ngIf="fri.check == 1" checked type="checkbox" [value]="fri.id" (change)="onFridayTime($event)">
+                                                                    <input *ngIf="fri.check == '0' " type="checkbox" [value]="fri.id" (change)="onFridayTime($event)">
+                                                                    {{fri.name}}
+                                                                </th>
+                                                            </tr>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <tr *ngFor="let sat of Saturday; let i=index;">
+                                                                    <th class="btn btn-0EA5C6 px-4 my-1 w-100">
+                                                                    <input *ngIf="sat.check == '0' " type="checkbox" [value]="sat.id" (change)="onSaturdayTime($event)">
+                                                                    <input *ngIf="sat.check == '1' " type="checkbox" [value]="sat.id" checked (change)="onSaturdayTime($event)">
+                                                                    {{sat.name}}
+                                                                </th>
+                                                            </tr>
+                                                        </th>
+                                                        <th scope="col">
+                                                            <tr *ngFor="let sun of Sunday ; let i=index;">
+                                                                <th class="btn btn-0EA5C6 px-4 my-1 w-100">
+                                                                    <input [value]="sun.id" type="checkbox" (change)="onSundayTime($event)">
+                                                                    <!-- <input *ngIf="sun.check == '1'" [value]="sun.id" type="checkbox" checked (change)="onSundayTime($event)"> -->
+                                                                    {{sun.name}}
+                                                                </th>
+                                                            </tr>
+                                                        </th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <hr class="">
+                                        <button class="btn btn-0EA5C6">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -------------------------- List View End --------------------------------------- -->
+                        <!-- -------------------------- Calendar View Start --------------------------------- -->
+                        <div class="row" *ngIf="calendarview">
+                            <div class="col-sm-12">
+                                <div class="card card-shadow">
+                                    <div class="card-body">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Day</th>
+                                                    <th scope="col" class="table-info">{{CurrentDay}}</th>
+                                                    <th scope="col">{{WeekDay[1]}}</th>
+                                                    <th scope="col">{{WeekDay[2]}}</th>
+                                                    <th scope="col">{{WeekDay[3]}}</th>
+                                                    <th scope="col">{{WeekDay[4]}}</th>
+                                                    <th scope="col">{{WeekDay[5]}}</th>
+                                                    <th scope="col">{{WeekDay[6]}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Time\Date</th>
+                                                    <th class="table-info">{{CurrentDate}}</th>
+                                                    <th>{{WeekDate[1]}}</th>
+                                                    <th>{{WeekDate[2]}}</th>
+                                                    <th>{{WeekDate[3]}}</th>
+                                                    <th>{{WeekDate[4]}}</th>
+                                                    <th>{{WeekDate[5]}}</th>
+                                                    <th>{{WeekDate[6]}}</th>
+                                                </tr>
+                                                <tr *ngFor="let data of Sunday;">
+                                                    <th scope="row">{{data.name}}</th>
+                                                    <td *ngFor="let week of WeekDay;">
+                                                        <div *ngFor="let sun of Sunday">
+                                                            <span *ngIf="week == 'Sunday' && sun.status == '0' && sun.id == data.id "
+                                                            class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                            <span *ngIf="week == 'Sunday' && sun.status == '1' && sun.id == data.id "
+                                                            class="d-flex justify-content-center bg-info text-light rounded-pill">Avilable</span>
+                                                            <span *ngIf="week == 'Sunday' && sun.status == '2' && sun.id == data.id "
+                                                            class="d-flex justify-content-center bg-success text-light rounded-pill">Booked</span>
+                                                        </div>
+                                                        <div *ngFor="let mon of Monday">
+                                                            <span *ngIf="week == 'Monday' && mon.status == '0' && mon.id == data.id "
+                                                            class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                            <span *ngIf="week == 'Monday' && mon.status == '1' && mon.id == data.id  "
+                                                            class="d-flex justify-content-center bg-info text-light rounded-pill">Avilable</span>
+                                                            <span *ngIf="week == 'Monday' && mon.status == '2' && mon.id == data.id  "
+                                                            class="d-flex justify-content-center bg-success text-light rounded-pill">Booked</span>
+                                                        </div>
+                                                        <div *ngFor="let tue of Tuesday">
+                                                            <span *ngIf="week == 'Tuesday' && tue.status == '0' && tue.id == data.id "
+                                                            class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                            <span *ngIf="week == 'Tuesday' && tue.status == '1' && tue.id == data.id "
+                                                            class="d-flex justify-content-center bg-info text-light rounded-pill">Avilable</span>
+                                                            <span *ngIf="week == 'Tuesday' && tue.status == '2' && tue.id == data.id "
+                                                            class="d-flex justify-content-center bg-success text-light rounded-pill">Booked</span>
+                                                        </div>
+                                                        <div *ngFor="let wed of Wednesday">
+                                                            <span *ngIf="week == 'Wednesday' && wed.status == '0' && wed.id == data.id "
+                                                            class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                            <span *ngIf="week == 'Wednesday' && wed.status == '1' && wed.id == data.id "
+                                                            class="d-flex justify-content-center bg-info text-light rounded-pill">Avilable</span>
+                                                            <span *ngIf="week == 'Wednesday' && wed.status == '2' && wed.id == data.id "
+                                                            class="d-flex justify-content-center bg-success text-light rounded-pill">Booked</span>
+                                                        </div>
+                                                        <div *ngFor="let thu of Thursday">
+                                                            <span *ngIf="week == 'Thursday' && thu.status == '0' && thu.id == data.id "
+                                                            class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                            <span *ngIf="week == 'Thursday' && thu.status == '1' && thu.id == data.id "
+                                                            class="d-flex justify-content-center bg-info text-light rounded-pill">Avilable</span>
+                                                            <span *ngIf="week == 'Thursday' && thu.status == '2' && thu.id == data.id "
+                                                            class="d-flex justify-content-center bg-success text-light rounded-pill">Booked</span>
+                                                        </div>
+                                                        <div *ngFor="let fri of Friday">
+                                                            <span *ngIf="week == 'Friday' && fri.status == '0' && fri.id == data.id "
+                                                            class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                            <span *ngIf="week == 'Friday' && fri.status == '1' && fri.id == data.id "
+                                                            class="d-flex justify-content-center bg-info text-light rounded-pill">Avilable</span>
+                                                            <span *ngIf="week == 'Friday' && fri.status == '2' && fri.id == data.id "
+                                                            class="d-flex justify-content-center bg-success text-light rounded-pill">Booked</span>
+                                                        </div>
+                                                        <div *ngFor="let sat of Saturday">
+                                                            <span *ngIf="week == 'Saturday' && sat.status == '0' && sat.id == data.id "
+                                                            class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                            <span *ngIf="week == 'Saturday' && sat.status == '1' && sat.id == data.id "
+                                                            class="d-flex justify-content-center bg-info text-light rounded-pill">Avilable</span>
+                                                            <span *ngIf="week == 'Saturday' && sat.status == '2' && sat.id == data.id "
+                                                            class="d-flex justify-content-center bg-success text-light rounded-pill">Booked</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -------------------------- Calendar View End ----------------------------------- -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- =================================================== -->
+</div>

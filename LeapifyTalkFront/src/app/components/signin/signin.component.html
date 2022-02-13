@@ -1,0 +1,211 @@
+<div class="row mt-5">
+  <div class="col-md-6">
+    <div class="container text-center mt-4">
+      <!-- <img style="max-width: 60px" src="./assets/images/logo_blue.svg" />
+      <h4 class="fw-bold mt-2" style="color: var(--bg-primary)">LEAPIFYTALK</h4>
+      <h3 class="fw-bold my-3 tag">Tag Line of the company</h3> -->
+      <h1 class="signin-text">Sign in to your account</h1>
+      <p class="welcome">Welcome back! Please enter your details.</p>
+    
+      <div class="inner-container" *ngIf="hasRoute('/signin')" >
+        <ng-container
+          [ngTemplateOutlet]="forgot"
+          *ngIf="forgotPasswordFlag"
+        ></ng-container>
+        <ng-container
+          [ngTemplateOutlet]="signin"
+          *ngIf="!forgotPasswordFlag"
+        ></ng-container>
+      </div>
+      <div class="inner-container" *ngIf="hasRoute('/reset-password')" >
+        <ng-container
+          [ngTemplateOutlet]="resetPassword"
+        ></ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 d-flex justify-content-center">
+    <img src="/assets/images/signin.png" class="signin-image" alt="">
+  </div>
+</div>
+<app-footer></app-footer>
+
+<ng-template #signin>
+  <h5 class="fw-bold">Sign In</h5>
+  <form class="mt-0 mt-md-2" (ngSubmit)="submit(userForm)" #userForm="ngForm">
+    <div class="row text-start">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="fw-bold">Email Address</label>
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            [(ngModel)]="user.email"
+            required
+            [ngClass]="{
+              'is-invalid':
+                (email.errors && email.touched) || (email.errors && error)
+            }"
+            #email="ngModel"
+            pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+          />
+          <div [hidden]="!email.errors?.required" class="invalid-feedback">
+            <small>Email Required</small>
+          </div>
+          <div [hidden]="!email.errors?.pattern" class="invalid-feedback">
+            <small>Email is not valid</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <label class="fw-bold">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            [(ngModel)]="user.password"
+            [ngClass]="{
+              'is-invalid':
+                (password.errors && password.touched) ||
+                (password.errors && error)
+            }"
+            required
+            #password="ngModel"
+          />
+          <div [hidden]="!password.errors?.required" class="invalid-feedback">
+            <small>Password Required</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <a
+          (click)="forgotPasswordFlag = true"
+          class="btn btn-link shadow-none float-end"
+          >Forgot Password?</a
+        >
+      </div>
+    </div>
+    <button mat-flat-button class="btn btn-gs my-2" type="submit">
+      Sign In
+    </button>
+  </form>
+</ng-template>
+
+<ng-template #forgot>
+  <h5 class="fw-bold">Forgot Password</h5>
+  <div class="col-12">
+    <small>
+      <span>Do you know your password? </span>
+      <a
+        style="cursor: pointer"
+        (click)="forgotPasswordFlag = false"
+        class="shadow-none"
+        >Login</a
+      >
+    </small>
+  </div>
+  <div class="col-12" *ngIf="forgotRequestSent">
+    <p class="text-success mt-3">
+      An email has been sent to your email address. Please follow the steps to
+      change your password.
+    </p>
+    <button
+      (click)="forgotPasswordFlag = false;forgotRequestSent = false"
+      mat-flat-button
+      class="btn btn-gs my-4"
+      type="submit"
+    >
+      Login
+    </button>
+  </div>
+  <form
+    class="mt-0 mt-md-2"
+    (ngSubmit)="forgotPassword(forgotForm)"
+    #forgotForm="ngForm"
+    *ngIf="!forgotRequestSent"
+  >
+    <div class="row text-start">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="fw-bold">Email Address</label>
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            [(ngModel)]="forgotEmail"
+            required
+            [ngClass]="{
+              'is-invalid':
+                (email1.errors && email1.touched) || (email1.errors && error)
+            }"
+            #email1="ngModel"
+          />
+          <div [hidden]="!email1.errors?.required" class="invalid-feedback">
+            <small>Email Required</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button mat-flat-button class="btn btn-gs my-4" type="submit">
+      Request Reset Password
+    </button>
+  </form>
+</ng-template>
+
+<ng-template #resetPassword> 
+  <h5 class="fw-bold">Reset Password</h5>
+  <form
+    class="mt-0 mt-md-2"
+    (ngSubmit)="changePassword(reset)"
+    #reset="ngForm"
+  >
+    <div class="row text-start">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="fw-bold">New Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            [(ngModel)]="reset_password.new_password"
+            #newPassword="ngModel"
+            [ngClass]="{ 'is-invalid':  newPassword.errors && (error || newPassword.touched) }"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            required
+          />
+          <div [hidden]="!newPassword.errors?.pattern" class="invalid-feedback">
+            <small>Passowrd does not meet minimum requirements</small>
+          </div>
+          <div [hidden]="!newPassword.errors?.required" class="invalid-feedback">
+            <small>Password Required</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <label class="fw-bold">Confirm Password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            class="form-control"
+            [(ngModel)]="reset_password.confirm_password"
+            required
+            [ngClass]="{
+              'is-invalid':
+                (confirmPassword.errors && confirmPassword.touched)
+            }"
+            #confirmPassword="ngModel"
+          />
+          <div [hidden]="!(reset_password.confirm_password == reset_password.new_password)" class="invalid-feedback">
+            <small>Password and confirm password should be same.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button mat-flat-button class="btn btn-gs my-4" type="submit">
+      Reset Password
+    </button>
+  </form>
+</ng-template>

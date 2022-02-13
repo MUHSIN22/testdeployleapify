@@ -1,0 +1,122 @@
+.footer {
+  padding: 100px 12%;
+  width: 100%;
+  background: linear-gradient(180deg, var(--bg-primary) 0%, #79c4d5 185.67%);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  max-width: 550px;
+  margin-right: 10px;
+}
+
+.footer-right {
+  text-align: start;
+  padding-right: 80px !important;
+}
+
+.footer-right a {
+  text-decoration: none;
+  list-style: none;
+}
+
+.footer-lower {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer-lower .footer-lower-followus {
+  display: flex;
+  justify-content: space-between;
+  line-height: 34.5px;
+}
+
+.footer-left .footer-logo {
+  padding-bottom: 15px;
+  margin: 0;
+}
+
+.footer-left .footer-logo img {
+  height: 55px;
+  width: 60px;
+}
+
+.footer-left .footer-logo a {
+  font-weight: 700;
+  color: #fff;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  color: #f2efb6;
+}
+
+.footer-left .fp-one {
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  padding-bottom: 30px;
+  margin: 0;
+  text-align: justify;
+}
+
+.footer .fp-two {
+  font-size: 15px;
+  font-weight: 700;
+  opacity: 0.5;
+  color: #fff;
+  margin: 0;
+}
+
+.footer .fr-p {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  padding-right: 20px;
+}
+
+.footer .fr-img img {
+  background-color: #fff;
+  height: 35px;
+  width: 35px;
+  margin-right: 0.6rem;
+  padding: 7px 11px 6px 11.5px;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 1086px) {
+  .footer .footer-lower {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  .footer-lower .footer-lower-followus {
+    justify-content: start;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer-lower .footer-lower-followus {
+    padding-bottom: 30px;
+  }
+  .footer {
+    padding: 25px;
+  }
+  .footer-left .footer-logo a {
+    font-size: 18px;
+  }
+  .footer-left .footer-logo img {
+    height: 37px;
+    width: 45px;
+  }
+  .footer-left .fp-one {
+    font-size: 12px;
+  }
+  .footer .fp-two {
+    font-size: 12px;
+  }
+  .footer .fr-p {
+    font-size: 12px;
+  }
+}

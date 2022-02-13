@@ -1,0 +1,72 @@
+<div class="container-fluid position-relative">
+  <button
+    class="btn shadow-none position-absolute"
+    style="top: -15px; right: 0"
+    (click)="cancel()"
+  >
+    <i class="fa fa-times"></i>
+  </button>
+  <div>
+    <div class="top-image pb-3">
+      <img
+      *ngIf="currentImage.type == 'image'"
+      class="m-auto"
+      [src]="currentImage.base64"
+    />
+    <video
+      *ngIf="currentImage.type == 'video'"
+      class="img-fluid"
+      [src]="currentImage.base64"
+      controls
+    ></video>
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-12">
+          <app-type-message
+            (sendTextMessage)="sendMessage($event)"
+            [messageInput]="currentImage"
+          ></app-type-message>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center flex-wrap">
+          <div class="d-inline-block position-relative" *ngFor="let image of images; let i=index;">
+            <button class="btn p-0 image-button">
+              <img
+                *ngIf="image.type == 'image'"
+                class="img-fluid"
+                [src]="image.base64"
+                (click)="currentImage = image"
+              />
+              <video
+                *ngIf="image.type == 'video'"
+                [src]="image.base64"
+                (click)="currentImage = image"
+              ></video>
+            </button>
+            <button (click)="removeImage(i)" class="btn close-button">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>          
+          <button
+            (click)="file.click()"
+            class="btn btn-outline-primary add-button"
+          >
+            <i class="fa fa-plus"></i>
+          </button>
+          <input
+            type="file"
+            name="file"
+            class="visually-hidden"
+            [(ngModel)]="imageInput"
+            (change)="uploadImage($event)"
+            multiple
+            #file
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

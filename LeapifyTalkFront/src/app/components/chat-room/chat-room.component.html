@@ -1,0 +1,74 @@
+<div class="chat-container" (window:resize)="scrollDown()">
+  <div
+    class="d-flex justify-content-center align-items-center h-100"
+    *ngIf="!groupsLoaded || !chatsLoaded"
+  >
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div
+    style="height: 100%; overflow: hidden"
+    *ngIf="chatsLoaded && groupsLoaded"
+  >
+    <div
+      style="height: 100%; overflow: hidden"
+      class="p-2 p-sm-3"
+      *ngIf="images.length == 0 && !captureImage"
+    >
+      <div class="row">
+        <div class="col-7 d-flex align-items-center">
+          <img src="./assets/images/temp/ellipse_1.svg" class="profile-photo" />
+          <div class="d-inline-block ms-3 group-name">
+            <h5 class="fw-bold mb-0">{{ group.name }}</h5>
+            <p class="mb-0">{{ group.userIds.length }} Members</p>
+          </div>
+        </div>
+        <div class="col-3 col-md-4">
+          <button
+            mat-raised-button
+            class="btn btn-gs fw-bold float-end d-none d-md-inline-block"
+          >
+            Upgrade Plan
+          </button>
+        </div>
+        <div class="col-2 col-md-1">
+          <button
+            class="btn p-1 h-100 shadow-none float-end"
+            style="cursor: pointer; color: #000"
+          >
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+        </div>
+      </div>
+      <hr />
+      <div class="message-container p-4" #chat>
+        <app-message
+          *ngFor="let message of messages"
+          [message]="message"
+        ></app-message>
+      </div>
+      <hr />
+      <app-type-message
+        (sendTextMessage)="sendMessage($event)"
+        (sendAudioMessage)="sendAudio($event)"
+        (captureImage)="captureImage = true"
+        (uploadImage)="uploadImage($event)"
+      ></app-type-message>
+    </div>
+    <div *ngIf="images.length != 0">
+      <app-add-image
+        [images]="images"
+        (sendImage)="sendImage($event)"
+        (cancelUpload)="images = []"
+        (error)="uploadError($event)"
+      ></app-add-image>
+    </div>
+    <div *ngIf="captureImage">
+      <app-capture-image
+        (handleCapturedImage)="handleImage($event)"
+        (error)="captureError($event)"
+        (cancel)="captureImage = false"
+      ></app-capture-image>
+    </div>
+  </div>
+</div>

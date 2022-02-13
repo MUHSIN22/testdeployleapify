@@ -1,0 +1,80 @@
+.review-wrapper{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    background: rgba(0,0,0,0.5);
+    display: grid;
+    place-items: center;
+}
+.review-container{
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 600px;
+    border-radius: 10px;
+    position: relative;
+}
+.course-review{
+    font-weight: 600;
+    text-align: center;
+}
+label{
+    font-weight: 600;
+    font-size: 17px;
+}
+#review{
+    resize:none;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin: 0.5rem 0;
+}
+.stars{
+    text-align: center;
+    margin: 1rem 0;
+}
+.stars i{
+    color: #7d798778;
+    font-size: 1.5rem;
+}
+.stars .star-filled{
+    color: var(--bg-primary);
+}
+.btn-continue{
+    background: var(--bg-primary);
+    border-radius: 50px;
+    color: #fff;
+    width: max-content;
+    font-weight: 600;
+}
+.close-icon{
+    font-size: 1.5rem;
+    cursor: pointer;
+    top: 1rem;
+    right: 1rem;
+    position: absolute;
+    color: rgba(0,0,0,0.5);
+}
+@media only screen and (max-width: 650px) {
+    .review-wrapper{
+        width: 100%;
+    }
+    .review-container{
+        width: 90%;
+        padding: 1rem;
+    }
+    .course-review{
+        font-size: 20px;
+    }
+    label{
+        font-size: 14px;
+    }
+    #review{
+        width: 100%;
+        font-size: 14px;
+    }
+}

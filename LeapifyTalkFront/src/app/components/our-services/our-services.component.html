@@ -1,0 +1,310 @@
+<h1 class="fw-bold text-center heading">Our Services</h1>
+
+<div class="position-relative w-100" (window:resize)="scrollRight()">
+  <div id="service" class="service-nav" #serviceNav>
+    <button
+      type="button"
+      data-bs-target="#serviceCarousel"
+      data-bs-slide-to="0"
+      class="btn nav-btn"
+      (click)="switch(0)"
+      [class.nav-btn-active]="template[0]"
+    >
+      LeapifyTalk
+    </button>
+    <button
+      type="button"
+      data-bs-target="#serviceCarousel"
+      data-bs-slide-to="1"
+      class="btn nav-btn"
+      (click)="switch(1)"
+      [class.nav-btn-active]="template[1]"
+    >
+      LeapifyConnect
+    </button>
+    <button
+      type="button"
+      data-bs-target="#serviceCarousel"
+      data-bs-slide-to="2"
+      class="btn nav-btn"
+      (click)="switch(2)"
+      [class.nav-btn-active]="template[2]"
+    >
+      LeapifySocial
+    </button>
+    <button
+      type="button"
+      data-bs-target="#serviceCarousel"
+      data-bs-slide-to="3"
+      class="btn nav-btn"
+      (click)="switch(3)"
+      [class.nav-btn-active]="template[3]"
+    >
+      LeapifyVR
+    </button>
+    <button
+      type="button"
+      data-bs-target="#serviceCarousel"
+      data-bs-slide-to="4"
+      class="btn nav-btn"
+      (click)="switch(4)"
+      [class.nav-btn-active]="template[4]"
+    >
+      LeapifyBusiness
+    </button>
+    <button
+      type="button"
+      data-bs-target="#serviceCarousel"
+      data-bs-slide-to="5"
+      class="btn nav-btn"
+      (click)="switch(5)"
+      [class.nav-btn-active]="template[5]"
+    >
+      LeapifyLearning
+    </button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row my-4">
+    <div
+      id="serviceCarousel"
+      class="carousel carousel-dark slide"
+      data-bs-ride="carousel"
+      data-bs-interval="false"
+    >
+      <div class="carousel-inner">
+        <div class="carousel-item" #one>
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-lg-6 order-2 order-lg-1">
+                <div class="left">
+                  <h2 class="fw-bold mb-3">LeapifyTalk</h2>
+                  <p>
+                    Mental health problems are becoming more prevalent. There
+                    are a variety of reasons for this, but one big aspect is
+                    that most people do not receive the mental health treatment
+                    they require. The difficulty is that mental health care is
+                    still provided in person, which means people must either
+                    travel a long distance or take time off work to get there.
+                    LeapifyTalk is the teletherapy software that allows users to
+                    meet with licensed therapists through audio, video, or chat,
+                    from any device - at a fraction of the expense of
+                    traditional therapy.
+                  </p>
+                  <button
+                    mat-raised-button
+                    routerLink="/get-started"
+                    class="btn btn-get-started"
+                  >
+                    Get Started <i class="fa fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <div class="d-flex justify-content-center">
+                  <img
+                    class="img-fluid"
+                    src="./assets/images/conversation_amico_1.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-lg-6 order-2 order-lg-1">
+                <div class="left">
+                  <h2 class="fw-bold mb-3">LeapifyConnect</h2>
+                  <p>
+                    Mental health is a vital aspect of our overall well-being.
+                    Making the decision to improve our mental health is an
+                    important first step. Finding a suitable therapist and peer
+                    support group, on the other hand, can be difficult. It was
+                    for this reason that LeapifyConnect was formed. Our mental
+                    health exam is designed to match you with the right
+                    therapist and peer support group so that you may get the
+                    most out of your mental health and wellness journey.
+                  </p>
+                  <button
+                    mat-raised-button
+                    routerLink="/get-started"
+                    class="btn btn-get-started"
+                  >
+                    Get Started <i class="fa fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <div class="d-flex justify-content-center">
+                  <img
+                    class="img-fluid"
+                    src="./assets/images/chat_amico_1.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item active">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-lg-6 order-2 order-lg-1">
+                <div class="left">
+                  <h2 class="fw-bold mb-3">LeapifySocial</h2>
+                  <p>
+                    Almost every traditional social network caters to the
+                    discussion of physical health, such as weight loss and
+                    exercise, but there are few social networks dedicated to
+                    supporting people's mental health and well-being.
+                    LeapifySocial is a mental health and wellness social network
+                    that allows users to share their stories, ideas, and
+                    recommendations with others while also seeking support for
+                    their own mental health and well-being. The portal is
+                    intended to assist people in finding assistance, discussing
+                    their experiences, learning new information, and receiving
+                    advice regarding their mental health and well-being.
+                  </p>
+                  <button
+                    mat-raised-button
+                    routerLink="/get-started"
+                    class="btn btn-get-started"
+                  >
+                    Get Started <i class="fa fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <div class="d-flex justify-content-center">
+                  <img
+                    class="img-fluid"
+                    src="./assets/images/service_1.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-lg-6 order-2 order-lg-1">
+                <div class="left">
+                  <h2 class="fw-bold mb-3">LeapifyVR</h2>
+                  <p>
+                    LeapifyVR is a virtual reality-based mental health treatment
+                    that takes a novel approach to treating phobias, fears, and
+                    anxieties. Its goal is to assist patients in confronting
+                    their difficulties in a secure, therapeutic setting with
+                    experienced professionals. Incorporating virtual reality
+                    (VR) into therapy can improve the ease, acceptability, and
+                    effectiveness of anxiety treatment. Virtual reality exposure
+                    therapy (VRET) allows for personalised, gradual, controlled,
+                    immersive exposure that is simple to deploy for therapists
+                    and frequently more patient-acceptable than in vivo or
+                    imaginal exposure.
+                  </p>
+                  <button
+                    mat-raised-button
+                    routerLink="/get-started"
+                    class="btn btn-get-started"
+                  >
+                    Get Started <i class="fa fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <div class="d-flex justify-content-center">
+                  <img
+                    class="img-fluid"
+                    src="./assets/images/leapify_vr.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-lg-6 order-2 order-lg-1">
+                <div class="left">
+                  <h2 class="fw-bold mb-3">LeapifyBusiness</h2>
+                  <p>
+                    Today's firms are dealing with a workplace mental health
+                    crisis. Employees are more stressed out, have higher anxiety
+                    and depression levels, and are more likely to burn out.
+                    According to studies, stress, anxiety, and depression are
+                    responsible for 70% of job injuries. Furthermore,
+                    absenteeism costs companies billions of dollars each year.
+                    LeapifyBusiness is our solution, which offers a
+                    comprehensive mental health and wellness service that can be
+                    incorporated into a company's health-care benefits program.
+                    The service provides a methodology that includes
+                    teletherapy, a focus on self-care and self-management, peer
+                    support, and tailored treatment plans and progress reports.
+                  </p>
+                  <button
+                    mat-raised-button
+                    routerLink="/get-started"
+                    class="btn btn-get-started"
+                  >
+                    Get Started <i class="fa fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <div class="d-flex justify-content-center">
+                  <img
+                    class="img-fluid"
+                    src="./assets/images/leapifybusiness.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-lg-6 order-2 order-lg-1">
+                <div class="left">
+                  <h2 class="fw-bold mb-3">LeapifyLearning</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In corrupti eveniet nostrum delectus velit ullam ipsam magni, consequuntur aliquid, earum, exercitationem est esse dolor nihil quis obcaecati numquam animi porro asperiores soluta excepturi. Incidunt vitae amet quas, cum dolorem quisquam!
+                  </p>
+                  <button
+                    mat-raised-button
+                    routerLink="/inspired"
+                    class="btn btn-get-started"
+                  >
+                    Get Started <i class="fa fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <div class="d-flex justify-content-center">
+                  <img
+                    class="img-fluid"
+                    src="./assets/images/leapifybusiness.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

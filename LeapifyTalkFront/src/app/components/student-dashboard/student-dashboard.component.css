@@ -1,0 +1,17 @@
+.student-dashboard-wrapper{
+    position: relative;
+    margin-bottom: 2rem;
+}
+app-dashboard-navigation{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+    app-dashboard-navigation{
+        display: none;
+    }
+}

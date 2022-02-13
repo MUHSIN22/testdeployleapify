@@ -1,0 +1,18 @@
+.notification-icon {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--bg-primary);
+  margin-right: 25px;
+  border-radius: 100%;
+  color: white;
+}
+
+.notification {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

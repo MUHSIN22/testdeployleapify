@@ -1,0 +1,8 @@
+.all-courses-in-category{
+    margin-top: 3rem;
+}
+@media only screen and (max-width: 500px) {
+    .all-courses-in-category{
+        margin-top: 1rem;
+    }
+}

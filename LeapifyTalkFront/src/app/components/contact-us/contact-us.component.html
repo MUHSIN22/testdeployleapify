@@ -1,0 +1,84 @@
+<div class="contact-us">
+  <div class="cus-overlay">
+    <h2>Contact Us</h2>
+    <h4>
+      Do you have a question, concern, idea, feedback, or problem? Take a look
+      at our frequently asked questions for some quick answers. If you still
+      need assistance, please fill out the form below and we'd be happy to help!
+    </h4>
+  </div>
+  <form class="sm-form" #form="ngForm" (ngSubmit)="submit(form)">
+    <div class="sm-form-line">
+      <div id="c-name" class="first-name p-0">
+        <label for="name">Name</label>
+        <input
+          name="name"
+          class="sm-active"
+          type="text"
+          required
+          placeholder="Enter your name"
+          [(ngModel)]="contact.name"
+        />
+      </div>
+      <div id="c-email" class="email p-0">
+        <label for="email">Email ID</label>
+        <input
+          name="email"
+          [(ngModel)]="contact.email"
+          class="sm-active"
+          type="email"
+          required
+          placeholder="Enter your email in the format xyz@abc.com"
+        />
+      </div>
+    </div>
+    <div class="toc">
+      <label for="type of contact">Type of Contact</label>
+      <select
+        name="type"
+        class="form-select"
+        style="margin-bottom: 30px"
+        required
+        aria-label="Default select example"
+        [(ngModel)]="contact.type"
+      >
+        <option selected disabled>Choose reason for contact</option>
+        <option value="1">I have a question about the service.</option>
+        <option value="2">I'm a registered client and I need support.</option>
+        <option value="3">I'm a counselor interested in joining.</option>
+        <option value="4">
+          I'm a registered counselor and I need support.
+        </option>
+        <option value="5">I have a business-related inquiry.</option>
+        <option value="6">
+          I'm interested in leapify for my organization.
+        </option>
+        <option value="7">
+          I'm interested in leapify for my organization.
+        </option>
+        <option value="8">I have a billing related question.</option>
+      </select>
+    </div>
+    <div class="m-ta">
+      <label for="floatingTextarea2">Message</label>
+      <textarea
+        name="message"
+        [(ngModel)]="contact.message"
+        required
+        class="form-control sm-active m-input"
+        id="floatingTextarea2"
+        style="height: 100px"
+      ></textarea>
+    </div>
+    <button
+      id="csm"
+      class="btn sm-form-btn"
+      type="submit"
+      [disabled]="!form.valid"
+    >
+      Send message
+    </button>
+  </form>
+</div>
+
+<app-footer></app-footer>

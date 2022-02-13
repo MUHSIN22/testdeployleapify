@@ -1,0 +1,132 @@
+<div class="therapist-course-upload-wrapper">
+    <div class="therapist-course-upload">
+        <div class="header">
+            <h1 class="upload-title">{{isEditor?"Edit":"New"}} Course</h1>
+            <p class="upload-sub-title">Uploade videos, pdf , doc type files</p>
+        </div>
+        <hr>
+        <form #UploadForm="ngForm" (ngSubmit)="UploadForm.valid && handleFormSubmit()" class="upload-course">
+            <app-drag-and-upload 
+                class="drag-and-upload" 
+                (files)="getFiles($event)"
+                [filesData] = "filesData"
+                [isNotFile] = 'isNotFile'
+                (fileRemove) = "fileRemove($event)"
+            ></app-drag-and-upload>
+            <div class="fields">
+                <label for="course-title" class="field-label">Course Title</label>
+                <input 
+                    type="text" 
+                    name="course-title" 
+                    id="course-title" 
+                    class="text-inputs" 
+                    placeholder="Title your course"
+                    required
+                    [(ngModel)] = "formData.course_title"
+                    #course_title = "ngModel"
+                    [ngClass]="{'invalid-field':course_title.touched && course_title.errors?.required}"
+                >
+                <small *ngIf="course_title.touched && course_title.errors?.required">Course Title is required</small>
+                <label for="subheading" class="field-label">Subheading</label>
+                <input 
+                    type="text" 
+                    name="subheading" 
+                    id="subheading" 
+                    class="text-inputs" 
+                    placeholder="Give your course a little more details"
+                    required
+                    [(ngModel)] = "formData.sub_heading"
+                    #sub_heading = "ngModel"
+                    [ngClass]="{'invalid-field':sub_heading.touched && sub_heading.errors?.required}"
+                />
+                <small *ngIf="sub_heading.touched && sub_heading.errors?.required" >Subheading is required</small>
+                <label for="category" class="field-label">Category</label>
+                <select 
+                    name="category" 
+                    id="category" 
+                    class="text-inputs" 
+                    [ngClass]="{'select-initial':isInitialSelect,'invalid-category':isNotCategory}"
+                    (change)="handleCategorySelection($event)"
+                    #category
+                >
+                    <option value=null>Select a category your course will go under</option>
+                    <option value="General Health">General Health</option>
+                    <option value="Mental Health">Mental Health</option>
+                    <option value="Meditation">Meditation</option>
+                    <option value="Other Health">Other Health</option>
+                </select>
+                <label for="tags" class="field-label">Tags</label>
+                <input 
+                    type="text" 
+                    name="tags" 
+                    id="tags" 
+                    class="text-inputs" 
+                    placeholder="Use comma separated tags for visibility"
+                    [(ngModel)] = "formData.tags"
+                    #tags = "ngModel"
+                />
+                <label for="learn-content" class="field-label">What you’ll learn</label>
+                <textarea 
+                    name="learn-content" 
+                    id="learn-content" 
+                    class="text-inputs" 
+                    cols="30" 
+                    rows="10" 
+                    placeholder="Use 4 points seperated by fullstop to make your course stand out"
+                    required
+                    [(ngModel)] = "formData.what_youll_learn"
+                    #learn_content = "ngModel"
+                    [ngClass]="{'invalid-field':learn_content.touched && learn_content.errors?.required}"
+                ></textarea>
+                <small *ngIf="learn_content.touched && learn_content.errors?.required">What you'll learn is required</small>
+                <label for="course-description" class="field-label">Description</label>
+                <textarea 
+                    name="course-description" 
+                    id="course-description" 
+                    class="text-inputs" 
+                    cols="30" 
+                    rows="10" 
+                    placeholder="Describe your course"
+                    [(ngModel)] = "formData.description"
+                    #description = "ngModel"
+                    required
+                    [ngClass]="{'invalid-field':description.touched && description.errors?.required}"
+                ></textarea>
+                <small *ngIf="description.touched && description.errors?.required">Description is required</small>
+                <label for="price" class="field-label">Set Price $</label>
+                <input 
+                    type="number" 
+                    name="set_price" 
+                    id="set_price" 
+                    class="text-inputs" 
+                    placeholder="Set the price of the course"
+                    required
+                    [(ngModel)] = "formData.course_price"
+                    #set_price = "ngModel"
+                    (change)="checkPrice($event)"
+                    [ngClass]="{'invalid-field':set_price.touched && set_price.errors?.required}"
+                />
+                <small *ngIf="set_price.touched && set_price.errors?.required" >Enter a valid price</small>
+                <label for="price" class="field-label">Set Discounted Price $</label>
+                <input 
+                    type="number" 
+                    name="offer_price" 
+                    id="offer_price" 
+                    class="text-inputs" 
+                    placeholder="Set the offer price of the course"
+                    required
+                    [(ngModel)] = "formData.offer_price"
+                    #offer_price = "ngModel"
+                    (change)="checkPrice($event)"
+                    [ngClass]="{'invalid-field':offer_price.touched && offer_price.errors?.required}"
+                />
+                <small *ngIf="offer_price.touched && (offer_price.errors?.required || formData.offer_price < 1)" >Enter a valid price</small>
+                <small *ngIf="offer_price.touched && (formData.offer_price > formData.course_price - 1)">Discounted price should be less than actual price</small>
+            </div>
+            <div class="submit-wrapper">
+                <hr>
+                <input type="submit" value="Submit" class="btn btn-submit">
+            </div>
+        </form>
+    </div>
+</div>

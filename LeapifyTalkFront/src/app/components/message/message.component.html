@@ -1,0 +1,100 @@
+<div class="message" [ngClass]="{ self: message.username == loggedInUser.username}">
+  <div class="message-content">
+    <div class="message-inner">
+      <div
+        tabindex="-1"
+        class="react"
+        style="z-index: 1080"
+        (focusout)="showReactionPallet = false"
+        *ngIf="showReactionPallet"
+      >
+        <span (click)="react('😊')">😊</span>
+        <span (click)="react('👍')">👍</span>
+        <span (click)="react('😍')">😍</span>
+        <span (click)="react('😂')">😂</span>
+        <span (click)="react('👌')">👌</span>
+        <span (click)="react('😭')">😭</span>
+      </div>
+      <div class="reactions">
+        <span class="d-block" *ngFor="let reaction of message?.reactions ; let i=index;"  > <span *ngIf="limit(i)"> {{reaction}}</span>  </span>
+      </div>
+      <h6 class="sender mb-1">{{ message.username | uppercase }}</h6>
+      <div *ngIf="message.type == 'image' || message.type == 'video'">
+        <video *ngIf="message.type == 'video'" class="d-block mb-2 image-message" [src]="message.imageUrl" alt="" >helo</video>
+        <img  *ngIf="message.type == 'image'" class="d-block mb-2 image-message" [src]="message.imageUrl" alt="" />
+        <button
+        (click)="like()"
+          class="btn btn-light like-button"
+          [matTooltip]=" message.likes.indexOf(loggedInUser.id)>-1 ? 'Liked' : 'Like'"
+          matTooltipPosition="below"
+        >
+          <i class="fa-thumbs-up" [ngClass]="message.likes.indexOf(loggedInUser.id)>-1 ? 'fa' : 'far' " ></i>
+        </button>
+        <button
+
+          [routerLink]=" '/comments/'+message._id"
+          [state]="message"          
+          class="btn btn-light float-end comment-button"
+          matTooltip="Comment"
+          matTooltipPosition="below"
+        >
+          <i class="far fa-comment"></i>
+        </button>
+      </div>
+      <div *ngIf="message.type == 'audio'">
+        <button (click)="control()" class="btn p-0 shadow-none">
+          <i
+            class="fa"
+            style="color: #fff"
+            [ngClass]="{ 'fa-play': !playing, 'fa-pause': playing }"
+          ></i>
+        </button>
+        <span>&nbsp; <img class="waveform" src="./assets/images/waveform.svg" alt=""></span>
+
+      </div>
+      <p
+        *ngIf="message.type != 'image' && message.message"
+        class="text-message mb-0"
+      >
+        {{ message.message }}
+      </p>
+      <div class="btn-group report" *ngIf=" message.type!=='audio' " >
+        <a
+          style="color: white; cursor: pointer"
+          class="dropdown-toggle"
+          data-bs-toggle="dropdown"
+          data-bs-display="static"
+          aria-expanded="false"
+        >
+        </a>
+        <ul class="dropdown-menu dropdown-menu-center">
+          <li><button [routerLink]="'/comments/'+message._id" class="dropdown-item" type="button">Reply</button></li>
+          <li>
+            <button
+              (click)="showReactionPallet = true"
+              type="button"
+              class="dropdown-item"
+              *ngIf="message.username !== loggedInUser.username"
+            >
+              React
+            </button>
+          </li>
+          <li>
+            <button *ngIf="message.username !== loggedInUser.username" (click)="report()" class="dropdown-item" type="button">Report Spam</button>
+          </li>
+         
+        </ul>
+      </div>
+    </div>
+    <p class="time">{{ message.createdAt | date:"short"  }}</p>
+  </div>
+  <audio
+    hidden="true"
+    (ended)="playing = false"
+    *ngIf="message.type =='audio' "
+    #player
+    controls
+  >
+    <source [src]="message.imageUrl" type="audio/mp3" />
+  </audio>
+</div>

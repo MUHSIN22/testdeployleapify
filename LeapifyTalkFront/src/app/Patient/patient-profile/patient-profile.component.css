@@ -1,0 +1,45 @@
+.data1
+{
+    display: none;
+}
+.data_display1
+{
+    display: block !important;
+}
+.data2
+{
+    display: none;
+}
+.data_display2
+{
+    display: block !important;
+}
+.data3
+{
+    display: none;
+}
+.data_display3
+{
+    display: block !important;
+}
+.data4
+{
+    display: none;
+}
+.data_display4
+{
+    display: block !important;
+}
+.radiobtn .input
+{
+    margin: 10px 4px 0 12px;
+    position: relative;
+    top: 2.8px;
+    left: 0;
+}
+.radiobtn .label
+{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

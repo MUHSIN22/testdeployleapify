@@ -1,0 +1,9 @@
+.auth-form input
+{
+    border-radius: 50px !important;
+}
+.auth-form .auth-form-icon
+{
+    border-radius: 50% !important;
+    margin-top: 2px;
+}

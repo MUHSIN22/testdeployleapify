@@ -1,0 +1,718 @@
+<div class="container-fluid pb-4">
+    <!-- ============================================================================================ -->
+    <div class="row p-3">
+        <div class="col-md-8">
+            <div class="">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img *ngIf="!imageUrl" src="assets/uploadimages/sample.png" class="w-100 rounded-pill">
+                            <img *ngIf="imageUrl" [src]="imageUrl" class="w-100 rounded-pill">
+                        </div>
+                        <div class="col-md-2">
+                            <p style="font-weight: bold; color: black !important;">Dr. {{loggedInUser.dname}}</p>
+                            <p>MBBS</p>
+                            <p>
+                                <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate">
+                                </ngb-rating>&nbsp;<b style="color: #0EA5C6;">[{{currentRate}}]</b>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>Email : {{loggedInUser.email}}</p>
+                            <p>Phone : {{mobile}}</p>
+                            <p>Licence No. : {{licenceNo}}</p>
+                        </div>
+                        <div class="col-md-4 socialicon">
+                            <p>Experience : {{experience}}+ years</p>
+                            <p>Address : {{address}}</p>
+                            <a href="{{facebooklink}}" target="_blank"><i class="fab fa-facebook-square fs-3"></i></a>
+                            <a href="{{instagramlink}}" target="_blank"><i class="fab fa-instagram fs-3 mx-3"></i></a>
+                            <a href="{{twitterlink}}" target="_blank"><i class="fab fa-twitter-square fs-3"></i></a>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <h3>About Me</h3>
+                        </div>
+                        <div class="col-md-9">
+                            <i class="fas fa-pencil-alt fs-4" style="color: #0EA5C6; position: relative; top: 13%; right: 15%;" (click)="AboutMeEdit()"></i>
+                        </div>
+                    </div>
+                    <p *ngIf="!aboutme">
+                        {{aboutMe}}
+                    </p>
+                    <form *ngIf="aboutme" [formGroup]="updateaboutme" (ngSubmit)="AboutMeUpdate(updateaboutme)">
+                        <div class="form-group">
+                            <textarea rows='2' placeholder='Write about yourself'
+                                maxlength='1500' class='form-control'
+                                data-val="true"
+                                data-val-length="The field AboutMe must be a string with a maximum length of 1000."
+                                data-val-length-max="1000" id="AboutMe"
+                                formControlName="AboutMe">{{aboutMe}}</textarea>
+                            <button class="btn btn-0EA5C6 p-0 mt-2 px-2" type="submit">Save Text</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="m-0 p-0">
+                <div class="card-body m-0 p-0">
+                   <!-- <a href="https://www.youtube.com/embed/{{youtubelink}}">play</a> -->
+                    <iframe width="100%" height="220px" src="https://www.youtube.com/embed/DBdnYisvbok"></iframe>
+                </div>
+            </div>
+            <button class="btnn mt-4 mx-5" (click)="openXl(content)">Update Profile</button>
+            <button class="btnn mt-2 mx-5" (click)="acc_mgmt(content2)">Account Management</button>
+        </div>
+    </div>
+    <!-- ============================================================================================ -->
+    <div class="row p-3">
+        <div class="d-flex justify-content-end">
+            <i class="fas fa-pencil-alt mt-3 fs-3" style="color: #0EA5C6; position: relative; top: 40%; z-index: 1;" (click)="EditSpecialities()"></i>
+        </div>
+        <div class="card card-shadow">
+            <div class="card-body">
+                    <div class="row" *ngIf="!spec">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Experience Details</h3>
+                                <label *ngFor="let exp of expierenceDetails" class="btn btn-fefefe rounded-pill px-3 m-2">{{ exp }}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Specialities</h3>
+                                <label *ngFor="let spe of specialitiesDetails" class="btn btn-fefefe rounded-pill px-3 m-2">{{ spe }}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Therapy Details</h3>
+                                <label *ngFor="let therapy of therapyDetails" class="btn btn-fefefe rounded-pill px-3 m-2">{{ therapy }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="spec">
+                        <form [formGroup]="updatespec" (ngSubmit)="UpdateSpec(updatespec)">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="met-basic-detail">
+                                        <h4>Experience Details</h4>
+                                        <div *ngIf="ExperienceMapping?.type == 'checkbox'" class=""
+                                            style="height:200px; overflow-y: auto;" >
+                                            <!-- <label *ngFor="let exp of expierenceDetails" class="btn btn-fefefe rounded-pill px-3 m-2">{{ exp }}</label> -->
+                                            <label class="btn btn-outline-success m-2"
+                                                *ngFor="let choice of ExperienceMapping.choices"
+                                                (change)="selectExperience($event)">
+                                                <input class="" type="checkbox" [value]="choice"
+                                                    [checked]="isChecked(choice)"/>
+                                                &nbsp; {{ choice }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row my-4">
+                                    <h5>Specialities</h5>
+                                    <div *ngIf="SpecialitesMapping?.type == 'checkbox'" class=""
+                                        style="height:100px; overflow-y: auto;">
+                                        <!-- <label *ngFor="let spe of specialitiesDetails" class="btn btn-fefefe rounded-pill px-3 m-2">{{ spe }}</label> -->
+                                        <label class="btn btn-outline-success m-2"
+                                            *ngFor="let choice of SpecialitesMapping.choices"
+                                            (change)="selectSpecialites($event)">
+                                            <input class="" type="checkbox" [value]="choice"
+                                                [checked]="isChecked(choice)" />
+                                            &nbsp; {{ choice }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <h5>Therapy Details</h5>
+                                    <div *ngIf="TherapyMapping?.type == 'checkbox'" class=""
+                                        style="height:100px; overflow-y: auto;">
+                                        <!-- <label *ngFor="let therapy of therapyDetails" class="btn btn-fefefe rounded-pill px-3 m-2">{{ therapy }}</label> -->
+                                        <label class="btn btn-outline-success m-2"
+                                            *ngFor="let choice of TherapyMapping.choices"
+                                            (change)="selectTherapy($event)">
+                                            <input class="" type="checkbox" [value]="choice"
+                                                [checked]="isChecked(choice)" />
+                                            &nbsp; {{ choice }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <!-- <button class="btn btn-0EA5C6 rounded-pill px-4 m-2" (click)="EditSpecialities()">Edit Specialities</button> -->
+                                <button class="btn btn-0EA5C6 rounded-pill px-5 m-2">Save</button>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================================================ -->
+    <div class="row p-3">
+        <div class="card">
+            <div class="card-body">
+                <h3>Review</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card card-shadow">
+                            <div class="card-body">
+                                <p>We also didn't use "image" or "links" in the lessons, but we did use HTML tags for
+                                    them.</p>
+                                <p>01/11/2021</p>
+                                <p>
+                                    <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate"></ngb-rating>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-shadow">
+                            <div class="card-body">
+                                <p>We also didn't use "image" or "links" in the lessons, but we did use HTML tags for
+                                    them.</p>
+                                <p>01/11/2021</p>
+                                <p>
+                                    <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate"></ngb-rating>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-shadow">
+                            <div class="card-body">
+                                <p>We also didn't use "image" or "links" in the lessons, but we did use HTML tags for
+                                    them.</p>
+                                <p>01/11/2021</p>
+                                <p>
+                                    <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate"></ngb-rating>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================================================ -->
+<!-- ============================================ Update Profile Start ================================ -->
+<!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
+
+<ng-template #content let-modal let-c="close" let-d="dismiss">
+    <form [formGroup]="updateuser" (ngSubmit)="UserUpdate(updateuser)">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <h3>Edit User Profile</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <p>Add Information About Yourself</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- --------------------------------------------------- -->
+                        <img *ngIf="!imageUrl" src="assets/uploadimages/sample.png" class="img1 mt-5 rounded-pill">
+                        <img *ngIf="imageUrl" [src]="imageUrl" class="img1 mt-5 rounded-pill">
+                        <label for="file-upload" style="color: #0EA5C6; position: relative; right: 14%; top: 30%;">
+                            <i class="fas fa-pencil-alt fs-5" title="Select Image"></i>
+                        </label>
+                        <input id="file-upload" type="file" formControlName="Image" #Image accept="image/*" (change)="onFileSelected($event)" hidden>
+                        <!-- --------------------------------------------------- -->
+                    </div>
+                    <div class="col-md-9">
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label>Mobile</label>
+                                    <input type="tel" class="form-control" placeholder="Enter Mobile" formControlName="Mobile">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label>Experience</label>
+                                    <input type="text" class="form-control" formControlName="Experience" placeholder="Enter experience years">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label>Enter Google Meet Link</label>
+                                    <input type="text" class="form-control" formControlName="GoogleMeetlink" placeholder="Enter Google Meet Link">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label>Enter Zoom Link</label>
+                                    <input type="text" class="form-control" formControlName="Zoomlink" placeholder="Enter Zoom Link">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label>Enter Skype Link</label>
+                                    <input type="text" class="form-control" formControlName="Skypelink" placeholder="Enter Skype Link">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label>Enter Facebook Link</label>
+                                    <input type="text" class="form-control" formControlName="Facebooklink" placeholder="Enter Facebook Link">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label>Enter Instagram Link</label>
+                                    <input type="text" class="form-control" formControlName="Instagramlink" placeholder="Enter Instagram Link">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label>Enter Twitter Link</label>
+                                    <input type="text" class="form-control" formControlName="Twitterlink" placeholder="Enter Twitter Link">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
+                                <button class="btnn" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<!-- ============================================ Update Profile End ===================================== -->
+<!-- ============================================ Account Management Start ================================ -->
+<!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
+
+<ng-template #content2 let-modal let-c="close" let-d="dismiss">
+        <div class="card card-shadow">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <h3>Account Management</h3>
+                    </div>
+                </div>
+                <form *ngIf="this.Pricedata == '' " [formGroup]="price" (ngSubmit)="PriceForm(price)"><!-- Form Start -->
+                <div class="row">
+                    <div class="col-md-6 border bgimg pt-2">
+                        <!-- <h6>Set Your Fee</h6> -->
+                        <b class="form-label">Do You Want To Provide A Trail Appointment ?</b> &nbsp;
+                        <input type="radio" formControlName="ta_value" value="1"><label class="fs-6 m-2">Yes</label>
+                        <input type="radio" formControlName="ta_value" value="0"><label class="fs-6 m-2">No</label>
+                        <div class="row error-mt" *ngIf="price.controls['ta_value'].invalid ">
+                        <span class="text-danger error-mt"
+                            *ngIf="price.controls['ta_value'].hasError('required') && showErrormsg==true">*
+                            Choose Yes/No *</span>
+                        </div>
+
+                        <!-- <b>Appointment Acceptance ?</b> &nbsp;
+                        <input type="radio" name="ra" checked><label class="fs-6 m-2">Automatic</label>
+                        <input type="radio" name="ra"><label class="fs-6 m-2">Recive Request</label>
+                        <br> -->
+
+                        <b>Communication Tool ?</b> &nbsp;
+                        <input type="checkbox" formControlName="g_value"><label class="fs-6 m-2">GoogleMeet</label>
+                        <input type="checkbox" formControlName="z_value"><label class="fs-6 m-2">Zoom</label>
+                        <input type="checkbox" formControlName="s_value"><label class="fs-6 m-2">Skype</label>
+                    </div>
+                    <div class="col-md-6 border bgimg pt-2">
+                        <b>Appointments rules</b>
+                        <ol>
+                            <li>Appointments must be scheduled in advance.</li>
+                            <li>Date and time for at least ONE Appointment should be selected to purchase a Package.</li>
+                            <li>Appointments must be scheduled within six months of purchase date.</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- ====================================== Video Section Start ===================================== -->
+                <div class="row">
+                    <div class="mt-4">
+                        <input type="checkbox" formControlName="v_value"> &nbsp;
+                        <label class="fs-5">Video</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-5 d-flex justify-content-center">
+                                Appointment
+                            </div>
+                            <div class="col-7 d-flex justify-content-center">
+                                $&nbsp;<input type="text" formControlName="v_price" placeholder="Enter Price" class="w-100 btn-fefefe rounded-pill">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-6 d-flex justify-content-center">
+                                <select class="btn-fefefe rounded-pill" formControlName="v_bundle">
+                                    <option value="">Appointment Bundle</option>
+                                    <option value="2">2 Appointment</option>
+                                    <option value="3">3 Appointment</option>
+                                    <option value="4">4 Appointment</option>
+                                    <option value="5">5 Appointment</option>
+                                </select>
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                $&nbsp;<input type="text" value="{{price.value.v_price*price.value.v_bundle}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                                <input type="text" value="{{(price.value.v_price*price.value.v_bundle)-(price.value.v_price*price.value.v_bundle)*(price.value.v_discount/100)}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-6 d-flex justify-content-center">
+                                Discount
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                <input type="text" formControlName="v_discount" placeholder="%" class="w-100 btn-fefefe rounded-pill">%
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!-- ====================================== Video Section End ======================================== -->
+                <!-- ====================================== VR Section Start ===================================== -->
+                <div class="row">
+                    <div class="">
+                        <input type="checkbox" formControlName="vr_value"> &nbsp;
+                        <label class="fs-5">VR(Virtual Reality)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-5 d-flex justify-content-center">
+                                Appointment
+                            </div>
+                            <div class="col-7 d-flex justify-content-center">
+                                $&nbsp;<input type="text" formControlName="vr_price" placeholder="Enter Price" class="w-100 btn-fefefe rounded-pill">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-6 d-flex justify-content-center">
+                                <select class="btn-fefefe rounded-pill" formControlName="vr_bundle">
+                                    <option value="">Appointment Bundle</option>
+                                    <option value="2">2 Appointment</option>
+                                    <option value="3">3 Appointment</option>
+                                    <option value="4">4 Appointment</option>
+                                    <option value="5">5 Appointment</option>
+                                </select>
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                $&nbsp;<input type="text" value="{{price.value.vr_price*price.value.vr_bundle}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                                <input type="text" value="{{(price.value.vr_price*price.value.vr_bundle)-(price.value.vr_price*price.value.vr_bundle)*(price.value.vr_discount/100)}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-6 d-flex justify-content-center">
+                                Discount
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                <input type="text" formControlName="vr_discount" placeholder="%" class="w-100 btn-fefefe rounded-pill">%
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!-- ====================================== VR Section End ======================================== -->
+                <!-- ====================================== Text Section Start ===================================== -->
+                <div class="row">
+                    <div class="">
+                        <input type="checkbox" formControlName="txt_value"> &nbsp;
+                        <label class="fs-5">Text</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-5 d-flex justify-content-center">
+                                Appointment
+                            </div>
+                            <div class="col-7 d-flex justify-content-center">
+                                $&nbsp;<input type="text" formControlName="txt_price" placeholder="Enter Price" class="w-100 btn-fefefe rounded-pill">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-6 d-flex justify-content-center">
+                                <select class="btn-fefefe rounded-pill" formControlName="txt_bundle">
+                                    <option value="">Appointment Bundle</option>
+                                    <option value="2">2 Appointment</option>
+                                    <option value="3">3 Appointment</option>
+                                    <option value="4">4 Appointment</option>
+                                    <option value="5">5 Appointment</option>
+                                </select>
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                $&nbsp;<input type="text" value="{{price.value.txt_price*price.value.txt_bundle}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                                <input type="text" value="{{(price.value.txt_price*price.value.txt_bundle)-(price.value.txt_price*price.value.txt_bundle)*(price.value.txt_discount/100)}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-6 d-flex justify-content-center">
+                                Discount
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                <input type="text" formControlName="txt_discount" placeholder="%" class="w-100 btn-fefefe rounded-pill">%
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button class="btn btn-0EA5C6 rounded-pill mx-2" type="submit">Save</button>
+                    </div>
+                    <!-- {{price.value | json}} -->
+                </div>
+            </form><!-- Form End -->
+            <!-- --------------------------- Update Price Data Start -------------------------- -->
+            <form *ngIf="this.Pricedata != '' " [formGroup]="updateprice" (ngSubmit)="UpdatePrice(updateprice)">
+                <div class="row">
+                    <div class="col-md-6 border bgimg pt-2">
+                        <b class="form-label">Do You Want To Provide A Trail Appointment ?</b> &nbsp;
+                        <input type="radio" formControlName="ta_value" value="1"><label class="fs-6 m-2">Yes</label>
+                        <input type="radio" formControlName="ta_value" value="0"><label class="fs-6 m-2">No</label>
+                        <b>Communication Tool ?</b> &nbsp;
+                        <input type="checkbox" formControlName="g_value"><label class="fs-6 m-2">GoogleMeet</label>
+                        <input type="checkbox" formControlName="z_value"><label class="fs-6 m-2">Zoom</label>
+                        <input type="checkbox" formControlName="s_value"><label class="fs-6 m-2">Skype</label>
+                    </div>
+                    <div class="col-md-6 border bgimg pt-2">
+                        <b>Appointments rules</b>
+                        <ol>
+                            <li>Appointments must be scheduled in advance.</li>
+                            <li>Date and time for at least ONE Appointment should be selected to purchase a Package.</li>
+                            <li>Appointments must be scheduled within six months of purchase date.</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- ====================================== Video Section Start ===================================== -->
+                <div class="row">
+                    <div class="mt-4">
+                        <input type="checkbox" formControlName="v_value"> &nbsp;
+                        <label class="fs-5">Video</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-5 d-flex justify-content-center">
+                                Appointment
+                            </div>
+                            <div *ngIf="update" class="col-7 d-flex justify-content-center">
+                                $&nbsp;<input type="text" formControlName="v_price" placeholder="Enter Price" class="w-100 btn-fefefe rounded-pill">
+                            </div>
+                            <div *ngIf="!update" class="col-7 d-flex justify-content-center">
+                                ${{this.Pricedata[0].v_price}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div *ngIf="update" class="col-6 d-flex justify-content-center">
+                                <select class="btn-fefefe rounded-pill" formControlName="v_bundle">
+                                    <option value="">Appointment Bundle</option>
+                                    <option value="2">2 Appointment</option>
+                                    <option value="3">3 Appointment</option>
+                                    <option value="4">4 Appointment</option>
+                                    <option value="5">5 Appointment</option>
+                                </select>
+                            </div>
+                            <div *ngIf="!update" class="col-6 d-flex justify-content-center">
+                                {{this.Pricedata[0].v_bundle}} Appointment
+                            </div>
+                            <div *ngIf="update" class="col-6 d-flex justify-content-center">
+                                $&nbsp;<input type="text" value="{{updateprice.value.v_price*updateprice.value.v_bundle}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                                <input type="text" value="{{(updateprice.value.v_price*updateprice.value.v_bundle)-(updateprice.value.v_price*updateprice.value.v_bundle)*(updateprice.value.v_discount/100)}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                            </div>
+                            <div *ngIf="!update" class="col-6 d-flex justify-content-center">
+                                <span class="text-decoration-line-through">&nbsp;${{this.Pricedata[0].v_price*this.Pricedata[0].v_bundle}}&nbsp;</span>&nbsp;
+                                ${{(this.Pricedata[0].v_price*this.Pricedata[0].v_bundle)-(this.Pricedata[0].v_price*this.Pricedata[0].v_bundle)*(this.Pricedata[0].v_discount/100)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-6 d-flex justify-content-center">
+                                Discount
+                            </div>
+                            <div *ngIf="update" class="col-6 d-flex justify-content-center">
+                                <input type="text" formControlName="v_discount" placeholder="%" class="w-100 btn-fefefe rounded-pill">%
+                            </div>
+                            <div *ngIf="!update" class="col-6 d-flex justify-content-center">
+                                {{this.Pricedata[0].v_discount}}%
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!-- ====================================== Video Section End ======================================== -->
+                <!-- ====================================== VR Section Start ===================================== -->
+                <div class="row">
+                    <div class="">
+                        <input type="checkbox" formControlName="vr_value"> &nbsp;
+                        <label class="fs-5">VR(Virtual Reality)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-5 d-flex justify-content-center">
+                                Appointment
+                            </div>
+                            <div *ngIf="update" class="col-7 d-flex justify-content-center">
+                                $&nbsp;<input type="text" formControlName="vr_price" placeholder="Enter Price" class="w-100 btn-fefefe rounded-pill">
+                            </div>
+                            <div *ngIf="!update" class="col-7 d-flex justify-content-center">
+                                ${{this.Pricedata[0].vr_price}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div *ngIf="update" class="col-6 d-flex justify-content-center">
+                                <select class="btn-fefefe rounded-pill" formControlName="vr_bundle">
+                                    <option value="">Appointment Bundle</option>
+                                    <option value="2">2 Appointment</option>
+                                    <option value="3">3 Appointment</option>
+                                    <option value="4">4 Appointment</option>
+                                    <option value="5">5 Appointment</option>
+                                </select>
+                            </div>
+                            <div *ngIf="!update" class="col-6 d-flex justify-content-center">
+                                {{this.Pricedata[0].vr_bundle}} Appointment
+                            </div>
+                            <div *ngIf="update" class="col-6 d-flex justify-content-center">
+                                $&nbsp;<input type="text" value="{{updateprice.value.vr_price*updateprice.value.vr_bundle}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                                <input type="text" value="{{(updateprice.value.vr_price*updateprice.value.vr_bundle)-(updateprice.value.vr_price*updateprice.value.vr_bundle)*(updateprice.value.vr_discount/100)}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                            </div>
+                            <div *ngIf="!update" class="col-6 d-flex justify-content-center">
+                                <span class="text-decoration-line-through">&nbsp;${{this.Pricedata[0].vr_price*this.Pricedata[0].vr_bundle}}&nbsp;</span>&nbsp;
+                                ${{(this.Pricedata[0].vr_price*this.Pricedata[0].vr_bundle)-(this.Pricedata[0].vr_price*this.Pricedata[0].vr_bundle)*(this.Pricedata[0].vr_discount/100)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-6 d-flex justify-content-center">
+                                Discount
+                            </div>
+                            <div *ngIf="update" class="col-6 d-flex justify-content-center">
+                                <input type="text" formControlName="vr_discount" placeholder="%" class="w-100 btn-fefefe rounded-pill">%
+                            </div>
+                            <div *ngIf="!update" class="col-6 d-flex justify-content-center">
+                                {{this.Pricedata[0].vr_discount}}%
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!-- ====================================== VR Section End ======================================== -->
+                <!-- ====================================== Text Section Start ===================================== -->
+                <div class="row">
+                    <div class="">
+                        <input type="checkbox" formControlName="txt_value"> &nbsp;
+                        <label class="fs-5">Text</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-5 d-flex justify-content-center">
+                                Appointment
+                            </div>
+                            <div *ngIf="update" class="col-7 d-flex justify-content-center">
+                                $&nbsp;<input type="text" formControlName="txt_price" placeholder="Enter Price" class="w-100 btn-fefefe rounded-pill">
+                            </div>
+                            <div *ngIf="!update" class="col-7 d-flex justify-content-center">
+                                ${{this.Pricedata[0].txt_price}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div *ngIf="update" class="col-6 d-flex justify-content-center">
+                                <select class="btn-fefefe rounded-pill" formControlName="txt_bundle">
+                                    <option value="">Appointment Bundle</option>
+                                    <option value="2">2 Appointment</option>
+                                    <option value="3">3 Appointment</option>
+                                    <option value="4">4 Appointment</option>
+                                    <option value="5">5 Appointment</option>
+                                </select>
+                            </div>
+                            <div *ngIf="!update" class="col-6 d-flex justify-content-center">
+                                {{this.Pricedata[0].txt_bundle}} Appointment
+                            </div>
+                            <div *ngIf="update" class="col-6 d-flex justify-content-center">
+                                $&nbsp;<input type="text" value="{{updateprice.value.txt_price*updateprice.value.txt_bundle}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                                <input type="text" value="{{(updateprice.value.txt_price*updateprice.value.txt_bundle)-(updateprice.value.txt_price*updateprice.value.txt_bundle)*(updateprice.value.txt_discount/100)}}" class="w-50 btn-fefefe rounded-pill" disabled>
+                            </div>
+                            <div *ngIf="!update" class="col-6 d-flex justify-content-center">
+                                <span class="text-decoration-line-through">&nbsp;${{this.Pricedata[0].txt_price*this.Pricedata[0].txt_bundle}}&nbsp;</span>&nbsp;
+                                ${{(this.Pricedata[0].txt_price*this.Pricedata[0].txt_bundle)-(this.Pricedata[0].txt_price*this.Pricedata[0].v_bundle)*(this.Pricedata[0].txt_discount/100)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-5 pt-0 pb-1">
+                        <div class="row border border-info rounded-pill my-2 p-3">
+                            <div class="col-6 d-flex justify-content-center">
+                                Discount
+                            </div>
+                            <div *ngIf="update" class="col-6 d-flex justify-content-center">
+                                <input type="text" formControlName="txt_discount" placeholder="%" class="w-100 btn-fefefe rounded-pill">%
+                            </div>
+                            <div *ngIf="!update" class="col-6 d-flex justify-content-center">
+                                {{this.Pricedata[0].txt_discount}}%
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button *ngIf="!update" class="btn btn-0EA5C6 rounded-pill mx-2" (click)="update = true">Edit</button>
+                        <button *ngIf="update" class="btn btn-0EA5C6 rounded-pill mx-2" type="submit">Save</button>
+                        <button *ngIf="update" class="btn btn-0EA5C6 rounded-pill mx-2" (click)="update = false">Cancel</button>
+                    </div>
+                    <!-- {{updateprice.value | json}} -->
+                </div>
+            </form>
+            <!-- --------------------------- Update Price Data End ---------------------------- -->
+                <!-- ====================================== Text Section End ======================================== -->
+            </div>
+        </div>
+</ng-template>
+<!-- ============================================ Account Management End ===================================== -->
+</div>

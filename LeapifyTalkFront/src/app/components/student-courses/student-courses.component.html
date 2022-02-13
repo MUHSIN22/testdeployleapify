@@ -1,0 +1,34 @@
+
+<div class="student-enrolled-courses">
+    <div class="student-enrolled-courses-wrapper">
+        <h1 class="section-title">My Courses</h1>
+        <div class="student-navigation-wrapper">
+            <ul class="student-course-navigation">
+                <li (click)="navClick('all')" [ngClass]="{'student-course-navigation-active':!courseType || courseType === '' || courseType === 'all'}">All Courses</li>
+                <li (click)="navClick('ongoing')" [ngClass]="{'student-course-navigation-active':courseType === 'ongoing'}">Ongoing Courses</li>
+                <li (click)="navClick('completed')" [ngClass]="{'student-course-navigation-active':courseType === 'completed'}">Completed Courses</li>
+            </ul>
+        </div>
+        <div class="course-card-wrapper" *ngIf="isCourses">
+            <app-student-dashboard-course-card 
+                class="course-card" 
+                *ngFor="let course of courses" 
+                [course]="course" 
+                [isPurchased]="isPurchased"
+                [isCompleted]="isCompleted"
+            ></app-student-dashboard-course-card>
+        </div>
+        <div class="no-course" *ngIf="!isCourses">
+            <div class="no-course-text">
+                <h4 class="uh-oh">
+                    Uh oh! Looks like you have no courses.
+                    <br>
+                    Try buying one
+                </h4>
+                <button class="btn btn-buy" [routerLink]="['/courses']" [queryParams]="{belongs:'Popular',page:1}">Get started</button>
+            </div>
+            <img src="/assets/images/no-course.svg" alt="" class="no-course-img">
+        </div>
+    </div>
+</div>
+

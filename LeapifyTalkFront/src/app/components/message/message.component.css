@@ -1,0 +1,180 @@
+.message {
+  height: fit-content;
+  margin: 0.5em 0;
+  width: 100%;
+}
+
+.message-content {
+  max-width: 50%;
+  position: relative;
+}
+
+.text-message {
+  overflow-wrap: break-word;
+}
+.message-inner::before {
+  content: url(../../../assets/images/left-message.svg);
+  position: absolute;
+  bottom: -6px;
+  left: -10px;
+}
+
+.sender {
+  font-weight: bold;
+  color: purple;
+}
+
+.self .message-inner {
+  background: #0ea5c6;
+  margin-left: auto;
+}
+
+.self .message-inner::before {
+  content: url(../../../assets/images/right-message.svg);
+  position: absolute;
+  bottom: -6px;
+  left: auto;
+  right: -10px !important;
+}
+
+.self .sender {
+  display: none;
+}
+
+.self .message-content,
+.self .time {
+  float: right;
+}
+
+.message-inner {
+  position: relative;
+  width: fit-content;
+  padding: 10px 15px;
+  background: #79c4d5;
+  border-radius: 10px;
+  max-width: 100%;
+}
+
+.time {
+  font-size: 12px;
+  margin-bottom: 0;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.like-button {
+  padding: 0 1.5rem;
+}
+
+.comment-button {
+  padding: 0 1rem;
+}
+
+.image-message {
+  max-width: 214px;
+  min-width: 214px;
+  min-height: 115px;
+  max-height: 115px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 992px) {
+  .message-content {
+    max-width: 70%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .message-inner {
+    padding: 10px;
+  }
+
+  .sender {
+    font-size: 16px;
+  }
+
+  .text-message {
+    font-size: 12px;
+  }
+
+  .image-message {
+    max-height: 89px;
+    min-width: 166px;
+  }
+
+  .like-button {
+    padding: 0 1rem;
+  }
+  .comment-button {
+    font-size: 12px;
+    padding: 0.21rem 1rem;
+  }
+
+  .self .message-inner::before {
+    bottom: -6.25px;
+  }
+  .message-content {
+    max-width: 90%;
+  }
+}
+
+.message-inner:hover .report {
+  display: inline-block;
+}
+
+.report {
+  position: absolute;
+  display: none;
+  right: 10px;
+  top: 5px;
+}
+
+.self .report {
+  left: 10px;
+  top: 1px;
+  right: auto;
+}
+
+.dropdown-menu {
+  min-width: fit-content;
+  max-width: fit-content;
+}
+
+@media screen and (max-width: 576px) {
+  .report {
+    position: absolute;
+    right: 3px;
+    top: 0px;
+  }
+  .dropdown-item {
+    font-size: 12px;
+  }
+}
+
+.react {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0px 30px 60px rgba(57, 57, 57, 0.3);
+  border-radius: 10px;
+  padding: 0.5rem;
+  width: 255px;
+  transition: ease 1s;
+  font-size: 30px;
+}
+
+.react span {
+  cursor: pointer;
+}
+
+.reactions {
+  position: absolute;
+  right: -15px;
+}
+
+.waveform {
+  max-height: 35px;
+}
+
+.self .reactions {
+  left: -15px;
+  top: 0;
+  right: auto;
+}

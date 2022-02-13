@@ -1,0 +1,32 @@
+<div class="video-player" >
+    <div class="buffer" *ngIf="isBuffer">
+        <div class="bar one"></div>
+        <div class="bar two"></div>
+        <div class="bar three"></div>
+    </div>
+    <video (mouseover)="onMouseOver()" (mouseout)="onMouseOut()" class="video" [ngClass]="{'stretched':stretch||isClosed}" #video controlslist="nodownload" [controls]="isFullScreen"  (click)="playVideo()">
+        <source [src]="videoLink" type="video/mp4">
+        <!-- Your browser does not support the video tag. -->
+    </video>
+    <i *ngIf="!isVideoPlaying" class="fas fa-play-circle play-btn" (click)="playVideo()"></i>
+    <div class="video-controls" [hidden]="!isControls">
+        <div class="course-progress" (click)="changeProgress($event)">
+            <div class="progress" [style.width]="videoProgress+'%'"></div>
+        </div>
+        <div class="controls">
+            <i class="fas fa-play play-and-pause-btn" *ngIf="!isVideoPlaying" (click)="playVideo()"></i>
+            <i class="fas fa-pause play-and-pause-btn" *ngIf="isVideoPlaying" (click)="playVideo()"></i>
+            <div class="right-controls">
+                <div class="sound-control-wrapper">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" #soundControl (change)="changeVolume($event)" class="volume-controller" name="volume-controller" id="" max="10" min="0"  value="10">
+                </div>
+                <i class="fas fa-closed-captioning"></i>
+                <i class="fas fa-expand-arrows-alt" (click)="setOrResetFullScreen()"></i>
+                <i class="fas fa-arrows-alt-h expand" *ngIf="!stretch || !isClosed" (click)="stretchToEnd()"></i>
+                <i class="fas fa-compress-alt expand" *ngIf="stretch || isClosed" (click)="stretchToEnd()"></i>
+            </div>
+        </div>
+    </div>
+</div>
+

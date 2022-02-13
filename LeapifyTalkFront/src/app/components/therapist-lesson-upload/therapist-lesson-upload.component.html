@@ -1,0 +1,64 @@
+<app-loading [loading]="isLoading"></app-loading>
+<div class="therapist-lesson-upload-wrapper">
+    <div class="therapist-lesson-upload">
+        <div class="header">
+            <h1 class="upload-title">File Upload</h1>
+            <p class="upload-sub-title">Uploade videos, pdf , doc type files</p>
+        </div>
+        <hr>
+        <form #lessonUploadForm="ngForm" (submit)="lessonUploadForm.valid&&onFormSubmit()" class="upload-course">
+            <app-drag-and-upload 
+                class="drag-and-upload" 
+                [itemsVisibilty]="false"
+                (files)="getFiles($event)"
+                [filesData] = "filesData"
+                [isNotFile] = 'isNotFile'
+                (fileRemove) = "fileRemove($event)"
+            ></app-drag-and-upload>
+            <div class="fields">
+                <label for="lesson-section" class="field-label">Lesson Section</label>
+                <input 
+                    type="text" 
+                    name="lesson_section" 
+                    required 
+                    #lesson_section="ngModel" 
+                    [(ngModel)]="data.lesson_section" 
+                    id="lesson-section" 
+                    class="text-inputs" 
+                    [ngClass]="{'invalid-input':lesson_section.touched&&lesson_section.errors?.required}"
+                >
+                <small class="invalid-text" *ngIf="lesson_section.touched&&lesson_section.errors?.required">Lesson section is required</small>
+                <label for="lesson-title" class="field-label">Lesson Title</label>
+                <input 
+                    type="text" 
+                    name="lesson_title" 
+                    required 
+                    [(ngModel)]="data.lesson_name" 
+                    #lesson_title="ngModel" 
+                    id="lesson-title" 
+                    class="text-inputs"
+                    [ngClass]="{'invalid-input':lesson_title.touched&&lesson_title.errors?.required}"
+                />
+                <small class="invalid-text" *ngIf="lesson_title.touched&&lesson_title.errors?.required">Lesson name is required</small>
+                <label for="breif-description" class="field-label">Breif Description </label>
+                <textarea 
+                    name="breif-description" 
+                    #description="ngModel" 
+                    required 
+                    [(ngModel)]="data.description" 
+                    id="breif-description" 
+                    class="text-inputs" 
+                    cols="30" 
+                    rows="10"
+                    [ngClass]="{'invalid-input':description.touched&&description.errors?.required}"
+                >
+                </textarea>
+                <small class="invalid-text" *ngIf="description.touched&&description.errors?.required">Description is required</small>
+            </div>
+            <div class="submit-wrapper">
+                <hr>
+                <input type="submit" value="Submit" class="btn btn-submit">
+            </div>
+        </form>
+    </div>
+</div>

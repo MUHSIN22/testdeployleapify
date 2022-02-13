@@ -1,0 +1,28 @@
+<section class="instructor-section">
+    <div class="instructor-wrapper" *ngIf="instructor">
+        <div class="profile-section">
+            <img class="avatar" [src]="instructor.photo_url != ''? instructor.photo_url: '/assets/images/temp/profile-image.png'" alt="">
+            <h5 class="profile-name">{{instructor.name}}</h5>
+            <p class="profile-graduation">{{instructor.headline != ''?instructor.headline:''}}</p>
+            <p class="rating"><span>4.5</span><i class="fas fa-star"></i></p>
+            <div class="student-and-courses">
+                <p class="students">
+                    <strong>{{instructor.students.length}}</strong>
+                    Students
+                </p>
+                <div class="courses">
+                    <strong>{{instructor.courses.length}}</strong>
+                    Courses
+                </div>
+            </div>
+        </div>
+        <div class="about-instructor">
+            <h4 class="section-title">About Me</h4>
+            <p class="about-content">
+                 {{instructor.about_instructor?instructor.about_instructor:"Not added yet"}}
+            </p>
+        </div>
+        <app-paginated-courses [coursesData]="instructorCourseDetails" (pageChange)="changePage($event)"></app-paginated-courses>
+    </div>
+</section>
+<app-footer></app-footer>

@@ -1,0 +1,91 @@
+.therapist-courses-wrapper{
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+.therapist-courses{
+    width: 84%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 2rem;
+    grid-template-areas: "header new-course""title title""course course-two""pagination pagination";
+}
+.search-bar-wrapper{
+    grid-area: header;
+}
+.btn-blue{
+    background: var(--bg-primary);
+    width: max-content;
+    padding: 0.5rem 2rem;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 80px;
+}
+.btn-new-course{
+    grid-area: new-course;
+    justify-self: end;
+}
+.title{
+    grid-area: title;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 35px;
+}
+.no-course-para{
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 60px;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+.pagination-wrapper{
+    grid-area: pagination;
+}
+.no-course{
+    grid-area: course;
+    height: max-content;
+    align-self: center;
+}
+.no-course-img{
+    grid-area: course-two;
+    align-self: center;
+    justify-self: center;
+}
+.active-courses{
+    grid-area: 3/1/4/3;
+}
+app-long-course-card{
+    margin: 1rem;
+}
+.numbered-pagination{
+    display: none;
+}
+@media only screen and (max-width: 800px) {
+    .therapist-courses{
+        width: 95%;
+    }
+    .not-numbered-pagination{
+        display: none;
+    }
+    .numbered-pagination{
+        display: block;
+    }
+}
+@media only screen and (max-width:550px) {
+    .therapist-courses{
+        grid-template-areas: 'header''new-course''title''course''pagination';
+        grid-template-columns: 1fr;
+        grid-row-gap: 10px;
+    }
+    .btn-new-course{
+        width: 100%;
+    }
+    .active-courses,
+    .no-course{
+        grid-area: course;
+    }
+    .title{
+        font-size: 21px;
+        padding: 0;
+    }
+}

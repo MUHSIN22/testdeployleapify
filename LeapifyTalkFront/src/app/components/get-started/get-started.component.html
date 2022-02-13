@@ -1,0 +1,106 @@
+<div *ngIf="!started" class="initial_screen">
+  <img
+    class="img-fluid"
+    src="./assets/images/editing_body_text_amico_1.svg"
+    alt=""
+  />
+  <h2>There are questions and a break for refreshments in the middle</h2>
+  <p>(You'll have to provide your own snacks, sorry)</p>
+  <button (click)="startNow()" mat-raised-button id="startnow" class="btn is-btn" type="button">
+    Start Now
+  </button>
+</div>
+<div *ngIf="started" class="qa">
+  <div class="qa-part-one" id="ques_ans">
+    <p id="question_ans">{{ currentQuestion?.ques }}</p>
+    <p id="question_ans_note">{{ currentQuestion?.ques_note }}</p>
+    <div
+      *ngIf="currentQuestion?.type == 'radio'"
+      class="button_group"
+      id="btn_grp"
+    >
+      <label
+      mat-raised-button
+        *ngFor="let choice of currentQuestion?.choices"
+        id="choicesbtn"
+        class="choice-btn"
+        (mouseup)="selectOption(choice)"
+      >
+        <div class="form-input">
+          <input
+            style="cursor: 'pointer'"
+            type="radio"
+            class="form-check-input radio"
+            [name]="currentQuestion.ques"
+            [value]="choice"
+            [(ngModel)]="radioChoice"
+          />
+        </div>
+        &nbsp;
+        {{ choice }}
+      </label>
+    </div>
+
+    <div
+      *ngIf="currentQuestion?.type == 'checkbox'"
+      class="button_group"
+      id="btn_grp"
+    >
+      <label
+      mat-raised-button
+        class="form-check-label choice-btn2"
+        *ngFor="let choice of currentQuestion.choices"
+        (change)="selectOption($event)"
+      >
+        <input
+          class="form-check-input check"
+          type="checkbox"
+          [value]="choice"
+          [checked]="isChecked(choice)"
+        />
+        &nbsp; {{ choice }}
+      </label>
+    </div>
+  </div>
+ 
+</div>
+<div [ngClass]="{ 'd-flex': started, 'd-none': !started }" id="progress">
+  <button
+    class="btn prev-ques"
+    (click)="prevQuestion()"
+    *ngIf="questionNo !== 0"
+  >
+    <i class="fa fa-arrow-left"></i>
+  </button>
+  <div class="p-div">
+    <div
+      id="progress_bar"
+      data-bs-placement="top"
+      title="Tooltip on top"
+      [style.width]="progress + '%'"
+    >
+      <span class="tooltiptext" id="tooltip" *ngIf="progress > 0">
+        {{ progress + " % completed. Great going!" }}
+      </span>
+    </div>
+  </div>
+  <button
+  mat-raised-button
+    (click)="nextQuestion()"
+    id="nq"
+    class="btn"
+    *ngIf="
+      currentQuestion?.type !== 'radio' && questions.length !== questionNo + 1
+    "
+  >
+    Next <span class="d-none d-sm-inline-block">Question</span>
+  </button>
+  <button
+  mat-raised-button
+    *ngIf="questions.length == questionNo + 1"
+    (click)="submit()"
+    id="signin_bottom"
+  >
+    Sign up
+  </button>
+</div>

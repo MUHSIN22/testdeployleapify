@@ -1,0 +1,18 @@
+<nb-card size="medium">
+  <nb-card-body>
+    <div 
+      class="progress-info" 
+      *ngFor="let item of progressInfoData" 
+    >
+      <div class="subtitle">{{ item.title }}</div>
+      <div class="h3">{{ item.value | ngxNumberWithCommas }}</div>
+      <nb-progress-bar [value]="item.activeProgress" *ngIf="!item.isCourse"></nb-progress-bar>
+      <div class="caption description" *ngIf="item.isCourse">
+        <button class="btn btn-primary" (click)="navigate(item.link)">Show {{item.title}}</button>
+      </div>
+      <div class="caption description" *ngIf="!item.isCourse">
+        <bdi>Better than last week {{ item.activeProgress }}%</bdi>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

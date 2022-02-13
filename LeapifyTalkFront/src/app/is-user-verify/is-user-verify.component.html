@@ -1,0 +1,129 @@
+<!-- ----------------------------------------- OTP Verification Section Start ------------------------------------------------ -->
+<div class="container" style="margin-top: 8%;">
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngIf="otp_form" class="d-flex justify-content-center">
+                <div class="card card-shadow">
+                    <div class="card-body">
+                        <div class="text-center auth-logo-text">
+                            <h4>Enter Password And Use LeapifyTalk</h4>
+                            <p>Hello, enter your verification code to unlock !</p>
+                        </div>
+                        <form [formGroup]="otpform" (ngSubmit)="UserVerify(otpform)"
+                            class="form-horizontal auth-form my-4">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="OTP">User Verify OTP</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row error-mt" *ngIf="otpform.controls['OTP'].invalid ">
+                                            <span class="text-danger error-mt"
+                                                *ngIf="otpform.controls['OTP'].hasError('required') && showErrormsg==true">*
+                                                Please Enter OTP *</span>
+                                            <span class="text-danger error-mt"
+                                                *ngIf="otpform.controls['OTP'].hasError('MustMatch') && showErrormsg==true">*
+                                                Invalid OTP *</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="auth-form-icon">
+                                        <i class="dripicons-lock"></i>
+                                    </span>
+                                    <input type="password" class="form-control" formControlName="OTP"
+                                        placeholder="Enter Code">
+                                </div>
+                            </div>
+                            <!--end form-group-->
+                            <div class="form-group row">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <button class="btn btn-0EA5C6 rounded-pill" type="submit"> Unlock </button>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end form-group-->
+                        </form>
+                        <!--end form-->
+                    </div>
+                    <!--end card-body-->
+                </div>
+                <!--end card-->
+            </div>
+            <!-- ======================== New Password Start ================================ -->
+            <!-- <div *ngIf="resetpass_form" class="d-flex justify-content-center">
+                <div class="card card-shadow">
+                    <div class="card-body">
+                            <div class="text-center auth-logo-text">
+                                <h4 class="mt-0 mb-3 mt-5">New Password For LeapifyTalk</h4>
+                            </div>
+                            <form [formGroup]="resetpass" (ngSubmit)="ResetPass(resetpass)"
+                                class="form-horizontal auth-form my-4">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="Password">Password</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row error-mt" *ngIf="resetpass.controls['Password'].invalid">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="resetpass.controls['Password'].hasError('required') && showErrormsg==true">*
+                                                    The Password field is required. *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="auth-form-icon">
+                                        <i class="dripicons-mail"></i>
+                                    </span>
+                                    <input type="Password" class="form-control" formControlName="Password"
+                                        placeholder="Enter Password">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="CPassword">Confirm Password</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row error-mt" *ngIf="resetpass.controls['CPassword'].invalid">
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="resetpass.controls['CPassword'].hasError('pattern') && showErrormsg==true">*
+                                                    Confirm Password Invalid *</span>
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="resetpass.controls['CPassword'].hasError('required') && showErrormsg==true">*
+                                                    Please Enter Confirm Password *</span>
+                                                <span class="text-danger error-mt"
+                                                    *ngIf="resetpass.controls['CPassword'].hasError('PassMatch') && showErrormsg==true">*
+                                                    Password Not Match *</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="auth-form-icon"><i class="dripicons-lock-open"></i></span>
+                                        <input type="password" class="form-control" placeholder="Confirm password"
+                                            formControlName="CPassword">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-0 row">
+                                    <div class="col-12 mt-2">
+                                        <button
+                                            class="btn btn-gradient-primary btn-round btn-block waves-effect waves-light"
+                                            type="submit">Send Mail</button>
+                                    </div>
+                                </div>
+                            </form>
+                        <div class="m-3 text-center text-muted">
+                            <p class="">Remember It ? <a routerLink="/LogIn" class="text-primary ml-2">LogIn</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- ======================== New Password End =================================== -->
+        </div>
+        <!--end col-->
+    </div>
+    <!--end row-->
+</div>
+<!--end container-->
+<!-- ----------------------------------------- OTP Verification Section End ------------------------------------------------ -->

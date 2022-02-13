@@ -1,0 +1,58 @@
+.therapist-analytics-card{
+    box-shadow: -3px 2px 24px rgba(120, 137, 165, 0.3);
+    border-radius: 20px;
+    padding:1rem;
+}
+.card-title{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    text-align: left;
+}
+.amount-and-analytics-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+.amount{
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 38px;
+    text-align: left;
+    color: var(--bg-primary);
+}
+.analytics{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: green;
+}
+.month{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+.analytics-percentage{
+    margin-left: 0.5rem;
+}
+p{
+    margin: 0;
+}
+.chart{
+    width: 100%;
+}
+.danger-analytics{
+    color: red;
+}
+@media only screen and (max-width: 990px) {
+    .amount{
+        font-size: 24px;
+    }
+    .analytics,
+    .month{
+        font-size: 12px;
+    }
+}

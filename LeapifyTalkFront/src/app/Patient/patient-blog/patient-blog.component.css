@@ -1,0 +1,17 @@
+.badge
+{
+    background-color: #79C4D5;
+    /* color: #0EA5C6; */
+    font-size: 15px;
+}
+.left
+{
+    margin-left: 85%;
+}
+.userimg
+{
+    height: 50px;
+    width: 50px;
+    border: 1px solid #0EA5C6;
+    border-radius: 50%;
+}

@@ -1,0 +1,28 @@
+<div class="container-fluid position-relative" (window:resize)="resize()">
+    <button
+      class="btn shadow-none position-absolute"
+      style="top: -15px; right: 0"
+      (click)="cancel.emit()"
+    >
+      <i class="fa fa-times"></i>
+    </button>
+    <div>
+      <div class="top-image pb-3">
+        <webcam
+          (initError)="error.emit($event)"
+          [trigger]="triggerObservable"
+          (imageCapture)="handleImage($event)"
+          [height]="height"
+        ></webcam>
+      </div>
+      <div>
+        <hr />
+        <div class="row">
+          <div class="col-12 d-flex justify-content-center flex-wrap">
+            <button class="btn btn-primary" (click)="trigger.next()">Take A Snapshot</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

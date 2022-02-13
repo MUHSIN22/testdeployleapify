@@ -1,0 +1,116 @@
+.therapist-lesson-upload-wrapper{
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+}
+.therapist-lesson-upload{
+    width: 84%;
+    border-radius: 20px;
+    border: 2px solid var(--bg-primary);
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+}
+.header{
+    grid-area: header;
+    text-align: center;
+}
+.upload-title{
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 45px;
+}
+.upload-course{
+    grid-area: form;
+    display: grid;
+    grid-template-areas: "drag fields""submit submit";
+    grid-column-gap: 2rem;
+    grid-template-columns: 25rem auto;
+}
+.drag-and-upload{
+    grid-area: drag;
+}
+.fields{
+    grid-area: fields;
+    display: flex;
+    flex-direction: column;
+}
+.field-label{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+}
+.text-inputs{
+    font-size: 18px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #CED4DA;
+    background:#fff;
+    margin: 1rem 0; 
+    resize: none;
+    width: 100%;
+}
+.submit-wrapper{
+    text-align: center;
+    grid-area: submit;
+}
+.btn-submit{
+    background: var(--bg-primary);
+    border-radius: 50px;
+    padding: 1rem 3rem;
+    color: #fff;
+    font-weight: 600;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+.btn-submit:hover{
+    opacity: 1;
+}
+
+@media only screen and (max-width: 1200px) {
+    .upload-course{
+        grid-template-columns: 15rem auto;
+    }
+    .upload-desc{
+        text-align: center
+    }
+}
+@media only screen and (max-width: 990px) {
+    .therapist-lesson-upload{
+        width: 94%;
+    }
+}
+@media only screen and (max-width: 790px) {
+    .therapist-lesson-upload{
+        padding: 0;
+        border: none;
+    }
+    .upload-course{
+        grid-template-columns: 1fr;
+        grid-template-areas: 'drag''fields'"submit";
+    }
+}
+@media only screen and (max-width: 500px) {
+    .therapist-lesson-upload{
+        width: 90%;
+    }
+    .therapist-lesson-upload-wrapper{
+        padding-top: 1rem;
+    }   
+    .upload-title{
+        font-size: 25px;
+        margin-bottom: 0;
+    }
+    .upload-sub-title{
+        font-size: 14px;
+    }
+    .field-label{
+        font-size: 15px;
+    }
+    .text-inputs{
+        font-size: 15px;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+        max-height: 6rem;
+    }
+}

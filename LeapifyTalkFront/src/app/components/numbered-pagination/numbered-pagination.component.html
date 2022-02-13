@@ -1,0 +1,8 @@
+<div class="pagination-component">
+    <i class="fas fa-arrow-left" (click)="switchToPreviousPage()"></i>
+    <p (click)="handlePageNumber(-1)" class="pagination-numbers" *ngIf="page-1 !== 0">{{page-1 !== 0?page-1:null}}</p>
+    <p (click)="handlePageNumber(0)" class="pagination-numbers active-number">{{page}}</p>
+    <p (click)="handlePageNumber(1)" class="pagination-numbers" *ngIf="page+1 <= totalPages">{{page+1 <= totalPages?page+1:null}}</p>
+    <p (click)="handlePageNumber(2)" class="pagination-numbers" *ngIf="page+2 <= totalPages">{{page+2 <= totalPages?page+2:null}}</p>
+    <i class="fas fa-arrow-right" (click)="switchToNextPage()"></i>
+</div>

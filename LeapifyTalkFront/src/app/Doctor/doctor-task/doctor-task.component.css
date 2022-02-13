@@ -1,0 +1,14 @@
+.todo-list .todo-box .todo-task input:checked+span 
+{
+    text-decoration-color: red !important;
+    text-decoration: line-through;
+    font-size: larger;
+}
+.todo-list .todo-box .todo-task span 
+{
+    font-size: larger;
+}
+.ckbox
+{
+    color: #0EA5C6;
+}

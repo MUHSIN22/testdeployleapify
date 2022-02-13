@@ -1,0 +1,44 @@
+<div class="file-section">
+    <strong class="number-of-files" *ngIf="itemsVisibilty">Upload 1 image and 1 video</strong>
+    <div #dragUpload class="drag-upload" [ngClass]="{'dragged':isDragOver,'no-file':isNotFile}">
+        <img src="/assets/icons/upload.svg" class="upload-icon" alt="">
+        <strong class="upload-desc">Drag & drop the files you want to upload</strong>
+        <label for="drag-upload" class="btn btn-file-upload">Choose file</label>
+        <input hidden type="file" name="drag-upload" id="drag-upload" (change)="handleFile($event)" class="drag-upload" multiple/>
+    </div>
+    
+    <!-- <app-therapist-files-upload-progress 
+        *ngFor="let file of images" 
+        [uploadData]="{file,type:'image'}"
+        (removeFile)="removeFile($event)"    
+    ></app-therapist-files-upload-progress>
+    <app-therapist-files-upload-progress 
+        *ngFor="let file of videos" 
+        [uploadData]="{file,type:'video'}"
+        (removeFile)="removeFile($event)"    
+    ></app-therapist-files-upload-progress> -->
+
+    <div class="progress-wrapper" *ngIf="filesData && filesData.files">
+        <app-therapist-files-upload-progress 
+            *ngFor="let file of filesData.files.image" 
+            [uploadData]="{file,type:'image'}"
+            (removeFile)="removeFile($event)"    
+        ></app-therapist-files-upload-progress>
+        <app-therapist-files-upload-progress 
+            *ngFor="let file of filesData.files.video" 
+            [uploadData]="{file,type:'video'}"
+            (removeFile)="removeFile($event)"    
+        ></app-therapist-files-upload-progress>
+        <app-therapist-files-upload-progress 
+            *ngFor="let file of filesData.files.document" 
+            [uploadData]="{file,type:'document'}"
+            (removeFile)="removeFile($event)"    
+        ></app-therapist-files-upload-progress>
+        <app-therapist-files-upload-progress 
+            *ngFor="let file of filesData.files.pdf" 
+            [uploadData]="{file,type:'pdf'}"
+            (removeFile)="removeFile($event)"    
+        ></app-therapist-files-upload-progress>
+    </div>
+    
+</div>

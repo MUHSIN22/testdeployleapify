@@ -1,0 +1,28 @@
+/*  /index.html 200
+
+ <div
+    class="toast-container d-none position-absolute start-50 translate-middle-x"
+  >
+    <div
+      class="toast fade"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div class="toast-img-cont">
+        <img src="./assets/images/warning.svg" alt="" />
+      </div>
+      <div class="tb-container">
+        <div class="toast-body">
+          <h2>Warning!</h2>
+          <p>Please select atleast one.</p>
+        </div>
+        <button
+          type="button"
+          class="toast-btn-close btn-close btn-close-white"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+  </div>

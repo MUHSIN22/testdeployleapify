@@ -1,0 +1,76 @@
+.most-popular-courses{
+    position: relative;
+}
+.most-popular-courses .title{
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 23px;
+    margin: 2rem 0;
+}
+.most-popular-courses .slider{
+    display: flex;
+    justify-content: space-between;
+    width: calc(200% + 2rem);
+    position: relative;
+    transition: 0.5s ease;
+}
+.most-popular-courses i{
+    background: var(--creamy-color);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding: 1.5rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    color: var(--bg-primary);
+    z-index: 1;
+    cursor: pointer;
+    transform: translateX(30%);
+}
+.most-popular-courses .left-arrow{
+    left: 0;
+    max-width: max-content;
+    transform: translateX(-50%);
+}
+.most-popular-courses .slider-wrapper{
+    width: 100%;
+    overflow-x: hidden;
+    padding: 1rem;
+    transform: translateX(-1rem)
+}
+.most-popular-courses .slider-section{
+    display: flex;
+    width: calc(50% - 1rem);
+    justify-content: space-between;
+}
+.most-popular-courses .slider-section:last-child{
+    margin-left: 2rem;
+}
+.owl-theme .owl-nav {
+	margin-top: 10px;
+}
+app-square-course-card{
+    height: 100%;
+}
+@media only screen and (max-width: 1000px) {
+    .most-popular-courses .slider-wrapper{
+        transform: translateX(0)
+    }
+    .most-popular-courses .slider-section{
+        flex-direction: column;
+    }
+    app-square-course-card{
+        width: 100%;
+    }
+    .most-popular-courses i{
+        display: none;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .most-popular-courses .slider-wrapper{
+        padding: 0.5rem;
+    }
+    .most-popular-courses .title{
+        font-size: 18px;
+    }
+}

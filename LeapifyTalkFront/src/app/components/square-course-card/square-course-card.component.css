@@ -1,0 +1,114 @@
+.square-course-card{
+    box-shadow: -3px 2px 24px 0px #7889A54D;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.square-course-card .course-thumbnail{
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+}
+.square-course-card .card-body{
+    padding: 1rem 2rem;
+    display: grid;
+    grid-template-areas: "title title"
+                         "creator creator"
+                         "rating rating"
+                         "label price";
+    grid-template-columns: repeat(2, 1fr);
+}
+.square-course-card .course-title{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    grid-area: title;
+}
+.square-course-card .course-creator{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 28px;
+    grid-area: creator;
+}
+.square-course-card .course-price-wrapper{
+    grid-area: price;
+    width: max-content;
+    height: max-content;
+    justify-self: end;
+    align-self: center;
+}
+.square-course-card .course-price,
+.square-course-card .course-offer-price{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+}
+.square-course-card .course-price{
+    color: #7D7987;
+    margin-left: 0.5rem;
+    text-decoration: line-through;
+}
+.square-course-card .label{
+    grid-area: label;
+}
+.square-course-card .rating-section{
+    grid-area: rating;
+    height: max-content;
+    align-self: center;
+}
+@media only screen and (max-width: 1400px) {
+    .square-course-card .card-body{
+        padding: 1rem;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .square-course-card {
+        display: grid;
+        grid-template-areas: 'image body';
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: 100%;
+        margin-bottom: 1rem;
+        height: max-content;
+    }
+    .square-course-card .card-body{
+        grid-area: body;
+        grid-template-areas: "title title"
+                         "creator rating"
+                         "label price";
+
+    }
+    .square-course-card .course-thumbnail{
+        border-radius: 20px 0 0 20px;
+        height: 100%;
+        width: 100%;
+        grid-area: image;
+    }
+}
+@media only screen and (max-width: 600px){
+    .square-course-card .course-title{
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width: 500px){
+    .square-course-card .course-title{
+        font-size: 14px;
+    }
+    .square-course-card .course-creator{
+        font-size: 11px;
+        margin: 0;
+    }
+    .square-course-card .course-price,
+    .square-course-card .course-offer-price{
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 390px) {
+    .square-course-card .card-body{
+        grid-template-columns: 40% 60%;
+        padding: 0.5rem;
+    }
+}

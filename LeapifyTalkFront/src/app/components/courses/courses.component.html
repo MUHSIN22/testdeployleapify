@@ -1,0 +1,49 @@
+<app-category-bar></app-category-bar>
+<section class="courses-wrapper">
+    <div class="courses" *ngIf="courses">
+        <h1 class="course-category-title">{{activeCategory}} Courses</h1>
+        <p class="courses-get-started-description">Courses to get you started</p>
+        <app-most-popular-courses [courses]="mostPopular"></app-most-popular-courses>
+        <div class="featured-course-section">
+            <h3 class="courses-section-title">Featured Course</h3>
+            <app-long-course-card [course]="courses.featuredCourse[0]"></app-long-course-card>
+        </div>
+        <div class="popular-instructor-section">
+            <h3 class="courses-section-title">Popular Instructors</h3>
+            <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide *ngFor="let instructor of courses.topInstructors">
+                    <div class="instructor-card" [routerLink]="['/instructor/'+instructor._id]">
+                        <div class="instructor-clicker"></div>
+                        <img [src]="instructor.photo_url?instructor.photo_url:'/assets/images/profile.svg'" alt="" class="instructor-avatar">
+                        <div class="instructor-profile">
+                            <h5 class="instructor-name">{{instructor.name}}</h5>
+                            <p class="instructor-graduation">{{instructor.headline?instructor.headline:''}}</p>
+                            <p class="instructor-rating">
+                                0
+                                <i class="fas fa-star"></i>
+                            </p>
+                            <div class="students-and-courses">
+                                <div class="student-and-courses">
+                                    <p class="students">
+                                        <strong>{{instructor.student_count}}</strong>
+                                        Students
+                                    </p>
+                                    <div class="course">
+                                        <strong>{{instructor.course_count}}</strong>
+                                        Courses
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>      
+            </owl-carousel-o>
+        </div>
+        <app-paginated-courses 
+            [courseCategory]="activeCategory" 
+            [coursesData]="{totalPages: totalPages,courses:paginatedCourse}"
+            (pageChange)="changePage($event)"    
+        ></app-paginated-courses>
+    </div>
+</section>
+<app-footer></app-footer>

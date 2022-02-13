@@ -1,0 +1,13 @@
+.btn-gs {
+    background-color: #0ea5c6;
+    border-radius: 48px;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  @media screen and (min-width: 768px) {
+    textarea{
+        width: 500px;
+    }
+  }

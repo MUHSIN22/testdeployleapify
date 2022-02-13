@@ -1,0 +1,32 @@
+.rating-section{
+    display: flex;
+    color: var(--bg-primary);
+    width: max-content;
+    height: max-content;
+}
+.rating-section .rating-stars{
+    margin: 0 0.4rem;
+}
+.rating-section i{
+    margin: 0 1px;
+}
+.rating-section p{
+    margin: 0;
+}
+@media only screen and (max-width: 600px) {
+    .rating-section{
+        font-size: 9px;
+        height:max-content
+    }
+    .rating-section p{
+        margin: 0;
+    }
+    .single-course{
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .rating-section{
+        align-items: center;
+    }
+}

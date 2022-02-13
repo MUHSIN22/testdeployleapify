@@ -1,0 +1,132 @@
+<app-loading [loading]="isLoading"></app-loading>
+<section class="course-section">
+    <div class="course-card-container" *ngIf="course">
+        <div class="course-card">
+            <video class="video-preview" width="100%" *ngIf="isPlayed" [controls]="isPlayed" autoplay>
+                <source [src]="course.video" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="thumbnail" *ngIf="!isPlayed">
+                <i class="fas fa-play-circle play-btn" (click)="playVideo()"></i>
+                <img [src]="course.photo" alt="" class="video-preview">
+            </div>
+            <div class="card-body">
+                <h2 class="course-card-title">{{course.course_title}}</h2>
+                <p class="course-card-description">
+                    {{course.sub_heading}}
+                </p>
+                <div class="rating-and-label">
+                    <app-card-label *ngIf="course.best_seller"></app-card-label>
+                    <div class="rating-wrapper" [ngClass]="{'rating-wrapper-m0':!course.best_seller}">
+                        <app-rating-section [isSingleCourse]="true" [ratingDetails]="{rating:course.rates,number_of_students_rated:course.ratings.length}"></app-rating-section>
+                        <p class="created-by">Created by <span>{{course.instructor.name}}</span></p>
+                    </div>
+                </div>
+                <p class="mobile-created-by">Created by <span>{{course.instructor.name}}k</span></p>
+                <div class="language-and-updated">
+                    <p class="updated">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Last Updated {{lastUpdated}}
+                    </p>
+                    <p class="language">
+                        <i class="fas fa-globe"></i>
+                        {{course.language}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="price-card">
+            <div class="price-and-btn-wrapper">
+                <div class="price-wrapper">
+                    <strong class="offer-price">${{course.offer_price}}</strong>
+                    <strong class="price">${{course.original_price}}</strong>
+                </div>
+                <div class="btn-wrapper">
+                    <button class="btn-buy-course" (click)="buyCourse()">{{isAlreadyPurchased?'Get course':'Buy Now'}}</button>
+                </div>
+            </div>
+            <hr>
+            <div class="instructor-profile">
+                <div class="profile-section">
+                    <img class="avatar" [src]="course.instructor.photo_url !== ''?course.instructor.photo_url:'/assets/images/profile.svg'" alt="">
+                    <h5 class="profile-name">{{course.instructor.name}}</h5>
+                    <p class="profile-graduation">{{course.instructor.headline}}</p>
+                    <p class="rating"><span>4.5</span><i class="fas fa-star"></i></p>
+                    <div class="student-and-courses">
+                        <p class="students">
+                            <strong>{{course.instructor.students.length}}</strong>
+                            Students
+                        </p>
+                        <div class="courses">
+                            <strong>{{course.instructor.courses.length}}</strong>
+                            Courses
+                        </div>
+                    </div>
+                </div>
+                <div class="about-instructor">
+                    <h4 class="section-title">About Me</h4>
+                    <p class="about-content">
+                        {{course.instructor.about_instructor}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
+    <!-- <div class="course-details-container"> -->
+        <div class="description-wrapper">
+            <h4 class="course-details-title">Description</h4>
+            <p class="course-description">
+                {{course.description}}
+            </p>
+        </div>
+        <div class="what-learn-section">
+            <h4 class="course-details-title learn-point-title">What you'll learn?</h4>
+            <ul class="learn-points-list">
+                <li class='learn-point' *ngFor="let point of course.what_youll_learn">
+                    <i class="fas fa-check"></i>
+                    {{point}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="lesson-section">
+            <h4 class="course-details-title">Lessons</h4>
+            <p class="course-contents" *ngIf="course.sections.length>0">{{lessonContentCounts.video}} video, {{lessonContentCounts.pdf}} pdf, {{lessonContentCounts.doc}} doc </p>
+            <p class="course-contents" *ngIf="course.sections.length === 0">No lessons uploaded</p>
+            <app-lesson *ngFor="let section of course.sections" [section]="section" [isAlreadyPurchased]="isAlreadyPurchased"></app-lesson>
+        </div>
+        <div class="reviews-section">
+            <h4 class="course-details-title">Reviews</h4>
+            <div class="review-card-wrapper">
+                <p *ngIf="reviews.length === 0">No reviews yet.</p>
+               <div class="review-card" *ngFor="let item of reviews">
+                    <p class="review">
+                        {{item.review}}
+                    </p>
+                    <div class="reviewer-and-date">
+                        <div class="reviewer">
+                            <img class="reviewer-avatar" [src]="item.userID.photo !== ''?item.userID.photo:'/assets/images/profile.svg'" alt="">
+                            <div class="reviewer-name-and-rating">
+                                <h6 class="reviewer-name">{{item.userID.name}}</h6>
+                                <app-rating-section [isReviewer]="true" [ratingDetails]="{rating:item.rates}"></app-rating-section>
+                            </div>
+                        </div>
+                        <p class="review-date">1 Oct 2021</p>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="show-more-btn-wrapper" *ngIf="reviews.length > 4">
+                <button class="btn-show-more btn" (click)="getMoreReviews()">Show More</button>
+            </div>
+        </div>
+    </div>
+    <div class="more-course-by-creator" *ngIf="course&&instructorCourses">
+        <h4 class="course-details-title">More Courses by <span>{{course.instructor.name}}</span></h4>
+        <div class="courses-cards-wrapper">
+            <app-square-course-card *ngFor="let item of instructorCourses" [course]="item"></app-square-course-card>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

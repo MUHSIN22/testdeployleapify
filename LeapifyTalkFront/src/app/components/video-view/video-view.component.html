@@ -1,0 +1,50 @@
+<app-loading [loading]="isLoading" ></app-loading>
+<app-review (reviewEmitter)="setTheReview($event)" *ngIf="isPopup"></app-review>
+<div class="video-view-wrapper" *ngIf="section" [ngClass]="{'stretched':isStretch}">
+    <div class="video-player-wrapper">
+        <app-video-player 
+            (isStretch)="stretchToEnd($event)" 
+            [isClosed]="isStretch" 
+            [videoLink]="section.files[0].video"
+            (videoDurationEmitter)="getVideoDuration($event)"
+            (sectionProgressEmitter)="setSectionProgress($event)"
+        ></app-video-player>
+        <button class="open-lesson-content-btn" *ngIf="isStretch" (click)="openLesson()">
+            <img src="/assets/icons/leapify-learning-icon.png" alt="">
+        </button>
+    </div>
+    <div class="lesson-content-wrapper" *ngIf="!isStretch">
+        <div class="lesson-content">
+            <div class="title-and-close">
+                <h3 class="title">{{section.section_name}}</h3>
+                <i class="fas fa-times btn-close-lesson" (click)="closeLesson()"></i>
+            </div>
+            <div class="content" *ngIf="section.files[lessonIndex].video">
+                <img src="/assets/icons/video-file.png" alt="">
+                <div class="name-and-duration">
+                    <p class="video-name">{{section.lesson_name[lessonIndex]}} video</p>
+                    <p class="duration">{{section.files[lessonIndex].video_duration? section.files[lessonIndex].video_duration: null}} Mins</p>
+                </div>
+            </div>
+            <div class="content" *ngIf="section.files[lessonIndex].doc" (click)="downloadFile(section.files[lessonIndex].doc)">
+                <img src="/assets/icons/document-file.png" alt="">
+                <div class="name-and-duration">
+                    <p class="video-name">{{section.lesson_name[lessonIndex]}} Document</p>
+                    <!-- <p class="duration">22:00</p> -->
+                </div>
+            </div>
+            <div class="content" *ngIf="section.files[lessonIndex].pdf" (click)="downloadFile(section.files[lessonIndex].pdf)">
+                <img src="/assets/icons/pdf-file.png" alt="">
+                <div class="name-and-duration">
+                    <p class="video-name">{{section.lesson_name[lessonIndex]}} PDF</p>
+                    <!-- <p class="duration">22:00</p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="course-description">
+        <h2 class="description-title">About this course</h2>
+        <p class="description">{{section.description}}</p>
+    </div>
+</div>
+<app-footer></app-footer>

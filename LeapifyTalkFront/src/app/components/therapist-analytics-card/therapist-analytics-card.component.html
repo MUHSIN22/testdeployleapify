@@ -1,0 +1,15 @@
+<div class="therapist-analytics-card">
+    <strong class="card-title">Total user</strong>
+    <div class="amount-and-analytics-wrapper">
+        <strong class="amount">{{isRevenue?'$':null}}{{cardData.count}}</strong>
+        <div class="analytics-wrapper">
+            <div class="analytics" [ngClass]="{'danger-analytics':cardData.percent<=0}">
+                <i class="fas fa-arrow-down" *ngIf="cardData.percent<=0"></i>
+                <i class="fas fa-arrow-up" *ngIf="cardData.percent>0"></i>
+                <p class="analytics-percentage">{{cardData.percent}}</p>
+            </div>
+            <p class="month">vs last month</p>
+        </div>
+    </div>
+    <img [src]="cardData.percent>0?'/assets/images/chart-up.svg':'/assets/images/chart-down.svg'" class="chart" alt="">
+</div>

@@ -1,0 +1,36 @@
+<div class="Container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-shadow m-4">
+                <div class="card-body">
+                    <h4 class="header-title mt-0 mb-3">Today's Tasks</h4>
+                    <form [formGroup]="task" (ngSubmit)="Task(task)" class="input-group custom-input mb-3">
+                        <input type="text" class="form-control todo-list-input" placeholder="Add task"
+                            formControlName="Note">
+                        <span class="input-group-append"></span>
+                        <button class="btn btn-0EA5C6" type="submit">Add</button>
+                    </form>
+                    <div class="todo-list" style="height:60vh; overflow-y:auto overflowx-hidden">
+                        <div *ngFor="let t of Taskdata" class="todo-box row">
+                            <div class="col-md-11">
+                                <div class="todo-task">
+                                    <label *ngIf="t.check == 0" class="ckbox">
+                                        <input type="checkbox" class="mx-4" (click)="checkbox(t._id, t.check)">
+                                        <span>{{t.note}}</span>
+                                    </label>
+                                    <label *ngIf="t.check == 1" class="ckbox">
+                                        <input type="checkbox" class="mx-4" checked (click)="checkbox(t._id, t.check)">
+                                        <span>{{t.note}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-1 d-flex justify-content-end">
+                                <i class="far fa-trash-alt text-danger mx-4" (click)="DeleteTask(t._id)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- col -->
+    </div><!-- row -->
+</div><!-- container -->

@@ -1,0 +1,10 @@
+<div class="course-searching-bar">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" name="search-input" (input)="searchInput($event)" class="search-input" placeholder="Search for anything">
+    <ul class="search-results" *ngIf="results && search !== ''">
+        <li *ngIf="results.message">{{results.message}}</li>
+        <li *ngFor="let category of results.categories" [routerLink]="['/courses']" [queryParams]="{belongs: category.name,page:1}"><span *ngIf="category">{{category.name}}</span></li>
+        <li *ngFor="let course of results.courses" [routerLink]="['/course/'+course._id]"><span *ngIf="course">{{course.course_title}}</span></li>
+        <li *ngFor="let instructor of results.instructors" [routerLink]="['/instructor/'+instructor._id]"><span *ngIf="instructor">{{instructor.name}}</span></li>
+    </ul>
+</div>

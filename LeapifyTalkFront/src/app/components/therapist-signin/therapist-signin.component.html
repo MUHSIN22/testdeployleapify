@@ -1,0 +1,55 @@
+<app-otp-handling (otpEmitter)="handleOtp($event)" (resendEmitter)="resendOTP()" *ngIf="popOtp"></app-otp-handling>
+<app-loading [loading]="isLoading"></app-loading>
+<div class="therapist-signin-wrapper">
+    <div class="therapist-signin">
+        <div class="welcome-messages">
+            <h1 class="signin-text">Sign in to your account</h1>
+            <p class="welcome">Welcome back! Please enter your details.</p>
+        </div>
+        <form #signInForm="ngForm" (ngSubmit)="signInForm.valid&&onSubmit()" class="signin-form">
+            <label for="credential" class="signin-label" >Email ID / Phone no.</label>
+            <div class="input-and-otp-wrapper">
+                <input 
+                    type="text" 
+                    name="credential" 
+                    class="signin-input"
+                    [(ngModel)]="data.credential"
+                    #credential="ngModel"
+                    required
+                    [pattern]="mobilePattern"
+                    (change)="checkWhetherPhoneOrEmail()"
+                    [ngClass]="{'invalid-field':credential.touched&&(credential.errors?.required||credential.errors?.pattern)}"
+                >
+                <button class="btn-send-otp" type="button" (click)="sendOtp()" *ngIf="isMobileRegistration">Send OTP</button>
+            </div>
+            <small class="invalid-message" *ngIf="credential.touched&&credential.errors?.required">Email/Phone is required</small>
+            <small class="invalid-message" *ngIf="credential.touched&&credential.errors?.pattern">Invalid email/phone</small>
+            <div *ngIf="!isMobileRegistration">
+                <label for="password" class="signin-label">Password</label>
+                <input 
+                    type="password" 
+                    class="signin-input" 
+                    name="password"
+                    [(ngModel)]="data.password"
+                    #password="ngModel"
+                    required
+                >
+                <small class="invalid-message" *ngIf="password.touched&&password.errors?.required">Password is required</small>
+                <div class="remember-and-forgot">
+                    <div class="remember">
+                        <input type="checkbox" name="remember">
+                        <label for="remember" class="remember-label">Remember me</label>
+                    </div>
+                    <p class="forgot-password" [routerLink]="['/forgot-password']">Forgot Password</p>
+                </div>
+                <button type="submit" class="btn-submit btn-signin">Sign in</button>
+                <!-- <button type="button" class="btn-submit btn-google"><img src="/assets/icons/google-icon.png"/>Sign in with Google</button> -->
+            </div>
+            <p class="create-account-link">
+                Don’t have an account? <span [routerLink]="['/therapist-signup']">Sign up</span>
+            </p>
+        </form>
+        <img src="/assets/images/signin.png" class="signin-image" alt="">
+    </div>
+</div>
+<app-footer></app-footer>

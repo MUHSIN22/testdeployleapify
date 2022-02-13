@@ -1,0 +1,180 @@
+<div class="row stick" *ngIf="messageInput">
+  <div class="col-12">
+    <ng-container [ngTemplateOutlet]="typeMessage">
+
+    </ng-container>
+  </div>
+</div>
+<div class="row stick d-none d-lg-flex" *ngIf="!messageInput">
+  <div [ngClass]="{ 'col-10': !isAudioRecording, 'col-9': isAudioRecording }">
+    <ng-container [ngTemplateOutlet]="typeMessage"></ng-container>
+  </div>
+  <div
+    class="attachment d-flex justify-content-around align-items-center"
+    [ngClass]="{ 'col-2': !isAudioRecording, 'col-3': isAudioRecording }"
+  >
+    <ng-container [ngTemplateOutlet]="desktopSidebar"></ng-container>
+  </div>
+</div>
+
+<div class="row stick d-flex d-lg-none" *ngIf="!messageInput">
+  <div class="col-10" *ngIf="!isAudioRecording">
+    <ng-container [ngTemplateOutlet]="typeMessage"></ng-container>
+  </div>
+  <div
+    class="attachment d-flex justify-content-around align-items-center col-2"
+    *ngIf="!isAudioRecording"
+  >
+    <ng-container [ngTemplateOutlet]="attachment"></ng-container>
+  </div>
+  <div class="col-12 d-flex justify-content-evenly align-items-center">
+    <ng-container
+      [ngTemplateOutlet]="audiorecording"
+      *ngIf="isAudioRecording"
+    ></ng-container>
+  </div>
+</div>
+
+<ng-template #typeMessage>
+  <form class="position-relative" (ngSubmit)="send()">
+    <div class="input-group border message-input align-items-center">
+      <div class="input-group-prepend">
+        <button
+          class="btn shadow-none"
+          matTooltip="Emoji"
+          matTooltipPosition="above"
+          (click)="showEmojiPicker = !showEmojiPicker"
+          type="button"
+        >
+          <i style="color: rgba(61, 61, 61, 0.35)" class="far fa-grin"></i>
+        </button>
+      </div>
+      <input
+        *ngIf="!messageInput"
+        type="text"
+        class="form-control border-0 shadow-none"
+        placeholder="Type a message"
+        name="message"
+        [(ngModel)]="message"
+        autocomplete="off"
+      />
+      <input
+        *ngIf="messageInput"
+        type="text"
+        class="form-control border-0 shadow-none"
+        placeholder="Type a message"
+        name="message"
+        [(ngModel)]="messageInput.message"
+        autocomplete="off"
+      />
+      <div class="input-group-prepend">
+        <button
+          class="btn shadow-none"
+          matTooltip="Send"
+          matTooltipPosition="above"
+          type="submit"
+        >
+          <i style="color: var(--bg-primary)" class="far fa-paper-plane"></i>
+        </button>
+        <button
+        *ngIf="!messageInput"
+          (click)="startAudioRecording()"
+          class="btn shadow-none d-inline-block d-lg-none"
+          matTooltip="Record audio"
+          matTooltipPosition="above"
+          type="button"
+        >
+          <i style="color: var(--bg-primary)" class="fa fa-microphone"></i>
+        </button>
+      </div>
+    </div>
+    <emoji-mart
+      (focusout)="showEmojiPicker = false"
+      class="emoji-mart"
+      [darkMode]="false"
+      *ngIf="showEmojiPicker"
+      (emojiSelect)="addEmoji($event)"
+    ></emoji-mart>
+  </form>
+</ng-template>
+
+<ng-template #desktopSidebar>
+  <ng-container
+    [ngTemplateOutlet]="attachment"
+    *ngIf="!isAudioRecording"
+  ></ng-container>
+  <ng-container
+    [ngTemplateOutlet]="audiorecording"
+    *ngIf="isAudioRecording"
+  ></ng-container>
+  <button
+    (click)="startAudioRecording()"
+    *ngIf="!isAudioRecording"
+    class="btn btn-primary d-none d-lg-inline-block"
+    matTooltip="Record voice"
+    matTooltipPosition="above"
+  >
+    <i class="fa fa-microphone"></i>
+  </button>
+</ng-template>
+
+<ng-template #attachment>
+  <div class="dropup">
+    <button
+      type="button"
+      class="btn drop btn-primary shadow-none"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      [matTooltipShowDelay]="800"
+      matTooltip="Attachment"
+      matTooltipPosition="above"
+    ></button>
+
+    <ul class="dropdown-menu">
+      <button
+        class="btn btn-secondary mb-3"
+        matTooltip="Camera"
+        matTooltipPosition="before"
+        (click)="captureImage.emit(true)"
+      >
+        <i class="fa fa-camera"></i>
+      </button>
+      <button
+        (click)="file.click()"
+        class="btn btn-secondary p-0"
+        matTooltip="Gallery"
+        matTooltipPosition="before"
+      >
+        <img src="./assets/images/gallery.svg" alt="" />
+      </button>
+      <input type="file" class="visually-hidden" (change)="uploadImage.emit($event)" #file />
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #audiorecording>
+  <button
+    class="btn btn-primary"
+    (click)="abortAudioRecording()"
+    matTooltip="Abort recording"
+    matTooltipPosition="above"
+  >
+    <i class="fa fa-times"></i>
+  </button>
+  <span style="width: 73px" class="px-2" *ngIf="isAudioRecording">
+    <i
+      class="fa fa-circle align-middle"
+      style="color: red; font-size: 0.5rem"
+    ></i>
+    {{ audioRecordedTime }}
+  </span>
+  <button
+    (click)="stopAudioRecording()"
+    class="btn btn-primary"
+    *ngIf="isAudioRecording"
+    matTooltip="Stop and Send"
+    matTooltipPosition="above"
+  >
+    <i class="fa fa-check"></i>
+  </button>
+</ng-template>

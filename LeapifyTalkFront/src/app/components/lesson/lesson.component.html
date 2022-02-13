@@ -1,0 +1,16 @@
+<div class="lesson">
+    <div class="lesson-name-wrapper">
+        <h5 class="lesson-name">{{section.section_name}}</h5>
+        <!-- <p class="lesson-duration">26 min</p> -->
+    </div>
+    <div class="lesson-duration-wrapper" *ngIf="!isLessonExpand">
+        <p class="number-of-lessons">{{section.lesson_name.length}} Lessons</p>
+        <button class="btn-view-all" (click)="expandLesson()">View all</button>
+    </div>
+    <div class="lesson-wrapper" *ngIf="isLessonExpand">
+        <div class="lessons-wrapper" *ngFor="let lesson of section.lesson_name;let index = index">
+            <p class="number-of-lessons">{{lesson}}</p>
+            <button class="btn-view-all" (click)="navigateToSection(index)">View more</button>
+        </div>
+    </div>
+</div>

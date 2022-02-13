@@ -1,0 +1,60 @@
+<div class="container-sm d-flex justify-content-center align-items-center" *ngIf="!loaded">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="container-sm flex-fill" *ngIf="loaded" >
+  <div class="image" *ngIf="message.type == 'image' || message.type == 'video'">
+    <img
+      *ngIf="message.type == 'image'"
+      [src]="message.imageUrl"
+      alt=""
+      class="img-fluid"
+    />
+    <video
+      *ngIf="message.type == 'video'"
+      [src]="message.imageUrl"
+      alt=""
+      class="img-fluid"
+      controls
+    ></video>
+  </div>
+  <h6 style="color: #25aca4">{{ message.username }} (author)</h6>
+  <h6 class="discription">{{ message.message }}</h6>
+  <div class="comments flex-grow-1" #commentDiv>
+    <div class="2 comment" *ngFor="let comment of comments">
+      <h6 style="color: #2c41b2" class="fw-bold">
+        {{ comment.username | uppercase }}
+      </h6>
+      <p class="mb-1 c">
+        {{ comment.comment }}
+      </p>
+      <!-- <span style="color: rgba(0, 0, 0, 0.5)">
+        {{ comment.likes ? comment.likes : "0" }} likes
+      </span>
+      <button class="btn shadow-none p-0">
+        <i class="far fa-thumbs-up"></i>
+      </button> -->
+    </div>
+  </div>
+  <hr />
+  <div class="suggestions">
+    <button class="btn btn-light" (click)="addComment('Yes,&quot; I replied')">
+      Yes," I replied
+    </button>
+    <button
+      class="btn btn-light"
+      (click)="addComment('This one looks too cool')"
+    >
+      This one looks too cool
+    </button>
+    <button
+      class="btn btn-light"
+      (click)="addComment('This is how you have to reply')"
+    >
+      This is how you have to reply
+    </button>
+  </div>
+  <button (click)="history.back()" class="btn btn-primary back-button">
+    <i class="fa fa-arrow-left"></i> Back
+  </button>
+</div>
