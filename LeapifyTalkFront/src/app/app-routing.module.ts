@@ -57,6 +57,7 @@ import { PatientPaymentComponent } from './Patient/patient-payment/patient-payme
 import { PatientFaqComponent } from './Patient/patient-faq/patient-faq.component';
 import { PatientBlogComponent } from './Patient/patient-blog/patient-blog.component';
 import { PatientAssessmentComponent } from './Patient/patient-assessment/patient-assessment.component';
+import { PatientDashboardComponent } from './Patient/patient-dashboard/patient-dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -130,6 +131,7 @@ const routes: Routes = [
   // ================= Doctor SideMenu End =====================
   { path: 'user-verify', component: IsUserVerifyComponent },
   // ================= Patient SideMenu Start ==================
+  { path: 'patient-dashboard', component: PatientDashboardComponent },
   { path: 'patient-profile', component: PatientProfileComponent },
   { path: 'patient-feedback', component: PatientFeedbackComponent },
   { path: 'book-appointment', component: PatientAppointmentComponent },

@@ -130,4 +130,162 @@
   </div>
 
 
-  <app-footer></app-footer>
+  <!-- <app-footer></app-footer> -->
+
+  <!-- CONTAINER ONE -->
+
+<div class="cont-one">
+  <h2>Why Partner with Us?</h2>
+  <div class="cont-one-middle row">
+    <div class="cont-one-middle-part col">
+      <h2>Full-Time</h2>
+      <p>Schedule</p>
+    </div>
+    <div class="cont-one-middle-part col">
+      <h2>Work from anywhere</h2>
+      <p>Location</p>
+    </div>
+    <div class="cont-one-middle-part col">
+      <h2>$92,000+</h2>
+      <p>Potential Annual Income</p>
+    </div>
+  </div>
+  <button mat-raised-button routerLink="/doctor-signup" class="btn cont-one-btn" type="button">
+    Get Started
+  </button>
+</div>
+
+<!-- LARGEST CONTAINER -->
+
+<div class="largest-cont">
+  <div class="lcr largest-cont-mobile-p-0">
+    <div class="lcrl">
+      <img src="./assets/images/resume_amico_1.svg" alt="" />
+    </div>
+    <div class="lcrr">
+      <p class="ta">Requirements</p>
+      <p class="lcrr-main-text">
+        Licensed by a State Board to provide counseling (e.g., LCSW, LMFT, LPC,
+        PsyD or similar credentials). Excellent writing skills Reliable Internet
+        connection Currently residing in the US
+      </p>
+    </div>
+  </div>
+  <div class="lcr largest-cont-mobile-p-0">
+    <div class="lcrr">
+      <p class="ta">Grow your practice & Seamless practice management</p>
+      <p class="lcrr-main-text">
+        With our ever growing client base, Leapify Talk offers the most
+        competitive income and practice management solution for you to fully
+        manage and grow your practice. Stop worrying about client acquisition,
+        billing, support or operations. Our platform will automate the process
+        so you can focus on your expertise.
+      </p>
+    </div>
+    <div class="lcrl">
+      <img src="./assets/images/admin_amico_1.svg" alt="" />
+    </div>
+  </div>
+  <div class="lcr largest-cont-mobile-p-0">
+    <div class="lcrl">
+      <img src="./assets/images/working_remotely_amico_1.svg" alt="" />
+    </div>
+    <div class="lcrr">
+      <p class="ta">Work From Anywhere & All in One Package</p>
+      <p class="lcrr-main-text">
+        No more worrying about office rent space. Work from anywhere, with any
+        device. Our all in one platform allows you to manage and grow your
+        practice without needing any 3rd party software.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- MESSAGING -->
+
+<div class="messaging">
+  <div class="faq-overlay">
+    <img src="./assets/images/scott_graham_unsplash_1.svg" alt="" />
+    <h4>
+      All your questsions are very important to us and help us grow better
+    </h4>
+  </div>
+  <form class="sm-form" (ngSubmit)="submit(form)" #form="ngForm">
+    <div class="sm-form-line">
+      <div class="first-name p-0">
+        <label for="First-name">First-name</label>
+        <input
+          name="firstName"
+          [(ngModel)]="counselor.firstName"
+          class="sm-active"
+          type="text"
+          required
+          placeholder="Enter your first name"
+        />
+      </div>
+      <div class="last-name p-0">
+        <label for="Last-name">Last-name</label>
+        <input
+          name="lastName"
+          [(ngModel)]="counselor.lastName"
+          class="sm-active"
+          type="text"
+          required
+          placeholder="Enter your last name"
+        />
+      </div>
+      <div class="email p-0">
+        <label for="email">Email ID</label>
+        <input
+          name="email"
+          [(ngModel)]="counselor.email"
+          class="sm-active"
+          type="email"
+          required
+          placeholder="Enter your email in the format xyz@abc.com"
+        />
+      </div>
+      <div class="last-name p-0">
+        <label for="Last-name">Phone Number</label>
+        <input
+          name="phone"
+          [(ngModel)]="counselor.phone"
+          class="sm-active"
+          type="tel"
+          pattern="[0-9]{10}"
+          size="10"
+          required
+          placeholder="Enter your 10 digit valid phone number"
+        />
+      </div>
+    </div>
+    <div class="lno">
+      <label for="Liscence-Number">Liscence Number</label>
+      <input
+        name="liscence"
+        [(ngModel)]="counselor.liscence"
+        id="lno"
+        class="sm-active lno-input w-100"
+        pattern="[0-9]{16}"
+        type="text"
+        required
+        placeholder="Enter your 16 digit valid Liscence number"
+      />
+    </div>
+    <div class="sm-form-check d-flex">
+      <input name="accept" [(ngModel)]="accept" type="checkbox" required />
+      <p>You accept the terms of service and the privacy policy</p>
+    </div>
+    <button
+    mat-raised-button
+      id="csm"
+      class="btn sm-form-btn"
+      type="submit"
+      [disabled]="!form.valid"
+    >
+      Send message
+    </button>
+  </form>
+</div>
+
+<app-footer></app-footer>

@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientBlogComponent implements OnInit {
 
+  blogs:boolean = true;
+  courses!:boolean;
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
+Blog()
+{
+  this.blogs = true;
+  this.courses = false;
+}
+Course()
+{
+  this.blogs = false;
+  this.courses = true;
+}
 }

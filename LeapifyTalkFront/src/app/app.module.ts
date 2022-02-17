@@ -110,6 +110,7 @@ import { PatientFaqComponent } from './Patient/patient-faq/patient-faq.component
 import { PatientPaymentComponent } from './Patient/patient-payment/patient-payment.component';
 import { PatientFeedbackComponent } from './Patient/patient-feedback/patient-feedback.component';
 import { DatePipe } from '@angular/common';
+import { PatientDashboardComponent } from './Patient/patient-dashboard/patient-dashboard.component';
 
 
 @NgModule({
@@ -206,6 +207,7 @@ import { DatePipe } from '@angular/common';
     IsUserVerifyComponent,
     SidebarComponent,
     PageNotFoundComponent,
+    PatientDashboardComponent,
     // ----------------------------------
   ],
   imports: [

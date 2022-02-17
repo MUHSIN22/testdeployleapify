@@ -39,13 +39,14 @@ export class DoctorBlogComponent implements OnInit {
       image: ['', []]
     });
 
-    // this.BlogData();
+    this.BlogData();
   }
 
   OpenAddBlog()
   {
     this.addblogs = !this.addblogs;
   }
+
   BlogData()
   {
     var Email = this.loggedInUser.email;
@@ -58,12 +59,14 @@ export class DoctorBlogComponent implements OnInit {
 
   DeleteBlog(_id : any)
   {
-    this.httpService.DeleteBlog({id : _id}).subscribe(
-      (deleteblog : any) => {
-        deleteblog;
-        console.log(this.blogsdata,"BlogData");
-        window.location.reload();
-      })
+    if(window.confirm('Are sure you want to delete this item ?')){
+      this.httpService.DeleteBlog({id : _id}).subscribe(
+        (deleteblog : any) => {
+          deleteblog;
+          console.log(this.blogsdata,"BlogData");
+          window.location.reload();
+        })
+     }
   }
 
   ////////////////////////////////////////////////////////////////
@@ -104,28 +107,19 @@ onFileSelected(event : any)
     this.showErrormsg = true;
   if (addblog.valid)
   {
-    var BlogJson =
-      {
-        email : this.loggedInUser.email,
-        name : this.loggedInUser.dname,
-        date : this.short_date,
-        blogtitle : this.addblog.value.Title,
-        blogcontent : this.addblog.value.BlogContent,
-      };
-
       var fd = new FormData();
+      fd.append('email', this.loggedInUser.email),
+      fd.append('name', this.loggedInUser.dname),
+      fd.append('date', this.short_date),
+      fd.append('blogtitle', this.addblog.value.Title),
+      fd.append('blogcontent', this.addblog.value.BlogContent),
       fd.append('file', this.filetoupload)
 
       // console.log(fd,'formdata');
-      // console.log(BlogJson,'JsonData');
-
-      this.httpService.AddPic(fd).subscribe(
-        (post : any) => {
-          console.log(post,'AddPic');
-        });
-      this.httpService.Blog(BlogJson).subscribe(
+      this.httpService.Blog(fd).subscribe(
         (post : any) => {
           console.log(post,'BlogPost');
+          window.location.reload();
         });
   }
 

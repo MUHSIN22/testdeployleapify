@@ -33,7 +33,7 @@ export class TherapistRegistrationTemplateComponent implements OnInit {
     let data = {
       name: this.credentials.name,
       password: this.credentials.password,
-      email: this.credentials.credential
+      email: this.credentials.credential,
     }
     this.authService.regitsterUser(data).subscribe((res:any)=>{
       if(res.status === 'ok'){

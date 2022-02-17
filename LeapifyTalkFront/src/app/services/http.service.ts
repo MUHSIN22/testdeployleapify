@@ -45,9 +45,13 @@ export class HttpService {
     UserData(obj: any) {
       return this.http.post(`${this.apiUrl}/userdata`, obj);
     }
-    
-    DoctorUpdate(obj : any) {
-      return this.http.post(`${this.apiUrl}/doctorupdate`, obj);
+
+    UserUpdate(frmdata : FormData) {
+      return this.http.post(`${this.apiUrl}/patientupdate`, frmdata);
+    }
+ 
+    DoctorUpdate(frmdata : FormData) {
+      return this.http.post(`${this.apiUrl}/doctorupdate`, frmdata);
     }
     
     DoctorPrice(obj : any) {
@@ -113,14 +117,9 @@ export class HttpService {
       return this.http.post(`${this.apiUrl}/shiftdata`, obj);
     }
     
-    Blog(obj: any)
+    Blog(frmdata: FormData)
     {
-      return this.http.post(`${this.apiUrl}/addblog`, obj);
-    }
-    
-    AddPic(frmdata : FormData)
-    {
-      return this.http.post(`${this.apiUrl}/addpic`, frmdata);
+      return this.http.post(`${this.apiUrl}/addblog`, frmdata);
     }
     
     BlogData(obj : any)

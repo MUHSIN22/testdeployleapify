@@ -1,7 +1,7 @@
 require("dotenv").config();
 const purchased = require("../models/purchased");
 const therapist = require("../models/therapists");
-const user = require("../models/user");
+const User = require("../models/user");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");

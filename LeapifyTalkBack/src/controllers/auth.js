@@ -4,12 +4,14 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const Shift = require("../models/shift");
 const Task = require("../models/task");
+const Blog = require("../models/blog");
 const DoctorPrice = require("../models/doctor_price");
 const chatRoom = require("../models/chatRoom");
 const sendmail = require("../utils/sendmail");
 const { customAlphabet } = require("nanoid");
 const course = require("../models/course");
 const nanoid = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 8);
+
 
 //=================== Doctor Register ===========================================
 exports.usersignup = async (req, res) => {
@@ -93,8 +95,13 @@ exports.userdata = async(req, res) => {
 
 exports.doctorupdate = async(req, res) => {
   const {email, mobile, experience, youtubelink, googlemeetlink, zoomlink, skypelink, facebooklink, instagramlink, twitterlink, }= req.body;
+  const fileinfo = req.file;
+  // console.log(fileinfo);
+  // console.log(fileinfo.location);
   try{
-      const update = await User.findOneAndUpdate({email: email}, {$set: {
+      if(req.file == undefined)
+      {
+        const update = await User.findOneAndUpdate({email: email}, {$set: {
           mobile: mobile,
           experience: experience,
           // youtubelink: youtubelink,
@@ -104,15 +111,117 @@ exports.doctorupdate = async(req, res) => {
           facebooklink: facebooklink,
           instagramlink: instagramlink,
           twitterlink: twitterlink,
-          // image: file.lastModified+file.name,
+          // image: fileinfo.location,
       }})
+      console.log(update,'Update');
+      }
+      else
+      {
+        const update = await User.findOneAndUpdate({email: email}, {$set: {
+          mobile: mobile,
+          experience: experience,
+          // youtubelink: youtubelink,
+          googlemeetlink: googlemeetlink,
+          zoomlink: zoomlink,
+          skypelink: skypelink,
+          facebooklink: facebooklink,
+          instagramlink: instagramlink,
+          twitterlink: twitterlink,
+          image: fileinfo.location,
+      }})
+      console.log(update,'Update With Image');
+      }
       return res.json({status: 'ok', msg: 'Update Successfully'})
   }catch(error){
       console.log(error);
       return res.json({status: 'error', msg: 'error'})
   }
 }
-// --------------------------- Update Doctor Data End ----------------------------
+// --------------------------- Update Doctor Data End --------------------------------
+// ---------------------- Update Patient Data Start ---------------------------
+
+exports.patientupdate = async(req, res) => {
+  const { email, mobile, address, }= req.body;
+  const fileinfo = req.file;
+  // console.log(fileinfo);
+  // console.log(fileinfo.location);
+  try{
+      if(req.file == undefined)
+      {
+        const update = await User.findOneAndUpdate({email: email}, {$set: {
+          mobile: mobile,
+          address: address,
+          // image: fileinfo.location,
+      }})
+      console.log(update,'Update');
+      }
+      else
+      {
+        const update = await User.findOneAndUpdate({email: email}, {$set: {
+          mobile: mobile,
+          address: address,
+          image: fileinfo.location,
+      }})
+      console.log(update,'Update With Image');
+      }
+      return res.json({status: 'ok', msg: 'Update Successfully'})
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+// --------------------------- Update Patient Data End --------------------------------
+// ---------------------- Add Doctor Blog Data Start ---------------------------
+
+exports.addblog = async(req, res) => {
+  const {email, name, date, blogtitle, blogcontent }= req.body;
+  const fileinfo = req.file;
+  // console.log(fileinfo);
+  // console.log(fileinfo.location);
+  try{
+        const blog = await Blog.create({
+        email, name, date, blogtitle, blogcontent,
+        image: fileinfo.location,
+        })
+      await blog.save();
+      return res.json({status: 'ok', msg: 'Add Blog Successfully'})
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+// --------------------------- Add Doctor Blog Data End ----------------------------
+// ---------------------- Collect Blog Data By Email Start ---------------------------
+
+exports.blogdata = async(req, res) => {
+  const { email } = req.body;
+  // console.log(email,'Res');
+  try{
+      const data = await Blog.find({ email }).lean();
+      // console.log(data,'UserData');
+      return res.json(data);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+
+// ---------------------- Collect Blog Data By Email End -----------------------------
+// ---------------------- Delete Blog Data By Id Start ---------------------------
+
+exports.deleteblog = async(req, res) => {
+  var myquery = { _id: req.body.id };
+  // console.log(myquery,'Res');
+  try{
+      const deletedata = await Blog.deleteOne(myquery)
+      return res.json({status: 'ok', msg: 'Delete Successfully'})
+      // res.json(deletedata);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+// --------------------------- delete Blog Data By Id End ----------------------------
 // --------------------------- Doctor AboutMe Update Start -------------------------------------
 exports.aboutmeupdate = async(req, res) => {
   const {email, aboutMe }= req.body;
@@ -364,7 +473,7 @@ exports.doctorsdata = async(req, res) => {
 
 //=================== Register ===========================================
 exports.register = async (req, res) => {
-  const { name, age, email, password } = req.body;
+  const { name, age, email, password, role } = req.body;
 
   // Hasing the passwords - we use bcrypt algorithm
   const salt = bcrypt.genSaltSync(10);
@@ -377,6 +486,7 @@ exports.register = async (req, res) => {
       name,
       username: nanoid(),
       age,
+      role,
       password: hash,
       email,
       emailToken,
@@ -490,7 +600,8 @@ exports.login = async (req, res) => {
         name: user.name,
         username: user.username,
         dname : user.first_name+' '+user.last_name,
-        role : user.role
+        role : user.role,
+        // user: "therapist",
       },
       process.env.JWT_SECRET,
       { expiresIn: "15d" }

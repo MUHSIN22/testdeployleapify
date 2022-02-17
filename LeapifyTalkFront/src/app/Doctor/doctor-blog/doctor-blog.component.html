@@ -54,36 +54,37 @@
                 </div> <!--end col-->
                 <div *ngIf="!addblogs" class="col-12">
                     <div class="row">
-                        <div *ngFor="let b of blogsdata" class="col-lg-4">
-                            <div class="card" style="height: 550px;">
+                        <div *ngFor="let b of blogsdata; let i=index;" class="col-lg-4">
+                            <div class="card" style="height: 600px;">
                                 <div class="card-body">
                                     <i class="fa fa-times fs-6 text-danger d-flex justify-content-end" title="Delete" style="margin-top:-10px; cursor: pointer;" (click)="DeleteBlog(b._id)"></i>
                                     <div class="blog-card">
-                                        <img *ngIf="b.image == null" src="assets/uploadimages/blog.jpg" alt="" class="img-fluid rounded"/>
-                                        <img *ngIf="b.image != null" src="assets/uploadimages/{{b.image}}" alt="" class="img-fluid rounded"> 
+                                        <img *ngIf="b.image == null " src="assets/uploadimages/blog.jpg" alt="" class="img-fluid rounded"/>
+                                        <img *ngIf="b.image" src="{{b.image}}" alt="" class="img-fluid rounded">
                                         <span class="badge badge-purple px-3 py-2 bg-soft-primary fw-semibold mt-3">Photography</span>   
-                                        <h4 class="my-3">
+                                        <h5 class="">
                                             <!-- <a href="" class="">{{b.blogtitle}}</a> -->
                                             <a>{{b.blogtitle}}</a>
-                                        </h4>
+                                        </h5>
                                         <p class="text-muted" style="height: 65px; overflow-y: hidden;">{{b.blogcontent}}</p>
                                         <hr class="hr-dashed">
                                         <div class="d-flex justify-content-between">
                                             <div class="meta-box">
                                                 <div class="media">
-                                                    <img *ngIf="ProfilePic == null" src="assets/uploadimages/sample.png" alt="" class="thumb-md rounded-circle me-2">  
+                                                    <img *ngIf="ProfilePic == null" src="assets/uploadimages/sample.png" alt="" class="w-25 h-25 rounded-circle me-2">  
                                                     <img *ngIf="ProfilePic != null" src="assets/uploadimages/{{ProfilePic}}" alt="" class="thumb-md rounded-circle me-2">                               
                                                     <div class="media-body align-self-center text-truncate">
                                                         <h6 class="m-0 text-dark">{{b.d_name}}</h6>
                                                         <ul class="p-0 list-inline mb-0">
                                                             <li class="list-inline-item">{{b.date}}</li>
-                                                            <!-- <li class="list-inline-item">by <a>{{b.d_email}}</a></li> -->
+                                                            <li class="list-inline-item">by <a>{{b.email}}</a></li>
                                                         </ul>
                                                     </div><!--end media-body-->
                                                 </div>                                            
                                             </div><!--end meta-box-->
                                             <div class="align-self-center">
                                                 <a class="text-primary" style="cursor: pointer;">Read more <i class="fas fa-long-arrow-alt-right"></i></a>
+                                                <!-- <li class="list-inline-item">{{b.date}}</li> -->
                                             </div>
                                         </div>                                        
                                     </div><!--end blog-card--> 

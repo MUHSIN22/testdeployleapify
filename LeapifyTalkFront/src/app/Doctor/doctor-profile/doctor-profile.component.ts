@@ -200,6 +200,7 @@ isChecked(choice: any) {
       (res : any) => {
         this.Userdata = res;
         // console.log(this.Userdata,"DoctorData");
+        // console.log(this.Userdata.image,"DoctorInage");
         this.mobile = this.Userdata.mobile;
         this.licenceNo = this.Userdata.licenceNo;
         this.experience = this.Userdata.experience;
@@ -215,7 +216,7 @@ isChecked(choice: any) {
         this.facebooklink = this.Userdata.facebooklink;
         this.instagramlink = this.Userdata.instagramlink;
         this.twitterlink = this.Userdata.twitterlink;
-        // this.image = this.Userdata.image;
+        this.image = this.Userdata.image;
         ///////////////////////////////////////////////////////////////////
         this.updateuser.controls["Experience"].setValue(this.experience),
         this.updateuser.controls["Mobile"].setValue(this.mobile),
@@ -308,7 +309,7 @@ isChecked(choice: any) {
           this.resdata = post;
           // alert(this.resdata.msg);
           // console.log(post,'Post');
-          // window.location.reload();
+          window.location.reload();
         });
     }
   }
@@ -371,7 +372,6 @@ onFileSelected(event : any)
      alert('Only jpg, png files are allowed');
     }
     // ============================================
-    console.log(this.filetoupload,'File');
   }
 }
   ///////////////////////////// File Upload End ///////////////////////////////////////////
@@ -380,34 +380,24 @@ onFileSelected(event : any)
   UserUpdate(updateuser: any) {
     this.showErrormsg = true;
     if (updateuser.valid) {
-      var UpdateJson = {
-        email: this.loggedInUser.email,
-        experience: this.updateuser.value.Experience,
-        mobile: this.updateuser.value.Mobile,
-        // youtubelink: this.updateuser.value.Youtubelink,
-        googlemeetlink: this.updateuser.value.GoogleMeetlink,
-        zoomlink: this.updateuser.value.Zoomlink,
-        skypelink: this.updateuser.value.Skypelink,
-        facebooklink: this.updateuser.value.Facebooklink,
-        instagramlink: this.updateuser.value.Instagramlink,
-        twitterlink: this.updateuser.value.Twitterlink
-      }
-        // console.log(UpdateJson,"UpdateJson");/
-      // var fd = new FormData();
-      //   fd.append('email', this.loggedInUser.email);
-      //   fd.append('experience', this.updateuser.value.Experience);
-      //   fd.append('mobile', this.updateuser.value.Mobile);
-      //   fd.append('youtubelink', this.updateuser.value.Youtubelink);
-      //   fd.append('facebooklink', this.updateuser.value.Facebooklink);
-      //   fd.append('instagramlink', this.updateuser.value.Instagramlink);
-      //   fd.append('twitterlink', this.updateuser.value.Twitterlink);
-      //   fd.append('file', this.filetoupload);
+      var fd = new FormData();
+        fd.append('email', this.loggedInUser.email);
+        fd.append('experience', this.updateuser.value.Experience);
+        fd.append('mobile', this.updateuser.value.Mobile);
+        // fd.append('youtubelink', this.updateuser.value.Youtubelink);
+        fd.append('googlemeetlink', this.updateuser.value.GoogleMeetlink);
+        fd.append('zoomlink', this.updateuser.value.Zoomlink);
+        fd.append('skypelink', this.updateuser.value.Skypelink);
+        fd.append('facebooklink', this.updateuser.value.Facebooklink);
+        fd.append('instagramlink', this.updateuser.value.Instagramlink);
+        fd.append('twitterlink', this.updateuser.value.Twitterlink);
+        fd.append('file', this.filetoupload);
       //   console.log(fd,"formdata");
-      this.httpService.DoctorUpdate(UpdateJson).subscribe(
+      this.httpService.DoctorUpdate(fd).subscribe(
         (post : any) => {
           this.resdata = post;
           alert(this.resdata.msg);
-          // console.log(post,'Post');
+          console.log(post,'Post');
           window.location.reload();
         });
     }

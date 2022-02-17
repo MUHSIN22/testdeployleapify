@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastComponent } from '../toast/toast.component';
+import { TherapistAuthService } from 'src/app/services/therapist-auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -31,13 +32,19 @@ export class SigninComponent implements OnInit {
     new_password: "",
     confirm_password: "",
     token: ""
-  }
+  };
+  public data:any = {
+    credential: '',
+    password: '',
+    otp: ''
+  };
 
   constructor(
     private router: Router,
     private httpService: HttpService,
     private _snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public auth:TherapistAuthService,
   ) { }
 
   ngOnInit(): void {
@@ -68,7 +75,11 @@ export class SigninComponent implements OnInit {
             }
             if(this.loggedInUser.role == 'Patient')
             {
-              this.router.navigate(['/patient-profile']);
+              this.router.navigate(['/patient-dashboard']);
+            }
+            if(this.loggedInUser.role == 'therapist')
+            {
+              this.router.navigate(['/therapist/dashboard']);
             }
           }
         },

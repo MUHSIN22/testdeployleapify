@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-provider',
@@ -7,9 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProviderComponent implements OnInit {
 
+  @ViewChild('form') form: any;
+
+  counselor: {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    liscence: string
+  } = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      liscence: ""
+    }
+  accept: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+  submit({ valid, value }: NgForm) {
+    if (valid) {
+      this.form.reset();
+    }
   }
 
 }

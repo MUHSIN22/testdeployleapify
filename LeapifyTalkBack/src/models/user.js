@@ -10,7 +10,6 @@ const UserSchema = new mongoose.Schema(
     gender: { type: String },
     address: { type: String },
     image: { type: String },
-    role: { type: String },
     paypalId: { type: String },
     licenceimage: { type: String },
     qualification: { type: String },
@@ -28,6 +27,84 @@ const UserSchema = new mongoose.Schema(
     facebooklink: { type: String},
     instagramlink: { type: String},
     twitterlink: { type: String},
+
+    role: { type: String },
+    
+    headline: {
+      type: String,
+      default: "",
+    },
+    link: {
+      type: String,
+      default: "",
+    },
+    registerToken: {
+      type: String,
+      default: null,
+    },
+    verifiedUser: {
+      type: Boolean,
+      default: false,
+    },
+    courses: [
+      {
+        ref: "courses",
+        type: Schema.Types.ObjectId,
+      },
+    ],
+    about_instructor: {
+      type: String,
+    },
+    salary: {
+      type: Number,
+    },
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    certification: {
+      type: String,
+      default: "UGC",
+    },
+    students: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    otp: {
+      type: String,
+    },
+    loginOtp: {
+      type: String,
+    },
+    timeOtpSent: {
+      type: Number,
+    },
+    registered: {
+      type: Boolean,
+      default: false,
+    },
+    timeLoginOtpSent: {
+      type: Number,
+    },
+    loggedIn: {
+      type: Boolean,
+      default: false,
+    },
+    approved: {
+      type: Boolean,
+      default: false,
+    },
+    notApproved: {
+      type: Boolean,
+    },
+    onHold: {
+      type: Boolean,
+      default: true,
+    },
+
+
 
     username: {
       type: String,
@@ -70,14 +147,14 @@ const UserSchema = new mongoose.Schema(
     paymentToken: {
       type: String,
     },
-    // phone: {
-    //   type: String,
-    //   default: "",
-    // },
-    // photo: {
-    //   type: String,
-    //   default: "",
-    // },
+    phone: {
+      type: String,
+      default: "",
+    },
+    photo: {
+      type: String,
+      default: "",
+    },
     age: {
       type: Number,
     },

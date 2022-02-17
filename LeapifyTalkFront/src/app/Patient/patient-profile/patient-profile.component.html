@@ -9,8 +9,9 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <!-- <img src="assets/userpic.png" class="w-75"> -->
-                                    <img *ngIf="!imageUrl" src="assets/uploadimages/sample.png" class="w-100 rounded-pill">
+                                    <img *ngIf="!imageUrl && image == null" src="assets/uploadimages/sample.png" class="w-100 rounded-pill">
                                     <img *ngIf="imageUrl" [src]="imageUrl" class="w-100 rounded-pill">
+                                    <img *ngIf="image && !imageUrl" src="{{image}}" class="w-100 rounded-pill">
                                     <button class="btn btn-0EA5C6 text-light rounded-pill mt-2"
                                         (click)="openXl(content)">Update Profile</button>
                                 </div>
@@ -18,6 +19,8 @@
                                     <p style="font-weight: bold; color: black !important;">{{loggedInUser.name}}</p>
                                     <p>Location : {{address}}</p>
                                     <p>Gender : {{gender}}</p>
+                                    <button class="btn btn-0EA5C6 text-light rounded-pill" style="margin-top: 32px;"
+                                        (click)="Book(book)">Book Appointment</button>
                                 </div>
                                 <div class="col-md-5">
                                     <p>Email : {{loggedInUser.email}}</p>
@@ -53,8 +56,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <img *ngIf="!imageUrl" src="assets/uploadimages/sample.png" class="img1 mt-5 rounded-pill">
+                                    <img *ngIf="!imageUrl && image == null " src="assets/uploadimages/sample.png" class="img1 mt-5 rounded-pill">
                                     <img *ngIf="imageUrl" [src]="imageUrl" class="img1 mt-5 rounded-pill">
+                                    <img *ngIf="image && !imageUrl" src="{{image}}" class="img1 mt-5 rounded-pill">
+                                    <label for="file-upload" style="color: #0EA5C6; position: relative; right: 14%; top: 30%;">
+                                        <i class="fas fa-pencil-alt fs-5" title="Select Image"></i>
+                                    </label>
+                                    <input id="file-upload" type="file" formControlName="Image" #Image accept="image/*" (change)="onFileSelected($event)" hidden>
                                 </div>
                                 <div class="col-md-9">
                                     <hr>
@@ -110,6 +118,763 @@
                 </form>
             </ng-template>
             <!-- ============================================ Update Profile End ===================================== -->
+            <!-- ============================================ Book Appointment Start -================================ -->
+            <ng-template #book let-modal let-c="close" let-d="dismiss">
+                <!-- <form [formGroup]="updateuser" (ngSubmit)="UserUpdate(updateuser)"> -->
+                    <div class="card card-shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i>
+                                </div>
+                            </div>
+                            <div class="container-fluid">
+                                <!-- ---------------------------------------------------------------------------- -->
+                                <h1 class="mb-0">Book Appointment</h1>
+                                <div class="row p-3" *ngFor="let data of Doctordata; let i=index;">
+                                    <div class="card card-shadow m-0 p-0" style="background-image: url(assets/pattern2.png); color:#fff">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-4 mt-5">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <img src="assets/user-pic1.png" height="100px" width="100px">
+                                                            <button class="btn btn-0EA5C6 text-light rounded-pill px-4 py-2 mt-4"
+                                                                (click)="BookAppointment(content,data.email)">Book</button>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            Dr.{{data.first_name}} {{data.last_name}}<br>
+                                                            {{data.qualification}}<br>
+                                                            <p>
+                                                                <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate">
+                                                                </ngb-rating>&nbsp;<b style="color: #0EA5C6;">[{{currentRate}}]</b>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mt-5">
+                                                    <i class="fa fa-phone fs-4 mx-4"></i>Phone No. : {{data.mobile}}<br>
+                                                    <i class="fa fa-envelope fs-4 mx-4"></i>Email : {{data.email}}<br>
+                                                    <i class="fa fa-history fs-4 mx-4"></i>Experience : {{data.experience}} Years
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="navbar justify-content-center fs-5 m-0 p-0">
+                                                        <ul class="">
+                                                            <li *ngIf="!video" (click)="Onvideo()">Video</li>
+                                                            <li *ngIf="video"
+                                                                style="text-decoration: underline; text-decoration-color: orange; text-decoration-thickness: 3px; text-underline-offset: 5px;"
+                                                                (click)="Onvideo()">Video</li>
+                                                            <li *ngIf="!intro" (click)="Onintro()">Intro</li>
+                                                            <li *ngIf="intro"
+                                                                style="text-decoration: underline; text-decoration-color: orange; text-decoration-thickness: 3px; text-underline-offset: 5px;"
+                                                                (click)="Onintro()">Intro</li>
+                                                            <li *ngIf="!calendar" (click)="Oncalendar(data._id,data.email)">Calendar</li>
+                                                            <li *ngIf="calendar"
+                                                                style="text-decoration: underline; text-decoration-color: orange; text-decoration-thickness: 3px; text-underline-offset: 5px;"
+                                                                (click)="Oncalendar(data._id,data.email)">Calendar</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="card mt-1" style="height:204px; overflow-y: auto;">
+                                                        <div class="card-body m-0 p-0">
+                                                            <div *ngIf="video">
+                                                                <iframe width=100% height=200px src="https://www.youtube.com/embed/DBdnYisvbok"
+                                                                    start title="YouTube video player" frameborder="0"
+                                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                    allowfullscreen></iframe>
+                                                            </div>
+                                                            <div *ngIf="intro"
+                                                                style="background-image: url(assets/intro-background.jpg); height: 200px;">
+                                                                <div class="col-md-9">
+                                                                    <p class="fs-6 p-3 text-dark">{{data.aboutMe}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="calendar">
+                                                                <div class="" style="width:100%; font-size: 13px; color: black;">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Day</th>
+                                                                                <th scope="col" class="table-info">{{CurrentDay}}</th>
+                                                                                <th scope="col">{{WeekDay[1]}}</th>
+                                                                                <th scope="col">{{WeekDay[2]}}</th>
+                                                                                <th scope="col">{{WeekDay[3]}}</th>
+                                                                                <th scope="col">{{WeekDay[4]}}</th>
+                                                                                <th scope="col">{{WeekDay[5]}}</th>
+                                                                                <th scope="col">{{WeekDay[6]}}</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th scope="row">Time/</th>
+                                                                                <th class="table-info">{{CurrentDate}}</th>
+                                                                                <th>{{WeekDate[1]}}</th>
+                                                                                <th>{{WeekDate[2]}}</th>
+                                                                                <th>{{WeekDate[3]}}</th>
+                                                                                <th>{{WeekDate[4]}}</th>
+                                                                                <th>{{WeekDate[5]}}</th>
+                                                                                <th>{{WeekDate[6]}}</th>
+                                                                            </tr>
+                                                                            <tr *ngFor="let data of Sunday;">
+                                                                                <th scope="row">{{data.name.slice(0,2)}}-{{data.name.slice(8,10)}}</th>
+                                                                                <td *ngFor="let week of WeekDay;">
+                                                                                    <div *ngFor="let sun of Sunday">
+                                                                                        <span *ngIf="week == 'Sun' && sun.status == '0' && sun.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
+                                                                                        <span *ngIf="week == 'Sun' && sun.status == '1' && sun.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
+                                                                                        <span *ngIf="week == 'Sun' && sun.status == '2' && sun.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-success text-light rounded-pill">B</span>
+                                                                                    </div>
+                                                                                    <div *ngFor="let mon of Monday">
+                                                                                        <span *ngIf="week == 'Mon' && mon.status == '0' && mon.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
+                                                                                        <span *ngIf="week == 'Mon' && mon.status == '1' && mon.id == data.id  "
+                                                                                        class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
+                                                                                        <span *ngIf="week == 'Mon' && mon.status == '2' && mon.id == data.id  "
+                                                                                        class="d-flex justify-content-center bg-success text-light rounded-pill">B</span>
+                                                                                    </div>
+                                                                                    <div *ngFor="let tue of Tuesday">
+                                                                                        <span *ngIf="week == 'Tue' && tue.status == '0' && tue.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
+                                                                                        <span *ngIf="week == 'Tue' && tue.status == '1' && tue.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
+                                                                                        <span *ngIf="week == 'Tue' && tue.status == '2' && tue.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-success text-light rounded-pill">B</span>
+                                                                                    </div>
+                                                                                    <div *ngFor="let wed of Wednesday">
+                                                                                        <span *ngIf="week == 'Wed' && wed.status == '0' && wed.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
+                                                                                        <span *ngIf="week == 'Wed' && wed.status == '1' && wed.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
+                                                                                        <span *ngIf="week == 'Wed' && wed.status == '2' && wed.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-success text-light rounded-pill">B</span>
+                                                                                    </div>
+                                                                                    <div *ngFor="let thu of Thursday">
+                                                                                        <span *ngIf="week == 'Thu' && thu.status == '0' && thu.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
+                                                                                        <span *ngIf="week == 'Thu' && thu.status == '1' && thu.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
+                                                                                        <span *ngIf="week == 'Thu' && thu.status == '2' && thu.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-success text-light rounded-pill">B</span>
+                                                                                    </div>
+                                                                                    <div *ngFor="let fri of Friday">
+                                                                                        <span *ngIf="week == 'Fri' && fri.status == '0' && fri.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
+                                                                                        <span *ngIf="week == 'Fri' && fri.status == '1' && fri.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
+                                                                                        <span *ngIf="week == 'Fri' && fri.status == '2' && fri.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-success text-light rounded-pill">B</span>
+                                                                                    </div>
+                                                                                    <div *ngFor="let sat of Saturday">
+                                                                                        <span *ngIf="week == 'Sat' && sat.status == '0' && sat.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
+                                                                                        <span *ngIf="week == 'Sat' && sat.status == '1' && sat.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
+                                                                                        <span *ngIf="week == 'Sat' && sat.status == '2' && sat.id == data.id "
+                                                                                        class="d-flex justify-content-center bg-success text-light rounded-pill">B</span>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ---------------------------------------------------------------------------- -->
+                                <!-- ============================================ Book Appointment Start ================================ -->
+                                <!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
+                            
+                                <ng-template #content let-modal let-c="close" let-d="dismiss">
+                                    <form>
+                                        <div class="card card-shadow">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-12 d-flex justify-content-end">
+                                                        <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i>
+                                                    </div>
+                                                </div>
+                                                <fieldset>
+                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Select Your Appointment Type</h6>
+                                                    <div class="row px-5 p-0 m-0">
+                                                        <div *ngIf="ta_value" class="row btn-fefefe rounded my-2 p-2">
+                                                            <div class="col-md-10">
+                                                                <b>30 minute trial Appointment</b> <br> -- <br> Free Trial
+                                                            </div>
+                                                            <div class="col-md-2 d-flex justify-content-end">
+                                                                <b>$ 0.00</b>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="v_value" class="row btn-fefefe rounded my-2 p-2">
+                                                            <div class="col-md-10">
+                                                                <b>Leapifyconnect-video Appointment</b> <br> -- <br> HIPPA COMPLIANT
+                                                            </div>
+                                                            <div class="col-md-2 d-flex justify-content-end">
+                                                                <b>$ {{Price.v_price}}</b>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="vr_value" class="row btn-fefefe rounded my-2 p-2">
+                                                            <div class="col-md-10">
+                                                                <b>LeapifyVR</b> <br> -- <br> (Virtual Reality) Appointment
+                                                            </div>
+                                                            <div class="col-md-2 d-flex justify-content-end">
+                                                                <b>$ {{Price.vr_price}}</b>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="txt_value == true " class="row btn-fefefe rounded my-2 p-2">
+                                                            <div class="col-md-10">
+                                                                <b>Leapify Chat</b> <br> -- <br> One to One Secure Chat With Your Doctor
+                                                            </div>
+                                                            <div class="col-md-2 d-flex justify-content-end">
+                                                                <b>$ {{Price.txt_price}}</b>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset>
+                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Appointment options</h6>
+                                                    <div class="row m-0">
+                                                        <p class="text-light fs-5 d-flex justify-content-center"
+                                                            style="background-image: url(assets/pattern2.png);">
+                                                            <b>Appointments rules</b><br>
+                                                            1. Appointments must be scheduled in advance.<br>
+                                                            2. Date and time for at least ONE Appointment should be selected to purchase a
+                                                            Package.<br>
+                                                            3. Appointments must be scheduled within six months of purchase date.
+                                                        </p>
+                                                        <h4>Video Appointment</h4>
+                                                        <div class="row">
+                                                            <div class="col-md-4 p-5 pt-0 pb-1">
+                                                                <div class="row border border-info rounded-pill my-2 p-3">
+                                                                    <div class="col-5 d-flex justify-content-center">
+                                                                        Appointment
+                                                                    </div>
+                                                                    <div class="col-7 d-flex justify-content-center">
+                                                                        $&nbsp;{{Price.v_price}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-5 p-5 pt-0 pb-1">
+                                                                <div class="row border border-info rounded-pill my-2 p-3">
+                                                                    <div class="col-6 d-flex justify-content-center">
+                                                                        {{Price.v_bundle}} Appointment
+                                                                    </div>
+                                                                    <div class="col-6 d-flex justify-content-center">
+                                                                        <span class="text-decoration-line-through">$&nbsp;{{Price.v_price*Price.v_bundle}}&nbsp;</span>&nbsp;
+                                                                        $&nbsp;{{(Price.v_price*Price.v_bundle)-(Price.v_price*Price.v_bundle)*(Price.v_discount/100)}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 p-5 pt-0 pb-1">
+                                                                <div class="row border border-info rounded-pill my-2 p-3">
+                                                                    <!-- <div class="col-6 d-flex justify-content-center">
+                                                                        Discount
+                                                                    </div> -->
+                                                                    <div class="col-12 d-flex justify-content-center">
+                                                                        <b><span class="btn-0EA5C6 rounded-pill p-2 dis-ami">SAVE {{Price.v_discount}}%</span></b>
+                                                                        <!-- {{Price.v_discount}}% -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset>
+                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Schedule your Appointments</h6>
+                                                    <span class="d-flex justify-content-center p-2">
+                                                        <i class="fas fa-square fs-5"></i> &nbsp; : &nbsp; Available &nbsp; &nbsp;
+                                                        <i class="far fa-square fs-5"></i> &nbsp; : &nbsp; Unvailable
+                                                    </span>
+                                                    <div class="row px-5 m-0">
+                                                        <div style="font-size: 13px;">
+                                                            <div class="row">
+                                                                <div class="col-md-3 border"></div>
+                                                                <div class="col-md-1 border p-2">su</div>
+                                                                <div class="col-md-1 border p-2">mo</div>
+                                                                <div class="col-md-1 border p-2">tu</div>
+                                                                <div class="col-md-1 border p-2">we</div>
+                                                                <div class="col-md-1 border p-2">th</div>
+                                                                <div class="col-md-1 border p-2">fr</div>
+                                                                <div class="col-md-1 border p-2">sa</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border"></div>
+                                                                <div class="col-md-1 border p-2">31</div>
+                                                                <div class="col-md-1 border p-2">1</div>
+                                                                <div class="col-md-1 border p-2">2</div>
+                                                                <div class="col-md-1 border p-2">3</div>
+                                                                <div class="col-md-1 border p-2">4</div>
+                                                                <div class="col-md-1 border p-2">5</div>
+                                                                <div class="col-md-1 border p-2">6</div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">00-01 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">01-02 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">02-03 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">03-04 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">04-05 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">05-06 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">06-07 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">07-08 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">08-09 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">09-10 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">10-11 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">11-12 AM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">12-13 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">13-14 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">14-15 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">15-16 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">16-17 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">17-18 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">18-19 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">19-20 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">20-21 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">21-22 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">22-23 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3 border">23-00 PM</div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border p-2"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                                <div class="col-md-1 border " style=" background-color : #0EA5C6;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset>
+                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Communication Tool</h6>
+                                                    <div class="row p-5 m-0">
+                                                        <p>These are the communication tools your teacher uses. Please choose your preferred
+                                                            communication tool.</p> <br>
+                                                        <div class="row m-0 p-0">
+                                                            <div class="col-md-4">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 d-flex justify-content-center mb-4">
+                                                                        <img src="assets/google-meet.svg" class="w-50 m-3">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                                        <button class="btn btn-fefefe">GoogleMeet</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 d-flex justify-content-center mb-4">
+                                                                        <img src="assets/zoom.svg" class="w-50">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                                        <button class="btn btn-fefefe">Zoom</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 d-flex justify-content-center mb-4">
+                                                                        <img src="assets/skype.svg" class="w-50">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                                        <button class="btn btn-fefefe">Skype</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="mt-4">italki Classroom is italki's own integrated communication tool. It works on the latest
+                                                            versions of Google Chrome, Mozilla Firefox, and Safari.<br>
+                            
+                                                            For a better in-class experience, please enter italki Classroom to check the
+                                                            connectivity prior to your lesson start time.</p>
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset>
+                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Payment</h6>
+                                                    <div class="row p-5 m-0">
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                                <div class="card">
+                                                                    <div class="row card-body">
+                                                                        <div class="col-md-1 border p-2">
+                                                                            <input type="checkbox">
+                                                                        </div>
+                                                                        <div class="col-md-11">
+                                                                            Balance / <b>$ 0.00 USD</b> <br>
+                                                                            your italki Balance will be automatically deducted
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">Promo Code</div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" placeholder="Please enter your code"> REDEEM
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col">Coupon</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-3"><b>Payment Methods</b></div>
+                                                                            <div class="col-md-4 d-flex justify-content-end">Billing Country/Region
+                                                                            </div>
+                                                                            <div class="col-md-5">
+                                                                                <select style="width: 200px;">
+                                                                                    <option value="">India</option>
+                                                                                    <option value="">India</option>
+                                                                                    <option value="">India</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <i class="far fa-credit-card"></i>&nbsp;
+                                                                                Debit / credit card
+                                                                            </div>
+                                                                            <div class="col-md-6 d-flex justify-content-end">
+                                                                                <i class="fas fa-plus-circle mt-1"></i>&nbsp;
+                                                                                <b>ADD A NEW CARD</b>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <i class="fab fa-cc-paypal"></i>&nbsp;
+                                                                                PayPal
+                                                                            </div>
+                                                                            <div class="col-md-6 d-flex justify-content-end">
+                                                                                <input type="checkbox">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <i class="far fa-credit-card"></i>&nbsp;
+                                                                                Skrill eWallet
+                                                                            </div>
+                                                                            <div class="col-md-6 d-flex justify-content-end">
+                                                                                <input type="checkbox">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <i class="far fa-credit-card"></i>&nbsp;
+                                                                                Bank Transfer
+                                                                            </div>
+                                                                            <div class="col-md-6 d-flex justify-content-end">
+                                                                                <input type="checkbox">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- right side start -->
+                                                            <div class="col-md-4">
+                                                                <div class="card p-2">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <img src="assets/patient-pro.png"
+                                                                                    style="height: 80px; border: 1px solid; padding: 5px; border-radius: 50%;">
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <b>Alex</b><br>
+                                                                                Beginner Spoken English<br>
+                                                                                See the details
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">Sub-total</div>
+                                                                            <div class="col-md-6 d-flex justify-content-end">$ 19.00 USD</div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">Processing fee</div>
+                                                                            <div class="col-md-6 d-flex justify-content-end">$ 0.00 USD</div>
+                                                                        </div>
+                                                                        <hr>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">Total</div>
+                                                                            <div class="col-md-6 d-flex justify-content-end mb-2">
+                                                                                $ 19.00 USD<br>
+                                                                                <!-- Estimated INR 1,423.64 -->
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-0EA5C6 my-2">PAY</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="">
+                                                                    <div class="">
+                                                                        <font style="font-size: 10px;">
+                                                                            <i class="fas fa-circle"></i>&nbsp;
+                                                                            All currency conversions are estimates and may vary.<br>
+                                                                            <i class="fas fa-circle"></i>&nbsp;
+                                                                            Your final payment will be made in USD.<br>
+                                                                            <i class="fas fa-circle"></i>&nbsp;
+                                                                            Purchases can only be refunded for italki Credits that are directly
+                                                                            transferred to your italki student Wallet. Cash refund not
+                                                                            supported.<br>
+                                                                        </font>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- right side end -->
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <div class="col-md-12 d-flex justify-content-end">
+                                                    <button type="button" class="btn btn-0EA5C6 rounded-pill mx-3" id="previous-step"
+                                                        disabled="disabled">&#171; Previous</button>
+                                                    <button type="button" class="btn btn-0EA5C6 rounded-pill" id="next-step">Next &#187;</button>
+                                                    <button type="submit" class="btn btn-0EA5C6 rounded-pill" id="finish-step">Finish
+                                                        &#8629;</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </ng-template>
+                                <!-- ============================================ Book Appointment End ===================================== -->
+                            </div>
+                        </div>
+                    </div>
+                <!-- </form> -->
+            </ng-template>
+            <!-- ============================================ Book Appointment End ==================================== -->
             <div class="row mt-4">
                 <div class="col-md-12">
                     <div class="card card-shadow">
@@ -291,6 +1056,9 @@
                                     <td>12:00 - 01:00</td>
                                     <td>
                                         <button class="btn btn-0EA5C6">Successfull</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-0EA5C6" routerLink="/patient-feedback">Feedback</button>
                                     </td>
                                 </tr>
                                 <tr>
