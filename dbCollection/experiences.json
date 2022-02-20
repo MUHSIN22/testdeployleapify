@@ -1,0 +1,259 @@
+[{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df40"
+  },
+  "name": "Addictions"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df41"
+  },
+  "name": "Grief"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df42"
+  },
+  "name": "Eating disorders"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df43"
+  },
+  "name": "Sleeping disorders"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df44"
+  },
+  "name": "Self esteem"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df45"
+  },
+  "name": "Bipolar disorder"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df46"
+  },
+  "name": "Coping with life changes"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df47"
+  },
+  "name": "Compassion fatigue"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df48"
+  },
+  "name": "Abandonment"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df49"
+  },
+  "name": "Aging and Geriatric Issues"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df50"
+  },
+  "name": "Co-morbidity"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df51"
+  },
+  "name": "Codependency"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df52"
+  },
+  "name": "Communication Problems"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df53"
+  },
+  "name": "Divorce and Separation"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df54"
+  },
+  "name": "Drug and Alcohol Addiction"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df55"
+  },
+  "name": "Eating and Food-Related Issues"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df56"
+  },
+  "name": "Emptiness"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df57"
+  },
+  "name": "Family of Origin Issues"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df58"
+  },
+  "name": "Family Problems"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df59"
+  },
+  "name": "Forgiveness"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df60"
+  },
+  "name": "Guilt and Shame"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df61"
+  },
+  "name": "Impulsivity"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df62"
+  },
+  "name": "Infidelity"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df63"
+  },
+  "name": "Isolation/Loneliness"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df64"
+  },
+  "name": "Mood Disorders"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df65"
+  },
+  "name": "Multicultural Concerns"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df66"
+  },
+  "name": "Obsessions Compulsions and OCD"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df67"
+  },
+  "name": "Panic Disorder and Panic Attacks"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df68"
+  },
+  "name": "Paranoia"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df69"
+  },
+  "name": "Personality Disorders"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df70"
+  },
+  "name": "Phobias"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df71"
+  },
+  "name": "Seasonal Affective Disorder (SAD)"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df72"
+  },
+  "name": "Self-Harm"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df73"
+  },
+  "name": "Smoking/Vaping Cessation"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df74"
+  },
+  "name": "Social Anxiety and Phobia"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df75"
+  },
+  "name": "Womens Issues"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df76"
+  },
+  "name": "Workplace Issues"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df77"
+  },
+  "name": "Intimacy-related issues"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df78"
+  },
+  "name": "Process addiction (porn,gambling)"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df79"
+  },
+  "name": "Antisocial personality"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df80"
+  },
+  "name": "Dependent personality"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df81"
+  },
+  "name": "Money and financial issues"
+},
+{
+  "_id": {
+    "$oid": "620e7db84edfcb6eb8e3df82"
+  },
+  "name": "Anger management"
+}
+]
