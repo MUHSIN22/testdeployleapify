@@ -38,6 +38,16 @@ export class HttpService {
   }
 
     // ------------------------------------------------------
+    Mapping()
+    {
+      return this.http.get(`${this.apiUrl}/mapping`);
+    }
+
+    Assessment(obj: any) {
+      console.log(obj,'Service');
+      return this.http.post(`${this.apiUrl}/assessment`, obj);
+    }
+
     UserReg(obj: any) {
       return this.http.post(`${this.apiUrl}/usersignup`, obj);
     }

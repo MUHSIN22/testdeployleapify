@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Questions } from 'src/app/models/Questions';
+// import { Questions } from 'src/app/models/Questions';
 import { ToastComponent } from '../toast/toast.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpService } from 'src/app/services/http.service';
 
 declare var $: any;
 
@@ -13,7 +14,10 @@ declare var $: any;
 })
 export class GetStartedComponent implements OnInit {
 
-  questions = Questions;
+  // questions = Questions;
+  mappingdata: any = [];
+  QuestionsMapping:any;
+  loggedInUser : any;
   progress: number = 0;
   started: boolean = false;
   questionNo: number = 0;
@@ -24,7 +28,8 @@ export class GetStartedComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private httpService: HttpService,
   ) { }
 
   ngOnInit(): void {
@@ -32,11 +37,25 @@ export class GetStartedComponent implements OnInit {
     setTimeout(()=>{
       document.documentElement.scrollTop = 130;
     },100)
+
+    this.httpService.Mapping().subscribe(
+      (spec : any) => {
+        this.mappingdata = spec;
+        this.QuestionsMapping = this.mappingdata[0].question;
+        // console.log(this.QuestionsMapping,'MappingData');
+      })
+
+    this.httpService.userSubject.subscribe(
+      (user)=>{
+        this.loggedInUser = user;
+        // console.log(this.loggedInUser.email);
+      })
   }
 
   startNow() {
     this.started = true;
-    this.currentQuestion = Questions[0];
+    // this.currentQuestion = Questions[0];
+    this.currentQuestion = this.QuestionsMapping[0];
   }
 
   //Fired when: 
@@ -64,13 +83,13 @@ export class GetStartedComponent implements OnInit {
     }
     //Setting next question to view
     if (this.currentSelection.length != 0 || this.radioChoice) {
-      this.progress = Math.round(((this.questionNo + 1) / Questions.length) * 100);
+      this.progress = Math.round(((this.questionNo + 1) / this.QuestionsMapping.length) * 100);
       this.animationfunc();
       setTimeout(() => {
         this.currentSelection = [];
         this.radioChoice = "";
         this.questionNo += 1;
-        this.currentQuestion = Questions[this.questionNo];
+        this.currentQuestion = this.QuestionsMapping[this.questionNo];
         let ele = this.selections[this.questionNo];
         if (ele) {
           if (ele.type == "checkbox")
@@ -87,7 +106,7 @@ export class GetStartedComponent implements OnInit {
     this.reverseanimationfunc();
     setTimeout(() => {
       this.questionNo -= 1;
-      this.currentQuestion = this.questions[this.questionNo];
+      this.currentQuestion = this.QuestionsMapping[this.questionNo];
       let ele = this.selections[this.questionNo];
       if (ele.type == "checkbox")
         this.currentSelection = ele.selection;
@@ -124,8 +143,19 @@ export class GetStartedComponent implements OnInit {
   //Fired when signup button is clicked
   submit() {
     this.nextQuestion();
-    if (this.selections.length == Questions.length) {
-      this.router.navigate(['/choose-pricing'])
+    if (this.selections.length == this.QuestionsMapping.length) {
+      // this.router.navigate(['/choose-pricing'])
+      // console.log(this.selections,'Result');
+      var Result = {
+        email : this.loggedInUser.email,
+        result : this.selections
+      }
+      // console.log(Result,'Result Json');
+      this.httpService.Assessment(Result).subscribe(
+        (res : any)=>{
+          alert(res.msg); 
+          this.router.navigate(['/patient-profile']);
+        })
     }
   }
 

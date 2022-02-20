@@ -26,7 +26,7 @@ export class PatientAssessmentComponent implements OnInit {
       (res: any) => {
         this.Userdata = res;
         this.Result = this.Userdata.result;
-        console.log(this.Result);
+        // console.log(this.Result);
       })
   // ======================= Get User Data End =====================================
   }

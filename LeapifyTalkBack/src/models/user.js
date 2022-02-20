@@ -27,6 +27,7 @@ const UserSchema = new mongoose.Schema(
     facebooklink: { type: String},
     instagramlink: { type: String},
     twitterlink: { type: String},
+    result:{ type: Array},
 
     role: { type: String },
     

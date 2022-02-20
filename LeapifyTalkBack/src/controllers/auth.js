@@ -5,6 +5,7 @@ const User = require("../models/user");
 const Shift = require("../models/shift");
 const Task = require("../models/task");
 const Blog = require("../models/blog");
+const Mapp = require("../models/mapp");
 const DoctorPrice = require("../models/doctor_price");
 const chatRoom = require("../models/chatRoom");
 const sendmail = require("../utils/sendmail");
@@ -32,8 +33,6 @@ exports.usersignup = async (req, res) => {
       email,
       emailToken,
     });
-
-
     await user.save();
 
     // email to be sent to the user
@@ -75,6 +74,19 @@ exports.usersignup = async (req, res) => {
   });
 };
 //=================== Doctor Register ===========================================
+// ---------------------- Collect mappingdata Data Start ---------------------------
+
+exports.mapping = async(req, res) => {
+  try{
+      const data = await Mapp.find().lean();
+      return res.json(data);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+
+// ---------------------- Collect mappingdata Data End -----------------------------
 // ---------------------- Collect User Data By Email Start ---------------------------
 
 exports.userdata = async(req, res) => {
@@ -171,6 +183,21 @@ exports.patientupdate = async(req, res) => {
   }
 }
 // --------------------------- Update Patient Data End --------------------------------
+// ---------------------- Add Patient Result Data Start ---------------------------
+
+exports.assessment = async(req, res) => {
+  const { email, result }= req.body;
+  try{
+        const Result = await User.findOneAndUpdate({email: email}, {$set: {
+          result: result,
+      }})
+      return res.json({status: 'ok', msg: 'Add Result Successfully'})
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+// --------------------------- Add Patient Result Data End --------------------------------
 // ---------------------- Add Doctor Blog Data Start ---------------------------
 
 exports.addblog = async(req, res) => {

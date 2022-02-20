@@ -120,7 +120,6 @@
             <!-- ============================================ Update Profile End ===================================== -->
             <!-- ============================================ Book Appointment Start -================================ -->
             <ng-template #book let-modal let-c="close" let-d="dismiss">
-                <!-- <form [formGroup]="updateuser" (ngSubmit)="UserUpdate(updateuser)"> -->
                     <div class="card card-shadow">
                         <div class="card-body">
                             <div class="row">
@@ -130,12 +129,12 @@
                             </div>
                             <div class="container-fluid">
                                 <!-- ---------------------------------------------------------------------------- -->
-                                <h1 class="mb-0">Book Appointment</h1>
+                                <!-- <h1 class="mb-0">Book Appointment</h1> -->
                                 <div class="row p-3" *ngFor="let data of Doctordata; let i=index;">
                                     <div class="card card-shadow m-0 p-0" style="background-image: url(assets/pattern2.png); color:#fff">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-md-4 mt-5">
+                                                <div class="col-md-7 mt-5">
                                                     <div class="row">
                                                         <div class="col-md-4">
                                                             <img src="assets/user-pic1.png" height="100px" width="100px">
@@ -143,8 +142,15 @@
                                                                 (click)="BookAppointment(content,data.email)">Book</button>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            Dr.{{data.first_name}} {{data.last_name}}<br>
-                                                            {{data.qualification}}<br>
+                                                            <!-- <span class="text-info">Name: </span>Dr.{{data.first_name}} {{data.last_name}}<br>
+                                                            <span class="text-info">Qualification: </span>{{data.qualification}}<br>
+                                                            <span class="text-info">Mobile: </span>{{data.mobile}}<br>
+                                                            <span class="text-info">Email: </span>{{data.email}}<br>
+                                                            <span class="text-info">Experience: </span>{{data.experience}} Years -->
+                                                            Dr.{{data.first_name}} {{data.last_name}} ({{data.qualification}})<br>
+                                                            {{data.mobile}}<br>
+                                                            {{data.email}}<br>
+                                                            {{data.experience}} Years
                                                             <p>
                                                                 <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate">
                                                                 </ngb-rating>&nbsp;<b style="color: #0EA5C6;">[{{currentRate}}]</b>
@@ -152,12 +158,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 mt-5">
+                                                <!-- <div class="col-md-4 mt-5">
                                                     <i class="fa fa-phone fs-4 mx-4"></i>Phone No. : {{data.mobile}}<br>
                                                     <i class="fa fa-envelope fs-4 mx-4"></i>Email : {{data.email}}<br>
                                                     <i class="fa fa-history fs-4 mx-4"></i>Experience : {{data.experience}} Years
-                                                </div>
-                                                <div class="col-md-4">
+                                                </div> -->
+                                                <div class="col-md-5">
                                                     <div class="navbar justify-content-center fs-5 m-0 p-0">
                                                         <ul class="">
                                                             <li *ngIf="!video" (click)="Onvideo()">Video</li>

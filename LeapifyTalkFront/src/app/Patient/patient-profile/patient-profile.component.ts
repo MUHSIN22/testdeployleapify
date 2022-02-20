@@ -295,8 +295,8 @@ BookAppointment(content : any, email :any)
     this.model.open(content, { size: 'xl', backdropClass: 'backdrop-color' });
   }
 
-  Book(content: any) {
-    this.model.open(content, { size: 'xl', backdropClass: 'backdrop-color' });
+  Book(book: any) {
+    this.model.open(book, { size: 'xl', backdropClass: 'backdrop-color' });
   }
 
   headingOne() {
@@ -349,11 +349,9 @@ BookAppointment(content : any, email :any)
         this.gender = this.Userdata.gender;
         this.image = this.Userdata.image;
         this.result = this.Userdata.result;
-        console.log(this.result);
-        if(this.result != '')
+        // console.log(this.result);
+        if(this.result == undefined || this.result != '')
         {
-          // alert('hello.............');
-          // this.router.navigate(['/get-started']);
           if(window.confirm('There are questions and a break for refreshments in the middle ?')){
             this.router.navigate(['/get-started']);
            }

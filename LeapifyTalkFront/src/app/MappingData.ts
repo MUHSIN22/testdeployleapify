@@ -5,9 +5,9 @@ export const MappingData = [
 
 ], type: "checkbox", },
 
-    { mapping: "Experience", choices: ['Addictions' , 'Grief' , 'Eating disorders' , 'Sleeping disorders' , 'Self esteem' , 'Bipolar disorder' , 'Coping with life changes' , 'Compassion fatigue' , 'Abandonment' , 'Aging and Geriatric Issues' , 'Co-morbidity' , 'Codependency' , 'Communication Problems' , 'Divorce and Separation' , 'Drug and Alcohol Addiction' , 'Eating and Food-Related Issues' , 'Emptiness' , 'Family of Origin Issues' , 'Family Problems' , 'Forgiveness' , 'Guilt and Shame' , 'Impulsivity' , 'Infidelity' , 'Isolation/Loneliness' , 'Mood Disorders' , 'Multicultural Concerns' , 'Obsessions Compulsions and OCD' , 'Panic Disorder and Panic Attacks' , 'Paranoia' , 'Personality Disorders' , 'Phobias' , 'Seasonal Affective Disorder (SAD)' , 'Self-Harm' , 'Smoking/Vaping Cessation' , 'Social Anxiety and Phobia' , 'Womens Issues , Workplace Issues' ,
+    { mapping: "Experience", choices: ['Addictions' , 'Grief' , 'Eating disorders' , 'Sleeping disorders' , 'Self esteem' , 'Bipolar disorder' , 'Coping with life changes' , 'Compassion fatigue' , 'Abandonment' , 'Aging and Geriatric Issues' , 'Co-morbidity' , 'Codependency' , 'Communication Problems' , 'Divorce and Separation' , 'Drug and Alcohol Addiction' , 'Eating and Food-Related Issues' , 'Emptiness' , 'Family of Origin Issues' , 'Family Problems' , 'Forgiveness' , 'Guilt and Shame' , 'Impulsivity' , 'Infidelity' , 'Isolation/Loneliness' , 'Mood Disorders' , 'Multicultural Concerns' , 'Obsessions Compulsions and OCD' , 'Panic Disorder and Panic Attacks' , 'Paranoia' , 'Personality Disorders' , 'Phobias' , 'Seasonal Affective Disorder (SAD)' , 'Self-Harm' , 'Smoking/Vaping Cessation' , 'Social Anxiety and Phobia' , 'Womens Issues' , 'Workplace Issues' ,
 
-    'Intimacy-related issues', 'Process addiction (porn,gambling)', 'Divorce and separation', 'Drug and alcohol addiction', 'Antisocial personality', 'Dependent personality', 'Money and financial issues', 'Compassion fatigue', 'Anger management',
+    'Intimacy-related issues', 'Process addiction (porn,gambling)', 'Antisocial personality', 'Dependent personality', 'Money and financial issues', 'Anger management',
 
 ], type: "checkbox", },
 

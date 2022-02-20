@@ -4,7 +4,7 @@ const upload = require("../utils/s3");
 const { auth } = require("../middlewares/auth");
 const {
   // -----------------------------
-  usersignup, userdata, doctorupdate, aboutmeupdate, task, taskdata, updatetask, deletetask, specupdate, addblog, blogdata, deleteblog, patientupdate, settimeperiod, shiftdata, updatetimeperiod, doctorprice, pricedata, doctorupdateprice, doctorsdata,
+  usersignup, userdata, doctorupdate, aboutmeupdate, task, taskdata, updatetask, deletetask, specupdate, addblog, blogdata, deleteblog, patientupdate, settimeperiod, shiftdata, updatetimeperiod, doctorprice, pricedata, doctorupdateprice, doctorsdata, mapping, assessment,
   // -----------------------------
   register,
   login,
@@ -24,8 +24,11 @@ router.post("/usersignup", usersignup);
 router.post("/userdata", userdata);
 router.post("/doctorsdata", doctorsdata);
 // ===============================================
+router.get("/mapping", mapping);
+// ===============================================
 router.post("/patientupdate", upload.single("file"), patientupdate);
 router.post("/doctorupdate", upload.single("file"), doctorupdate);
+router.post("/assessment", assessment);
 router.post("/aboutmeupdate", aboutmeupdate);
 // ===============================================
 router.post("/addblog", upload.single("file"), addblog);

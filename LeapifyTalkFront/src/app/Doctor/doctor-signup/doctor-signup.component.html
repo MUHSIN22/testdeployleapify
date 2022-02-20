@@ -20,7 +20,12 @@
                                 </li>
                                 <li class="page-item">
                                     <!-- <a class="btn btn-0EA5C6 pb-0"> -->
-                                        <h4>Specialities</h4>
+                                        <h4>Experiences Details</h4>
+                                    <!-- </a> -->
+                                </li>
+                                <li class="page-item">
+                                    <!-- <a class="btn btn-0EA5C6 pb-0"> -->
+                                        <h4>Specialities Details</h4>
                                     <!-- </a> -->
                                 </li>
                                 <li class="page-item">
@@ -385,32 +390,32 @@
                         <fieldset>
                             <div class="row">
                                 <div class="met-basic-detail">
-                                    <h4 class="mb-1">Experience Details</h4>
+                                    <!-- <h4 class="mb-1">Experiences</h4> -->
                                     <div *ngIf="ExperienceMapping?.type == 'checkbox'" class=""
-                                        style="height:270px; overflow-y: auto;">
-                                        <label class="btn btn-outline-success m-2"
+                                        style="height:350px; overflow-y: auto;">
+                                        <label class="btn btn-0EA5C6 rounded-pill m-2"
                                             *ngFor="let choice of ExperienceMapping.choices"
                                             (change)="selectExperience($event)">
                                             <input class="" type="checkbox" [value]="choice"
-                                                [checked]="isChecked(choice)" />
+                                                [checked]="isChecked(choice)"/>
                                             &nbsp; {{ choice }}
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <!--end row-->
-                            <input type="text" class="form-control" placeholder='Add Experience...'
-                                formControlName="ExpierenceDetails">
+                            <!-- <input type="text" class="form-control" placeholder='Add Experience...'
+                                formControlName="ExpierenceDetails"> -->
                         </fieldset>
                         <!--end fieldset-->
 
                         <!-- <h3>Therapy Details</h3> -->
                         <fieldset>
                             <div class="row">
-                                <h5>Specialities</h5>
+                                <!-- <h5>Specialities</h5> -->
                                 <div *ngIf="SpecialitesMapping?.type == 'checkbox'" class=""
-                                    style="height:100px; overflow-y: auto;">
-                                    <label class="btn btn-outline-success m-2"
+                                    style="height:350px; overflow-y: auto;">
+                                    <label class="btn btn-0EA5C6 rounded-pill m-2"
                                         *ngFor="let choice of SpecialitesMapping.choices"
                                         (change)="selectSpecialites($event)">
                                         <input class="" type="checkbox" [value]="choice"
@@ -420,13 +425,16 @@
                                 </div>
                             </div>
                             <!--end row-->
-                            <input type="text" class="form-control" placeholder='Add Specialities...'
-                                data-val-length-max="1000" maxlength="1000" formControlName="SpecialitiesDetails">
+                            <!-- <input type="text" class="form-control" placeholder='Add Specialities...'
+                                data-val-length-max="1000" maxlength="1000" formControlName="SpecialitiesDetails"> -->
+                        </fieldset>
+                        <!--end fieldset-->
+                        <fieldset>
                             <div class="row">
-                                <h5 class="mt-2">Therapy Details</h5>
+                                <!-- <h5>Therapy Details</h5> -->
                                 <div *ngIf="TherapyMapping?.type == 'checkbox'" class=""
-                                    style="height:100px; overflow-y: auto;">
-                                    <label class="btn btn-outline-success m-2"
+                                    style="height:350px; overflow-y: auto;">
+                                    <label class="btn btn-0EA5C6 rounded-pill m-2"
                                         *ngFor="let choice of TherapyMapping.choices"
                                         (change)="selectTherapy($event)">
                                         <input class="" type="checkbox" [value]="choice"
@@ -436,10 +444,9 @@
                                 </div>
                             </div>
                             <!--end row-->
-                            <input type="text" class="form-control" placeholder='Add Therapy...'
-                                data-val-length-max="1000" maxlength="1000" formControlName="TherapyDetails">
+                            <!-- <input type="text" class="form-control" placeholder='Add Therapy...'
+                                data-val-length-max="1000" maxlength="1000" formControlName="TherapyDetails"> -->
                         </fieldset>
-                        <!--end fieldset-->
                         <!-- ========================================================================================================== -->
                         <!-- =========================================================================================== -->
                         <div class="col-md-12 d-flex justify-content-end mt-2">

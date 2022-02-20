@@ -1,4 +1,4 @@
-<div *ngIf="!started" class="initial_screen">
+<div *ngIf="!started" class="initial_screen pt-0">
   <img
     class="img-fluid"
     src="./assets/images/editing_body_text_amico_1.svg"
@@ -90,17 +90,17 @@
     id="nq"
     class="btn"
     *ngIf="
-      currentQuestion?.type !== 'radio' && questions.length !== questionNo + 1
+      currentQuestion?.type !== 'radio' && QuestionsMapping.length !== questionNo + 1
     "
   >
     Next <span class="d-none d-sm-inline-block">Question</span>
   </button>
   <button
   mat-raised-button
-    *ngIf="questions.length == questionNo + 1"
+    *ngIf="QuestionsMapping.length == questionNo + 1"
     (click)="submit()"
     id="signin_bottom"
   >
-    Sign up
+    Submit
   </button>
 </div>

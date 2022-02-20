@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalConfig, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { HttpService } from 'src/app/services/http.service';
-import { MappingData } from 'src/app/MappingData';
+// import { MappingData } from 'src/app/MappingData';
 
 declare var $ :any;
 
@@ -52,7 +52,8 @@ export class DoctorProfileComponent implements OnInit {
   address: any;
 
   updatespec!: FormGroup;
-  mappingdata = MappingData;
+  // mappingdata = MappingData;
+  mappingdata: any = [];
   mappingNo: number = 0;
   selections: any = [];
   ESelection: any = [];
@@ -76,9 +77,18 @@ export class DoctorProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.SpecialitesMapping = MappingData[0];
-    this.ExperienceMapping = MappingData[1];
-    this.TherapyMapping = MappingData[2];
+    this.httpService.Mapping().subscribe(
+      (spec : any) => {
+        this.mappingdata = spec;
+        // console.log(this.mappingdata,'MappingData');
+        this.SpecialitesMapping = this.mappingdata[1];
+        this.ExperienceMapping = this.mappingdata[2];
+        this.TherapyMapping = this.mappingdata[3];
+      })
+
+    // this.SpecialitesMapping = MappingData[0];
+    // this.ExperienceMapping = MappingData[1];
+    // this.TherapyMapping = MappingData[2];
 
     this.updatespec = this.fb.group({
       ExpierenceDetails:['',[]],

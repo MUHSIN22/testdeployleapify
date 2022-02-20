@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MappingData } from 'src/app/MappingData';
+// import { MappingData } from 'src/app/MappingData';
+import { HttpService } from 'src/app/services/http.service';
 
 declare var $:any;
 
@@ -16,7 +17,7 @@ export class DoctorSignupComponent implements OnInit {
   showErrormsg : boolean = false;
   doctorsignup! : FormGroup;
   post : any;
-  mappingdata = MappingData;
+  // mappingdata = MappingData;
   mappingNo: number = 0;
   selections: any = [];
   ESelection: any = [];
@@ -25,14 +26,26 @@ export class DoctorSignupComponent implements OnInit {
   SpecialitesMapping: any;
   ExperienceMapping: any;
   TherapyMapping: any;
+  mappingdata: any = [];
+  specialites: any = [];
+  experiences: any = [];
+  therapys: any = [];
 
-  constructor(private fb : FormBuilder, private router : Router) { }
+  constructor(private fb : FormBuilder, private router : Router, private httpService: HttpService,) { }
 
   ngOnInit(): void {
 
-    this.SpecialitesMapping = MappingData[0];
-    this.ExperienceMapping = MappingData[1];
-    this.TherapyMapping = MappingData[2];
+    this.httpService.Mapping().subscribe(
+      (spec : any) => {
+        this.mappingdata = spec;
+        // console.log(this.mappingdata,'MappingData');
+        this.SpecialitesMapping = this.mappingdata[1];
+        this.ExperienceMapping = this.mappingdata[2];
+        this.TherapyMapping = this.mappingdata[3];
+      })
+    // this.SpecialitesMapping = MappingData[0];
+    // this.ExperienceMapping = MappingData[1];
+    // this.TherapyMapping = MappingData[2];
 
     this.doctorsignup=this.fb.group({
       FirstName:['',[Validators.required,Validators.pattern('^[a-z,A-Z]{2,}$'),Validators.maxLength(35)]],
