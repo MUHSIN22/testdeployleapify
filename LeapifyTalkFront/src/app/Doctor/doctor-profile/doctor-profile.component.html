@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-2">
-                            <img *ngIf="!imageUrl && image == '' " src="assets/uploadimages/sample.png" class="w-100 rounded-pill">
+                            <img *ngIf="!imageUrl && image == null " src="assets/uploadimages/sample.png" class="w-100 rounded-pill">
                             <img *ngIf="imageUrl" [src]="imageUrl" class="w-100 rounded-pill">
                             <img *ngIf="image && !imageUrl" src="{{image}}" class="w-100 rounded-pill">
                         </div>
@@ -227,7 +227,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <!-- --------------------------------------------------- -->
-                        <img *ngIf="!imageUrl && image == '' " src="assets/uploadimages/sample.png" class="img1 mt-5 rounded-pill">
+                        <img *ngIf="!imageUrl && image == null " src="assets/uploadimages/sample.png" class="img1 mt-5 rounded-pill">
                         <img *ngIf="imageUrl" [src]="imageUrl" class="img1 mt-5 rounded-pill">
                         <img *ngIf="image && !imageUrl" src="{{image}}" class="img1 mt-5 rounded-pill">
                         <label for="file-upload" style="color: #0EA5C6; position: relative; right: 14%; top: 30%;">

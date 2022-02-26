@@ -122,9 +122,10 @@
               [ngClass]="{
                 'is-invalid': password.errors && (error || password.touched)
               }"
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+              
               required
             />
+            <!-- pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" -->
             <div [hidden]="!password.errors?.pattern" class="invalid-feedback">
               <small>Passowrd does not meet minimum requirements</small>
             </div>

@@ -26,7 +26,7 @@ video : boolean = true;
   vr_value! : boolean;
   txt_value! : boolean;
 
-  CurrentDate = this.datepipe.transform((new Date),'dd/MM');
+  CurrentDate = this.datepipe.transform((new Date),'dd/MMM/YYY');
   CurrentDay = this.datepipe.transform((new Date), 'ccc');
 
   shiftdata : any = [];
@@ -78,6 +78,13 @@ video : boolean = true;
   resdata: any;
   showErrormsg: boolean = false;
   result: any = [];
+  DoctorFilterdata: any = [];
+  priceT = 0;
+  cho:boolean=true;
+  appoint!:boolean;
+  cal!:boolean;
+  comm!:boolean;
+  pay!:boolean;
 
   constructor(config: NgbModalConfig, rating: NgbRatingConfig, private datepipe: DatePipe, private model: NgbModal, private httpService: HttpService, private fb: FormBuilder, private router: Router) {
     rating.max = 5;
@@ -87,8 +94,6 @@ video : boolean = true;
   }
 
   ngOnInit(): void {
-    this.DoctorData();
-
     this.updateuser = this.fb.group({
       Image: [],
       Address: ['', [Validators.required]],
@@ -102,6 +107,7 @@ video : boolean = true;
       })
     // console.log(this.loggedInUser.email);
     this.UserData();
+    this.DoctorData();
   }
 // =======================================================================================
 halfhourset = [
@@ -114,7 +120,58 @@ DoctorData()
     (res : any) => {
       this.Doctordata = res;
       // console.log(this.Doctordata);
+      var res = this.result[29].selection;
+      // console.log(res,'Result');
+      for(var i=0; i<this.Doctordata.length; i++)
+      {
+        // console.log(this.Doctordata[i].specialitiesDetails,'Specialities');
+        var Spec = this.Doctordata[i].specialitiesDetails;
+        for(var k=0; k<Spec.length; k++)
+        {
+          // console.log(Spec,'Spec');
+          for(var j=0; j<res.length; j++)
+        {
+          if(this.Doctordata[i].specialitiesDetails[k] == res[j])
+          {
+            // console.log('Hello...............');
+            this.DoctorFilterdata[j] = this.Doctordata[i];
+          }
+        }
+        }
+      }
+      // console.log(this.DoctorFilterdata,'Doctor Filter Data');
     })
+}
+
+Trial(priceT: any)
+{
+  console.log('Patient'+' : '+this.loggedInUser.email);
+  console.log('Trial Price'+' : '+priceT);
+  this.cal = true;
+  this.cho = false;
+}
+
+selectedata(name : any,CurrentDate : any,WeekDate : any, week : any)
+{
+  console.log('Current Date'+' : '+CurrentDate);
+  console.log('Slot'+' : '+name);
+  console.log('Week Date'+' : '+WeekDate);
+  console.log('Week Day'+' : '+week);
+  this.cal = false;
+  this.comm = true;
+}
+
+commdata()
+{
+  this.pay = true;
+  this.comm = false; 
+}
+
+payment()
+{
+  // this.pay = false;
+  alert('Your Appointment Is Booked');
+  window.location.reload();
 }
 
 Onvideo()
@@ -249,6 +306,29 @@ BookAppointment(content : any, email :any)
     {
       this.txt_value = true;
     }
+    this.httpService.ShiftData({email}).subscribe(
+      (res : any) => {
+        this.shiftdata = res;
+        this.ResData = this.shiftdata[0];
+        // console.log(this.shiftdata);
+        this.Sunday = this.ResData.sun;
+        this.Monday = this.ResData.mon;
+        this.Tuesday = this.ResData.tue;
+        this.Wednesday = this.ResData.wed;
+        this.Thursday = this.ResData.thu;
+        this.Friday = this.ResData.fri;
+        this.Saturday = this.ResData.sat;  
+      });
+    for (var i = 0; i <= 6; i++) {
+      this.nextDate = new Date;
+      this.nextFullDate = this.nextDate.setDate(this.nextDate.getDate() + i);
+  
+      this.nextDateValue = this.datepipe.transform((this.nextFullDate),'dd/MMM/YYY');
+      this.nextDayValue = this.datepipe.transform((this.nextDate), 'ccc');
+  
+      this.WeekDate[i] = this.nextDateValue;
+      this.WeekDay[i] = this.nextDayValue;
+    }
     this.model.open(content, { size: 'xl', backdropClass : 'backdrop-color' });
   // ==============================================================================
 
@@ -349,8 +429,8 @@ BookAppointment(content : any, email :any)
         this.gender = this.Userdata.gender;
         this.image = this.Userdata.image;
         this.result = this.Userdata.result;
-        // console.log(this.result);
-        if(this.result == undefined || this.result != '')
+        // console.log(this.result[29].selection);
+        if(this.result == undefined || this.result == '')
         {
           if(window.confirm('There are questions and a break for refreshments in the middle ?')){
             this.router.navigate(['/get-started']);

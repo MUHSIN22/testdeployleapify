@@ -23,6 +23,7 @@ export class InitialStartupComponent implements OnInit, AfterViewInit {
     age: 0,
     email: "",
     gender: "",
+    role:"Patient",
     password: ""
   }
   accept: boolean = false;
