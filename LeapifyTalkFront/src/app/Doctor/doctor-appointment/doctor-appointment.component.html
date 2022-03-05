@@ -11,30 +11,20 @@
                     <th scope="col">Patient</th>
                     <th scope="col">Date</th>
                     <th scope="col">Slot</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
-                <td>30/11/2021</td>
-                <td>--</td>
-                <td>--</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Jacob</td>
-                <td>30/11/2021</td>
-                <td>--</td>
-                <td>--</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Larry</td>
-                <td>30/11/2021</td>
-                <td>--</td>
-                <td>--</td>
+              <tr *ngFor="let book of bookingdata; let i=index;">
+                <th *ngIf="book.Status == '1' " scope="row">{{i+1}}</th>
+                <td *ngIf="book.Status == '1' ">{{book.P_name}}</td>
+                <td *ngIf="book.Status == '1' ">{{book.SelectDate}}</td>
+                <td *ngIf="book.Status == '1' ">{{book.Slot}}</td>
+                <td *ngIf="book.Status == '1' ">
+                  <a href="{{book.MeetLink}}" target="_blank">
+                    <i class="fal fa-phone mx-2" title="Join" (click)="AppJoin(book._id,book.MeetLink)"></i>
+                  </a>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -55,27 +45,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
-                    <td>30/11/2021</td>
-                    <td>--</td>
-                    <td>--</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Jacob</td>
-                    <td>30/11/2021</td>
-                    <td>--</td>
-                    <td>--</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Larry</td>
-                    <td>30/11/2021</td>
-                    <td>--</td>
-                    <td>--</td>
-                  </tr>
+                  <tr *ngFor="let book of bookingdata; let i=index;">
+                    <th *ngIf="book.Status != '1' " scope="row">{{i+1}}</th>
+                    <td *ngIf="book.Status != '1' ">{{book.D_name}}</td>
+                    <td *ngIf="book.Status != '1' ">{{book.SelectDate}}</td>
+                    <td *ngIf="book.Status != '1' ">{{book.Slot}}</td>
+                    <td *ngIf="book.Status == '0' ">
+                        <i class="fal fa-phone-slash text-danger mx-2" title="Canceled"></i>
+                        <!-- <button class="btn btn-0EA5C6">Cancel</button> -->
+                    </td>
+                    <td *ngIf="book.Status == '2' ">
+                        <i class="fal fa-repeat text-warning mx-2" title="Rescheduled"></i>
+                    </td>
+                    <td *ngIf="book.Status == '3' ">
+                        <i class="fal fa-phone mx-2" title="Success"></i>
+                    </td>
+                </tr>
                 </tbody>
               </table>
         </div>

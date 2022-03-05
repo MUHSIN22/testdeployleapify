@@ -82,9 +82,40 @@ video : boolean = true;
   priceT = 0;
   cho:boolean=true;
   appoint!:boolean;
+  appoint_v!:boolean;
+  appoint_vr!:boolean;
+  appoint_txt!:boolean;
   cal!:boolean;
   comm!:boolean;
   pay!:boolean;
+  WeekData:any =[];
+  BookingData: any;
+  bookingdata : any = [];
+
+  Sunjson: any = [];
+  Monjson: any = [];
+  Tuejson: any = [];
+  Wedjson: any = [];
+  Thujson: any = [];
+  Frijson: any = [];
+  Satjson: any = [];
+
+  Slot:any = [];
+  SData:any = [];
+  MData:any = [];
+  TData:any = [];
+  WData:any = [];
+  ThData:any = [];
+  FData:any = [];
+  SaData:any = [];
+
+  sun: any = [];
+  mon: any = [];
+  tue: any = [];
+  wed: any = [];
+  thu: any = [];
+  fri: any = [];
+  sat: any = [];
 
   constructor(config: NgbModalConfig, rating: NgbRatingConfig, private datepipe: DatePipe, private model: NgbModal, private httpService: HttpService, private fb: FormBuilder, private router: Router) {
     rating.max = 5;
@@ -108,6 +139,8 @@ video : boolean = true;
     // console.log(this.loggedInUser.email);
     this.UserData();
     this.DoctorData();
+    this.Bookingdata();
+    // console.log('Data'+' : '+localStorage.getItem("Data"));
   }
 // =======================================================================================
 halfhourset = [
@@ -133,47 +166,572 @@ DoctorData()
         {
           if(this.Doctordata[i].specialitiesDetails[k] == res[j])
           {
-            // console.log('Hello...............');
             this.DoctorFilterdata[j] = this.Doctordata[i];
           }
         }
         }
       }
-      // console.log(this.DoctorFilterdata,'Doctor Filter Data');
+      // =============================================================================================
+      // -------------- Remove Duplicate Sunday Data -----------------------
+      var FinalDoctorFilterdata = this.DoctorFilterdata.reduce((accumalator : any, current : any) => {
+        if (
+          !accumalator.some(
+            (item : any) => item.id === current.id && item.email === current.email
+          )
+        ) {
+          accumalator.push(current);
+        }
+        return accumalator;
+      }, []);
+      // -------------- Remove Duplicate Value --------------------
+        // console.log(FinalSaturdayData,'Saturday Final Data Array..........................');
+        FinalDoctorFilterdata.sort((x:any, y:any) => x.id - y.id);
+      this.DoctorFilterdata = FinalDoctorFilterdata;
+      // ====================================================================================================
+      // console.log(FinalDoctorFilterdata,'Doctor Filter Data');
     })
 }
 
-Trial(priceT: any)
+Trial(price: any)
 {
-  console.log('Patient'+' : '+this.loggedInUser.email);
-  console.log('Trial Price'+' : '+priceT);
+  // var P_email = this.loggedInUser.email;
+  var Price = {
+    Price : price,
+    // Bundle : null
+  }
+  localStorage.setItem("Price", JSON.stringify(Price));
   this.cal = true;
   this.cho = false;
 }
-
-selectedata(name : any,CurrentDate : any,date : any, week : any)
+Price_v()
 {
-  console.log('Current Date'+' : '+CurrentDate);
-  console.log('Slot'+' : '+name);
-  console.log('Week Date'+' : '+date);
-  console.log('Week Day'+' : '+week);
+  this.appoint = true;
+  this.appoint_v = true;
+  this.cho = false;
+}
+v_cal(price: any, bundle: any)
+{
+  // var P_email = this.loggedInUser.email;
+  var Price = {
+    Price : price,
+    Bundle : bundle
+  }
+  // console.log(Price);
+  localStorage.setItem("Price", JSON.stringify(Price));
+  this.cal = true;
+  this.appoint = false;
+  this.appoint_v = false;
+}
+
+Price_vr()
+{
+  this.appoint = true;
+  this.appoint_vr = true;
+  this.cho = false;
+}
+vr_cal(price: any, bundle: any)
+{
+  // var P_email = this.loggedInUser.email;
+  var Price = {
+    Price : price,
+    Bundle : bundle
+  }
+  // console.log(Price);
+  localStorage.setItem("Price", JSON.stringify(Price));
+  this.cal = true;
+  this.appoint = false;
+  this.appoint_v = false;
+}
+
+Price_txt()
+{
+  this.appoint = true;
+  this.appoint_txt = true;
+  this.cho = false;
+}
+v_txt(price: any, bundle: any)
+{
+  // var P_email = this.loggedInUser.email;
+  var Price = {
+    Price : price,
+    Bundle : bundle
+  }
+  // console.log(Price);
+  localStorage.setItem("Price", JSON.stringify(Price));
+  this.cal = true;
+  this.appoint = false;
+  this.appoint_v = false;
+}
+
+selectedata(slot : any,CurrentDate : any, date : any, day : any)
+{
+  var data = JSON.parse(localStorage.getItem("Price")!);
+  // console.log(data);
+  var Data = {
+  Price : data.Price,
+  Bundle : data.Bundle == null ? 1 : data.Bundle,
+  Currentdate : CurrentDate,
+  Slot : slot,
+  SelectDate : date,
+  Day : day,
+  }
+  // console.log(Data);
+  localStorage.setItem("Data", JSON.stringify(Data));
   this.cal = false;
   this.comm = true;
 }
 
-commdata(email : any, Link : any)
+commdata(email : any, Link : any, first_name : any, last_name : any)
 {
-  console.log('Doctor Email'+' : '+email);
-  console.log('Communication Link'+' : '+Link);
+  var data = JSON.parse(localStorage.getItem("Data")!);
+  var Data = {
+    // data : localStorage.getItem("Data"),
+    P_email : this.loggedInUser.email,
+    P_name : this.loggedInUser.name,
+    D_name : first_name+' '+last_name,
+    Price : data.Price,
+    Bundle : data.Bundle,
+    Currentdate : data.Currentdate,
+    Slot : data.Slot,
+    SelectDate : data.SelectDate,
+    Day : data.Day,
+    D_email : email,
+    MeetLink : Link,
+    Status : "1",
+  }
+  localStorage.setItem("Data", JSON.stringify(Data));
   this.pay = true;
   this.comm = false; 
+  this.BookingData = JSON.parse(localStorage.getItem("Data")!)
+  // console.log(this.BookingData,"Booking Data");
 }
 
 payment()
 {
-  // this.pay = false;
-  alert('Your Appointment Is Booked');
-  window.location.reload();
+  var BookJson = JSON.parse(localStorage.getItem("Data")!);
+  this.httpService.AppBook(BookJson).subscribe(
+    (res : any) => {
+      alert(res.msg);
+      // localStorage.clear();
+      window.location.reload();
+    })
+}
+
+AppCancel(_id : any)
+{
+  var BCJson = {
+    _id : _id,
+    Status : "0"
+  }
+  if(window.confirm('Are sure you want to cancel this Appointment ?')){
+    this.httpService.AppCancel(BCJson).subscribe(
+      (res : any) => {
+        alert(res.msg);
+        window.location.reload();
+      })
+  }
+}
+
+AppReschedule(_id : any)
+{
+  var BCJson = {
+    _id : _id,
+    Status : "2"
+  }
+  if(window.confirm('Are sure you want to Reschedule this Appointment ?')){
+    // this.httpService.AppReschedule(BCJson).subscribe(
+    //   (res : any) => {
+    //     alert(res.msg);
+    //     window.location.reload();
+    //   })
+    // this.BookAppointment(content, email);
+  }
+}
+
+AppJoin(_id : any, Link : any)
+{
+  if(window.confirm('Are sure you want to Join this Appointment ?')){
+    // alert(_id+' '+Link);
+  }
+}
+
+Bookingdata()
+{
+  var P_email = this.loggedInUser.email;
+  this.httpService.Bookdata({P_email}).subscribe(
+    (res : any) => {
+      this.bookingdata = res;
+      // console.log(this.bookingdata,'Booking Data');
+    });
+}
+
+BookStatusdata()
+{
+  this.bookingdata;
+  // console.log(this.bookingdata,'Booking Data');
+  // console.log(this.bookingdata[0].SelectDate.slice(0,6));
+  this.WeekDate;
+  // console.log(this.WeekDate,'Week Date');
+  this.ResData;
+  // console.log(this.ResData,'Doctor Shift Data');
+  for(var i=0; i<this.bookingdata.length; i++)
+    {
+      for(var k=0; k<this.WeekDate.length; k++)
+      {
+        if(this.WeekDate[k] == this.bookingdata[i].SelectDate.slice(0,6))
+        {
+          if(this.bookingdata[i].Day == 'Mon')
+          {
+            this.MData[i] = this.bookingdata[i].Slot;
+          }
+          if(this.bookingdata[i].Day == 'Tue')
+          {
+            this.TData[i] = this.bookingdata[i].Slot;
+          }
+          if(this.bookingdata[i].Day == 'Wed')
+          {
+            this.WData[i] = this.bookingdata[i].Slot;
+          }
+          if(this.bookingdata[i].Day == 'Thu')
+          {
+            this.ThData[i] = this.bookingdata[i].Slot;
+          }
+          if(this.bookingdata[i].Day == 'Fri')
+          {
+            this.FData[i] = this.bookingdata[i].Slot;
+          }
+          if(this.bookingdata[i].Day == 'Sat')
+          {
+            this.SaData[i] = this.bookingdata[i].Slot;
+          }
+          if(this.bookingdata[i].Day == 'Sun')
+          {
+            this.SData[i] = this.bookingdata[i].Slot;
+          }
+        }
+      }
+    }
+// ============================================================================================
+        for(var i=0; i<this.Sunday.length; i++)
+        {
+          for(var j=0; j<this.SData.length; j++)
+          {
+            if(this.Sunday[i].name == this.SData[j])
+            {
+              var id = this.Saturday[i].id;
+              var name = this.Saturday[i].name;
+              var check = 1;
+              var status = 2;
+              this.sun[j] =
+                  {
+                    id : id,
+                    name : name,
+                    check : check,
+                    status : status,
+                  }
+            }
+
+          }
+        }
+        // console.log(this.sun,'Sun Data');
+        // ------------------- Filter Commom Sunday Data -------------------------
+        for (let i = 0; i < this.Sunday.length; i++) {
+          if (this.Sunday.lastIndexOf(this.Sunday[i]) === this.Sunday.indexOf(this.Sunday[i])) 
+          {
+            this.sun.push(this.Sunday[i]);
+          }
+        }
+        // -------------- Remove Duplicate Sunday Data -----------------------
+        var FinalSundayData = this.sun.reduce((accumalator : any, current : any) => {
+          if (
+            !accumalator.some(
+              (item : any) => item.id === current.id && item.name === current.name
+            )
+          ) {
+            accumalator.push(current);
+          }
+          return accumalator;
+        }, []);
+        // -------------- Remove Duplicate Value --------------------
+          // console.log(FinalSundayData,'Sunday Final Data Array..........................');
+          FinalSundayData.sort((x:any, y:any) => x.id - y.id);
+        this.Sunjson = FinalSundayData;
+        // ============================================================================================
+        // ===================================================================================
+        for(var i=0; i<this.Monday.length; i++)
+        {
+          for(var j=0; j<this.MData.length; j++)
+          {
+            if(this.Monday[i].name == this.MData[j])
+            {
+              var id = this.Monday[i].id;
+              var name = this.Monday[i].name;
+              var check = 1;
+              var status = 2;
+              this.mon[j] =
+                  {
+                    id : id,
+                    name : name,
+                    check : check,
+                    status : status,
+                  }
+            }
+
+          }
+        }
+        // console.log(this.mon,'Mon Data');
+        // ------------------- Filter Commom Sunday Data -------------------------
+        for (let i = 0; i < this.Monday.length; i++) {
+          if (this.Monday.lastIndexOf(this.Monday[i]) === this.Monday.indexOf(this.Monday[i])) 
+          {
+            this.mon.push(this.Monday[i]);
+          }
+        }
+        // -------------- Remove Duplicate Sunday Data -----------------------
+        var FinalMondayData = this.mon.reduce((accumalator : any, current : any) => {
+          if (
+            !accumalator.some(
+              (item : any) => item.id === current.id && item.name === current.name
+            )
+          ) {
+            accumalator.push(current);
+          }
+          return accumalator;
+        }, []);
+        // -------------- Remove Duplicate Value --------------------
+        //  console.log(FinalMondayData,'Monday Final Data Array..........................');
+         FinalMondayData.sort((x:any, y:any) => x.id - y.id);
+        this.Monjson = FinalMondayData;
+        // ============================================================================================
+        for(var i=0; i<this.Tuesday.length; i++)
+        {
+          for(var j=0; j<this.TData.length; j++)
+          {
+            if(this.Tuesday[i].name == this.TData[j])
+            {
+              var id = this.Tuesday[i].id;
+              var name = this.Tuesday[i].name;
+              var check = 1;
+              var status = 2;
+              this.tue[j] =
+                  {
+                    id : id,
+                    name : name,
+                    check : check,
+                    status : status,
+                  }
+            }
+
+          }
+        }
+        // console.log(this.tue,'Tue Data');
+        // ------------------- Filter Commom Sunday Data -------------------------
+        for (let i = 0; i < this.Tuesday.length; i++) {
+          if (this.Tuesday.lastIndexOf(this.Tuesday[i]) === this.Tuesday.indexOf(this.Tuesday[i])) 
+          {
+            this.tue.push(this.Tuesday[i]);
+          }
+        }
+        // -------------- Remove Duplicate Sunday Data -----------------------
+        var FinalTuesdayData = this.tue.reduce((accumalator : any, current : any) => {
+          if (
+            !accumalator.some(
+              (item : any) => item.id === current.id && item.name === current.name
+            )
+          ) {
+            accumalator.push(current);
+          }
+          return accumalator;
+        }, []);
+        // -------------- Remove Duplicate Value --------------------
+        //  console.log(FinalTuesdayData,'Tuesday Final Data Array..........................');
+         FinalTuesdayData.sort((x:any, y:any) => x.id - y.id);
+        this.Tuejson = FinalTuesdayData;
+        // ============================================================================================
+        // ============================================================================================
+        for(var i=0; i<this.Wednesday.length; i++)
+        {
+          for(var j=0; j<this.WData.length; j++)
+          {
+            if(this.Wednesday[i].name == this.WData[j])
+            {
+              var id = this.Wednesday[i].id;
+              var name = this.Wednesday[i].name;
+              var check = 1;
+              var status = 2;
+              this.wed[j] =
+                  {
+                    id : id,
+                    name : name,
+                    check : check,
+                    status : status,
+                  }
+            }
+
+          }
+        }
+        // console.log(this.wed,'Wed Data');
+        // ------------------- Filter Commom Sunday Data -------------------------
+        for (let i = 0; i < this.Wednesday.length; i++) {
+          if (this.Wednesday.lastIndexOf(this.Wednesday[i]) === this.Wednesday.indexOf(this.Wednesday[i])) 
+          {
+            this.wed.push(this.Wednesday[i]);
+          }
+        }
+        // -------------- Remove Duplicate Sunday Data -----------------------
+        var FinalWednesdayData = this.wed.reduce((accumalator : any, current : any) => {
+          if (
+            !accumalator.some(
+              (item : any) => item.id === current.id && item.name === current.name
+            )
+          ) {
+            accumalator.push(current);
+          }
+          return accumalator;
+        }, []);
+        // -------------- Remove Duplicate Value --------------------
+        //  console.log(FinalWednesdayData,'Wednesday Final Data Array..........................');
+         FinalWednesdayData.sort((x:any, y:any) => x.id - y.id);
+        this.Wedjson = FinalWednesdayData;
+        // ============================================================================================
+        // ============================================================================================
+        for(var i=0; i<this.Thursday.length; i++)
+        {
+          for(var j=0; j<this.ThData.length; j++)
+          {
+            if(this.Thursday[i].name == this.ThData[j])
+            {
+              var id = this.Thursday[i].id;
+              var name = this.Thursday[i].name;
+              var check = 1;
+              var status = 2;
+              this.thu[j] =
+                  {
+                    id : id,
+                    name : name,
+                    check : check,
+                    status : status,
+                  }
+            }
+
+          }
+        }
+        // console.log(this.thu,'Thu Data');
+        // ------------------- Filter Commom Sunday Data -------------------------
+        for (let i = 0; i < this.Thursday.length; i++) {
+          if (this.Thursday.lastIndexOf(this.Thursday[i]) === this.Thursday.indexOf(this.Thursday[i])) 
+          {
+            this.thu.push(this.Thursday[i]);
+          }
+        }
+        // -------------- Remove Duplicate Sunday Data -----------------------
+        var FinalThursdayData = this.thu.reduce((accumalator : any, current : any) => {
+          if (
+            !accumalator.some(
+              (item : any) => item.id === current.id && item.name === current.name
+            )
+          ) {
+            accumalator.push(current);
+          }
+          return accumalator;
+        }, []);
+        // -------------- Remove Duplicate Value --------------------
+          // console.log(FinalThursdayData,'Thursday Final Data Array..........................');
+          FinalThursdayData.sort((x:any, y:any) => x.id - y.id);
+        this.Thujson = FinalThursdayData;
+        // ============================================================================================
+        // ============================================================================================
+        for(var i=0; i<this.Friday.length; i++)
+        {
+          for(var j=0; j<this.FData.length; j++)
+          {
+            if(this.Friday[i].name == this.FData[j])
+            {
+              var id = this.Friday[i].id;
+              var name = this.Friday[i].name;
+              var check = 1;
+              var status = 2;
+              this.fri[j] =
+                  {
+                    id : id,
+                    name : name,
+                    check : check,
+                    status : status,
+                  }
+            }
+
+          }
+        }
+        // console.log(this.fri,'Fri Data');
+        // ------------------- Filter Commom Sunday Data -------------------------
+        for (let i = 0; i < this.Friday.length; i++) {
+          if (this.Friday.lastIndexOf(this.Friday[i]) === this.Friday.indexOf(this.Friday[i])) 
+          {
+            this.fri.push(this.Friday[i]);
+          }
+        }
+        // -------------- Remove Duplicate Sunday Data -----------------------
+        var FinalFridayData = this.thu.reduce((accumalator : any, current : any) => {
+          if (
+            !accumalator.some(
+              (item : any) => item.id === current.id && item.name === current.name
+            )
+          ) {
+            accumalator.push(current);
+          }
+          return accumalator;
+        }, []);
+        // -------------- Remove Duplicate Value --------------------
+          // console.log(FinalFridayData,'Friday Final Data Array..........................');
+          FinalFridayData.sort((x:any, y:any) => x.id - y.id);
+        this.Frijson = FinalFridayData;
+        // ============================================================================================
+        // ============================================================================================
+        for(var i=0; i<this.Saturday.length; i++)
+        {
+          for(var j=0; j<this.SaData.length; j++)
+          {
+            if(this.Saturday[i].name == this.SaData[j])
+            {
+              var id = this.Saturday[i].id;
+              var name = this.Saturday[i].name;
+              var check = 1;
+              var status = 2;
+              this.sat[j] =
+                  {
+                    id : id,
+                    name : name,
+                    check : check,
+                    status : status,
+                  }
+            }
+
+          }
+        }
+        // console.log(this.sat,'Sat Data');
+        // ------------------- Filter Commom Sunday Data -------------------------
+        for (let i = 0; i < this.Saturday.length; i++) {
+          if (this.Saturday.lastIndexOf(this.Saturday[i]) === this.Saturday.indexOf(this.Saturday[i])) 
+          {
+            this.sat.push(this.Saturday[i]);
+          }
+        }
+        // -------------- Remove Duplicate Sunday Data -----------------------
+        var FinalSaturdayData = this.sat.reduce((accumalator : any, current : any) => {
+          if (
+            !accumalator.some(
+              (item : any) => item.id === current.id && item.name === current.name
+            )
+          ) {
+            accumalator.push(current);
+          }
+          return accumalator;
+        }, []);
+        // -------------- Remove Duplicate Value --------------------
+          // console.log(FinalSaturdayData,'Saturday Final Data Array..........................');
+          FinalSaturdayData.sort((x:any, y:any) => x.id - y.id);
+        this.Satjson = FinalSaturdayData;
+    // ============================================================================================
 }
 
 Onvideo()
@@ -197,92 +755,26 @@ Oncalendar(_id : any, email :any)
     (res : any) => {
       this.shiftdata = res;
       this.ResData = this.shiftdata[0];
-      // console.log(this.shiftdata);
+      // console.log(this.ResData);
       this.Sunday = this.ResData.sun;
       this.Monday = this.ResData.mon;
       this.Tuesday = this.ResData.tue;
       this.Wednesday = this.ResData.wed;
       this.Thursday = this.ResData.thu;
       this.Friday = this.ResData.fri;
-      this.Saturday = this.ResData.sat;  
+      this.Saturday = this.ResData.sat;
+      this.BookStatusdata();
     });
   for (var i = 0; i <= 6; i++) {
     this.nextDate = new Date;
     this.nextFullDate = this.nextDate.setDate(this.nextDate.getDate() + i);
 
-    this.nextDateValue = this.datepipe.transform((this.nextFullDate),'dd/MM');
+    this.nextDateValue = this.datepipe.transform((this.nextFullDate),'dd/MMM');
     this.nextDayValue = this.datepipe.transform((this.nextDate), 'ccc');
 
     this.WeekDate[i] = this.nextDateValue;
     this.WeekDay[i] = this.nextDayValue;
   }
-  // =================================================================================
-  // // this.ShiftData();
-  // for (var j = 0; j < this.WeekDay.length; j++) {
-  //   // -----------------------------------------------------------------------------
-  //   if(this.WeekDay[j] == 'Sunday')
-  //     {
-  //       for (var i = 0; i < this.ResData.Sunday.length; i++) {
-  //         this.SundayValue = this.ResData.Sunday[i];
-  //         this.Sunday[i] = this.SundayValue;
-  //       }
-  //     // console.log(this.Sunday, 'Sunday Array Elements...............');
-  //     }
-  //   // ---------------------------------------------------------------------------
-  //   if (this.WeekDay[j] == 'Monday') {
-  //     for (var i = 0; i < this.ResData.Monday.length; i++) {
-  //       this.MondayValue = this.ResData.Monday[i];
-  //       this.Monday[i] = this.MondayValue;
-  //     }
-  //     // console.log(this.Monday, 'Monday Array Elements...............');
-  //   }
-  //   // ----------------------------------------------------------------------------
-  //   if (this.WeekDay[j] == 'Tuesday') {
-  //     for (var i = 0; i < this.ResData.Tuesday.length; i++) {
-  //       this.TuesdayValue = this.ResData.Tuesday[i];
-  //       this.Tuesday[i] = this.TuesdayValue;
-  //     }
-  //     // console.log(this.Tuesday, 'Tuesday Array Elements...............');
-  //   }
-  //   // -----------------------------------------------------------------------------
-  //   if (this.WeekDay[j] == 'Wednesday') {
-  //     for (var i = 0; i < this.ResData.Wednesday.length; i++) {
-  //       this.WednesdayValue = this.ResData.Wednesday[i];
-  //       this.Wednesday[i] = this.WednesdayValue;
-  //     }
-  //     // console.log(this.Wednesday, 'Wednesday Array Elements...............');
-  //   }
-  //     // ----------------------------------------------------------------------------
-  //     if(this.WeekDay[j] == 'Thursday')
-  //     {
-  //       for (var i = 0; i < this.ResData.Thursday.length; i++) {
-  //         this.ThursdayValue = this.ResData.Thursday[i];
-  //         this.Thursday[i] = this.ThursdayValue;
-  //       }
-  //       // console.log(this.Thursday, 'Thursday Array Elements...............');
-  //     }
-  //     // -----------------------------------------------------------------------------
-  //     if(this.WeekDay[j] == 'Friday')
-  //     {
-  //       for (var i = 0; i < this.ResData.Friday.length; i++) {
-  //         this.FridayValue = this.ResData.Friday[i];
-  //         this.Friday[i] = this.FridayValue;
-  //       }
-  //       // console.log(this.Friday, 'Friday Array Elements...............');
-  //     }
-  //     // -------------------------------------------------------------------------------
-  //     if(this.WeekDay[j] == 'Saturday')
-  //     {
-  //       for (var i = 0; i < this.ResData.Saturday.length; i++) {
-  //         this.SaturdayValue = this.ResData.Saturday[i];
-  //         this.Saturday[i] = this.SaturdayValue;
-  //       }
-  //     //  console.log(this.Saturday, 'Saturday Array Elements...............');
-  //     }
-  //     // ----------------------------------------------------------------------------------
-  // }
-  // =================================================================================
-
 }
 
 BookAppointment(content : any, email :any)
@@ -319,17 +811,19 @@ BookAppointment(content : any, email :any)
         this.Wednesday = this.ResData.wed;
         this.Thursday = this.ResData.thu;
         this.Friday = this.ResData.fri;
-        this.Saturday = this.ResData.sat;  
+        this.Saturday = this.ResData.sat;
+        this.BookStatusdata();
       });
     for (var i = 0; i <= 6; i++) {
       this.nextDate = new Date;
       this.nextFullDate = this.nextDate.setDate(this.nextDate.getDate() + i);
   
-      this.nextDateValue = this.datepipe.transform((this.nextFullDate),'dd/MMM/YYY');
+      this.nextDateValue = this.datepipe.transform((this.nextFullDate),'dd/MMM');
       this.nextDayValue = this.datepipe.transform((this.nextDate), 'ccc');
   
       this.WeekDate[i] = this.nextDateValue;
       this.WeekDay[i] = this.nextDayValue;
+      this.WeekData[i] = this.nextDayValue+this.nextDateValue;
     }
     this.model.open(content, { size: 'xl', backdropClass : 'backdrop-color' });
   // ==============================================================================
@@ -367,16 +861,18 @@ BookAppointment(content : any, email :any)
 //       $("#next-step").prop("hidden",false);
 //       $("#finish-step").prop("hidden",true);
 //   });
-
 });
 
 // ==================================================================================
 }
 // =======================================================================================
-  openXl(content: any) {
-    this.model.open(content, { size: 'xl', backdropClass: 'backdrop-color' });
+  openXl(edit: any) {
+    this.model.open(edit, { size: 'xl', backdropClass: 'backdrop-color' });
   }
-
+  reload()
+  {
+    window.location.reload();
+  }
   Book(book: any) {
     this.model.open(book, { size: 'xl', backdropClass: 'backdrop-color' });
   }

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const Shift = require("../models/shift");
 const Task = require("../models/task");
+const Book = require("../models/booking");
 const Blog = require("../models/blog");
 const Mapp = require("../models/mapp");
 const DoctorPrice = require("../models/doctor_price");
@@ -153,7 +154,7 @@ exports.doctorupdate = async(req, res) => {
 // ---------------------- Update Patient Data Start ---------------------------
 
 exports.patientupdate = async(req, res) => {
-  const { email, mobile, address, }= req.body;
+  const { email, gender, mobile, address, }= req.body;
   const fileinfo = req.file;
   // console.log(fileinfo);
   // console.log(fileinfo.location);
@@ -162,6 +163,7 @@ exports.patientupdate = async(req, res) => {
       {
         const update = await User.findOneAndUpdate({email: email}, {$set: {
           mobile: mobile,
+          gender: gender,
           address: address,
           // image: fileinfo.location,
       }})
@@ -310,7 +312,7 @@ exports.updatetask = async(req, res) => {
       const update = await Task.findOneAndUpdate({_id : _id}, {$set: {
           check: check,
       }})
-      // return res.json({status: 'ok', msg: 'Update Successfully'})
+      return res.json({status: 'ok', msg: 'Update Successfully'})
   }catch(error){
       console.log(error);
       return res.json({status: 'error', msg: 'error'})
@@ -332,6 +334,101 @@ exports.deletetask = async(req, res) => {
   }
 }
 // --------------------------- delete Task Data End ----------------------------
+// -------------------------------- Booking Appointment Start ----------------------------------
+exports.booking = async(req, res) =>{
+  const { P_email, D_email, P_name, D_name, Price, Slot, Currentdate, SelectDate, Day, Bundle, MeetLink, Status  } = req.body;
+  // console.log(P_email,"Patient email");
+  // console.log(D_email,"Doctor email");
+  try {
+      const book = await Book.create({
+        P_email : P_email,
+        D_email : D_email,
+        P_name : P_name,
+        D_name : D_name,
+        Price : Price,
+        Slot : Slot,
+        Currentdate : Currentdate,
+        SelectDate : SelectDate,
+        Day : Day,
+        Bundle : Bundle,
+        MeetLink : MeetLink,
+        Status : Status,
+      });
+      await book.save();
+      return res.json({status:"ok",msg:"Booking Successfully"});
+  } catch {
+          return res.json({
+              status: "error",
+              msg: "error",
+          });
+  }
+}
+// -------------------------------- Booking Appointment End ------------------------------------
+// ---------------------- Collect Booking Data By Email Start ---------------------------
+
+exports.bookdata = async(req, res) => {
+  const { P_email } = req.body;
+  // console.log(P_email,'Res');
+  try{
+      const data = await Book.find({ P_email }).lean();
+      // console.log(data,'UserData');
+      return res.json(data);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+
+exports.bookingData = async(req, res) => {
+  const { D_email } = req.body;
+  // console.log(D_email,'Res');
+  try{
+      const data = await Book.find({ D_email }).lean();
+      // console.log(data,'UserData');
+      return res.json(data);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+
+// ---------------------- Collect Booking Data By Email End -----------------------------
+// ---------------------- Cancel Bokking Data Start ---------------------------
+
+exports.bookingCancel = async(req, res) => {
+  const { _id, Status }= req.body;
+  // console.log(_id,'Id');
+  // console.log(Status,'Status');
+  try{
+      const update = await Book.findOneAndUpdate({_id : _id}, {$set: {
+          Status: Status,
+      }})
+      return res.json({status: 'ok', msg: 'Cancel Successfully'})
+      // console.log(update);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+// --------------------------- Cancel Booking Data End ----------------------------
+// ---------------------- Reschedule Bokking Data Start ---------------------------
+
+exports.bookingReschedule = async(req, res) => {
+  const { _id, Status }= req.body;
+  // console.log(_id,'Id');
+  // console.log(Status,'Status');
+  try{
+      const update = await Book.findOneAndUpdate({_id : _id}, {$set: {
+          Status: Status,
+      }})
+      return res.json({status: 'ok', msg: 'Reschedule Successfully'})
+      // console.log(update);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+// --------------------------- Reschedule Booking Data End ----------------------------
 // -------------------------------- Shifts Section Start -----------------------------
 exports.settimeperiod = async(req, res) =>{
   const { email, sun, mon, tue, wed, thu, fri, sat, start, end} = req.body;

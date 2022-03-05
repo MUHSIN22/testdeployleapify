@@ -52,8 +52,29 @@ export class HttpService {
       return this.http.post(`${this.apiUrl}/usersignup`, obj);
     }
 
+    AppBook(obj: any) {
+      console.log(obj,'Service');
+      return this.http.post(`${this.apiUrl}/booking`, obj);
+    }
+
     UserData(obj: any) {
       return this.http.post(`${this.apiUrl}/userdata`, obj);
+    }
+
+    BookingData(obj: any) {
+      return this.http.post(`${this.apiUrl}/bookingData`, obj);
+    }
+
+    Bookdata(obj: any) {
+      return this.http.post(`${this.apiUrl}/bookdata`, obj);
+    }
+
+    AppCancel(obj : any) {
+      return this.http.post(`${this.apiUrl}/bookingCancel`, obj);
+    }
+
+    AppReschedule(obj : any) {
+      return this.http.post(`${this.apiUrl}/bookingReschedule`, obj);
     }
 
     UserUpdate(frmdata : FormData) {
