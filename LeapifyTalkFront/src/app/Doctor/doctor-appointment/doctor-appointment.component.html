@@ -12,6 +12,7 @@
                     <th scope="col">Date</th>
                     <th scope="col">Slot</th>
                     <th scope="col">Action</th>
+                    <th scope="col">Done</th>
               </tr>
             </thead>
             <tbody>
@@ -24,6 +25,9 @@
                   <a href="{{book.MeetLink}}" target="_blank">
                     <i class="fal fa-phone mx-2" title="Join" (click)="AppJoin(book._id,book.MeetLink)"></i>
                   </a>
+                </td>
+                <td *ngIf="book.Status == '1' ">
+                  <i class="fal fa-check-circle mx-2" title="Done" (click)="AppDone(book._id)"></i>
                 </td>
               </tr>
             </tbody>
@@ -58,7 +62,7 @@
                         <i class="fal fa-repeat text-warning mx-2" title="Rescheduled"></i>
                     </td>
                     <td *ngIf="book.Status == '3' ">
-                        <i class="fal fa-phone mx-2" title="Success"></i>
+                        <i class="fal fa-phone text-success mx-2" title="Success"></i>
                     </td>
                 </tr>
                 </tbody>

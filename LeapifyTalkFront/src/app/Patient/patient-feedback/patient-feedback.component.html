@@ -5,15 +5,29 @@
     <div class="container mb-5 d-flex justify-content-center">
         <div class="card card-shadow">
             <div class="card-body">
-                <form>
-                    <h4 class="mb-4">Your Doctor : Dr. Abc</h4>
-                    <h4 class="mb-4">How would you rate your doctor?</h4>
-                    <h5 class="mb-4">☆☆☆☆☆(0)</h5>
-                    <h4 class="mb-4">Is there anything else you'd like to share about your experience with the doctor?</h4>
-                    <textarea id="feedbck" class="form-control z-depth-1" rows="6" placeholder="Write your experience here..." maxlength="500" formControlName="Message"></textarea>
-                    <span>(<span id="chars">500</span> characters remaining)</span><br>
-                    <button class="btn btn-0EA5C6 rounded-pill px-5 mt-2">Submit</button>
+              <form [formGroup]="rating" (ngSubmit)="Rating(rating)">
+                <div class="p-4 justify-content-center">
+                    <h4 class="mt-0 mb-4">Your Doctor: <span class="value">{{FeedbackData.D_name}}</span></h4>
+                    <div class="form-group">
+                        <h5 class="mt-0 mb-4">How would you rate your doctor?</h5>
+                        <div class="form-group">
+                          <!-- <ngb-rating class="text-warning fs-4" [(rate)]="currentRate"></ngb-rating> -->
+                          <!-- <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate"></ngb-rating> -->
+                          <ngb-rating class="fs-5" style="color: #0EA5C6;" [max]="5" [(rate)]="currentRating" [readonly]="false"></ngb-rating>
+                          &nbsp;<b class="fs-5" style="color: #0EA5C6;" >({{currentRating}})</b>
+                          <input type="text" formControlName="Rate" value="{{currentRating}}" [ngModel]="currentRating" hidden>
+                        </div>
+                    </div>
+                    <div class="form-group shadow-textarea">
+                        <h5 for="exampleFormControlTextarea6">Is there anything else you'd like to share about your experience with the doctor?</h5>
+                        <textarea id="feedbck" class="form-control z-depth-1" rows="6" placeholder="Write your experience here..." maxlength="500" formControlName="Message"></textarea>
+                        <span>(<span id="chars">500</span> characters remaining)</span>
+                    </div>
+                    <button type="submit" class="btn btn-fefefe">Submit</button>
+                </div>
                 </form>
+                <!-- {{this.rating.value.Rate}} | json; -->
+                <!-- {{this.rating.value.Message}} | json; -->
             </div>
         </div>
     </div>
@@ -35,52 +49,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@mdo</td>
-                <td>13/12/2021</td>
-                <td><i class="fa fa-trash"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Jacob</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@fat</td>
-                <td>12/12/2021</td>
-                <td><i class="fa fa-trash"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Larry</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@twitter</td>
-                <td>11/12/2021</td>
-                <td><i class="fa fa-trash"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@mdo</td>
-                <td>10/12/2021</td>
-                <td><i class="fa fa-trash"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Jacob</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@fat</td>
-                <td>09/12/2021</td>
-                <td><i class="fa fa-trash"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Larry</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@twitter</td>
-                <td>08/12/2021</td>
+              <tr *ngFor="let data of Feedback; let i=index;">
+                <th scope="row">{{i+1}}</th>
+                <td>{{data.D_name}}</td>
+                <td>
+                  <ngb-rating class="fs-5" style="color: #0EA5C6;" [max]="5" [(rate)]="data.Rating" [readonly]="true"></ngb-rating>
+                </td>
+                <td>{{data.Message}}</td>
+                <td>{{data.C_date}}</td>
                 <td><i class="fa fa-trash"></i></td>
               </tr>
             </tbody>

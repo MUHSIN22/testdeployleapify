@@ -77,6 +77,26 @@ export class HttpService {
       return this.http.post(`${this.apiUrl}/bookingReschedule`, obj);
     }
 
+    AppBookingStatus(obj : any) {
+      return this.http.post(`${this.apiUrl}/bookingStatus`, obj);
+    }
+
+    Feedback(obj : any) {
+      return this.http.post(`${this.apiUrl}/feedback`, obj);
+    }
+
+    FeedBackData(obj : any) {
+      return this.http.post(`${this.apiUrl}/feedbackdata`, obj);
+    }
+
+    AppDone(obj : any) {
+      return this.http.post(`${this.apiUrl}/appointmentDone`, obj);
+    }
+
+    AppDataById(obj : any) {
+      return this.http.post(`${this.apiUrl}/bookingDataById`, obj);
+    }
+
     UserUpdate(frmdata : FormData) {
       return this.http.post(`${this.apiUrl}/patientupdate`, frmdata);
     }

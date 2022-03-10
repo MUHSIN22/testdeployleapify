@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 // Booking JsonMembers
 
 const BookSchema = new mongoose.Schema({
-    // _id : { type: String },
     P_email : { type: String },
     D_email : { type: String },
     P_name : { type: String },

@@ -139,31 +139,31 @@ export class DoctorCalendarComponent implements OnInit {
           {
             if(this.WeekDate[k] == this.bookingdata[i].SelectDate)
             {
-              if(this.bookingdata[i].Day == 'Mon')
+              if(this.bookingdata[i].Day == 'Mon'  && this.bookingdata[i].Status == '1')
               {
                 this.MData[i] = this.bookingdata[i].Slot;
               }
-              if(this.bookingdata[i].Day == 'Tue')
+              if(this.bookingdata[i].Day == 'Tue'  && this.bookingdata[i].Status == '1')
               {
                 this.TData[i] = this.bookingdata[i].Slot;
               }
-              if(this.bookingdata[i].Day == 'Wed')
+              if(this.bookingdata[i].Day == 'Wed'  && this.bookingdata[i].Status == '1')
               {
                 this.WData[i] = this.bookingdata[i].Slot;
               }
-              if(this.bookingdata[i].Day == 'Thu')
+              if(this.bookingdata[i].Day == 'Thu'  && this.bookingdata[i].Status == '1')
               {
                 this.ThData[i] = this.bookingdata[i].Slot;
               }
-              if(this.bookingdata[i].Day == 'Fri')
+              if(this.bookingdata[i].Day == 'Fri'  && this.bookingdata[i].Status == '1')
               {
                 this.FData[i] = this.bookingdata[i].Slot;
               }
-              if(this.bookingdata[i].Day == 'Sat')
+              if(this.bookingdata[i].Day == 'Sat'  && this.bookingdata[i].Status == '1')
               {
                 this.SaData[i] = this.bookingdata[i].Slot;
               }
-              if(this.bookingdata[i].Day == 'Sun')
+              if(this.bookingdata[i].Day == 'Sun'  && this.bookingdata[i].Status == '1')
               {
                 this.SData[i] = this.bookingdata[i].Slot;
               }
@@ -238,7 +238,7 @@ export class DoctorCalendarComponent implements OnInit {
 
           }
         }
-        console.log(this.mon,'Mon Data');
+        // console.log(this.mon,'Mon Data');
         // ------------------- Filter Commom Monday Data -------------------------
         for (let i = 0; i < this.Monday.length; i++) {
           if (this.Monday.lastIndexOf(this.Monday[i]) === this.Monday.indexOf(this.Monday[i])) 
@@ -258,7 +258,7 @@ export class DoctorCalendarComponent implements OnInit {
           return accumalator;
         }, []);
         // -------------- Remove Duplicate Value --------------------
-         console.log(FinalMondayData,'Monday Final Data Array..........................');
+        //  console.log(FinalMondayData,'Monday Final Data Array..........................');
          FinalMondayData.sort((x:any, y:any) => x.id - y.id);
         this.Monjson = FinalMondayData;
         // ============================================================================================
@@ -430,7 +430,7 @@ export class DoctorCalendarComponent implements OnInit {
           }
         }
         // -------------- Remove Duplicate Friday Data -----------------------
-        var FinalFridayData = this.thu.reduce((accumalator : any, current : any) => {
+        var FinalFridayData = this.fri.reduce((accumalator : any, current : any) => {
           if (
             !accumalator.some(
               (item : any) => item.id === current.id && item.name === current.name

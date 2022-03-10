@@ -5,6 +5,7 @@ const User = require("../models/user");
 const Shift = require("../models/shift");
 const Task = require("../models/task");
 const Book = require("../models/booking");
+const Feedback = require("../models/feedback");
 const Blog = require("../models/blog");
 const Mapp = require("../models/mapp");
 const DoctorPrice = require("../models/doctor_price");
@@ -334,6 +335,48 @@ exports.deletetask = async(req, res) => {
   }
 }
 // --------------------------- delete Task Data End ----------------------------
+// -------------------------------- Feedback Appointment Start ----------------------------------
+exports.feedback = async(req, res) =>{
+  const { P_email, D_email, P_name, D_name, C_Date, Rating, Message, Status  } = req.body;
+  // console.log(P_email,"Patient email");
+  // console.log(D_email,"Doctor email");
+  try {
+      const feedback = await Feedback.create({
+        P_email : P_email,
+        D_email : D_email,
+        P_name : P_name,
+        D_name : D_name,
+        C_Date : C_Date,
+        Rating : Rating,
+        Message : Message,
+        Status : Status,
+      });
+      await feedback.save();
+      return res.json({status:"ok",msg:"Feedback Successfully"});
+  } catch {
+          return res.json({
+              status: "error",
+              msg: "error",
+          });
+  }
+}
+// -------------------------------- Feedback Appointment End ------------------------------------
+// ---------------------- Collect Feedback Appointment Data By Email Start ---------------------------
+
+exports.feedbackdata = async(req, res) => {
+  const { Email } = req.body;
+  // console.log(Email,'Res');
+  try{
+      const data = await Feedback.find({ P_email : Email }).lean();
+      // console.log(data,'Feedback Data');
+      return res.json(data);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+
+// ---------------------- Collect Feedback Appointment Data By Email End -----------------------------
 // -------------------------------- Booking Appointment Start ----------------------------------
 exports.booking = async(req, res) =>{
   const { P_email, D_email, P_name, D_name, Price, Slot, Currentdate, SelectDate, Day, Bundle, MeetLink, Status  } = req.body;
@@ -413,7 +456,7 @@ exports.bookingCancel = async(req, res) => {
 // --------------------------- Cancel Booking Data End ----------------------------
 // ---------------------- Reschedule Bokking Data Start ---------------------------
 
-exports.bookingReschedule = async(req, res) => {
+exports.bookingStatus = async(req, res) => {
   const { _id, Status }= req.body;
   // console.log(_id,'Id');
   // console.log(Status,'Status');
@@ -421,14 +464,74 @@ exports.bookingReschedule = async(req, res) => {
       const update = await Book.findOneAndUpdate({_id : _id}, {$set: {
           Status: Status,
       }})
-      return res.json({status: 'ok', msg: 'Reschedule Successfully'})
+      return res.json({status: 'ok', msg: 'Please Reschedule Appointment'})
       // console.log(update);
   }catch(error){
       console.log(error);
       return res.json({status: 'error', msg: 'error'})
   }
 }
+
+exports.appointmentDone = async(req, res) => {
+  const { _id, Status }= req.body;
+  // console.log(_id,'Id');
+  // console.log(Status,'Status');
+  try{
+      const update = await Book.findOneAndUpdate({_id : _id}, {$set: {
+          Status: Status,
+      }})
+      return res.json({status: 'ok', msg: 'This Appointment Is Done'})
+      // console.log(update);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+
+exports.bookingReschedule = async(req, res) => {
+    const { P_email, D_email, P_name, D_name, Price, Slot, Currentdate, SelectDate, Day, Bundle, MeetLink, Status  } = req.body;
+    // console.log(P_email,"Patient email");
+    // console.log(D_email,"Doctor email");
+    try {
+        const book = await Book.create({
+          P_email : P_email,
+          D_email : D_email,
+          P_name : P_name,
+          D_name : D_name,
+          Price : Price,
+          Slot : Slot,
+          Currentdate : Currentdate,
+          SelectDate : SelectDate,
+          Day : Day,
+          Bundle : Bundle,
+          MeetLink : MeetLink,
+          Status : Status,
+        });
+        await book.save();
+        return res.json({status:"ok",msg:"Booking Reschedule Successfully"});
+    } catch {
+            return res.json({
+                status: "error",
+                msg: "error",
+            });
+    }
+  }
+
 // --------------------------- Reschedule Booking Data End ----------------------------
+// ---------------------- Bokking Data By Id Start ---------------------------
+
+exports.bookingDataById = async(req, res) => {
+  const { _id }= req.body;
+  console.log(_id,'Id');
+  try{
+      const data = await Book.findOne({_id : _id}).lean();
+      return res.json(data);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+// --------------------------- Booking Data By Id End ----------------------------
 // -------------------------------- Shifts Section Start -----------------------------
 exports.settimeperiod = async(req, res) =>{
   const { email, sun, mon, tue, wed, thu, fri, sat, start, end} = req.body;

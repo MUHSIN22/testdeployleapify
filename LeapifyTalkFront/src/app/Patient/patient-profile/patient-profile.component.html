@@ -9,7 +9,8 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <!-- <img src="assets/userpic.png" class="w-75"> -->
-                                    <img *ngIf="!imageUrl && image == null" src="assets/uploadimages/sample.png" class="w-100 rounded-pill">
+                                    <img *ngIf="!imageUrl && image == null" src="assets/uploadimages/sample.png"
+                                        class="w-100 rounded-pill">
                                     <img *ngIf="imageUrl" [src]="imageUrl" class="w-100 rounded-pill">
                                     <img *ngIf="image && !imageUrl" src="{{image}}" class="w-100 rounded-pill">
                                     <button class="btn btn-0EA5C6 text-light rounded-pill mt-2"
@@ -57,19 +58,23 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <img *ngIf="!imageUrl && image == null " src="assets/uploadimages/sample.png" class="img1 mt-5 rounded-pill">
+                                    <img *ngIf="!imageUrl && image == null " src="assets/uploadimages/sample.png"
+                                        class="img1 mt-5 rounded-pill">
                                     <img *ngIf="imageUrl" [src]="imageUrl" class="img1 mt-5 rounded-pill">
                                     <img *ngIf="image && !imageUrl" src="{{image}}" class="img1 mt-5 rounded-pill">
-                                    <label for="file-upload" style="color: #0EA5C6; position: relative; right: 14%; top: 30%;">
+                                    <label for="file-upload"
+                                        style="color: #0EA5C6; position: relative; right: 14%; top: 30%;">
                                         <i class="fas fa-pencil-alt fs-5" title="Select Image"></i>
                                     </label>
-                                    <input id="file-upload" type="file" formControlName="Image" #Image accept="image/*" (change)="onFileSelected($event)" hidden>
+                                    <input id="file-upload" type="file" formControlName="Image" #Image accept="image/*"
+                                        (change)="onFileSelected($event)" hidden>
                                 </div>
                                 <div class="col-md-9">
                                     <hr>
                                     <div class="form-group mb-4">
                                         <label for="Mobile">Mobile</label>
-                                        <input type="text" class="form-control" id="Mobile" placeholder="Enter Mobile" formControlName="Mobile">
+                                        <input type="text" class="form-control" id="Mobile" placeholder="Enter Mobile"
+                                            formControlName="Mobile">
                                         <div class="row error-mt" *ngIf="updateuser.controls['Mobile'].invalid ">
                                             <span class="text-danger error-mt"
                                                 *ngIf="updateuser.controls['Mobile'].hasError('required') && showErrormsg==true">*
@@ -82,13 +87,17 @@
                                     <div class="form-group mb-4" *ngIf="gender == 'NA'">
                                         <label for="Gender">Gender</label>
                                         <div class="col-lg-9 radiobtn">
-                                            <input class="input" type="radio" value="NA" id="notselected" formControlName="Gender" />
+                                            <input class="input" type="radio" value="NA" id="notselected"
+                                                formControlName="Gender" />
                                             <label class="lable" for="notselected">Not Selected</label>
-                                            <input class="input" type="radio" value="Female" id="female" formControlName="Gender" />
+                                            <input class="input" type="radio" value="Female" id="female"
+                                                formControlName="Gender" />
                                             <label class="lable" for="female">Female</label>
-                                            <input class="input" type="radio" value="Male" id="male" formControlName="Gender" />
+                                            <input class="input" type="radio" value="Male" id="male"
+                                                formControlName="Gender" />
                                             <label class="lable" for="male">Male</label>
-                                            <input class="input" type="radio" value="Other" id="other" formControlName="Gender" />
+                                            <input class="input" type="radio" value="Other" id="other"
+                                                formControlName="Gender" />
                                             <label class="lable" for="other">Other</label>
                                             <div class="row error-mt" *ngIf="updateuser.controls['Gender'].invalid ">
                                                 <span class="text-danger error-mt"
@@ -99,7 +108,8 @@
                                     </div>
                                     <div class="form-group mb-4">
                                         <label for="Address">Address</label>
-                                        <input type="text" class="form-control" id="Address" placeholder="Enter Mobile" formControlName="Address">
+                                        <input type="text" class="form-control" id="Address" placeholder="Enter Mobile"
+                                            formControlName="Address">
                                         <div class="row error-mt" *ngIf="updateuser.controls['Address'].invalid ">
                                             <span class="text-danger error-mt"
                                                 *ngIf="updateuser.controls['Address'].hasError('required') && showErrormsg==true">*
@@ -121,172 +131,204 @@
             <!-- ============================================ Update Profile End ===================================== -->
             <!-- ============================================ Book Appointment Start -================================ -->
             <ng-template #book let-modal let-c="close" let-d="dismiss">
-                    <div class="card card-shadow">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12 d-flex justify-content-end">
-                                    <!-- <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i> -->
-                                    <i class="fa fa-times fs-4 text-danger" (click)="reload()"></i>
-                                </div>
+                <div class="card card-shadow">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-end">
+                                <!-- <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i> -->
+                                <i class="fa fa-times fs-4 text-danger" (click)="reload()"></i>
                             </div>
-                            <div class="container-fluid">
-                                <!-- ---------------------------------------------------------------------------- -->
-                                <!-- <h1 class="mb-0">Book Appointment</h1> -->
-                                <div class="row p-3" *ngFor="let data of DoctorFilterdata; let i=index;">
-                                    <div class="card card-shadow m-0 p-0" style="background-image: url(assets/pattern2.png); color:#fff">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-7 mt-5">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <img src="assets/user-pic1.png" height="100px" width="100px">
-                                                            <button class="btn btn-0EA5C6 text-light rounded-pill px-4 py-2 mt-4"
-                                                                (click)="BookAppointment(content,data.email)">Book</button>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <!-- <span class="text-info">Name: </span>Dr.{{data.first_name}} {{data.last_name}}<br>
+                        </div>
+                        <div class="container-fluid">
+                            <!-- ---------------------------------------------------------------------------- -->
+                            <!-- <h1 class="mb-0">Book Appointment</h1> -->
+                            <div class="row p-3" *ngFor="let data of DoctorFilterdata; let i=index;">
+                                <div class="card card-shadow m-0 p-0"
+                                    style="background-image: url(assets/pattern2.png); color:#fff">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-7 mt-5">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <img src="assets/user-pic1.png" height="100px" width="100px">
+                                                        <button
+                                                            class="btn btn-0EA5C6 text-light rounded-pill px-4 py-2 mt-4"
+                                                            (click)="BookAppointment(content,data.email)">Book</button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <!-- <span class="text-info">Name: </span>Dr.{{data.first_name}} {{data.last_name}}<br>
                                                             <span class="text-info">Qualification: </span>{{data.qualification}}<br>
                                                             <span class="text-info">Mobile: </span>{{data.mobile}}<br>
                                                             <span class="text-info">Email: </span>{{data.email}}<br>
                                                             <span class="text-info">Experience: </span>{{data.experience}} Years -->
-                                                            Dr.{{data.first_name}} {{data.last_name}} ({{data.qualification}})<br>
-                                                            {{data.mobile}}<br>
-                                                            {{data.email}}<br>
-                                                            {{data.experience}} Years
-                                                            <p>
-                                                                <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate">
-                                                                </ngb-rating>&nbsp;<b style="color: #0EA5C6;">[{{currentRate}}]</b>
-                                                            </p>
-                                                        </div>
+                                                        Dr.{{data.first_name}} {{data.last_name}}
+                                                        ({{data.qualification}})<br>
+                                                        {{data.mobile}}<br>
+                                                        {{data.email}}<br>
+                                                        {{data.experience}} Years
+                                                        <p>
+                                                            <ngb-rating class="fs-5" style="color: #0EA5C6;"
+                                                                [(rate)]="currentRate">
+                                                            </ngb-rating>&nbsp;<b
+                                                                style="color: #0EA5C6;">[{{currentRate}}]</b>
+                                                        </p>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="col-md-4 mt-5">
+                                            </div>
+                                            <!-- <div class="col-md-4 mt-5">
                                                     <i class="fa fa-phone fs-4 mx-4"></i>Phone No. : {{data.mobile}}<br>
                                                     <i class="fa fa-envelope fs-4 mx-4"></i>Email : {{data.email}}<br>
                                                     <i class="fa fa-history fs-4 mx-4"></i>Experience : {{data.experience}} Years
                                                 </div> -->
-                                                <div class="col-md-5">
-                                                    <div class="navbar justify-content-center fs-5 m-0 p-0">
-                                                        <ul class="">
-                                                            <li *ngIf="!video" (click)="Onvideo()">Video</li>
-                                                            <li *ngIf="video"
-                                                                style="text-decoration: underline; text-decoration-color: orange; text-decoration-thickness: 3px; text-underline-offset: 5px;"
-                                                                (click)="Onvideo()">Video</li>
-                                                            <li *ngIf="!intro" (click)="Onintro()">Intro</li>
-                                                            <li *ngIf="intro"
-                                                                style="text-decoration: underline; text-decoration-color: orange; text-decoration-thickness: 3px; text-underline-offset: 5px;"
-                                                                (click)="Onintro()">Intro</li>
-                                                            <li *ngIf="!calendar" (click)="Oncalendar(data._id,data.email)">Calendar</li>
-                                                            <li *ngIf="calendar"
-                                                                style="text-decoration: underline; text-decoration-color: orange; text-decoration-thickness: 3px; text-underline-offset: 5px;"
-                                                                (click)="Oncalendar(data._id,data.email)">Calendar</li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="card mt-1" style="height:204px; overflow-y: auto;">
-                                                        <div class="card-body m-0 p-0">
-                                                            <div *ngIf="video">
-                                                                <iframe width=100% height=200px src="https://www.youtube.com/embed/DBdnYisvbok"
-                                                                    start title="YouTube video player" frameborder="0"
-                                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                                    allowfullscreen></iframe>
+                                            <div class="col-md-5">
+                                                <div class="navbar justify-content-center fs-5 m-0 p-0">
+                                                    <ul class="">
+                                                        <li *ngIf="!video" (click)="Onvideo()">Video</li>
+                                                        <li *ngIf="video"
+                                                            style="text-decoration: underline; text-decoration-color: orange; text-decoration-thickness: 3px; text-underline-offset: 5px;"
+                                                            (click)="Onvideo()">Video</li>
+                                                        <li *ngIf="!intro" (click)="Onintro()">Intro</li>
+                                                        <li *ngIf="intro"
+                                                            style="text-decoration: underline; text-decoration-color: orange; text-decoration-thickness: 3px; text-underline-offset: 5px;"
+                                                            (click)="Onintro()">Intro</li>
+                                                        <li *ngIf="!calendar" (click)="Oncalendar(data._id,data.email)">
+                                                            Calendar</li>
+                                                        <li *ngIf="calendar"
+                                                            style="text-decoration: underline; text-decoration-color: orange; text-decoration-thickness: 3px; text-underline-offset: 5px;"
+                                                            (click)="Oncalendar(data._id,data.email)">Calendar</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="card mt-1" style="height:204px; overflow-y: auto;">
+                                                    <div class="card-body m-0 p-0">
+                                                        <div *ngIf="video">
+                                                            <iframe width=100% height=200px
+                                                                src="https://www.youtube.com/embed/DBdnYisvbok" start
+                                                                title="YouTube video player" frameborder="0"
+                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                allowfullscreen></iframe>
+                                                        </div>
+                                                        <div *ngIf="intro"
+                                                            style="background-image: url(assets/intro-background.jpg); height: 200px;">
+                                                            <div class="col-md-9">
+                                                                <p class="fs-6 p-3 text-dark">{{data.aboutMe}}</p>
                                                             </div>
-                                                            <div *ngIf="intro"
-                                                                style="background-image: url(assets/intro-background.jpg); height: 200px;">
-                                                                <div class="col-md-9">
-                                                                    <p class="fs-6 p-3 text-dark">{{data.aboutMe}}</p>
-                                                                </div>
-                                                            </div>
-                                                            <div *ngIf="calendar">
-                                                                <div class="" style="width:100%; font-size: 13px; color: black;">
-                                                                    <table class="table">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th scope="col">Day</th>
-                                                                                <th scope="col" class="table-info">{{CurrentDay}}</th>
-                                                                                <th scope="col">{{WeekDay[1]}}</th>
-                                                                                <th scope="col">{{WeekDay[2]}}</th>
-                                                                                <th scope="col">{{WeekDay[3]}}</th>
-                                                                                <th scope="col">{{WeekDay[4]}}</th>
-                                                                                <th scope="col">{{WeekDay[5]}}</th>
-                                                                                <th scope="col">{{WeekDay[6]}}</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <th scope="row">Time/</th>
-                                                                                <!-- <th class="table-info">{{CurrentDate}}</th> -->
-                                                                                <th *ngFor="let date of WeekDate;">{{date}}</th>
-                                                                                <!-- <th>{{WeekDate[1]}}</th>
+                                                        </div>
+                                                        <div *ngIf="calendar">
+                                                            <div class=""
+                                                                style="width:100%; font-size: 13px; color: black;">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">Day</th>
+                                                                            <th scope="col" class="table-info">
+                                                                                {{CurrentDay}}</th>
+                                                                            <th scope="col">{{WeekDay[1]}}</th>
+                                                                            <th scope="col">{{WeekDay[2]}}</th>
+                                                                            <th scope="col">{{WeekDay[3]}}</th>
+                                                                            <th scope="col">{{WeekDay[4]}}</th>
+                                                                            <th scope="col">{{WeekDay[5]}}</th>
+                                                                            <th scope="col">{{WeekDay[6]}}</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th scope="row">Time/</th>
+                                                                            <!-- <th class="table-info">{{CurrentDate}}</th> -->
+                                                                            <th *ngFor="let date of WeekDate;">{{date}}
+                                                                            </th>
+                                                                            <!-- <th>{{WeekDate[1]}}</th>
                                                                                 <th>{{WeekDate[2]}}</th>
                                                                                 <th>{{WeekDate[3]}}</th>
                                                                                 <th>{{WeekDate[4]}}</th>
                                                                                 <th>{{WeekDate[5]}}</th>
                                                                                 <th>{{WeekDate[6]}}</th> -->
-                                                                            </tr>
-                                                                            <tr *ngFor="let data of Sunday;">
-                                                                                <th scope="row">{{data.name.slice(0,2)}}-{{data.name.slice(8,10)}}</th>
-                                                                                <td *ngFor="let week of WeekDay;">
-                                                                                    <div *ngFor="let sun of Sunjson">
-                                                                                        <span *ngIf="week.slice(0,3) == 'Sun' && sun.status == '0' && sun.id == data.id "
+                                                                        </tr>
+                                                                        <tr *ngFor="let data of Sunday;">
+                                                                            <th scope="row">
+                                                                                {{data.name.slice(0,2)}}-{{data.name.slice(8,10)}}
+                                                                            </th>
+                                                                            <td *ngFor="let week of WeekDay;">
+                                                                                <div *ngFor="let sun of Sunjson">
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Sun' && sun.status == '0' && sun.id == data.id "
                                                                                         class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Sun' && sun.status == '1' && sun.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Sun' && sun.status == '1' && sun.id == data.id "
                                                                                         class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Sun' && sun.status == '2' && sun.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Sun' && sun.status == '2' && sun.id == data.id "
                                                                                         class="d-flex justify-content-center bg-warning text-light rounded-pill">B</span>
-                                                                                    </div>
-                                                                                    <div *ngFor="let mon of Monjson;">
-                                                                                        <span *ngIf="week.slice(0,3) == 'Mon' && mon.status == '0' && mon.id == data.id "
+                                                                                </div>
+                                                                                <div *ngFor="let mon of Monjson;">
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Mon' && mon.status == '0' && mon.id == data.id "
                                                                                         class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Mon' && mon.status == '1' && mon.id == data.id  "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Mon' && mon.status == '1' && mon.id == data.id  "
                                                                                         class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Mon' && mon.status == '2' && mon.id == data.id  "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Mon' && mon.status == '2' && mon.id == data.id  "
                                                                                         class="d-flex justify-content-center bg-warning text-light rounded-pill">B</span>
-                                                                                    </div>
-                                                                                    <div *ngFor="let tue of Tuejson">
-                                                                                        <span *ngIf="week.slice(0,3) == 'Tue' && tue.status == '0' && tue.id == data.id "
+                                                                                </div>
+                                                                                <div *ngFor="let tue of Tuejson">
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Tue' && tue.status == '0' && tue.id == data.id "
                                                                                         class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Tue' && tue.status == '1' && tue.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Tue' && tue.status == '1' && tue.id == data.id "
                                                                                         class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Tue' && tue.status == '2' && tue.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Tue' && tue.status == '2' && tue.id == data.id "
                                                                                         class="d-flex justify-content-center bg-warning text-light rounded-pill">B</span>
-                                                                                    </div>
-                                                                                    <div *ngFor="let wed of Wedjson">
-                                                                                        <span *ngIf="week.slice(0,3) == 'Wed' && wed.status == '0' && wed.id == data.id "
+                                                                                </div>
+                                                                                <div *ngFor="let wed of Wedjson">
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Wed' && wed.status == '0' && wed.id == data.id "
                                                                                         class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Wed' && wed.status == '1' && wed.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Wed' && wed.status == '1' && wed.id == data.id "
                                                                                         class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Wed' && wed.status == '2' && wed.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Wed' && wed.status == '2' && wed.id == data.id "
                                                                                         class="d-flex justify-content-center bg-warning text-light rounded-pill">B</span>
-                                                                                    </div>
-                                                                                    <div *ngFor="let thu of Thujson">
-                                                                                        <span *ngIf="week.slice(0,3) == 'Thu' && thu.status == '0' && thu.id == data.id "
+                                                                                </div>
+                                                                                <div *ngFor="let thu of Thujson">
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Thu' && thu.status == '0' && thu.id == data.id "
                                                                                         class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Thu' && thu.status == '1' && thu.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Thu' && thu.status == '1' && thu.id == data.id "
                                                                                         class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Thu' && thu.status == '2' && thu.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Thu' && thu.status == '2' && thu.id == data.id "
                                                                                         class="d-flex justify-content-center bg-warning text-light rounded-pill">B</span>
-                                                                                    </div>
-                                                                                    <div *ngFor="let fri of Frijson">
-                                                                                        <span *ngIf="week.slice(0,3) == 'Fri' && fri.status == '0' && fri.id == data.id "
+                                                                                </div>
+                                                                                <div *ngFor="let fri of Frijson">
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Fri' && fri.status == '0' && fri.id == data.id "
                                                                                         class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Fri' && fri.status == '1' && fri.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Fri' && fri.status == '1' && fri.id == data.id "
                                                                                         class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Fri' && fri.status == '2' && fri.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Fri' && fri.status == '2' && fri.id == data.id "
                                                                                         class="d-flex justify-content-center bg-warning text-light rounded-pill">B</span>
-                                                                                    </div>
-                                                                                    <div *ngFor="let sat of Satjson">
-                                                                                        <span *ngIf="week.slice(0,3) == 'Sat' && sat.status == '0' && sat.id == data.id "
+                                                                                </div>
+                                                                                <div *ngFor="let sat of Satjson">
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Sat' && sat.status == '0' && sat.id == data.id "
                                                                                         class="d-flex justify-content-center bg-secondary text-light rounded-pill">U</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Sat' && sat.status == '1' && sat.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Sat' && sat.status == '1' && sat.id == data.id "
                                                                                         class="d-flex justify-content-center bg-info text-light rounded-pill">A</span>
-                                                                                        <span *ngIf="week.slice(0,3) == 'Sat' && sat.status == '2' && sat.id == data.id "
+                                                                                    <span
+                                                                                        *ngIf="week.slice(0,3) == 'Sat' && sat.status == '2' && sat.id == data.id "
                                                                                         class="d-flex justify-content-center bg-warning text-light rounded-pill">B</span>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -295,114 +337,133 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- ---------------------------------------------------------------------------- -->
-                                <!-- ============================================ Book Appointment Start ================================ -->
-                                <!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
-                            
-                                <ng-template #content let-modal let-c="close" let-d="dismiss" let-r="reload">
-                                    <form>
-                                        <div class="card card-shadow">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-12 d-flex justify-content-end">
-                                                        <!-- <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i> -->
-                                                        <i class="fa fa-times fs-4 text-danger" (click)="reload()"></i>
-                                                    </div>
+                            </div>
+                            <!-- ---------------------------------------------------------------------------- -->
+                            <!-- ============================================ Book Appointment Start ================================ -->
+                            <!-- https://ng-bootstrap.github.io/#/components/modal/examples -->
+
+                            <ng-template #content let-modal let-c="close" let-d="dismiss">
+                                <form>
+                                    <div class="card card-shadow">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <!-- <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i> -->
+                                                    <i class="fa fa-times fs-4 text-danger" (click)="reload()"></i>
                                                 </div>
-                                                <!-- <fieldset> -->
-                                                    <div *ngIf="cho">
-                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Select Your Appointment Type</h6>
-                                                    <div class="row px-5 p-0 m-0">
-                                                        <div *ngIf="ta_value" class="row btn-fefefe rounded my-2 p-2" (click)="Trial(priceT)">
-                                                            <div class="col-md-10">
-                                                                <b>60 minute trial Appointment</b> <br> -- <br> Free Trial
-                                                            </div>
-                                                            <div class="col-md-2 d-flex justify-content-end">
-                                                                <b>$ {{priceT}}.00</b>
-                                                            </div>
+                                            </div>
+                                            <!-- <fieldset> -->
+                                            <div *ngIf="cho">
+                                                <h6 class="btn-0EA5C6 p-2 fs-5">Select Your Appointment Type</h6>
+                                                <div class="row px-5 p-0 m-0">
+                                                    <div *ngIf="ta_value" class="row btn-fefefe rounded my-2 p-2"
+                                                        (click)="Trial(priceT)">
+                                                        <div class="col-md-10">
+                                                            <b>60 minute trial Appointment</b> <br> -- <br> Free Trial
                                                         </div>
-                                                        <div *ngIf="v_value" class="row btn-fefefe rounded my-2 p-2" (click)="Price_v()">
-                                                            <div class="col-md-10">
-                                                                <b>Leapifyconnect-video Appointment</b> <br> -- <br> HIPPA COMPLIANT
-                                                            </div>
-                                                            <div class="col-md-2 d-flex justify-content-end">
-                                                                <b>$ {{Price.v_price}}.00</b>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="vr_value" class="row btn-fefefe rounded my-2 p-2" (click)="Price_vr()">
-                                                            <div class="col-md-10">
-                                                                <b>LeapifyVR</b> <br> -- <br> (Virtual Reality) Appointment
-                                                            </div>
-                                                            <div class="col-md-2 d-flex justify-content-end">
-                                                                <b>$ {{Price.vr_price}}.00</b>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="txt_value == true " class="row btn-fefefe rounded my-2 p-2" (click)="Price_txt()">
-                                                            <div class="col-md-10">
-                                                                <b>Leapify Chat</b> <br> -- <br> One to One Secure Chat With Your Doctor
-                                                            </div>
-                                                            <div class="col-md-2 d-flex justify-content-end">
-                                                                <b>$ {{Price.txt_price}}.00</b>
-                                                            </div>
+                                                        <div class="col-md-2 d-flex justify-content-end">
+                                                            <b>$ {{priceT}}.00</b>
                                                         </div>
                                                     </div>
+                                                    <div *ngIf="v_value" class="row btn-fefefe rounded my-2 p-2"
+                                                        (click)="Price_v()">
+                                                        <div class="col-md-10">
+                                                            <b>Leapifyconnect-video Appointment</b> <br> -- <br> HIPPA
+                                                            COMPLIANT
+                                                        </div>
+                                                        <div class="col-md-2 d-flex justify-content-end">
+                                                            <b>$ {{Price.v_price}}.00</b>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="vr_value" class="row btn-fefefe rounded my-2 p-2"
+                                                        (click)="Price_vr()">
+                                                        <div class="col-md-10">
+                                                            <b>LeapifyVR</b> <br> -- <br> (Virtual Reality) Appointment
+                                                        </div>
+                                                        <div class="col-md-2 d-flex justify-content-end">
+                                                            <b>$ {{Price.vr_price}}.00</b>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="txt_value == true "
+                                                        class="row btn-fefefe rounded my-2 p-2" (click)="Price_txt()">
+                                                        <div class="col-md-10">
+                                                            <b>Leapify Chat</b> <br> -- <br> One to One Secure Chat With
+                                                            Your Doctor
+                                                        </div>
+                                                        <div class="col-md-2 d-flex justify-content-end">
+                                                            <b>$ {{Price.txt_price}}.00</b>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <!-- </fieldset> -->
-                                                <!-- <fieldset> -->
-                                                <div *ngIf="appoint">
-                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Appointment options</h6>
-                                                    <div class="row m-0">
-                                                        <p class="text-light fs-5 d-flex justify-content-center"
-                                                            style="background-image: url(assets/pattern2.png);">
-                                                            <b>Appointments rules</b><br>
-                                                            1. Appointments must be scheduled in advance.<br>
-                                                            2. Date and time for at least ONE Appointment should be selected to purchase a
-                                                            Package.<br>
-                                                            3. Appointments must be scheduled within six months of purchase date.
-                                                        </p>
-                                                        <div *ngIf="appoint_v">
-                                                            <h4>Video Appointment</h4>
-                                                            <div class="row">
-                                                                <div class="col-md-4 p-5 pt-0 pb-1" (click)="v_cal(Price.v_price, Price.v_bundle = 1)">
-                                                                    <div class="row border border-info rounded-pill my-2 p-3">
-                                                                        <div class="col-5 d-flex justify-content-center">
-                                                                            Appointment
-                                                                        </div>
-                                                                        <div class="col-7 d-flex justify-content-center">
-                                                                            $&nbsp;{{Price.v_price}}
-                                                                        </div>
+                                            </div>
+                                            <!-- </fieldset> -->
+                                            <!-- <fieldset> -->
+                                            <div *ngIf="appoint">
+                                                <h6 class="btn-0EA5C6 p-2 fs-5">Appointment options</h6>
+                                                <div class="row m-0">
+                                                    <p class="text-light fs-5 d-flex justify-content-center"
+                                                        style="background-image: url(assets/pattern2.png);">
+                                                        <b>Appointments rules</b><br>
+                                                        1. Appointments must be scheduled in advance.<br>
+                                                        2. Date and time for at least ONE Appointment should be selected
+                                                        to purchase a
+                                                        Package.<br>
+                                                        3. Appointments must be scheduled within six months of purchase
+                                                        date.
+                                                    </p>
+                                                    <div *ngIf="appoint_v">
+                                                        <h4>Video Appointment</h4>
+                                                        <div class="row">
+                                                            <div class="col-md-4 p-5 pt-0 pb-1"
+                                                                (click)="v_cal(Price.v_price, Price.v_bundle = 1)">
+                                                                <div
+                                                                    class="row border border-info rounded-pill my-2 p-3">
+                                                                    <div class="col-5 d-flex justify-content-center">
+                                                                        Appointment
+                                                                    </div>
+                                                                    <div class="col-7 d-flex justify-content-center">
+                                                                        $&nbsp;{{Price.v_price}}
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-5 p-5 pt-0 pb-1" (click)="v_cal((Price.v_price*Price.v_bundle)-(Price.v_price*Price.v_bundle)*(Price.v_discount/100), Price.v_bundle)">
-                                                                    <div class="row border border-info rounded-pill my-2 p-3">
-                                                                        <div class="col-6 d-flex justify-content-center">
-                                                                            {{Price.v_bundle}} Appointment
-                                                                        </div>
-                                                                        <div class="col-6 d-flex justify-content-center">
-                                                                            <span class="text-decoration-line-through">$&nbsp;{{Price.v_price*Price.v_bundle}}&nbsp;</span>&nbsp;
-                                                                            $&nbsp;{{(Price.v_price*Price.v_bundle)-(Price.v_price*Price.v_bundle)*(Price.v_discount/100)}}
-                                                                        </div>
+                                                            </div>
+                                                            <div class="col-md-5 p-5 pt-0 pb-1"
+                                                                (click)="v_cal((Price.v_price*Price.v_bundle)-(Price.v_price*Price.v_bundle)*(Price.v_discount/100), Price.v_bundle)">
+                                                                <div
+                                                                    class="row border border-info rounded-pill my-2 p-3">
+                                                                    <div class="col-6 d-flex justify-content-center">
+                                                                        {{Price.v_bundle}} Appointment
+                                                                    </div>
+                                                                    <div class="col-6 d-flex justify-content-center">
+                                                                        <span
+                                                                            class="text-decoration-line-through">$&nbsp;{{Price.v_price*Price.v_bundle}}&nbsp;</span>&nbsp;
+                                                                        $&nbsp;{{(Price.v_price*Price.v_bundle)-(Price.v_price*Price.v_bundle)*(Price.v_discount/100)}}
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-3 p-5 pt-0 pb-1">
-                                                                    <div class="row border border-info rounded-pill my-2 p-3">
-                                                                        <!-- <div class="col-6 d-flex justify-content-center">
+                                                            </div>
+                                                            <div class="col-md-3 p-5 pt-0 pb-1">
+                                                                <div
+                                                                    class="row border border-info rounded-pill my-2 p-3">
+                                                                    <!-- <div class="col-6 d-flex justify-content-center">
                                                                             Discount
                                                                         </div> -->
-                                                                        <div class="col-12 d-flex justify-content-center">
-                                                                            <b><span class="btn-0EA5C6 rounded-pill p-2 dis-ami">SAVE {{Price.v_discount}}%</span></b>
-                                                                            <!-- {{Price.v_discount}}% -->
-                                                                        </div>
+                                                                    <div class="col-12 d-flex justify-content-center">
+                                                                        <b><span
+                                                                                class="btn-0EA5C6 rounded-pill p-2 dis-ami">SAVE
+                                                                                {{Price.v_discount}}%</span></b>
+                                                                        <!-- {{Price.v_discount}}% -->
                                                                     </div>
                                                                 </div>
-                                                            </div> 
+                                                            </div>
                                                         </div>
+                                                    </div>
 
-                                                        <div *ngIf="appoint_vr">
-                                                            <h4>VR(Virtual Reality)</h4>
+                                                    <div *ngIf="appoint_vr">
+                                                        <h4>VR(Virtual Reality)</h4>
                                                         <div class="row">
-                                                            <div class="col-md-4 p-5 pt-0 pb-1" (click)="vr_cal(Price.vr_price, Price.vr_bundle = 1)">
-                                                                <div class="row border border-info rounded-pill my-2 p-3">
+                                                            <div class="col-md-4 p-5 pt-0 pb-1"
+                                                                (click)="vr_cal(Price.vr_price, Price.vr_bundle = 1)">
+                                                                <div
+                                                                    class="row border border-info rounded-pill my-2 p-3">
                                                                     <div class="col-5 d-flex justify-content-center">
                                                                         Appointment
                                                                     </div>
@@ -411,352 +472,424 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-5 p-5 pt-0 pb-1" (click)="vr_cal((Price.vr_price*Price.vr_bundle)-(Price.vr_price*Price.vr_bundle)*(Price.vr_discount/100), Price.vr_bundle)">
-                                                                <div class="row border border-info rounded-pill my-2 p-3">
+                                                            <div class="col-md-5 p-5 pt-0 pb-1"
+                                                                (click)="vr_cal((Price.vr_price*Price.vr_bundle)-(Price.vr_price*Price.vr_bundle)*(Price.vr_discount/100), Price.vr_bundle)">
+                                                                <div
+                                                                    class="row border border-info rounded-pill my-2 p-3">
                                                                     <div class="col-6 d-flex justify-content-center">
                                                                         {{Price.vr_bundle}} Appointment
                                                                     </div>
                                                                     <div class="col-6 d-flex justify-content-center">
-                                                                        <span class="text-decoration-line-through">$&nbsp;{{Price.vr_price*Price.vr_bundle}}&nbsp;</span>&nbsp;
+                                                                        <span
+                                                                            class="text-decoration-line-through">$&nbsp;{{Price.vr_price*Price.vr_bundle}}&nbsp;</span>&nbsp;
                                                                         $&nbsp;{{(Price.vr_price*Price.vr_bundle)-(Price.vr_price*Price.vr_bundle)*(Price.vr_discount/100)}}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3 p-5 pt-0 pb-1">
-                                                                <div class="row border border-info rounded-pill my-2 p-3">
+                                                                <div
+                                                                    class="row border border-info rounded-pill my-2 p-3">
                                                                     <!-- <div class="col-6 d-flex justify-content-center">
                                                                         Discount
                                                                     </div> -->
                                                                     <div class="col-12 d-flex justify-content-center">
-                                                                        <b><span class="btn-0EA5C6 rounded-pill p-2 dis-ami">SAVE {{Price.vr_discount}}%</span></b>
+                                                                        <b><span
+                                                                                class="btn-0EA5C6 rounded-pill p-2 dis-ami">SAVE
+                                                                                {{Price.vr_discount}}%</span></b>
                                                                         <!-- {{Price.v_discount}}% -->
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div> 
                                                         </div>
+                                                    </div>
 
-                                                    </div>
                                                 </div>
-                                                <!-- </fieldset> -->
-                                                <!-- <fieldset> -->
-                                                    <div *ngIf="cal">
-                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Schedule your Appointments</h6>
-                                                    <span class="d-flex justify-content-center p-2">
-                                                        <b>
-                                                            <i class="fas fa-square fs-5"></i> &nbsp; : &nbsp; Available &nbsp; &nbsp;
-                                                            <i class="far fa-square fs-5"></i> &nbsp; : &nbsp; Unvailable &nbsp; &nbsp;
-                                                            <i class="fas fa-square text-success fs-5"></i> &nbsp; : &nbsp; Booked &nbsp; &nbsp;
-                                                        </b>
-                                                    </span>
-                                                    <div class="" style="width:100%; color: black;">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th scope="col">Day</th>
-                                                                    <th scope="col" class="table-info">{{CurrentDay}}</th>
-                                                                    <!-- <th scope="col" *ngFor="let day of WeekDay; let i=index;">{{day}}</th> -->
-                                                                    <th scope="col">{{WeekDay[1]}}</th>
-                                                                    <th scope="col">{{WeekDay[2]}}</th>
-                                                                    <th scope="col">{{WeekDay[3]}}</th>
-                                                                    <th scope="col">{{WeekDay[4]}}</th>
-                                                                    <th scope="col">{{WeekDay[5]}}</th>
-                                                                    <th scope="col">{{WeekDay[6]}}</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th scope="row">Time/Date</th>
-                                                                    <th *ngFor="let date of WeekDate;">{{date}}</th>
-                                                                </tr>
-                                                                <tr *ngFor="let data of Sunday;">
-                                                                    <th scope="row">{{data.name}}</th>
-                                                                    <td *ngFor="let week of WeekData;">
-                                                                        <div *ngFor="let sun of Sunjson;">
-                                                                            <span *ngIf="week.slice(0,3) == 'Sun' && sun.status == '0' && sun.id == data.id "
+                                            </div>
+                                            <!-- </fieldset> -->
+                                            <!-- <fieldset> -->
+                                            <div *ngIf="cal">
+                                                <h6 class="btn-0EA5C6 p-2 fs-5">Schedule your Appointments</h6>
+                                                <span class="d-flex justify-content-center p-2">
+                                                    <b>
+                                                        <i class="fas fa-square fs-5"></i> &nbsp; : &nbsp; Available
+                                                        &nbsp; &nbsp;
+                                                        <i class="far fa-square fs-5"></i> &nbsp; : &nbsp; Unvailable
+                                                        &nbsp; &nbsp;
+                                                        <i class="fas fa-square text-success fs-5"></i> &nbsp; : &nbsp;
+                                                        Booked &nbsp; &nbsp;
+                                                    </b>
+                                                </span>
+                                                <div class="" style="width:100%; color: black;">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Day</th>
+                                                                <th scope="col" class="table-info">{{CurrentDay}}</th>
+                                                                <!-- <th scope="col" *ngFor="let day of WeekDay; let i=index;">{{day}}</th> -->
+                                                                <th scope="col">{{WeekDay[1]}}</th>
+                                                                <th scope="col">{{WeekDay[2]}}</th>
+                                                                <th scope="col">{{WeekDay[3]}}</th>
+                                                                <th scope="col">{{WeekDay[4]}}</th>
+                                                                <th scope="col">{{WeekDay[5]}}</th>
+                                                                <th scope="col">{{WeekDay[6]}}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">Time/Date</th>
+                                                                <th *ngFor="let date of WeekDate;">{{date}}</th>
+                                                            </tr>
+                                                            <tr *ngFor="let data of Sunday;">
+                                                                <th scope="row">{{data.name}}</th>
+                                                                <td *ngFor="let week of WeekData;">
+                                                                    <div *ngFor="let sun of Sunjson;">
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Sun' && sun.status == '0' && sun.id == data.id "
                                                                             class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Sun' && sun.status == '1' && sun.id == data.id "
-                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill" (click)="selectedata(sun.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Sun' && sun.status == '2' && sun.id == data.id "
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Sun' && sun.status == '1' && sun.id == data.id "
+                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                            (click)="selectedata(sun.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Sun' && sun.status == '2' && sun.id == data.id "
                                                                             class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
-                                                                        </div>
-                                                                        <div *ngFor="let mon of Monjson;">
-                                                                            <span *ngIf="week.slice(0,3) == 'Mon' && mon.status == '0' && mon.id == data.id "
+                                                                    </div>
+                                                                    <div *ngFor="let mon of Monjson;">
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Mon' && mon.status == '0' && mon.id == data.id "
                                                                             class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
-                                                                            <!-- <td>{{week}}</td> -->
-                                                                            <span *ngIf="week.slice(0,3) == 'Mon' && mon.status == '1' && mon.id == data.id  "
-                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill" (click)="selectedata(mon.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Mon' && mon.status == '2' && mon.id == data.id  "
+                                                                        <!-- <td>{{week}}</td> -->
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Mon' && mon.status == '1' && mon.id == data.id  "
+                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                            (click)="selectedata(mon.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Mon' && mon.status == '2' && mon.id == data.id  "
                                                                             class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
-                                                                        </div>
-                                                                        <div *ngFor="let tue of Tuejson;">
-                                                                            <span *ngIf="week.slice(0,3) == 'Tue' && tue.status == '0' && tue.id == data.id "
+                                                                    </div>
+                                                                    <div *ngFor="let tue of Tuejson;">
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Tue' && tue.status == '0' && tue.id == data.id "
                                                                             class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Tue' && tue.status == '1' && tue.id == data.id "
-                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill" (click)="selectedata(tue.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Tue' && tue.status == '2' && tue.id == data.id "
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Tue' && tue.status == '1' && tue.id == data.id "
+                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                            (click)="selectedata(tue.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Tue' && tue.status == '2' && tue.id == data.id "
                                                                             class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
-                                                                        </div>
-                                                                        <div *ngFor="let wed of Wedjson;">
-                                                                            <span *ngIf="week.slice(0,3) == 'Wed' && wed.status == '0' && wed.id == data.id "
+                                                                    </div>
+                                                                    <div *ngFor="let wed of Wedjson;">
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Wed' && wed.status == '0' && wed.id == data.id "
                                                                             class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Wed' && wed.status == '1' && wed.id == data.id "
-                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill" (click)="selectedata(wed.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Wed' && wed.status == '2' && wed.id == data.id "
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Wed' && wed.status == '1' && wed.id == data.id "
+                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                            (click)="selectedata(wed.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Wed' && wed.status == '2' && wed.id == data.id "
                                                                             class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
-                                                                        </div>
-                                                                        <div *ngFor="let thu of Thujson;">
-                                                                            <span *ngIf="week.slice(0,3) == 'Thu' && thu.status == '0' && thu.id == data.id "
+                                                                    </div>
+                                                                    <div *ngFor="let thu of Thujson;">
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Thu' && thu.status == '0' && thu.id == data.id "
                                                                             class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Thu' && thu.status == '1' && thu.id == data.id "
-                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill" (click)="selectedata(thu.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Thu' && thu.status == '2' && thu.id == data.id "
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Thu' && thu.status == '1' && thu.id == data.id "
+                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                            (click)="selectedata(thu.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Thu' && thu.status == '2' && thu.id == data.id "
                                                                             class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
-                                                                        </div>
-                                                                        <div *ngFor="let fri of Frijson;">
-                                                                            <span *ngIf="week.slice(0,3) == 'Fri' && fri.status == '0' && fri.id == data.id "
+                                                                    </div>
+                                                                    <div *ngFor="let fri of Frijson;">
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Fri' && fri.status == '0' && fri.id == data.id "
                                                                             class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Fri' && fri.status == '1' && fri.id == data.id "
-                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill" (click)="selectedata(fri.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Fri' && fri.status == '2' && fri.id == data.id "
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Fri' && fri.status == '1' && fri.id == data.id "
+                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                            (click)="selectedata(fri.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Fri' && fri.status == '2' && fri.id == data.id "
                                                                             class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
-                                                                        </div>
-                                                                        <div *ngFor="let sat of Satjson;">
-                                                                            <span *ngIf="week.slice(0,3) == 'Sat' && sat.status == '0' && sat.id == data.id "
+                                                                    </div>
+                                                                    <div *ngFor="let sat of Satjson;">
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Sat' && sat.status == '0' && sat.id == data.id "
                                                                             class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Sat' && sat.status == '1' && sat.id == data.id "
-                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill" (click)="selectedata(sat.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
-                                                                            <span *ngIf="week.slice(0,3) == 'Sat' && sat.status == '2' && sat.id == data.id "
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Sat' && sat.status == '1' && sat.id == data.id "
+                                                                            class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                            (click)="selectedata(sat.name,CurrentDate,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                        <span
+                                                                            *ngIf="week.slice(0,3) == 'Sat' && sat.status == '2' && sat.id == data.id "
                                                                             class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <!-- </fieldset> -->
-                                                <!-- <fieldset> -->
-                                                    <div *ngIf="comm">
-                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Communication Tool</h6>
-                                                    <div class="row p-5 m-0">
-                                                        <p>These are the communication tools your teacher uses. Please choose your preferred
-                                                            communication tool.</p> <br>
-                                                        <div class="row m-0 p-0" *ngFor="let comm of DoctorFilterdata;">
-                                                            <div class="col-md-4">
-                                                                <div class="row">
-                                                                    <div class="col-md-12 d-flex justify-content-center mb-4">
-                                                                        <img src="assets/google-meet.svg" class="w-50 m-3">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12 d-flex justify-content-center">
-                                                                        <button class="btn btn-fefefe" (click)="commdata(comm.email,comm.googlemeetlink,comm.first_name,comm.last_name)">GoogleMeet</button>
-                                                                    </div>
+                                            </div>
+                                            <!-- </fieldset> -->
+                                            <!-- <fieldset> -->
+                                            <div *ngIf="comm">
+                                                <h6 class="btn-0EA5C6 p-2 fs-5">Communication Tool</h6>
+                                                <div class="row p-5 m-0">
+                                                    <p>These are the communication tools your teacher uses. Please
+                                                        choose your preferred
+                                                        communication tool.</p> <br>
+                                                    <div class="row m-0 p-0" *ngFor="let comm of DoctorFilterdata;">
+                                                        <div class="col-md-4">
+                                                            <div class="row">
+                                                                <div
+                                                                    class="col-md-12 d-flex justify-content-center mb-4">
+                                                                    <img src="assets/google-meet.svg" class="w-50 m-3">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <div class="row">
-                                                                    <div class="col-md-12 d-flex justify-content-center mb-4">
-                                                                        <img src="assets/zoom.svg" class="w-50">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12 d-flex justify-content-center">
-                                                                        <button class="btn btn-fefefe" (click)="commdata(comm.email,comm.zoomlink,comm.first_name,comm.last_name)">Zoom</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="row">
-                                                                    <div class="col-md-12 d-flex justify-content-center mb-4">
-                                                                        <img src="assets/skype.svg" class="w-50">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12 d-flex justify-content-center">
-                                                                        <button class="btn btn-fefefe" (click)="commdata(comm.email,comm.skypelink,comm.first_name,comm.last_name)">Skype</button>
-                                                                    </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12 d-flex justify-content-center">
+                                                                    <button class="btn btn-fefefe"
+                                                                        (click)="commdata(comm.email,comm.googlemeetlink,comm.first_name,comm.last_name)">GoogleMeet</button>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <p class="mt-4">italki Classroom is italki's own integrated communication tool. It works on the latest
-                                                            versions of Google Chrome, Mozilla Firefox, and Safari.<br>
-                            
-                                                            For a better in-class experience, please enter italki Classroom to check the
-                                                            connectivity prior to your lesson start time.</p>
+                                                        <div class="col-md-4">
+                                                            <div class="row">
+                                                                <div
+                                                                    class="col-md-12 d-flex justify-content-center mb-4">
+                                                                    <img src="assets/zoom.svg" class="w-50">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12 d-flex justify-content-center">
+                                                                    <button class="btn btn-fefefe"
+                                                                        (click)="commdata(comm.email,comm.zoomlink,comm.first_name,comm.last_name)">Zoom</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="row">
+                                                                <div
+                                                                    class="col-md-12 d-flex justify-content-center mb-4">
+                                                                    <img src="assets/skype.svg" class="w-50">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12 d-flex justify-content-center">
+                                                                    <button class="btn btn-fefefe"
+                                                                        (click)="commdata(comm.email,comm.skypelink,comm.first_name,comm.last_name)">Skype</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                    <p class="mt-4">italki Classroom is italki's own integrated
+                                                        communication tool. It works on the latest
+                                                        versions of Google Chrome, Mozilla Firefox, and Safari.<br>
+
+                                                        For a better in-class experience, please enter italki Classroom
+                                                        to check the
+                                                        connectivity prior to your lesson start time.</p>
                                                 </div>
-                                                <!-- </fieldset> -->
-                                                <!-- <fieldset> -->
-                                                <div *ngIf="pay">
-                                                    <h6 class="btn-0EA5C6 p-2 fs-5">Payment</h6>
-                                                    <div class="row p-5 m-0">
-                                                        <div class="row">
-                                                            <div class="col-md-8">
-                                                                <div class="card">
-                                                                    <div class="row card-body">
-                                                                        <div class="col-md-1 border p-2">
+                                            </div>
+                                            <!-- </fieldset> -->
+                                            <!-- <fieldset> -->
+                                            <div *ngIf="pay">
+                                                <h6 class="btn-0EA5C6 p-2 fs-5">Payment</h6>
+                                                <div class="row p-5 m-0">
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+                                                            <div class="card">
+                                                                <div class="row card-body">
+                                                                    <div class="col-md-1 border p-2">
+                                                                        <input type="checkbox">
+                                                                    </div>
+                                                                    <div class="col-md-11">
+                                                                        Balance / <b>$ {{BookingData.Price}}.00 USD</b>
+                                                                        <br>
+                                                                        your italki Balance will be automatically
+                                                                        deducted
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">Promo Code</div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text"
+                                                                                placeholder="Please enter your code">
+                                                                            REDEEM
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col">Coupon</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3"><b>Payment Methods</b>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-md-4 d-flex justify-content-end">
+                                                                            Billing Country/Region
+                                                                        </div>
+                                                                        <div class="col-md-5">
+                                                                            <select style="width: 200px;">
+                                                                                <option value="">India</option>
+                                                                                <option value="">India</option>
+                                                                                <option value="">India</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <i class="far fa-credit-card"></i>&nbsp;
+                                                                            Debit / credit card
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-md-6 d-flex justify-content-end">
+                                                                            <i
+                                                                                class="fas fa-plus-circle mt-1"></i>&nbsp;
+                                                                            <b>ADD A NEW CARD</b>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <i class="fab fa-cc-paypal"></i>&nbsp;
+                                                                            PayPal
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-md-6 d-flex justify-content-end">
                                                                             <input type="checkbox">
                                                                         </div>
-                                                                        <div class="col-md-11">
-                                                                            Balance / <b>$ {{BookingData.Price}}.00 USD</b> <br>
-                                                                            your italki Balance will be automatically deducted
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <i class="far fa-credit-card"></i>&nbsp;
+                                                                            Skrill eWallet
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-md-6 d-flex justify-content-end">
+                                                                            <input type="checkbox">
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="card">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">Promo Code</div>
-                                                                            <div class="col-md-6">
-                                                                                <input type="text" placeholder="Please enter your code"> REDEEM
-                                                                            </div>
+                                                                <hr>
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <i class="far fa-credit-card"></i>&nbsp;
+                                                                            Bank Transfer
                                                                         </div>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col">Coupon</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-3"><b>Payment Methods</b></div>
-                                                                            <div class="col-md-4 d-flex justify-content-end">Billing Country/Region
-                                                                            </div>
-                                                                            <div class="col-md-5">
-                                                                                <select style="width: 200px;">
-                                                                                    <option value="">India</option>
-                                                                                    <option value="">India</option>
-                                                                                    <option value="">India</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <i class="far fa-credit-card"></i>&nbsp;
-                                                                                Debit / credit card
-                                                                            </div>
-                                                                            <div class="col-md-6 d-flex justify-content-end">
-                                                                                <i class="fas fa-plus-circle mt-1"></i>&nbsp;
-                                                                                <b>ADD A NEW CARD</b>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <i class="fab fa-cc-paypal"></i>&nbsp;
-                                                                                PayPal
-                                                                            </div>
-                                                                            <div class="col-md-6 d-flex justify-content-end">
-                                                                                <input type="checkbox">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <i class="far fa-credit-card"></i>&nbsp;
-                                                                                Skrill eWallet
-                                                                            </div>
-                                                                            <div class="col-md-6 d-flex justify-content-end">
-                                                                                <input type="checkbox">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <i class="far fa-credit-card"></i>&nbsp;
-                                                                                Bank Transfer
-                                                                            </div>
-                                                                            <div class="col-md-6 d-flex justify-content-end">
-                                                                                <input type="checkbox">
-                                                                            </div>
+                                                                        <div
+                                                                            class="col-md-6 d-flex justify-content-end">
+                                                                            <input type="checkbox">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- right side start -->
-                                                            <div class="col-md-4">
-                                                                <div class="card p-2">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-4">
-                                                                                <img *ngIf="!imageUrl && image == null" src="assets/uploadimages/sample.png" style="height: 80px; border: 1px solid; padding: 5px; border-radius: 50%;">
-                                                                                <img *ngIf="image && !imageUrl" src="{{image}}" class="w-100 rounded-pill">
-                                                                            </div>
-                                                                            <div class="col-md-8">
-                                                                                <b>{{loggedInUser.name}}</b><br>
-                                                                                Beginner Spoken English<br>
-                                                                                See the details
-                                                                            </div>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">Sub-total</div>
-                                                                            <div class="col-md-6 d-flex justify-content-end">$ {{BookingData.Price}}.00 USD</div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">Processing fee</div>
-                                                                            <div class="col-md-6 d-flex justify-content-end">$ 0.00 USD</div>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">Total</div>
-                                                                            <div class="col-md-6 d-flex justify-content-end mb-2">
-                                                                                $ {{BookingData.Price}}.00 USD<br>
-                                                                                <!-- Estimated INR 1,423.64 -->
-                                                                            </div>
-                                                                            <button type="button" class="btn btn-0EA5C6 my-2" (click)="payment()">PAY</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="">
-                                                                    <div class="">
-                                                                        <font style="font-size: 10px;">
-                                                                            <i class="fas fa-circle"></i>&nbsp;
-                                                                            All currency conversions are estimates and may vary.<br>
-                                                                            <i class="fas fa-circle"></i>&nbsp;
-                                                                            Your final payment will be made in USD.<br>
-                                                                            <i class="fas fa-circle"></i>&nbsp;
-                                                                            Purchases can only be refunded for italki Credits that are directly
-                                                                            transferred to your italki student Wallet. Cash refund not
-                                                                            supported.<br>
-                                                                        </font>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- right side end -->
                                                         </div>
+                                                        <!-- right side start -->
+                                                        <div class="col-md-4">
+                                                            <div class="card p-2">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <img *ngIf="!imageUrl && image == null"
+                                                                                src="assets/uploadimages/sample.png"
+                                                                                style="height: 80px; border: 1px solid; padding: 5px; border-radius: 50%;">
+                                                                            <img *ngIf="image && !imageUrl"
+                                                                                src="{{image}}"
+                                                                                class="w-100 rounded-pill">
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            <b>{{loggedInUser.name}}</b><br>
+                                                                            Beginner Spoken English<br>
+                                                                            See the details
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">Sub-total</div>
+                                                                        <div
+                                                                            class="col-md-6 d-flex justify-content-end">
+                                                                            $ {{BookingData.Price}}.00 USD</div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">Processing fee</div>
+                                                                        <div
+                                                                            class="col-md-6 d-flex justify-content-end">
+                                                                            $ 0.00 USD</div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">Total</div>
+                                                                        <div
+                                                                            class="col-md-6 d-flex justify-content-end mb-2">
+                                                                            $ {{BookingData.Price}}.00 USD<br>
+                                                                            <!-- Estimated INR 1,423.64 -->
+                                                                        </div>
+                                                                        <button type="button"
+                                                                            class="btn btn-0EA5C6 my-2"
+                                                                            (click)="payment()">PAY</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <div class="">
+                                                                    <font style="font-size: 10px;">
+                                                                        <i class="fas fa-circle"></i>&nbsp;
+                                                                        All currency conversions are estimates and may
+                                                                        vary.<br>
+                                                                        <i class="fas fa-circle"></i>&nbsp;
+                                                                        Your final payment will be made in USD.<br>
+                                                                        <i class="fas fa-circle"></i>&nbsp;
+                                                                        Purchases can only be refunded for italki
+                                                                        Credits that are directly
+                                                                        transferred to your italki student Wallet. Cash
+                                                                        refund not
+                                                                        supported.<br>
+                                                                    </font>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- right side end -->
                                                     </div>
                                                 </div>
-                                                <!-- </fieldset> -->
-                                                <div class="col-md-12 d-flex justify-content-end">
-                                                    <!-- <button type="button" class="btn btn-0EA5C6 rounded-pill mx-3" id="previous-step"
+                                            </div>
+                                            <!-- </fieldset> -->
+                                            <div class="col-md-12 d-flex justify-content-end">
+                                                <!-- <button type="button" class="btn btn-0EA5C6 rounded-pill mx-3" id="previous-step"
                                                         disabled="disabled">&#171; Previous</button>
                                                     <button type="button" class="btn btn-0EA5C6 rounded-pill" id="next-step">Next &#187;</button>
                                                     <button type="submit" class="btn btn-0EA5C6 rounded-pill" id="finish-step">Finish
                                                         &#8629;</button> -->
-                                                </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </ng-template>
-                                <!-- ============================================ Book Appointment End ===================================== -->
-                            </div>
+                                    </div>
+                                </form>
+                            </ng-template>
+                            <!-- ============================================ Book Appointment End ===================================== -->
                         </div>
                     </div>
+                </div>
                 <!-- </form> -->
             </ng-template>
             <!-- ============================================ Book Appointment End ==================================== -->
@@ -775,14 +908,15 @@
                                         <div class="card-header btn-fefefe" (click)="headingOne()">
                                             <h5 class="my-0">
                                                 <!-- <button class="btn shadow-none"> -->
-                                                    <i class="fa fa-arrow-circle-down fs-4"></i>
-                                                    What is Metrica?
+                                                <i class="fa fa-arrow-circle-down fs-4"></i>
+                                                What is Metrica?
                                                 <!-- </button> -->
                                             </h5>
                                         </div>
                                         <div class="data1">
                                             <div class="card-body btn-0EA5C6 fs-5">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                                terry
                                                 richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
                                                 dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
                                             </div>
@@ -794,16 +928,18 @@
                                         <div class="card-header btn-fefefe" (click)="headingTwo()">
                                             <h5 class="my-0">
                                                 <!-- <button class="btn shadow-none"> -->
-                                                    <i class="fa fa-arrow-circle-down fs-4"></i>
-                                                    How buy Metrica on coin?
+                                                <i class="fa fa-arrow-circle-down fs-4"></i>
+                                                How buy Metrica on coin?
                                                 <!-- </button> -->
                                             </h5>
                                         </div>
                                         <div class="data2">
                                             <div class="card-body btn-0EA5C6 fs-5">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                                terry
                                                 richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+                                                moon
                                                 tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
                                                 assumenda shoreditch et.
                                             </div>
@@ -815,16 +951,18 @@
                                         <div class="card-header btn-fefefe" (click)="headingThree()">
                                             <h5 class="my-0">
                                                 <!-- <button class="btn shadow-none"> -->
-                                                    <i class="fa fa-arrow-circle-down fs-4"></i>
-                                                    How buy Metrica on coin?
+                                                <i class="fa fa-arrow-circle-down fs-4"></i>
+                                                How buy Metrica on coin?
                                                 <!-- </button> -->
                                             </h5>
                                         </div>
                                         <div class="data3">
                                             <div class="card-body btn-0EA5C6 fs-5">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                                terry
                                                 richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+                                                moon
                                                 tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
                                                 assumenda shoreditch et.
                                             </div>
@@ -838,14 +976,15 @@
                                                 <!-- <button class="btn collapsed ml-4 shadow-none" type="button"
                                                     data-toggle="collapse" data-target="#collapseThree"
                                                     aria-expanded="false" aria-controls="collapseThree"> -->
-                                                    <i class="fa fa-arrow-circle-down fs-4"></i>
-                                                    What cryptocurrency can i use to buy Metrica?
+                                                <i class="fa fa-arrow-circle-down fs-4"></i>
+                                                What cryptocurrency can i use to buy Metrica?
                                                 <!-- </button> -->
                                             </h5>
                                         </div>
                                         <div class="data4">
                                             <div class="card-body btn-0EA5C6 fs-5">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                                                terry
                                                 richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
                                                 dolor brunch.
                                             </div>
@@ -881,10 +1020,13 @@
                                     <td *ngIf="book.Status == '1' ">{{book.Slot}}</td>
                                     <td *ngIf="book.Status == '1' ">
                                         <a href="{{book.MeetLink}}" target="_blank">
-                                            <i class="fal fa-phone mx-2" title="Join" (click)="AppJoin(book._id,book.MeetLink)"></i>
+                                            <i class="fal fa-phone mx-2" title="Join"
+                                                (click)="AppJoin(book._id,book.MeetLink)"></i>
                                         </a>
-                                        <i class="fal fa-phone-slash text-danger mx-2" title="Cancel" (click)="AppCancel(book._id)"></i>
-                                        <i class="fal fa-repeat text-warning mx-2" title="Reschedule" (click)="AppReschedule(book._id)"></i>
+                                        <i class="fal fa-phone-slash text-danger mx-2" title="Cancel"
+                                            (click)="AppCancel(book._id)"></i>
+                                        <i *ngIf="book.Price != '0' " class="fal fa-repeat text-warning mx-2"
+                                            title="Reschedule" (click)="AppReschedule(app,book.D_email,book._id)"></i>
                                     </td>
                                 </tr>
                             </tbody>
@@ -923,11 +1065,151 @@
                                         <i class="mx-2" title="Feedback">--</i>
                                     </td>
                                     <td *ngIf="book.Status == '3' ">
-                                        <i class="fal fa-comment mx-2" title="Feedback" routerLink="/patient-feedback"></i>
+                                        <i class="fal fa-comment mx-2" title="Feedback" (click)="AppFeedback(book.D_email,book.P_email,book.D_name,book.P_name)"></i>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <!-- ============================================================================================== -->
+                        <ng-template #app let-modal let-c="close" let-d="dismiss">
+                            <div class="card card-shadow">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <!-- <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i> -->
+                                            <i class="fa fa-times fs-4 text-danger" (click)="reload()"></i>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="Recal">
+                                        <h6 class="btn-0EA5C6 p-2 fs-5">Reschedule your Appointments</h6>
+                                        <span class="d-flex justify-content-center p-2">
+                                            <b>
+                                                <i class="fas fa-square fs-5"></i> &nbsp; : &nbsp; Available &nbsp;
+                                                &nbsp;
+                                                <i class="far fa-square fs-5"></i> &nbsp; : &nbsp; Unvailable &nbsp;
+                                                &nbsp;
+                                                <i class="fas fa-square text-success fs-5"></i> &nbsp; : &nbsp; Booked
+                                                &nbsp; &nbsp;
+                                            </b>
+                                        </span>
+                                        <div class="" style="width:100%; color: black;">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Day</th>
+                                                        <th scope="col" class="table-info">{{CurrentDay}}</th>
+                                                        <!-- <th scope="col" *ngFor="let day of WeekDay; let i=index;">{{day}}</th> -->
+                                                        <th scope="col">{{WeekDay[1]}}</th>
+                                                        <th scope="col">{{WeekDay[2]}}</th>
+                                                        <th scope="col">{{WeekDay[3]}}</th>
+                                                        <th scope="col">{{WeekDay[4]}}</th>
+                                                        <th scope="col">{{WeekDay[5]}}</th>
+                                                        <th scope="col">{{WeekDay[6]}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Time/Date</th>
+                                                        <th *ngFor="let date of WeekDate;">{{date}}</th>
+                                                    </tr>
+                                                    <tr *ngFor="let data of Sunday;">
+                                                        <th scope="row">{{data.name}}</th>
+                                                        <td *ngFor="let week of WeekData;">
+                                                            <div *ngFor="let sun of Sunjson;">
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Sun' && sun.status == '0' && sun.id == data.id "
+                                                                    class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Sun' && sun.status == '1' && sun.id == data.id "
+                                                                    class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                    (click)="ReSelectdata(sun.name,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Sun' && sun.status == '2' && sun.id == data.id "
+                                                                    class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
+                                                            </div>
+                                                            <div *ngFor="let mon of Monjson;">
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Mon' && mon.status == '0' && mon.id == data.id "
+                                                                    class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                                <!-- <td>{{week}}</td> -->
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Mon' && mon.status == '1' && mon.id == data.id  "
+                                                                    class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                    (click)="ReSelectdata(mon.name,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Mon' && mon.status == '2' && mon.id == data.id  "
+                                                                    class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
+                                                            </div>
+                                                            <div *ngFor="let tue of Tuejson;">
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Tue' && tue.status == '0' && tue.id == data.id "
+                                                                    class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Tue' && tue.status == '1' && tue.id == data.id "
+                                                                    class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                    (click)="ReSelectdata(tue.name,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Tue' && tue.status == '2' && tue.id == data.id "
+                                                                    class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
+                                                            </div>
+                                                            <div *ngFor="let wed of Wedjson;">
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Wed' && wed.status == '0' && wed.id == data.id "
+                                                                    class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Wed' && wed.status == '1' && wed.id == data.id "
+                                                                    class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                    (click)="ReSelectdata(wed.name,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Wed' && wed.status == '2' && wed.id == data.id "
+                                                                    class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
+                                                            </div>
+                                                            <div *ngFor="let thu of Thujson;">
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Thu' && thu.status == '0' && thu.id == data.id "
+                                                                    class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Thu' && thu.status == '1' && thu.id == data.id "
+                                                                    class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                    (click)="ReSelectdata(thu.name,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Thu' && thu.status == '2' && thu.id == data.id "
+                                                                    class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
+                                                            </div>
+                                                            <div *ngFor="let fri of Frijson;">
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Fri' && fri.status == '0' && fri.id == data.id "
+                                                                    class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Fri' && fri.status == '1' && fri.id == data.id "
+                                                                    class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                    (click)="ReSelectdata(fri.name,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Fri' && fri.status == '2' && fri.id == data.id "
+                                                                    class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
+                                                            </div>
+                                                            <div *ngFor="let sat of Satjson;">
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Sat' && sat.status == '0' && sat.id == data.id "
+                                                                    class="d-flex justify-content-center bg-secondary text-light rounded-pill">Unavilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Sat' && sat.status == '1' && sat.id == data.id "
+                                                                    class="d-flex justify-content-center bg-info text-light rounded-pill"
+                                                                    (click)="ReSelectdata(sat.name,week.slice(3,14),week.slice(0,3))">Avilable</span>
+                                                                <span
+                                                                    *ngIf="week.slice(0,3) == 'Sat' && sat.status == '2' && sat.id == data.id "
+                                                                    class="d-flex justify-content-center bg-warning text-light rounded-pill">Booked</span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <!-- ============================================================================================== -->
                     </div>
                 </div>
             </div>

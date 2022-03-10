@@ -1,19 +1,19 @@
 const mongoose = require("mongoose");
 
-// FeedBack JsonMembers
+// Feedback JsonMembers
 
 const FeedbackSchema = new mongoose.Schema({
-    p_email: { type: String},
-    d_email: { type: String},
-    d_name: { type: String},
-    p_name: { type: String},
-    date: { type: String},
-    status: { type: String},
-    rating: { type: String},
-    message : { type: String}
+    P_email : { type: String },
+    D_email : { type: String },
+    P_name : { type: String },
+    D_name : { type: String },
+    C_Date : { type: String },
+    Rating : { type: String },
+    Message : { type: String },
+    Status : { type: String},
 })
 
 
 // We Will Create a New mongoose.Collection
-const FeedBack = new mongoose.model('FeedBack', FeedbackSchema);
-module.exports = FeedBack;
+const Feedback = new mongoose.model('Feedback', FeedbackSchema);
+module.exports = Feedback;

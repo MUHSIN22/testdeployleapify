@@ -4,7 +4,7 @@ const upload = require("../utils/s3");
 const { auth } = require("../middlewares/auth");
 const {
   // -----------------------------
-  usersignup, userdata, doctorupdate, aboutmeupdate, task, taskdata, updatetask, deletetask, specupdate, addblog, blogdata, deleteblog, patientupdate, settimeperiod, shiftdata, updatetimeperiod, doctorprice, pricedata, doctorupdateprice, doctorsdata, mapping, assessment, booking, bookdata, bookingData, bookingCancel, bookingReschedule,
+  usersignup, userdata, doctorupdate, aboutmeupdate, task, taskdata, updatetask, deletetask, specupdate, addblog, blogdata, deleteblog, patientupdate, settimeperiod, shiftdata, updatetimeperiod, doctorprice, pricedata, doctorupdateprice, doctorsdata, mapping, assessment, booking, bookdata, bookingData, bookingCancel, bookingReschedule, bookingStatus, bookingDataById, appointmentDone, feedback, feedbackdata,
   // -----------------------------
   register,
   login,
@@ -24,6 +24,12 @@ router.post("/usersignup", usersignup);
 router.post("/userdata", userdata);
 router.post("/doctorsdata", doctorsdata);
 // ===============================================
+router.post("/feedback", feedback);
+router.post("/feedbackdata", feedbackdata);
+// ===============================================
+router.post("/bookingStatus", bookingStatus);
+router.post("/appointmentDone", appointmentDone);
+router.post("/bookingDataById", bookingDataById);
 router.post("/bookingReschedule", bookingReschedule);
 router.post("/bookingCancel", bookingCancel);
 router.post("/bookdata", bookdata);

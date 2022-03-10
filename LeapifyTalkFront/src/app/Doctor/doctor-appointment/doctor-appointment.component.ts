@@ -41,4 +41,19 @@ export class DoctorAppointmentComponent implements OnInit {
   }
 }
 
+AppDone(_id : any)
+{
+  var AppDone = {
+    _id: _id,
+    Status: "3"
+  }
+  if(window.confirm('Are sure you want to Done this Appointment ?')){
+    this.httpService.AppDone(AppDone).subscribe(
+      (res: any) => {
+        alert(res.msg);
+        window.location.reload();
+      })
+  }
+}
+
 }
