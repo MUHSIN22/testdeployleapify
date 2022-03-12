@@ -1,37 +1,6 @@
 <div class="container-fluid">
     <!-- ========================================================== -->
-    <!-- ----------------------- Feedback Form Start ----------------------------------- -->
-    <h1>Feedback Form</h1>
-    <div class="container mb-5 d-flex justify-content-center">
-        <div class="card card-shadow">
-            <div class="card-body">
-              <form [formGroup]="rating" (ngSubmit)="Rating(rating)">
-                <div class="p-4 justify-content-center">
-                    <h4 class="mt-0 mb-4">Your Doctor: <span class="value">{{FeedbackData.D_name}}</span></h4>
-                    <div class="form-group">
-                        <h5 class="mt-0 mb-4">How would you rate your doctor?</h5>
-                        <div class="form-group">
-                          <!-- <ngb-rating class="text-warning fs-4" [(rate)]="currentRate"></ngb-rating> -->
-                          <!-- <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate"></ngb-rating> -->
-                          <ngb-rating class="fs-5" style="color: #0EA5C6;" [max]="5" [(rate)]="currentRating" [readonly]="false"></ngb-rating>
-                          &nbsp;<b class="fs-5" style="color: #0EA5C6;" >({{currentRating}})</b>
-                          <input type="text" formControlName="Rate" value="{{currentRating}}" [ngModel]="currentRating" hidden>
-                        </div>
-                    </div>
-                    <div class="form-group shadow-textarea">
-                        <h5 for="exampleFormControlTextarea6">Is there anything else you'd like to share about your experience with the doctor?</h5>
-                        <textarea id="feedbck" class="form-control z-depth-1" rows="6" placeholder="Write your experience here..." maxlength="500" formControlName="Message"></textarea>
-                        <span>(<span id="chars">500</span> characters remaining)</span>
-                    </div>
-                    <button type="submit" class="btn btn-fefefe">Submit</button>
-                </div>
-                </form>
-                <!-- {{this.rating.value.Rate}} | json; -->
-                <!-- {{this.rating.value.Message}} | json; -->
-            </div>
-        </div>
-    </div>
-    <!-- ----------------------- Feedback Form End ------------------------------------- -->
+    
 <!-- --------------------------- Previous Feedback Start ------------------------------- -->
     <h1>Previous Feedbacks</h1>
 <div class="row p-3">
@@ -56,8 +25,10 @@
                   <ngb-rating class="fs-5" style="color: #0EA5C6;" [max]="5" [(rate)]="data.Rating" [readonly]="true"></ngb-rating>
                 </td>
                 <td>{{data.Message}}</td>
-                <td>{{data.C_date}}</td>
-                <td><i class="fa fa-trash"></i></td>
+                <td>{{data.C_Date}}</td>
+                <td>
+                  <i class="fa fa-trash"></i>
+                </td>
               </tr>
             </tbody>
           </table>

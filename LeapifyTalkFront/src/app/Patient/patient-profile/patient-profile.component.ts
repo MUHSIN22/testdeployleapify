@@ -117,6 +117,12 @@ export class PatientProfileComponent implements OnInit {
   thu: any = [];
   fri: any = [];
   sat: any = [];
+  PriceData: any;
+
+  rating! : FormGroup;
+  FeedbackData = JSON.parse(localStorage.getItem("Feedback")!);
+  Feedback : any;
+  currentRating :any = 0;
 
   constructor(config: NgbModalConfig, rating: NgbRatingConfig, private datepipe: DatePipe, private model: NgbModal, private httpService: HttpService, private fb: FormBuilder, private router: Router) {
     rating.max = 5;
@@ -133,6 +139,11 @@ export class PatientProfileComponent implements OnInit {
       Gender: ['', [Validators.required]],
     });
 
+    this.rating=this.fb.group({
+      Rate : ['',[]],
+      Message : ['',[]]
+    });
+
     this.httpService.userSubject.subscribe(
       (user) => {
         this.loggedInUser = user;
@@ -141,12 +152,50 @@ export class PatientProfileComponent implements OnInit {
     this.UserData();
     this.DoctorData();
     this.Bookingdata();
+    this.DoctorPrice();
+    this.FeedBackData();
     // console.log('Data'+' : '+localStorage.getItem("Data"));
   }
   // =======================================================================================
   halfhourset = [
     { id: 7, name: "07:00 - 08:00" }, { id: 8, name: "08:00 - 09:00" }, { id: 9, name: "09:00 - 10:00" }, { id: 10, name: "10:00 - 11:00" }, { id: 11, name: "11:00 - 12:00" }, { id: 12, name: "12:00 - 13:00" }, { id: 13, name: "13:00 - 14:00" }, { id: 14, name: "14:00 - 15:00" }, { id: 15, name: "15:00 - 16:00" }, { id: 16, name: "16:00 - 17:00" }, { id: 17, name: "17:00 - 18:00" }, { id: 18, name: "18:00 - 19:00" }, { id: 19, name: "19:00 - 20:00" }, { id: 20, name: "20:00 - 21:00" }, { id: 21, name: "21:00 - 22:00" }, { id: 22, name: "22:00 - 23:00" }, { id: 23, name: "23:00 - 24:00" }, { id: 24, name: "24:00 - 01:00" }, { id: 1, name: "01:00 - 02:00" }, { id: 2, name: "02:00 - 03:00" }, { id: 3, name: "03:00 - 04:00" }, { id: 4, name: "04:00 - 05:00" }, { id: 5, name: "05:00 - 06:00" }, { id: 6, name: "06:00 - 07:00" },
   ]
+
+  
+  Rating(rating : any)
+  {
+    if (rating.valid)
+    {
+      // console.log(this.FeedbackData,'Feedback Data');
+      var Feedback = {
+        D_email: this.FeedbackData.D_email,
+        P_email: this.FeedbackData.P_email,
+        D_name: this.FeedbackData.D_name,
+        P_name: this.FeedbackData.P_name,
+        C_Date : this.FeedbackData.C_Date,
+        Rating : this.rating.value.Rate,
+        Message : this.rating.value.Message,
+        Status : '0',
+      }
+      // console.log(Feedback,'Feedback Submit');
+      this.httpService.Feedback(Feedback).subscribe(
+        (post:any) => {
+          alert(post.msg);
+          window.location.reload();
+        });
+    }
+  }
+
+  FeedBackData()
+{
+  var Email = this.FeedbackData.P_email;
+  // console.log(Email);
+    this.httpService.FeedBackData({Email}).subscribe(
+      (feedback : any) => {
+        this.Feedback = feedback;
+        // console.log(this.Feedback,"FeedbackData");
+      })
+}
 
   DoctorData() {
     this.httpService.DoctorsData({ role: 'Doctor' }).subscribe(
@@ -185,6 +234,16 @@ export class PatientProfileComponent implements OnInit {
         this.DoctorFilterdata = FinalDoctorFilterdata;
         // ====================================================================================================
         // console.log(FinalDoctorFilterdata,'Doctor Filter Data');
+      })
+  }
+
+  DoctorPrice() {
+    var data = JSON.parse(localStorage.getItem("BookingDataById")!);
+    var Email = data.D_email;
+    this.httpService.D_MeetStatus({Email}).subscribe(
+      (res: any) => {
+        this.PriceData = res;
+        // console.log(this.PriceData);
       })
   }
 
@@ -342,7 +401,7 @@ export class PatientProfileComponent implements OnInit {
     }
   }
 
-  AppFeedback(D_email : any, P_email : any, D_name : any, P_name : any) {
+  AppFeedback(feedback : any, D_email : any, P_email : any, D_name : any, P_name : any) {
     var fbJson = {
       D_email: D_email,
       P_email: P_email,
@@ -351,7 +410,8 @@ export class PatientProfileComponent implements OnInit {
       C_Date : this.CurrentDate,
     }
     localStorage.setItem("Feedback", JSON.stringify(fbJson));
-    this.router.navigate(['/patient-feedback']);
+    // this.router.navigate(['/patient-feedback']);
+    this.model.open(feedback, { size: 'xl', backdropClass: 'backdrop-color' });
   }
 
   AppReschedule(app: any, email: any, _id: any) {
@@ -852,33 +912,33 @@ export class PatientProfileComponent implements OnInit {
       $(".data4").removeClass("data_display4");
     });
   }
-  headingTwo() {
-    this.show2 = !this.show2;
-    $("#show2").click(function () {
-      $(".data2").addClass("data_display2");
-      $(".data1").removeClass("data_display1");
-      $(".data3").removeClass("data_display3");
-      $(".data4").removeClass("data_display4");
-    });
-  }
-  headingThree() {
-    this.show3 = !this.show3;
-    $("#show3").click(function () {
-      $(".data3").addClass("data_display3");
-      $(".data1").removeClass("data_display1");
-      $(".data2").removeClass("data_display2");
-      $(".data4").removeClass("data_display4");
-    });
-  }
-  headingFour() {
-    this.show4 = !this.show4;
-    $("#show4").click(function () {
-      $(".data4").addClass("data_display4");
-      $(".data1").removeClass("data_display1");
-      $(".data2").removeClass("data_display2");
-      $(".data3").removeClass("data_display3");
-    });
-  }
+  // headingTwo() {
+  //   this.show2 = !this.show2;
+  //   $("#show2").click(function () {
+  //     $(".data2").addClass("data_display2");
+  //     $(".data1").removeClass("data_display1");
+  //     $(".data3").removeClass("data_display3");
+  //     $(".data4").removeClass("data_display4");
+  //   });
+  // }
+  // headingThree() {
+  //   this.show3 = !this.show3;
+  //   $("#show3").click(function () {
+  //     $(".data3").addClass("data_display3");
+  //     $(".data1").removeClass("data_display1");
+  //     $(".data2").removeClass("data_display2");
+  //     $(".data4").removeClass("data_display4");
+  //   });
+  // }
+  // headingFour() {
+  //   this.show4 = !this.show4;
+  //   $("#show4").click(function () {
+  //     $(".data4").addClass("data_display4");
+  //     $(".data1").removeClass("data_display1");
+  //     $(".data2").removeClass("data_display2");
+  //     $(".data3").removeClass("data_display3");
+  //   });
+  // }
   // ================== Get User Data Start =====================================
   UserData() {
     var Email = { email: this.loggedInUser.email }

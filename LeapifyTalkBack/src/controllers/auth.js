@@ -127,7 +127,7 @@ exports.doctorupdate = async(req, res) => {
           twitterlink: twitterlink,
           // image: fileinfo.location,
       }})
-      console.log(update,'Update');
+      // console.log(update,'Update');
       }
       else
       {
@@ -143,11 +143,11 @@ exports.doctorupdate = async(req, res) => {
           twitterlink: twitterlink,
           image: fileinfo.location,
       }})
-      console.log(update,'Update With Image');
+      // console.log(update,'Update With Image');
       }
       return res.json({status: 'ok', msg: 'Update Successfully'})
   }catch(error){
-      console.log(error);
+      // console.log(error);
       return res.json({status: 'error', msg: 'error'})
   }
 }
@@ -168,7 +168,7 @@ exports.patientupdate = async(req, res) => {
           address: address,
           // image: fileinfo.location,
       }})
-      console.log(update,'Update');
+      // console.log(update,'Update');
       }
       else
       {
@@ -177,11 +177,11 @@ exports.patientupdate = async(req, res) => {
           address: address,
           image: fileinfo.location,
       }})
-      console.log(update,'Update With Image');
+      // console.log(update,'Update With Image');
       }
       return res.json({status: 'ok', msg: 'Update Successfully'})
   }catch(error){
-      console.log(error);
+      // console.log(error);
       return res.json({status: 'error', msg: 'error'})
   }
 }
@@ -200,6 +200,19 @@ exports.assessment = async(req, res) => {
       return res.json({status: 'error', msg: 'error'})
   }
 }
+
+  exports.a_result = async(req, res) => {
+    const { Email } = req.body;
+    // console.log(Email,'Res');
+    try{
+        const data = await User.findOne({ email : Email }).lean();
+        // console.log(data.result[29],'UserData');
+        return res.json(data.result[29]);
+    }catch(error){
+        console.log(error);
+        return res.json({status: 'error', msg: 'error'})
+    }
+  }
 // --------------------------- Add Patient Result Data End --------------------------------
 // ---------------------- Add Doctor Blog Data Start ---------------------------
 
@@ -367,7 +380,20 @@ exports.feedbackdata = async(req, res) => {
   const { Email } = req.body;
   // console.log(Email,'Res');
   try{
-      const data = await Feedback.find({ P_email : Email }).lean();
+      const data = await Feedback.find({ P_email : Email }).sort( { C_Date: -1 } ).lean();
+      // console.log(data,'Feedback Data');
+      return res.json(data);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+
+exports.D_feedbackdata = async(req, res) => {
+  const { Email } = req.body;
+  // console.log(Email,'Res');
+  try{
+      const data = await Feedback.find({ D_email : Email }).sort( { C_Date: -1 } ).lean();
       // console.log(data,'Feedback Data');
       return res.json(data);
   }catch(error){
@@ -377,6 +403,39 @@ exports.feedbackdata = async(req, res) => {
 }
 
 // ---------------------- Collect Feedback Appointment Data By Email End -----------------------------
+// ---------------------- Collect Doctor Price Start ---------------------
+exports.doctorMeetStatus = async(req, res) => {
+  const { Email } = req.body;
+  // console.log(Email,'Res');
+  try{
+      const data = await DoctorPrice.findOne({ email : Email }).lean();
+      // console.log(data);
+      return res.json(data);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+// ---------------------- Collect Doctor Price End --------------------------------
+// ---------------------- fav_unfav Feedback Data Start ---------------------------
+
+exports.fav_unfav = async(req, res) => {
+  const { _id, Status }= req.body;
+  // console.log(_id,'Id');
+  // console.log(Status,'Status');
+  try{
+      const update = await Feedback.findOneAndUpdate({_id : _id}, {$set: {
+          Status: Status,
+      }})
+      return res.json({status: 'ok', msg: 'IsFavorite'})
+      // console.log(update);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+
+// --------------------------- fav_unfav Feedback Data End ----------------------------
 // -------------------------------- Booking Appointment Start ----------------------------------
 exports.booking = async(req, res) =>{
   const { P_email, D_email, P_name, D_name, Price, Slot, Currentdate, SelectDate, Day, Bundle, MeetLink, Status  } = req.body;
@@ -413,7 +472,7 @@ exports.bookdata = async(req, res) => {
   const { P_email } = req.body;
   // console.log(P_email,'Res');
   try{
-      const data = await Book.find({ P_email }).lean();
+      const data = await Book.find({ P_email }).sort( { SelectDate: -1 } ).lean();
       // console.log(data,'UserData');
       return res.json(data);
   }catch(error){
@@ -426,7 +485,7 @@ exports.bookingData = async(req, res) => {
   const { D_email } = req.body;
   // console.log(D_email,'Res');
   try{
-      const data = await Book.find({ D_email }).lean();
+      const data = await Book.find({ D_email }).sort( { SelectDate: -1 } ).lean();
       // console.log(data,'UserData');
       return res.json(data);
   }catch(error){
@@ -481,6 +540,25 @@ exports.appointmentDone = async(req, res) => {
           Status: Status,
       }})
       return res.json({status: 'ok', msg: 'This Appointment Is Done'})
+      // console.log(update);
+  }catch(error){
+      console.log(error);
+      return res.json({status: 'error', msg: 'error'})
+  }
+}
+
+exports.addnote = async(req, res) => {
+  const { _id, note }= req.body;
+  const fileinfo = req.file;
+  // console.log(_id,'Id');
+  // console.log(fileinfo,'File');
+  // console.log(fileinfo.location,'File');
+  try{
+      const update = await Book.findOneAndUpdate({_id : _id}, {$set: {
+          Note: note,
+          File: fileinfo.location,
+      }})
+      return res.json({status: 'ok', msg: 'This Appointment Note Is Done'})
       // console.log(update);
   }catch(error){
       console.log(error);

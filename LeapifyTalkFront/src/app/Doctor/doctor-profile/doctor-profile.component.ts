@@ -64,6 +64,8 @@ export class DoctorProfileComponent implements OnInit {
   TherapyMapping: any;
   update! : boolean;
 
+  Feedback : any;
+
   currentRate = 3;
   spec: boolean = false;
 
@@ -163,6 +165,18 @@ export class DoctorProfileComponent implements OnInit {
       // console.log(this.loggedInUser.email);
       this.UserData();
       this.PriceData();
+      this.FeedBackData();
+    }
+
+    FeedBackData()
+    {
+      var Email = this.loggedInUser.email;
+      // console.log(Email);
+        this.httpService.D_FeedBackData({Email}).subscribe(
+          (feedback : any) => {
+            this.Feedback = feedback;
+            // console.log(this.Feedback,"FeedbackData");
+          })
     }
 
 // =================== Update Spec Start ========================

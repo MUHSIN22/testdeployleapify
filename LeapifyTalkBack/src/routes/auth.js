@@ -4,7 +4,7 @@ const upload = require("../utils/s3");
 const { auth } = require("../middlewares/auth");
 const {
   // -----------------------------
-  usersignup, userdata, doctorupdate, aboutmeupdate, task, taskdata, updatetask, deletetask, specupdate, addblog, blogdata, deleteblog, patientupdate, settimeperiod, shiftdata, updatetimeperiod, doctorprice, pricedata, doctorupdateprice, doctorsdata, mapping, assessment, booking, bookdata, bookingData, bookingCancel, bookingReschedule, bookingStatus, bookingDataById, appointmentDone, feedback, feedbackdata,
+  usersignup, userdata, doctorupdate, aboutmeupdate, task, taskdata, updatetask, deletetask, specupdate, addblog, blogdata, deleteblog, patientupdate, settimeperiod, shiftdata, updatetimeperiod, doctorprice, pricedata, doctorupdateprice, doctorsdata, mapping, assessment, booking, bookdata, bookingData, bookingCancel, bookingReschedule, bookingStatus, bookingDataById, appointmentDone, feedback, feedbackdata, doctorMeetStatus, D_feedbackdata, fav_unfav, a_result, addnote, 
   // -----------------------------
   register,
   login,
@@ -25,7 +25,9 @@ router.post("/userdata", userdata);
 router.post("/doctorsdata", doctorsdata);
 // ===============================================
 router.post("/feedback", feedback);
+router.post("/D_feedbackdata", D_feedbackdata);
 router.post("/feedbackdata", feedbackdata);
+router.post("/fav_unfav", fav_unfav);
 // ===============================================
 router.post("/bookingStatus", bookingStatus);
 router.post("/appointmentDone", appointmentDone);
@@ -34,12 +36,14 @@ router.post("/bookingReschedule", bookingReschedule);
 router.post("/bookingCancel", bookingCancel);
 router.post("/bookdata", bookdata);
 router.post("/bookingData", bookingData);
+router.post("/addnote", upload.single("file"), addnote);
 router.post("/booking", booking);
 // ===============================================
 router.get("/mapping", mapping);
 // ===============================================
 router.post("/patientupdate", upload.single("file"), patientupdate);
 router.post("/doctorupdate", upload.single("file"), doctorupdate);
+router.post("/a_result", a_result);
 router.post("/assessment", assessment);
 router.post("/aboutmeupdate", aboutmeupdate);
 // ===============================================
@@ -59,6 +63,7 @@ router.post("/updatetimeperiod", updatetimeperiod);
 router.post("/doctorprice", doctorprice);
 router.post("/pricedata", pricedata);
 router.post("/doctorupdateprice", doctorupdateprice);
+router.post("/doctorMeetStatus", doctorMeetStatus);
 // ===============================================
 // -------------------------------------------------
 // -------------------------------------------------

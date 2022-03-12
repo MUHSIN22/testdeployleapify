@@ -15,6 +15,8 @@ const BookSchema = new mongoose.Schema({
     Bundle : { type: String },
     MeetLink : { type : String },
     Status : { type: String},
+    Note : { type: String},
+    File : { type: String},
 })
 
 

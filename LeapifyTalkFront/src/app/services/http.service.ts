@@ -44,8 +44,11 @@ export class HttpService {
     }
 
     Assessment(obj: any) {
-      console.log(obj,'Service');
       return this.http.post(`${this.apiUrl}/assessment`, obj);
+    }
+
+    A_result(obj: any) {
+      return this.http.post(`${this.apiUrl}/a_result`, obj);
     }
 
     UserReg(obj: any) {
@@ -53,7 +56,6 @@ export class HttpService {
     }
 
     AppBook(obj: any) {
-      console.log(obj,'Service');
       return this.http.post(`${this.apiUrl}/booking`, obj);
     }
 
@@ -89,6 +91,15 @@ export class HttpService {
       return this.http.post(`${this.apiUrl}/feedbackdata`, obj);
     }
 
+    D_FeedBackData(obj : any) {
+      return this.http.post(`${this.apiUrl}/D_feedbackdata`, obj);
+    }
+
+    Fav(obj : any)
+  {
+    return this.http.post(`${this.apiUrl}/fav_unfav`, obj);
+  }
+
     AppDone(obj : any) {
       return this.http.post(`${this.apiUrl}/appointmentDone`, obj);
     }
@@ -104,9 +115,17 @@ export class HttpService {
     DoctorUpdate(frmdata : FormData) {
       return this.http.post(`${this.apiUrl}/doctorupdate`, frmdata);
     }
+
+    AddNote(frmdata: FormData) {
+      return this.http.post(`${this.apiUrl}/addnote`, frmdata);
+    }
     
     DoctorPrice(obj : any) {
       return this.http.post(`${this.apiUrl}/doctorprice`, obj);
+    }
+
+    D_MeetStatus(obj : any) {
+      return this.http.post(`${this.apiUrl}/doctorMeetStatus`, obj);
     }
     
     PriceData(obj : any) {

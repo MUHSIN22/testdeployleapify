@@ -12,7 +12,7 @@ import { HttpService } from 'src/app/services/http.service';
 export class PatientFeedbackComponent implements OnInit {
 
   FeedbackData = JSON.parse(localStorage.getItem("Feedback")!);
-  rating! : FormGroup; 
+   
   currentRating :any = 0;
   Alldata : any;
   Feedback : any;
@@ -24,38 +24,8 @@ export class PatientFeedbackComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
-    this.rating=this.fb.group({
-      Rate : ['',[]],
-      Message : ['',[]]
-    });
-
-    this.FeedBackData();
+      this.FeedBackData();
   }
-
-  Rating(rating : any)
-{
-  if (rating.valid)
-  {
-    // console.log(this.FeedbackData,'Feedback Data');
-    var Feedback = {
-      D_email: this.FeedbackData.D_email,
-      P_email: this.FeedbackData.P_email,
-      D_name: this.FeedbackData.D_name,
-      P_name: this.FeedbackData.P_name,
-      C_Date : this.FeedbackData.C_Date,
-      Rating : this.rating.value.Rate,
-      Message : this.rating.value.Message,
-      Status : '0',
-    }
-    // console.log(Feedback,'Feedback Submit');
-    this.httpService.Feedback(Feedback).subscribe(
-      (post:any) => {
-        alert(post.msg);
-        window.location.reload();
-      });
-  }
-}
 
 FeedBackData()
 {

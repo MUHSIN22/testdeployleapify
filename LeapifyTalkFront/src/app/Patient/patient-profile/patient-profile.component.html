@@ -642,7 +642,7 @@
                                                         choose your preferred
                                                         communication tool.</p> <br>
                                                     <div class="row m-0 p-0" *ngFor="let comm of DoctorFilterdata;">
-                                                        <div class="col-md-4">
+                                                        <div *ngIf="PriceData.g_value == 'true' " class="col-md-4">
                                                             <div class="row">
                                                                 <div
                                                                     class="col-md-12 d-flex justify-content-center mb-4">
@@ -656,7 +656,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div *ngIf="PriceData.z_value == 'true' " class="col-md-4">
                                                             <div class="row">
                                                                 <div
                                                                     class="col-md-12 d-flex justify-content-center mb-4">
@@ -670,7 +670,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div *ngIf="PriceData.s_value == 'true' " class="col-md-4">
                                                             <div class="row">
                                                                 <div
                                                                     class="col-md-12 d-flex justify-content-center mb-4">
@@ -902,95 +902,23 @@
                                 Anim pariatur cliche reprehenderit,
                                 enim eiusmod high life accusamus terry richardson ad squid.
                             </p>
-                            <div class="row" style="height: 320px; overflow-y: auto;">
-                                <div class="row" id="show1">
-                                    <div class="col-md-12 ">
-                                        <div class="card-header btn-fefefe" (click)="headingOne()">
+                            <div class="row" style="height: 260px; overflow-y: auto;">
+                                <div class="" id="show1">
+                                    <div class="col-md-12 mb-2" *ngFor="let note of bookingdata; let i=index;">
+                                        <div class="card-header btn-fefefe" *ngIf="note.Note" (click)="headingOne()">
                                             <h5 class="my-0">
-                                                <!-- <button class="btn shadow-none"> -->
                                                 <i class="fa fa-arrow-circle-down fs-4"></i>
-                                                What is Metrica?
-                                                <!-- </button> -->
+                                                {{note.SelectDate}}
                                             </h5>
                                         </div>
-                                        <div class="data1">
+                                        <div class="data1" *ngIf="note.Note">
                                             <div class="card-body btn-0EA5C6 fs-5">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                terry
-                                                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                                {{note.Note}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" id="show2">
-                                    <div class="col-md-12">
-                                        <div class="card-header btn-fefefe" (click)="headingTwo()">
-                                            <h5 class="my-0">
-                                                <!-- <button class="btn shadow-none"> -->
-                                                <i class="fa fa-arrow-circle-down fs-4"></i>
-                                                How buy Metrica on coin?
-                                                <!-- </button> -->
-                                            </h5>
-                                        </div>
-                                        <div class="data2">
-                                            <div class="card-body btn-0EA5C6 fs-5">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                terry
-                                                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                                moon
-                                                tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                                                assumenda shoreditch et.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" id="show3">
-                                    <div class="col-md-12">
-                                        <div class="card-header btn-fefefe" (click)="headingThree()">
-                                            <h5 class="my-0">
-                                                <!-- <button class="btn shadow-none"> -->
-                                                <i class="fa fa-arrow-circle-down fs-4"></i>
-                                                How buy Metrica on coin?
-                                                <!-- </button> -->
-                                            </h5>
-                                        </div>
-                                        <div class="data3">
-                                            <div class="card-body btn-0EA5C6 fs-5">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                terry
-                                                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                                dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-                                                moon
-                                                tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                                                assumenda shoreditch et.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" id="show4">
-                                    <div class="col-12">
-                                        <div class="card-header btn-fefefe" (click)="headingFour()">
-                                            <h5 class="my-0">
-                                                <!-- <button class="btn collapsed ml-4 shadow-none" type="button"
-                                                    data-toggle="collapse" data-target="#collapseThree"
-                                                    aria-expanded="false" aria-controls="collapseThree"> -->
-                                                <i class="fa fa-arrow-circle-down fs-4"></i>
-                                                What cryptocurrency can i use to buy Metrica?
-                                                <!-- </button> -->
-                                            </h5>
-                                        </div>
-                                        <div class="data4">
-                                            <div class="card-body btn-0EA5C6 fs-5">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                terry
-                                                richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-                                                dolor brunch.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -1065,11 +993,57 @@
                                         <i class="mx-2" title="Feedback">--</i>
                                     </td>
                                     <td *ngIf="book.Status == '3' ">
-                                        <i class="fal fa-comment mx-2" title="Feedback" (click)="AppFeedback(book.D_email,book.P_email,book.D_name,book.P_name)"></i>
+                                        <i class="fal fa-comment mx-2" title="Feedback" (click)="AppFeedback(feedback,book.D_email,book.P_email,book.D_name,book.P_name)"></i>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                         <!-- ============================================================================================== -->
+                         <ng-template #feedback let-modal let-c="close" let-d="dismiss">
+                            <div class="card card-shadow">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <!-- <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i> -->
+                                            <i class="fa fa-times fs-4 text-danger" (click)="reload()"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <!-- ----------------------- Feedback Form Start ----------------------------------- -->
+                                        <h1>Feedback Form</h1>
+                                        <div class="container mb-5 d-flex justify-content-center">
+                                            <div class="card card-shadow">
+                                                <div class="card-body">
+                                                <form [formGroup]="rating" (ngSubmit)="Rating(rating)">
+                                                    <div class="p-4 justify-content-center">
+                                                        <h4 class="mt-0 mb-4">Your Doctor: <span class="value">{{FeedbackData.D_name}}</span></h4>
+                                                        <div class="form-group">
+                                                            <h5 class="mt-0 mb-4">How would you rate your doctor?</h5>
+                                                            <div class="form-group">
+                                                            <ngb-rating class="fs-5" style="color: #0EA5C6;" [max]="5" [(rate)]="currentRating" [readonly]="false"></ngb-rating>
+                                                            &nbsp;<b class="fs-5" style="color: #0EA5C6;" >({{currentRating}})</b>
+                                                            <input type="text" formControlName="Rate" value="{{currentRating}}" [ngModel]="currentRating" hidden>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group shadow-textarea">
+                                                            <h5 for="exampleFormControlTextarea6">Is there anything else you'd like to share about your experience with the doctor?</h5>
+                                                            <textarea id="feedbck" class="form-control z-depth-1" rows="6" placeholder="Write your experience here..." maxlength="500" formControlName="Message"></textarea>
+                                                            <span>(<span id="chars">500</span> characters remaining)</span>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-fefefe">Submit</button>
+                                                    </div>
+                                                    </form>
+                                                    <!-- {{this.rating.value.Rate}} | json; -->
+                                                    <!-- {{this.rating.value.Message}} | json; -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- ----------------------- Feedback Form End ------------------------------------- -->
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <!-- ============================================================================================== -->
                         <!-- ============================================================================================== -->
                         <ng-template #app let-modal let-c="close" let-d="dismiss">
                             <div class="card card-shadow">
@@ -1230,26 +1204,19 @@
                     <table class="table table-striped">
                         <thead style="color:#667085">
                             <tr>
-                                <th scope="col" width="6%">Id</th>
+                                <th scope="col">Id</th>
                                 <th scope="col">Doctor</th>
                                 <th scope="col">File Name</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
-                                <td>@mdo</td>
-                                <td>13/12/2021</td>
-                                <td><i class="fa fa-trash text-danger"></i></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Jacob</td>
-                                <td>@fat</td>
-                                <td>12/12/2021</td>
+                        <tbody *ngFor="let data of bookingdata; let i=index;">
+                            <tr *ngIf="data.File">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{data.D_name}}</td>
+                                <td><a href="{{data.File}}">{{data.File}}</a></td>
+                                <td>{{data.SelectDate}}</td>
                                 <td><i class="fa fa-trash text-danger"></i></td>
                             </tr>
                         </tbody>

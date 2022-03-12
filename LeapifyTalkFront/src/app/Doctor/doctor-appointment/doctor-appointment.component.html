@@ -23,7 +23,7 @@
                 <td *ngIf="book.Status == '1' ">{{book.Slot}}</td>
                 <td *ngIf="book.Status == '1' ">
                   <a href="{{book.MeetLink}}" target="_blank">
-                    <i class="fal fa-phone mx-2" title="Join" (click)="AppJoin(book._id,book.MeetLink)"></i>
+                    <i class="fal fa-phone mx-2" title="Join" (click)="AppJoin(appnote,book._id,book.MeetLink)"></i>
                   </a>
                 </td>
                 <td *ngIf="book.Status == '1' ">
@@ -32,6 +32,94 @@
               </tr>
             </tbody>
           </table>
+          <!-- ============================================================================================== -->
+          <ng-template #appnote let-modal let-c="close" let-d="dismiss">
+            <div class="card card-shadow">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <!-- <i class="fa fa-times fs-4 text-danger" (click)="d('Cross click')"></i> -->
+                            <i class="fa fa-times fs-4 text-danger" (click)="reload()"></i>
+                        </div>
+                    </div>
+                    <div>
+                      <h4>Session with <font color="royalblue">{{bookingnote.P_name}}</font>
+                      </h4>
+                      <div class="row">
+                          <div class="col-md-2">
+                              <label>Service</label>
+                          </div>
+                          <div class="col-md-6">
+                              $ {{bookingnote.Price}}.00
+                          </div>
+                      </div>
+                      <!-- <div class="row">
+                          <div class="col-md-2">
+                              <label>Billing</label>
+                          </div>
+                          <div class="col-md-6">
+                              Self-Pay
+                          </div>
+                      </div> -->
+                      <div class="row">
+                          <div class="col-md-2">
+                              <label>Duration</label>
+                          </div>
+                          <div class="col-md-6">
+                              60 minutes
+                          </div>
+                      </div>
+                      <!-- <div class="row">
+                          <div class="col-md-2">
+                              <label>Total Fee</label>
+                          </div>
+                          <div class="col-md-6">
+                              $100.00
+                          </div>
+                      </div> -->
+                      <div class="row">
+                          <div class="col-md-2">
+                              <label>Diagnosis</label>
+                          </div>
+                          <div class="col-md-6">
+                              {{result}}
+                          </div>
+                      </div>
+                      <h6>Progress Note</h6>
+                      <div class="row">
+                          <form [formGroup]="addnote" (ngSubmit)="AddNote(addnote)">
+                              <div class="row">
+                              <div class="col-md-12">
+                                  <textarea class="form-control" rows="5" formControlName="note" placeholder="Begin typing here..."></textarea>
+                                  <div class="row error-mt"
+                                    *ngIf="addnote.controls['note'].invalid ">
+                                    <span class="text-danger error-mt"
+                                        *ngIf="addnote.controls['note'].hasError('required') && showErrormsg==true">*
+                                        Please Enter Note *</span>
+                                    </div>
+                              </div>
+                              </div>
+                              <h6 class="mt-2">Attachments</h6>
+                              <input type="file" class="dropify" formControlName="file" #File accept="file/*" (change)="onFileSelected($event)">
+                                <div class="row error-mt"
+                                    *ngIf="addnote.controls['file'].invalid ">
+                                    <span class="text-danger error-mt"
+                                        *ngIf="addnote.controls['file'].hasError('required') && showErrormsg==true">*
+                                        Please Select File *</span>
+                                    </div>
+                              <div class="row">
+                              <div class="col-md-12 mt-2">
+                                  <!-- <button class="btn btn-fefefe">Cancel</button> -->
+                                  <button class="btn btn-fefefe">Save</button>
+                              </div>
+                              </div>
+                          </form>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <!-- ============================================================================================== -->
     </div>
 </div>
     <!-- =========================================================== -->
@@ -51,7 +139,7 @@
                 <tbody>
                   <tr *ngFor="let book of bookingdata; let i=index;">
                     <th *ngIf="book.Status != '1' " scope="row">{{i+1}}</th>
-                    <td *ngIf="book.Status != '1' ">{{book.D_name}}</td>
+                    <td *ngIf="book.Status != '1' ">{{book.P_name}}</td>
                     <td *ngIf="book.Status != '1' ">{{book.SelectDate}}</td>
                     <td *ngIf="book.Status != '1' ">{{book.Slot}}</td>
                     <td *ngIf="book.Status == '0' ">

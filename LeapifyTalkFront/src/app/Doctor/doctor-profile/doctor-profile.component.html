@@ -157,42 +157,16 @@
     </div>
     <!-- ============================================================================================ -->
     <div class="row p-3">
-        <div class="card">
+        <div class="">
             <div class="card-body">
                 <h3>Review</h3>
-                <div class="row">
-                    <div class="col-md-4">
+                <div class="row mb-4" *ngFor="let data of Feedback; let i=index;">
+                    <div class="col-md-12" *ngIf="data.Status == '1' ">
                         <div class="card card-shadow">
                             <div class="card-body">
-                                <p>We also didn't use "image" or "links" in the lessons, but we did use HTML tags for
-                                    them.</p>
-                                <p>01/11/2021</p>
-                                <p>
-                                    <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate"></ngb-rating>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card card-shadow">
-                            <div class="card-body">
-                                <p>We also didn't use "image" or "links" in the lessons, but we did use HTML tags for
-                                    them.</p>
-                                <p>01/11/2021</p>
-                                <p>
-                                    <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate"></ngb-rating>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card card-shadow">
-                            <div class="card-body">
-                                <p>We also didn't use "image" or "links" in the lessons, but we did use HTML tags for
-                                    them.</p>
-                                <p>01/11/2021</p>
-                                <p>
-                                    <ngb-rating class="fs-5" style="color: #0EA5C6;" [(rate)]="currentRate"></ngb-rating>
+                                <p>{{data.Message}}</p>
+                                <p>{{data.C_Date}} &nbsp;
+                                    <ngb-rating class="fs-5" style="color: #0EA5C6;" [max]="5" [(rate)]="data.Rating" [readonly]="true"></ngb-rating>
                                 </p>
                             </div>
                         </div>

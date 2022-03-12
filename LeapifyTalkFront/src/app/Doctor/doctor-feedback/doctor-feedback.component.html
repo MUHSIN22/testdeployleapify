@@ -15,53 +15,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@mdo</td>
-                <td>29/11/2021</td>
-                <td><i class="fa fa-star"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Jacob</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@fat</td>
-                <td>29/11/2021</td>
-                <td><i class="fa fa-star"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Larry</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@twitter</td>
-                <td>29/11/2021</td>
-                <td><i class="fa fa-star"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Mark</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@mdo</td>
-                <td>29/11/2021</td>
-                <td><i class="fa fa-star"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Jacob</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@fat</td>
-                <td>29/11/2021</td>
-                <td><i class="fa fa-star"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td><img src="assets/userpic.png" height="30px" width="30px">&nbsp;Larry</td>
-                <td><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
-                <td>@twitter</td>
-                <td>29/11/2021</td>
-                <td><i class="fa fa-star"></i></td>
+              <tr *ngFor="let data of Feedback; let i=index;">
+                <th scope="row">{{i+1}}</th>
+                <td>{{data.P_name}}</td>
+                <td>
+                  <ngb-rating class="fs-5" style="color: #0EA5C6;" [max]="5" [(rate)]="data.Rating" [readonly]="true"></ngb-rating>
+                </td>
+                <td>{{data.Message}}</td>
+                <td>{{data.C_Date}}</td>
+                <td>
+                  <i *ngIf="data.Status == '1' " class="fa fa-star" (click)="Fav(data._id)"></i>
+                  <i *ngIf="data.Status == '0' " class="fal fa-star" (click)="Fav(data._id)"></i>
+                </td>
               </tr>
             </tbody>
           </table>

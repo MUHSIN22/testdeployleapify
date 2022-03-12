@@ -221,6 +221,11 @@
               </button>
             </li>
             <li>
+              <button *ngIf="loggedInUser.name" class="btn btn-primary dropdown-item" routerLink="/patient-feedback">
+                Feedback
+              </button>
+            </li>
+            <li>
               <button (click)="logout()" class="btn btn-primary dropdown-item">
                 Logout
               </button>
