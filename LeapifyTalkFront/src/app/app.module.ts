@@ -111,6 +111,7 @@ import { PatientPaymentComponent } from './Patient/patient-payment/patient-payme
 import { PatientFeedbackComponent } from './Patient/patient-feedback/patient-feedback.component';
 import { DatePipe } from '@angular/common';
 import { PatientDashboardComponent } from './Patient/patient-dashboard/patient-dashboard.component';
+import { CompanionSignupComponent } from './Companion/companion-signup/companion-signup.component';
 
 
 @NgModule({
@@ -208,6 +209,7 @@ import { PatientDashboardComponent } from './Patient/patient-dashboard/patient-d
     SidebarComponent,
     PageNotFoundComponent,
     PatientDashboardComponent,
+    CompanionSignupComponent,
     // ----------------------------------
   ],
   imports: [

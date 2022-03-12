@@ -1,0 +1,53 @@
+<div class="therapist-signin-wrapper">
+    <div class="therapist-signin">
+        <div class="welcome-messages">
+            <h1 class="signin-text">Sign in to your account</h1>
+            <p class="welcome">Welcome back! Please enter your details.</p>
+        </div>
+        <form #signInForm="ngForm" (ngSubmit)="signInForm.valid&&onSubmit()" class="signin-form">
+            <label for="password" class="signin-label">Name*</label>
+            <input 
+                type="text" 
+                class="signin-input"
+                id="name"
+                name="name"
+                [(ngModel)]="data.name"
+                #name="ngModel"
+                required
+                [ngClass]="{'invalid-field':name.touched&&name.errors?.required}"
+            >
+            <small class="invalid-message" *ngIf="name.touched&&name.errors?.required">Name is required</small>
+            
+            <label for="name" class="signin-label" >Email ID*</label>
+            <input 
+                type="text" 
+                name="email" 
+                class="signin-input"
+                [(ngModel)]="data.email"
+                #email="ngModel"
+                required
+                [ngClass]="{'invalid-field':email.touched&&(email.errors?.required||email.errors?.pattern)}"
+            >
+            <small class="invalid-message" *ngIf="email.touched&&email.errors?.required">Email is required</small>
+
+            <label for="password" class="signin-label">Password</label>
+            <input 
+                type="password" 
+                class="signin-input" 
+                name="password"
+                [(ngModel)]="data.password"
+                #password="ngModel"
+                required
+            >
+            <small>Must be at least 8 characters.</small>
+            <small class="invalid-message" *ngIf="password.touched&&password.errors?.required">Password is required</small>
+            <button type="submit" class="btn-submit btn-signin">Sign in</button>
+            
+            <p class="create-account-link">
+                Already have an account? <span [routerLink]="['/therapist-signup']">Sign in</span>
+            </p>
+        </form>
+        <img src="/assets/images/companion/companion sign up.png" class="signin-image" alt="">
+    </div>
+</div>
+<app-footer></app-footer>

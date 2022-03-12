@@ -36,6 +36,7 @@
     "multer-s3": "^2.10.0",
     "nanoid": "^3.1.25",
     "nodemailer": "^6.6.3",
+    "nodemon": "^2.0.15",
     "path": "^0.12.7",
     "paypal-rest-sdk": "^1.8.1",
     "pdfjs-dist": "^2.12.313",

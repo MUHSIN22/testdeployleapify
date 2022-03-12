@@ -58,6 +58,7 @@ import { PatientFaqComponent } from './Patient/patient-faq/patient-faq.component
 import { PatientBlogComponent } from './Patient/patient-blog/patient-blog.component';
 import { PatientAssessmentComponent } from './Patient/patient-assessment/patient-assessment.component';
 import { PatientDashboardComponent } from './Patient/patient-dashboard/patient-dashboard.component';
+import { CompanionSignupComponent } from './Companion/companion-signup/companion-signup.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -140,6 +141,13 @@ const routes: Routes = [
   { path: 'patient-blog', component: PatientBlogComponent },
   { path: 'patient-assessment', component: PatientAssessmentComponent },
   // ================= Patient SideMenu Start ==================
+  
+
+
+  // Companion Routes Start-------------------------------------------------------------------------------
+  { path: 'companion-signup', component: CompanionSignupComponent },
+
+  
   { path: '**', component: PageNotFoundComponent },
   // -----------------------------------------------------------------------------------------------------
 
