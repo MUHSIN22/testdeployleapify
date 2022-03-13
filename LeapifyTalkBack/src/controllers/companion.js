@@ -91,7 +91,7 @@ exports.forgotPassword = async (req, res) => {
     });
   }
   let token = crypto.randomBytes(64).toString("hex");
-  user.emailToken = token;
+  user.resetPasswordToken = token;
   await user.save();
 
   try {
@@ -107,7 +107,7 @@ exports.forgotPassword = async (req, res) => {
       html: `
             hello, your request for reactivation is confirmed
             please click on the link to reset your passwrod
-            <a href="${process.env.CLIENT_URI}/reset-password/${token}"> reset password </a>
+            <a href="${process.env.URI}/api/companion/forgot-password/${token}"> reset password </a>
             `,
     };
     sendmail(msg);
@@ -132,7 +132,7 @@ exports.forgotPassword = async (req, res) => {
 exports.forgotPasswordVerify = async (req, res) => {
   const { token } = req.params;
   try {
-    let user = await companion.findOne({ emailToken: token });
+    let user = await companion.findOne({ resetPasswordToken: token });
     if (!user) {
       return res.json({
         status: "error",
@@ -140,7 +140,7 @@ exports.forgotPasswordVerify = async (req, res) => {
       });
     }
     await companion.findOneAndUpdate(
-      { emailToken: token },
+      { resetPasswordToken: token },
       { $set: { verifiedForPasswordReset: true } }
     );
     // redirect to reset password page
@@ -163,20 +163,20 @@ exports.forgotPasswordVerify = async (req, res) => {
 exports.resetPassword = async (req, res) => {
   const { new_password, confirm_password, token } = req.body;
   try {
-    const user = await companion.findOne({ emailToken: token });
+    const user = await companion.findOne({ resetPasswordToken: token });
     if (!user) {
       return res.json({
         status: "error",
         msg: "Invalid token or token is expired",
       });
     }
-    if (!user.verifiedForPasswordReset) {
-      return res.json({
-        status: "error",
-        msg: "You have no permissions",
-      });
-    }
-    if (token !== user.emailToken || user.emailToken === null) {
+    // if (!user.verifiedForPasswordReset) {
+    //   return res.json({
+    //     status: "error",
+    //     msg: "You have no permissions",
+    //   });
+    // }
+    if (token !== user.resetPasswordToken || user.resetPasswordToken === null) {
       return res.json({
         status: "error",
         msg: "token is not valid or expired",

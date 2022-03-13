@@ -13,6 +13,8 @@ const companionSchema = new mongoose.Schema(
     email: { type: String, unique: true },
     isVerified: { type: Boolean, default: false },
     tokens: { type: String },
+    resetPasswordToken: { type: String },
+    verifiedForPasswordReset: { type: Boolean, default: false },
     assigned_courses: [
       {
         ref: "courses",
