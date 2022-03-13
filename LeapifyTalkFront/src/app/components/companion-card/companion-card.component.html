@@ -1,0 +1,24 @@
+<div class="companion-card">
+    <div class="profile--wrapper">
+        <img src="/assets/images/temp/profile-c.png" class="profile--image" alt="">
+        <span class="online-indicator"></span>
+    </div>
+    <p class="profile--name">John Ram</p>
+    <div class="experience-wrapper">
+        <fa-icon [icon]="faComment"></fa-icon>
+        <span>18 last month</span>
+    </div>
+    <div class="rating-wrapper">
+        <fa-icon [icon]="faStar" class="rating-star"></fa-icon>
+        <fa-icon [icon]="faStar" class="rating-star"></fa-icon>
+        <fa-icon [icon]="faStar" class="rating-star"></fa-icon>
+        <fa-icon [icon]="faStar" class="rating-star"></fa-icon>
+        <fa-icon [icon]="faStar" class="rating-star"></fa-icon>
+    </div>
+    <p class="description">
+        <span class="less">{{descriptionLess}}</span>
+        <span class="more" [ngStyle]="!isLessDescription?{display: 'inline'}:null">{{descriptionMore}}</span>
+        <span class="read-more" (click)="showMore()">{{isLessDescription?'...read more':'.read less'}}</span>
+    </p>
+    <button class="btn-chat">Chat Now</button>
+</div>

@@ -59,6 +59,8 @@ import { PatientBlogComponent } from './Patient/patient-blog/patient-blog.compon
 import { PatientAssessmentComponent } from './Patient/patient-assessment/patient-assessment.component';
 import { PatientDashboardComponent } from './Patient/patient-dashboard/patient-dashboard.component';
 import { CompanionSignupComponent } from './Companion/companion-signup/companion-signup.component';
+import { CompanionListComponent } from './components/companion-list/companion-list.component';
+import { CompanionExamComponent } from './Companion/companion-exam/companion-exam.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -84,6 +86,7 @@ const routes: Routes = [
   { path: 'therapist-password-changed', component: TherapistPasswordChangedComponent},
   { path: 'course-view/:id', component:VideoViewComponent},
   { path: 'forgot-password',component: TherapistResetPasswordComponent},
+  { path: 'show-companions',component: CompanionListComponent},
   { path: 'student', component: StudentDashboardComponent,
     children: [
       { path: 'course', component: StudentCoursesComponent },
@@ -146,6 +149,7 @@ const routes: Routes = [
 
   // Companion Routes Start-------------------------------------------------------------------------------
   { path: 'companion-signup', component: CompanionSignupComponent },
+  { path: 'companion-exam', component: CompanionExamComponent },
 
   
   { path: '**', component: PageNotFoundComponent },

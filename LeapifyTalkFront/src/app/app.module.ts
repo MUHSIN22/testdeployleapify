@@ -112,6 +112,10 @@ import { PatientFeedbackComponent } from './Patient/patient-feedback/patient-fee
 import { DatePipe } from '@angular/common';
 import { PatientDashboardComponent } from './Patient/patient-dashboard/patient-dashboard.component';
 import { CompanionSignupComponent } from './Companion/companion-signup/companion-signup.component';
+import { CompanionListComponent } from './components/companion-list/companion-list.component';
+import { CompanionCardComponent } from './components/companion-card/companion-card.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CompanionExamComponent } from './Companion/companion-exam/companion-exam.component';
 
 
 @NgModule({
@@ -210,6 +214,9 @@ import { CompanionSignupComponent } from './Companion/companion-signup/companion
     PageNotFoundComponent,
     PatientDashboardComponent,
     CompanionSignupComponent,
+    CompanionListComponent,
+    CompanionCardComponent,
+    CompanionExamComponent,
     // ----------------------------------
   ],
   imports: [
@@ -230,6 +237,7 @@ import { CompanionSignupComponent } from './Companion/companion-signup/companion
     MatProgressSpinnerModule,
     MatDialogModule,
     CarouselModule,
+    FontAwesomeModule
   ],
   providers: [
     AudioRecordService,
