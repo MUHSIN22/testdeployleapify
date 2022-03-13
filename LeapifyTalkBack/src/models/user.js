@@ -21,16 +21,16 @@ const UserSchema = new mongoose.Schema(
     specialitiesDetails: {},
     therapyDetails: {},
     // youtubelink: { type: String},
-    googlemeetlink: { type: String},
-    zoomlink: { type: String},
-    skypelink: { type: String},
-    facebooklink: { type: String},
-    instagramlink: { type: String},
-    twitterlink: { type: String},
-    result:{ type: Array},
+    googlemeetlink: { type: String },
+    zoomlink: { type: String },
+    skypelink: { type: String },
+    facebooklink: { type: String },
+    instagramlink: { type: String },
+    twitterlink: { type: String },
+    result: { type: Array },
 
     role: { type: String },
-    
+
     headline: {
       type: String,
       default: "",
@@ -104,9 +104,6 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-
-
-
     username: {
       type: String,
       unique: true,

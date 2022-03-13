@@ -2,14 +2,16 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const admin = require("../models/admin");
 const therapist = require("../models/therapists");
+const companion = require("../models/companion");
 // auth for student
 const auth = async (req, res, next) => {
   try {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(decoded);
 
-    const user = await User.findOne({ _id: decoded.id, tokens: token });
+    const user = await companion.findOne({ _id: decoded.id, tokens: token });
     if (!user) {
       res.status(401).send({ error: "Please authenticate." });
     } else {

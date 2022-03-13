@@ -49,6 +49,7 @@ const notificationRouter = require("./src/routes/notifications");
 const courseRouter = require("./src/routes/courses");
 const therapistRouter = require("./src/routes/therapists");
 const adminRouter = require("./src/routes/admin");
+const companionRouter = require("./src/routes/companion");
 
 app.use("/api", authRoutes);
 app.use("/api/room", chatRoomRouter);
@@ -57,6 +58,7 @@ app.use("/api/notification", notificationRouter);
 app.use("/api/courses", courseRouter);
 app.use("/api/therapist", therapistRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/companion", companionRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json({ api: "version 1" });
