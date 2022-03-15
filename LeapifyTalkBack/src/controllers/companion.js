@@ -1,25 +1,29 @@
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const { customAlphabet } = require("nanoid");
+const nanoid = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 8);
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const sendmail = require("../utils/sendmail");
 const companion = require("../models/companion");
+const User = require("../models/user");
 
 // =========================sign up==================
 
 exports.signUp = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const validateEmail = await companion.findOne({ email }).exec();
+    const validateEmail = await User.findOne({ email }).exec();
     if (validateEmail) {
       res.json({ status: "error", msg: "Email ID already taken" });
     } else {
       const salt = bcrypt.genSaltSync(10);
       let registerToken = crypto.randomBytes(64).toString("hex");
       const hashPassword = bcrypt.hash(password, salt).then(async (rec) => {
-        const account = await companion.create({
+        const account = await User.create({
           name,
+          username: nanoid(),
           email,
           password: rec,
           registerToken,
