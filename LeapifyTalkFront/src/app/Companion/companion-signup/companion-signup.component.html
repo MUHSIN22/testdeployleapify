@@ -26,9 +26,11 @@
                 [(ngModel)]="data.email"
                 #email="ngModel"
                 required
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                 [ngClass]="{'invalid-field':email.touched&&(email.errors?.required||email.errors?.pattern)}"
             >
             <small class="invalid-message" *ngIf="email.touched&&email.errors?.required">Email is required</small>
+            <small class="invalid-message" *ngIf="email.touched&&email.errors?.pattern">Please enter a valid email</small>
 
             <label for="password" class="signin-label">Password</label>
             <input 
@@ -38,13 +40,14 @@
                 [(ngModel)]="data.password"
                 #password="ngModel"
                 required
+                minlength="8"
             >
-            <small>Must be at least 8 characters.</small>
+            <small [ngStyle]="{'color': password.errors?.minlength ?'red':'#000'}">Must be at least 8 characters.</small>
             <small class="invalid-message" *ngIf="password.touched&&password.errors?.required">Password is required</small>
             <button type="submit" class="btn-submit btn-signin">Sign in</button>
             
             <p class="create-account-link">
-                Already have an account? <span [routerLink]="['/therapist-signup']">Sign in</span>
+                Already have an account? <span [routerLink]="['/signin']">Sign in</span>
             </p>
         </form>
         <img src="/assets/images/companion/companion sign up.png" class="signin-image" alt="">

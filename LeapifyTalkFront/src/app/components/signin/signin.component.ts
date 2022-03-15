@@ -13,7 +13,7 @@ import { TherapistAuthService } from 'src/app/services/therapist-auth.service';
 })
 export class SigninComponent implements OnInit {
 
-  loggedInUser:any;
+  loggedInUser: any;
   emailReset: string = "";
   forgotRequestSent: boolean = false;
   forgotPasswordFlag: boolean = false;
@@ -33,7 +33,7 @@ export class SigninComponent implements OnInit {
     confirm_password: "",
     token: ""
   };
-  public data:any = {
+  public data: any = {
     credential: '',
     password: '',
     otp: ''
@@ -44,7 +44,7 @@ export class SigninComponent implements OnInit {
     private httpService: HttpService,
     private _snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
-    public auth:TherapistAuthService,
+    public auth: TherapistAuthService,
   ) { }
 
   ngOnInit(): void {
@@ -61,29 +61,31 @@ export class SigninComponent implements OnInit {
             this.openSnackBar(res.data.msg, "error");
           else {
             this.openSnackBar(res.data.msg, "success");
-            localStorage.setItem('id_token',res.data.token)
+            localStorage.setItem('id_token', res.data.token)
             this.httpService.setUser(res.data.token)
             // this.router.navigate(['/student/course']);
             this.httpService.userSubject.subscribe(
-              (user)=>{
+              (user) => {
                 this.loggedInUser = user;
+                console.log(this.loggedInUser);
+                
               }
             )
-            if(this.loggedInUser.role == 'Doctor')
-            {
-              this.router.navigate(['/doctor-profile']);
-            }
-            if(this.loggedInUser.role == 'Patient')
-            {
-              this.router.navigate(['/patient-dashboard']);
-            }
-            if(this.loggedInUser.role == 'therapist')
-            {
-              this.router.navigate(['/therapist/dashboard']);
-            }
+            // if (this.loggedInUser.role == 'Doctor') {
+            //   this.router.navigate(['/doctor-profile']);
+            // }
+            // if (this.loggedInUser.role == 'Patient') {
+            //   this.router.navigate(['/patient-dashboard']);
+            // }
+            // if (this.loggedInUser.role == 'therapist') {
+            //   this.router.navigate(['/therapist/dashboard']);
+            // }
+            // if (this.loggedInUser.role == 'companion') {
+            //   this.router.navigate(['/companion/dashboard']);
+            // }
           }
         },
-        (err) =>{
+        (err) => {
           this.openSnackBar('Something went wrong', 'error');
         }
       );
@@ -113,7 +115,7 @@ export class SigninComponent implements OnInit {
     if (valid) {
       this.reset_password.token = this.emailReset;
       this.httpService.verifyEmailToken(this.reset_password.token).then(
-        ()=>{
+        () => {
           this.httpService.resetPassword(this.reset_password).then(
             (res) => {
               if (res.data.status == "error") {

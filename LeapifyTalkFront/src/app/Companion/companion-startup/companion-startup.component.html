@@ -1,0 +1,14 @@
+<main class="companion-startup">
+    <div class="question--wrapper" *ngFor="let item of questionAndAnswers;let index = index">
+        <app-startup-question 
+            [data]="item"
+            [elemAt]="index"
+            *ngIf="flags[index]"
+            (answerEmitter)="getAnswer($event)"
+        ></app-startup-question>
+    </div>
+
+    <div class="btn--wrapper">
+        <button class="btn-next" (click)="handleNextClick()">{{btnInput}}</button>
+    </div>
+</main>
