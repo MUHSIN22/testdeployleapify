@@ -9,6 +9,7 @@ const companionSchema = new mongoose.Schema(
     gender: { type: String },
     address: { type: String },
     password: { type: String },
+    role: { type: String },
     registerToken: { type: String },
     email: { type: String, unique: true },
     isVerified: { type: Boolean, default: false },
