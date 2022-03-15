@@ -23,6 +23,7 @@ exports.signUp = async (req, res) => {
           email,
           password: rec,
           registerToken,
+          role: "companion",
         });
       });
       const msg = {
@@ -41,7 +42,10 @@ exports.signUp = async (req, res) => {
             `,
       };
       sendmail(msg);
-      res.json({ status: "ok", msg: "Registered" });
+      res.json({
+        status: "ok",
+        msg: "Check you email to confirm registration",
+      });
     }
   } catch (e) {
     console.log(e);
@@ -234,6 +238,7 @@ exports.login = async (req, res) => {
         email: user.email,
         name: user.name,
         username: user.username,
+        role: user.role,
       },
       process.env.JWT_SECRET,
       { expiresIn: "15d" }
