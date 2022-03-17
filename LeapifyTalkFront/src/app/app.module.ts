@@ -118,6 +118,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CompanionExamComponent } from './Companion/companion-exam/companion-exam.component';
 import { CompanionStartupComponent } from './Companion/companion-startup/companion-startup.component';
 import { StartupQuestionComponent } from './Companion/startup-question/startup-question.component';
+import { CompanionDashboardComponent } from './Companion/companion-dashboard/companion-dashboard.component';
+import { CompanionHomeComponent } from './Companion/companion-home/companion-home.component';
 
 
 @NgModule({
@@ -221,6 +223,8 @@ import { StartupQuestionComponent } from './Companion/startup-question/startup-q
     CompanionExamComponent,
     CompanionStartupComponent,
     StartupQuestionComponent,
+    CompanionDashboardComponent,
+    CompanionHomeComponent,
     // ----------------------------------
   ],
   imports: [
