@@ -65,7 +65,7 @@ exports.verifyMail = async (req, res) => {
   const { token } = req.params;
   console.log(token);
   try {
-    const updatedUser = await companion.findOneAndUpdate(
+    const updatedUser = await User.findOneAndUpdate(
       { registerToken: token },
       { $set: { registerToken: null, isVerified: true } }
     );
@@ -91,7 +91,7 @@ exports.verifyMail = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
   const { email } = req.body;
 
-  const user = await companion.findOne({ email });
+  const user = await User.findOne({ email });
   if (!user) {
     return res.json({
       status: "error",
@@ -140,14 +140,14 @@ exports.forgotPassword = async (req, res) => {
 exports.forgotPasswordVerify = async (req, res) => {
   const { token } = req.params;
   try {
-    let user = await companion.findOne({ resetPasswordToken: token });
+    let user = await User.findOne({ resetPasswordToken: token });
     if (!user) {
       return res.json({
         status: "error",
         msg: "Token is invalid or expired",
       });
     }
-    await companion.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { resetPasswordToken: token },
       { $set: { verifiedForPasswordReset: true } }
     );
@@ -171,7 +171,7 @@ exports.forgotPasswordVerify = async (req, res) => {
 exports.resetPassword = async (req, res) => {
   const { new_password, confirm_password, token } = req.body;
   try {
-    const user = await companion.findOne({ resetPasswordToken: token });
+    const user = await User.findOne({ resetPasswordToken: token });
     if (!user) {
       return res.json({
         status: "error",
@@ -214,7 +214,7 @@ exports.resetPassword = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   // console.log(req.body);
-  const user = await companion.findOne({ email }).lean();
+  const user = await User.findOne({ email }).lean();
   if (!user) {
     return res.json({
       status: "error",
@@ -248,7 +248,7 @@ exports.login = async (req, res) => {
       { expiresIn: "15d" }
     );
 
-    await companion.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { email },
       {
         tokens: token,
@@ -274,7 +274,7 @@ exports.logout = async (req, res) => {
   try {
     const user = req.user;
     console.log(user.email);
-    companion.findOneAndUpdate(
+    User.findOneAndUpdate(
       { email: user.email },
       { $set: { tokens: "" } },
       (err, result) => {
