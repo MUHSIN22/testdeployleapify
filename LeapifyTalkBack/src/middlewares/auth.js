@@ -9,9 +9,8 @@ const auth = async (req, res, next) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(decoded);
 
-    const user = await companion.findOne({ _id: decoded.id, tokens: token });
+    const user = await User.findOne({ _id: decoded.id, tokens: token });
     if (!user) {
       res.status(401).send({ error: "Please authenticate." });
     } else {
@@ -83,3 +82,63 @@ const decodeTokenTherapist = (tokens) => {
   //   console.log(decoded);
 };
 module.exports = { auth, adminAuth, adminAuthLeapify, decodeTokenTherapist };
+
+// const findCourse = await ongoing.findOne({ userID, courseID }).exec();
+
+// if (!findCourse) {
+//   const progress = (1 / validateCourse.sections.length) * 100;
+//   const findInComplete = await completed.findOne({ userID }).exec();
+//   if (progress==100) {
+//     if (!findInComplete) {
+//       const addToCompleted = await completed.create({
+//         courseID,
+//         userID,
+//       });
+//       console.log("1016 ", addToCompleted);
+//       return res.json({
+//         status: "ok",
+//         msg: { addToCompleted },
+//       });
+//     }
+//     // second completed
+//     else{
+//       const deleteFromOngoing = await ongoing
+//         .findOneAndDelete({ userID, courseID })
+//         .exec();
+//       console.log("1025 ", findInComplete);
+//       // Another completed course
+//       const updateCompleted = await completed
+//         .findOneAndUpdate({ userID }, { $addToSet: { courseID } })
+//         .exec();
+//       return res.json({
+//         status: "ok",
+//         msg: {
+//           updateCompleted,
+//           deleteFromOngoing,
+//         },
+//       });
+//     }
+//   }
+//   // progress!=100
+//   else{
+//     const addToOngoing = await ongoing.create({
+//       userID,
+//       courseID,
+//       sections: sectionID,
+//       progress,
+//     });
+
+//     return res.json({
+//       status: "ok",
+//       msg: { addToOngoing },
+//     });
+//   }
+// }
+// // ongoing already
+// else{
+//   const findSection = await ongoing
+//     .findOne({ userID }, { sections: { $elemMatch: { $eq: sectionID } } })
+//     .exec();
+//     if(findSection)
+
+// }

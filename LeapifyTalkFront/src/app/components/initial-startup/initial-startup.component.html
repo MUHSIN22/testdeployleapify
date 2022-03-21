@@ -31,6 +31,13 @@
     <form class="mt-0 mt-md-2" (ngSubmit)="submit(userForm)" #userForm="ngForm">
       <div class="row text-start">
         <div class="col-12 col-md-6">
+          <input
+              type="text"
+              name="role"
+              [(ngModel)]="user.role"
+              #name="ngModel"
+              hidden
+            />
           <div class="form-group">
             <label class="fw-bold">Name</label>
             <input

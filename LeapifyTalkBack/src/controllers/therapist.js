@@ -1,6 +1,7 @@
 require("dotenv").config();
 const purchased = require("../models/purchased");
-const therapist = require("../models/therapists");
+// const therapist = require("../models/therapists");
+const therapist = require("../models/user");
 const User = require("../models/user");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
@@ -18,6 +19,7 @@ const { customAlphabet } = require("nanoid");
 const { truncateSync } = require("fs");
 const course = require("../models/course");
 const nanoid = customAlphabet("1234567890", 4);
+const nanoid_uname = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 8);
 const client = require("twilio")(
   process.env.TWILIO_ACCOUNT_SID,
   process.env.TWILIO_AUTH_TOKEN
@@ -25,7 +27,7 @@ const client = require("twilio")(
 
 exports.createTherapist = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
     const validateEmail = await therapist.findOne({ email }).exec();
     if (validateEmail) {
       res.json({ status: "error", msg: "Email ID already taken" });
@@ -35,9 +37,11 @@ exports.createTherapist = async (req, res) => {
       const hashPassword = bcrypt.hash(password, salt).then(async (rec) => {
         const account = await therapist.create({
           name,
+          username: nanoid_uname(),
           email,
           password: rec,
           registerToken,
+          role: "therapist",
         });
         let x = account.name;
       });
@@ -114,10 +118,10 @@ exports.loginTherapist = async (req, res) => {
                 id: emailValidation._id,
                 email: emailValidation.email,
                 name: emailValidation.name,
-                user: "therapist",
+                user: emailValidation.role,
               },
               process.env.JWT_SECRET,
-              { expiresIn: "15d" }
+              { expiresIn: "1d" }
             );
             res.json({ status: "ok", msg: "logged in", token });
 

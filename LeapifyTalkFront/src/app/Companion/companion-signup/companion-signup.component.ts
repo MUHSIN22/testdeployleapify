@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ToastComponent } from 'src/app/components/toast/toast.component';
 import { HttpService } from 'src/app/services/http.service';
 import { TherapistAuthService } from 'src/app/services/therapist-auth.service';
-import { ToastComponent } from '../toast/toast.component';
 
 @Component({
-  selector: 'app-therapist-signin',
-  templateUrl: './therapist-signin.component.html',
-  styleUrls: ['./therapist-signin.component.css']
+  selector: 'app-companion-signup',
+  templateUrl: './companion-signup.component.html',
+  styleUrls: ['./companion-signup.component.css']
 })
-export class TherapistSigninComponent implements OnInit {
+export class CompanionSignupComponent implements OnInit {
   public data:any = {
     credential: '',
     password: '',
@@ -19,7 +19,6 @@ export class TherapistSigninComponent implements OnInit {
 
   public phone:any;
   public isMobileRegistration: boolean = false;
-  public mobilePattern: any = '(^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$)|(^[0-9]+$)';
   public isLoading:boolean = false;
   public popOtp:boolean = false
 
@@ -27,7 +26,8 @@ export class TherapistSigninComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpService.userSubject.subscribe((res:any) => {
-      if(res.role && res.role === "therapist"){
+      
+      if(res.user && res.user === "therapist"){
         this.route.navigateByUrl('/therapist/dashboard')
       }
     })

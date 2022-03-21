@@ -1,0 +1,40 @@
+.show-companion--container{
+    padding: 1rem 7%;
+}
+.companion-card--wrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
+app-companion-card{
+    width: calc(100%/5 - 2rem);
+    margin: 1rem;
+}
+@media only screen and (max-width:1400px) {
+    .show-companion--container{
+        padding: 1rem 2.5%;
+    }
+    app-companion-card{
+        width: calc(100%/3 - 2rem);
+    }
+}
+@media only screen and (max-width: 768px) {
+    app-companion-card{
+        width: calc(100%/2 - 3rem);
+        margin: 1rem 1.5rem;
+    }
+}
+@media only screen and (max-width: 550px) {
+    app-companion-card{
+        width: calc(100%/2 - 2rem);
+        margin: 1rem;
+    }
+}
+@media only screen and (max-width: 460px) {
+    .show-companion--container{
+        padding: 1rem;
+    }
+    app-companion-card{
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}

@@ -17,6 +17,7 @@ const {
 
 const user = require("../models/user");
 const category1 = require("../models/category");
+// const therapist = require("../models/therapists");
 const therapist = require("../models/therapists");
 const therapist1 = require("../models/therapists");
 

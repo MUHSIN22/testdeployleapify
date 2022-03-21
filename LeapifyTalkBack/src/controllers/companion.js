@@ -8,10 +8,15 @@ const mongoose = require("mongoose");
 const sendmail = require("../utils/sendmail");
 const companion = require("../models/companion");
 const User = require("../models/user");
-
+const rating = require("../models/ratings");
+const therapist = require("../models/therapists");
+const ongoing = require("../models/ongoing");
+const complete = require("../models/completed");
+const purchased = require("../models/purchased");
+const course = require("../models/course");
 // =========================sign up==================
 
-exports.signUp = async (req, res) => {
+exports.signUpCompanion = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const validateEmail = await User.findOne({ email }).exec();
@@ -28,6 +33,98 @@ exports.signUp = async (req, res) => {
           password: rec,
           registerToken,
           role: "companion",
+        });
+      });
+      const msg = {
+        from: `Banao <${process.env.EMAIL_USERNAME}>`,
+        to: email,
+        subject: "Banao Verify Link",
+        text: `
+            Hello  , your request for reactivation is confirmed
+            please click on the link to verify your email
+            ${process.env.CLIENT_URI}/verify-reset-password/${registerToken}
+            `,
+        html: `
+            hello, your request for reactivation is confirmed
+            please click on the link to verify your email
+            <a href="http://localhost:5000/api/companion/verify-email/${registerToken}">Verify Email</a>
+            `,
+      };
+      sendmail(msg);
+      res.json({
+        status: "ok",
+        msg: "Check you email to confirm registration",
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.json({ e });
+  }
+};
+
+exports.signUpDoctor = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const validateEmail = await User.findOne({ email }).exec();
+    if (validateEmail) {
+      res.json({ status: "error", msg: "Email ID already taken" });
+    } else {
+      const salt = bcrypt.genSaltSync(10);
+      let registerToken = crypto.randomBytes(64).toString("hex");
+      const hashPassword = bcrypt.hash(password, salt).then(async (rec) => {
+        const account = await User.create({
+          name,
+          username: nanoid(),
+          email,
+          password: rec,
+          registerToken,
+          role: "doctor",
+        });
+      });
+      const msg = {
+        from: `Banao <${process.env.EMAIL_USERNAME}>`,
+        to: email,
+        subject: "Banao Verify Link",
+        text: `
+            Hello  , your request for reactivation is confirmed
+            please click on the link to verify your email
+            ${process.env.CLIENT_URI}/verify-reset-password/${registerToken}
+            `,
+        html: `
+            hello, your request for reactivation is confirmed
+            please click on the link to verify your email
+            <a href="http://localhost:5000/api/companion/verify-email/${registerToken}">Verify Email</a>
+            `,
+      };
+      sendmail(msg);
+      res.json({
+        status: "ok",
+        msg: "Check you email to confirm registration",
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.json({ e });
+  }
+};
+
+exports.signUpUser = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const validateEmail = await User.findOne({ email }).exec();
+    if (validateEmail) {
+      res.json({ status: "error", msg: "Email ID already taken" });
+    } else {
+      const salt = bcrypt.genSaltSync(10);
+      let registerToken = crypto.randomBytes(64).toString("hex");
+      const hashPassword = bcrypt.hash(password, salt).then(async (rec) => {
+        const account = await User.create({
+          name,
+          username: nanoid(),
+          email,
+          password: rec,
+          registerToken,
+          role: "user",
         });
       });
       const msg = {
@@ -268,6 +365,185 @@ exports.login = async (req, res) => {
   }
 };
 //=================== Login ===========================================
+
+// ==================Dashboard=======================
+
+exports.companionHome = async (req, res) => {
+  const courseID = "61d9bf60df187b50e001f3f1";
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  console.log(token);
+  const findToken = await User.findOne({ tokens: token }).exec();
+  const decoded = jwt.decode(findToken.tokens, { complete: true });
+  const userID = decoded.payload.id;
+  try {
+    const findOngoing = await ongoing.findOne({ userID }).exec();
+    const findComplete = await complete.findOne({ userID }).exec();
+    const findPurchased = await purchased.findOne({ userID }).exec();
+    // new user
+    if (!findOngoing && !findComplete && !findPurchased) {
+      const pushToPurchase = await purchased.create({
+        userID,
+        courseID: mongoose.Types.ObjectId(courseID),
+      });
+      const instructorCourseAll = await course
+        .findById(courseID, { approved: 0 })
+        .populate(["instructor", "ratings", "sections"])
+        .exec();
+      // instructorCourseAll.forEach((course) => {
+      //   let comp = {};
+      let sum = 0;
+      //   let toPush = {};
+      let instructorCourse = [];
+      instructorCourseAll.ratings.forEach((rate) => {
+        sum += rate.rates;
+      });
+      avgRate = sum / instructorCourseAll.ratings.length;
+      console.log(avgRate);
+      instructorCourseAll.rates = avgRate;
+      let newObj = {
+        _id: instructorCourseAll._id,
+        instructor: instructorCourseAll.instructor,
+        category: instructorCourseAll.category,
+        course_title: instructorCourseAll.course_title,
+        video: instructorCourseAll.video,
+        sections: instructorCourseAll.sections,
+        photo: instructorCourseAll.photo,
+        offer_price: instructorCourseAll.offer_price,
+        original_price: instructorCourseAll.original_price,
+        tags: instructorCourseAll.tags,
+        language: instructorCourseAll.language,
+        rates: instructorCourseAll.rates,
+        last_updated: instructorCourseAll.last_updated,
+        what_youll_learn: instructorCourseAll.what_youll_learn,
+        ratings: instructorCourseAll.ratings,
+        sub_heading: instructorCourseAll.sub_heading,
+        description: instructorCourseAll.description,
+      };
+
+      instructorCourse.push(newObj);
+
+      return res.json({
+        status: "ok",
+        first: { instructorCourse: instructorCourse[0] },
+      });
+    } else if (findOngoing) {
+      const theCourses = await ongoing
+        .find({ userID })
+        .populate("courseID")
+        .exec();
+      // res.json({ theCourses });
+      let finalArray = [];
+      for (const oneCourse of theCourses) {
+        const instructor = await therapist
+          .findOne({ _id: oneCourse.courseID.instructor }, { name: 1 })
+          .exec();
+        const oneArray = {};
+        const ratings = await rating
+          .findOne({ courseID: oneCourse.courseID, userID })
+          .exec();
+        // const courses = await course.findOne({ _id: oneCourse.courseID });
+        oneArray.ratings = ratings;
+        let newObj = {
+          _id: oneCourse.courseID._id,
+          instructor: instructor,
+          category: oneCourse.courseID.category,
+          course_title: oneCourse.courseID.course_title,
+          video: oneCourse.courseID.video,
+          photo: oneCourse.courseID.photo,
+          offer_price: oneCourse.courseID.offer_price,
+          original_price: oneCourse.courseID.original_price,
+          sections: oneCourse.sectionID,
+          progress: oneCourse.progress,
+          tags: oneCourse.courseID.tags,
+          language: oneCourse.courseID.language,
+          rates: oneCourse.courseID.rates,
+          last_updated: oneCourse.courseID.last_updated,
+          what_youll_learn: oneCourse.courseID.what_youll_learn,
+          // ratings: oneCourse.courseID.ratings,
+          sub_heading: oneCourse.courseID.sub_heading,
+          description: oneCourse.courseID.description,
+        };
+
+        oneArray.courses = newObj;
+        finalArray.push(oneArray);
+      }
+      return res.json({ status: "ok", second: finalArray });
+    } else if (!findOngoing && findPurchased && !findComplete) {
+      const instructorCourseAll = await course
+        .findById(courseID, { approved: 0 })
+        .populate(["instructor", "ratings", "sections"])
+        .exec();
+      // instructorCourseAll.forEach((course) => {
+      //   let comp = {};
+      let sum = 0;
+      //   let toPush = {};
+      let instructorCourse = [];
+      instructorCourseAll.ratings.forEach((rate) => {
+        sum += rate.rates;
+      });
+      avgRate = sum / instructorCourseAll.ratings.length;
+      console.log(avgRate);
+      instructorCourseAll.rates = avgRate;
+      let newObj = {
+        _id: instructorCourseAll._id,
+        instructor: instructorCourseAll.instructor,
+        category: instructorCourseAll.category,
+        course_title: instructorCourseAll.course_title,
+        video: instructorCourseAll.video,
+        sections: instructorCourseAll.sections,
+        photo: instructorCourseAll.photo,
+        offer_price: instructorCourseAll.offer_price,
+        original_price: instructorCourseAll.original_price,
+        tags: instructorCourseAll.tags,
+        language: instructorCourseAll.language,
+        rates: instructorCourseAll.rates,
+        last_updated: instructorCourseAll.last_updated,
+        what_youll_learn: instructorCourseAll.what_youll_learn,
+        ratings: instructorCourseAll.ratings,
+        sub_heading: instructorCourseAll.sub_heading,
+        description: instructorCourseAll.description,
+      };
+
+      instructorCourse.push(newObj);
+
+      return res.json({
+        status: "ok",
+        third: { instructorCourse: instructorCourse[0] },
+      });
+    }
+    // completed course
+    else if (findComplete) {
+      const myCourses = await complete.find({ userID }).exec();
+      let courseArray = myCourses[0].courseID;
+      let finalArray = [];
+      courseArray.forEach(async (one) => {
+        let oneArray = {};
+        let ratings = await rating.findOne({ userID, courseID: one }).exec();
+        let courses = await course
+          .findOne({ _id: one })
+          .populate("instructor", "name")
+          .exec();
+        // console.log(courses);
+        oneArray.ratings = ratings;
+        oneArray.courses = courses;
+        finalArray.push(oneArray);
+        if (finalArray.length == myCourses.length) {
+          return res.json({
+            status: "ok",
+            test_send: finalArray,
+            test: "test sent",
+          });
+        }
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.json({ status: "error", msg: "an error occured" });
+  }
+};
+
+// ==================Dashboard=======================
 
 //=================== Logout ===========================================
 exports.logout = async (req, res) => {

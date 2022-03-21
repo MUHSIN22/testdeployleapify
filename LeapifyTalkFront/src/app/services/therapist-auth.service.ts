@@ -28,6 +28,7 @@ export class TherapistAuthService {
   }
 
   signin = (data:Signin): Observable<any> =>{
+    // return this.http.post<any>(`${this.apiUrl}/therapist/login`, data)
     return this.http.post<any>(`${this.apiUrl}/therapist/login`, data)
   }
 
