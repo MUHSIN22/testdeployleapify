@@ -30,14 +30,12 @@
                 <img src="/assets/icons/document-file.png" alt="">
                 <div class="name-and-duration">
                     <p class="video-name">{{section.lesson_name[lessonIndex]}} Document</p>
-                    <!-- <p class="duration">22:00</p> -->
                 </div>
             </div>
             <div class="content" *ngIf="section.files[lessonIndex].pdf" (click)="downloadFile(section.files[lessonIndex].pdf)">
                 <img src="/assets/icons/pdf-file.png" alt="">
                 <div class="name-and-duration">
                     <p class="video-name">{{section.lesson_name[lessonIndex]}} PDF</p>
-                    <!-- <p class="duration">22:00</p> -->
                 </div>
             </div>
         </div>
