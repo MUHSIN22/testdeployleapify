@@ -1,0 +1,89 @@
+.companion-card{
+    border: 1px solid var(--bg-primary);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem; 
+}
+p{
+    color: #000;
+}
+.profile--wrapper{
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    position: relative;
+}
+.profile--image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+.online-indicator{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #03A65A;
+    display: block;
+    position: absolute;
+    top: 10%;
+    right: 5%;
+}
+.profile--name{
+    font-size: 1.1rem;
+    margin: 1rem 0;
+}
+.experience-wrapper{
+    font-size: 0.9rem;
+}
+.rating-wrapper{
+    margin: 0.5rem 0;
+}
+.rating-star{
+    margin: 0 2px;
+    color: #FFC700;
+}
+.description{
+    text-align: center;
+    font-size: 14px;
+}
+.description .more{
+    display: none;
+}
+.description .read-more{
+    color: rgb(26, 26, 202);
+    cursor: pointer;
+}
+.btn-chat{
+    background: var(--bg-primary);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    border: none;
+    color: #fff;
+}
+@media only screen and (max-width:460px) {
+    .companion-card{
+        padding: 0.5rem;
+    }
+    .profile--name{
+        font-size: 1rem;
+        margin: 0.5rem 0;
+    }
+    .profile--wrapper{
+        width: 5rem;
+        height: 5rem;
+    }
+    .profile--image{
+        width: 5rem;
+        height: 5rem;
+    }
+    .experience-wrapper{
+        font-size: 0.8rem;
+    }
+    .rating-wrapper{
+        font-size: 0.9rem;
+    }
+}
