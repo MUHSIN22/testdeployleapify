@@ -1,32 +1,35 @@
-<div class="container-fluid pb-4">
+<div class="container pb-4">
     <!-- ============================================================================================ -->
     <div class="row p-1">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-shadow">
+                        <h3 class="btn-0EA5C6 heading">Profile</h3>
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-md-9">
+                                    <p style="font-weight: bold; color: black !important;">{{loggedInUser.name}}</p>
+                                    <p>Location : {{address}}</p>
+                                    <p>Gender : {{gender}}</p>
+                                    <!-- <button class="btn btn-0EA5C6 text-light rounded-pill" style="margin-top: 32px;"
+                                        (click)="Book(book)">Book Appointment</button> -->
+                                <!-- </div>
+                                <div class="col-md-5"> -->
+                                    <p>Email : {{loggedInUser.email}}</p>
+                                    <p>Phone : {{mobile}}</p>
+                                    <!-- <p>Client Id : {{id}}</p> -->
+                                </div>
                                 <div class="col-md-3">
                                     <!-- <img src="assets/userpic.png" class="w-75"> -->
                                     <img *ngIf="!imageUrl && image == null" src="assets/uploadimages/sample.png"
                                         class="w-100 rounded-pill">
                                     <img *ngIf="imageUrl" [src]="imageUrl" class="w-100 rounded-pill">
                                     <img *ngIf="image && !imageUrl" src="{{image}}" class="w-100 rounded-pill">
-                                    <button class="btn btn-0EA5C6 text-light rounded-pill mt-2"
-                                        (click)="openXl(edit)">Update Profile</button>
-                                </div>
-                                <div class="col-md-4">
-                                    <p style="font-weight: bold; color: black !important;">{{loggedInUser.name}}</p>
-                                    <p>Location : {{address}}</p>
-                                    <p>Gender : {{gender}}</p>
-                                    <button class="btn btn-0EA5C6 text-light rounded-pill" style="margin-top: 32px;"
-                                        (click)="Book(book)">Book Appointment</button>
-                                </div>
-                                <div class="col-md-5">
-                                    <p>Email : {{loggedInUser.email}}</p>
-                                    <p>Phone : {{mobile}}</p>
-                                    <!-- <p>Client Id : {{id}}</p> -->
+                                    <!-- <button class="btn btn-0EA5C6 text-light rounded-pill mt-2"
+                                        (click)="openXl(edit)">Update Profile</button> -->
+                                        <i class="fal fa-pencil fa-2x" title="Update Profile" (click)="openXl(edit)"></i>
+                                        <i class="fal fa-book fa-2x mx-2" title="Book Appointment" (click)="Book(book)"></i>
                                 </div>
                             </div>
                         </div>
@@ -896,9 +899,10 @@
             <div class="row mt-4">
                 <div class="col-md-12">
                     <div class="card card-shadow">
+                        <h3 class="btn-0EA5C6 heading">Progress Notes</h3>
                         <div class="card-body">
-                            <h4 class="btn-0EA5C6 p-1">Progress Notes</h4>
-                            <p class="text-muted my-4">
+                            <!-- <h4 class="btn-0EA5C6 heading">Progress Notes</h4> -->
+                            <p class="text-muted">
                                 Anim pariatur cliche reprehenderit,
                                 enim eiusmod high life accusamus terry richardson ad squid.
                             </p>
@@ -925,10 +929,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="card card-shadow w-100">
+                <h3 class="btn-0EA5C6 heading">Upcoming Appointments</h3>
                 <div class="card-body">
-                    <h4 class="btn-0EA5C6 p-1">Upcoming Appointments</h4>
+                    <!-- <h4 class="btn-0EA5C6 heading">Upcoming Appointments</h4> -->
                     <div class="w-100" style="height: 272px; overflow-y: auto;">
                         <table class="table table-striped">
                             <thead style="color:#667085">
@@ -960,7 +965,13 @@
                             </tbody>
                         </table>
                     </div>
-                    <h4 class="btn-0EA5C6 p-1 mt-4">Appointment History</h4>
+                    
+                </div>
+            </div>
+            <div class="card  card-shadow w-100 mt-4">
+                <h3 class="btn-0EA5C6 heading">Appointment History</h3>
+                <div class="card-body">
+                    <!-- <h4 class="btn-0EA5C6 p-1 mt-4">Appointment History</h4> -->
                     <div class="mt-2" style="height: 272px; overflow-y: auto;">
                         <table class="table table-striped">
                             <thead style="color:#667085">
@@ -1215,7 +1226,7 @@
                             <tr *ngIf="data.File">
                                 <th scope="row">{{i+1}}</th>
                                 <td>{{data.D_name}}</td>
-                                <td><a href="{{data.File}}">{{data.File}}</a></td>
+                                <td><a href="{{data.File}}" style="text-decoration: none;">Report File</a></td>
                                 <td>{{data.SelectDate}}</td>
                                 <td><i class="fa fa-trash text-danger"></i></td>
                             </tr>

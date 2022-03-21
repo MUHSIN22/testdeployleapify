@@ -27,8 +27,7 @@ export class TherapistSigninComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpService.userSubject.subscribe((res:any) => {
-      
-      if(res.user && res.user === "therapist"){
+      if(res.role && res.role === "therapist"){
         this.route.navigateByUrl('/therapist/dashboard')
       }
     })

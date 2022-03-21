@@ -16,6 +16,7 @@ export class TherapistRegistrationTemplateComponent implements OnInit {
     password: '',
     otp: '',
     credential: '',
+    role: 'therapist',
   }
   public phone:any;
   public isMobileRegistration: boolean = false;
@@ -34,6 +35,7 @@ export class TherapistRegistrationTemplateComponent implements OnInit {
       name: this.credentials.name,
       password: this.credentials.password,
       email: this.credentials.credential,
+      role: this.credentials.role,
     }
     this.authService.regitsterUser(data).subscribe((res:any)=>{
       if(res.status === 'ok'){

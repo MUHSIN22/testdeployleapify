@@ -7,7 +7,8 @@ export interface RegCredentials{
     name: String,
     credential: String,
     password: String,
-    otp?: String;
+    otp?: String,
+    role: String,
 }
 
 export interface Signin{

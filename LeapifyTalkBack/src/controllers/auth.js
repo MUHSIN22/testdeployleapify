@@ -791,10 +791,10 @@ exports.register = async (req, res) => {
       name,
       username: nanoid(),
       age,
-      role,
       password: hash,
       email,
       emailToken,
+      role,
     });
 
     const rooms = await chatRoom.find({});
@@ -906,7 +906,6 @@ exports.login = async (req, res) => {
         username: user.username,
         dname : user.first_name+' '+user.last_name,
         role : user.role,
-        // user: "therapist",
       },
       process.env.JWT_SECRET,
       { expiresIn: "15d" }

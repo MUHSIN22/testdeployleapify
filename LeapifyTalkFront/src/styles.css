@@ -128,8 +128,15 @@ hr{color: #0EA5C6 !important; border: 1px solid !important;}
     border-bottom-right-radius: 20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    padding: 10px;
-    box-shadow: 5px 10px #0EA5C6;
+    /* padding: 10px; */
+    /* box-shadow: 5px 10px #0EA5C6; */
+}
+.heading
+{
+  padding: 10px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding-left: 20px;
 }
 /* ================================================================================ */
 /* ----------------------------------------------------------------------------------------------------------- */

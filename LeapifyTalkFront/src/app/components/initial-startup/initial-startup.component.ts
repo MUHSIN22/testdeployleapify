@@ -23,8 +23,8 @@ export class InitialStartupComponent implements OnInit, AfterViewInit {
     age: 0,
     email: "",
     gender: "",
-    role:'Patient',
-    password: ""
+    role: "Patient",
+    password: "",
   }
   accept: boolean = false;
   ageString: string = "";
@@ -50,6 +50,7 @@ export class InitialStartupComponent implements OnInit, AfterViewInit {
     if (!this.accept) this, this.acceptError = true;
     if (valid) {
       value.age = Number.parseInt(this.ageString);
+      console.log(value as User,'Post');
       this.httpService.register(value as User).then((res) => {
         if (res.data.status == 'error') {
           this.openSnackbar(res.data.msg, "error")
