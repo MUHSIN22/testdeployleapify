@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CompanionService } from 'src/app/services/companion.service';
 
 @Component({
   selector: 'app-companion-home',
@@ -13,9 +15,20 @@ export class CompanionHomeComponent implements OnInit {
       instructorDetails:[{name:"Muhsin"}],
     }
   };
-  constructor() { }
+  popupInfo:string = "";
+
+  constructor(
+      private companionServices:CompanionService,
+      private route:ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
+    this.companionServices.getCompanionCourse().subscribe((res:any) => {
+      console.log(res);
+    })
+    this.route.queryParams.subscribe((params:any) =>{
+      params.sts ? this.popupInfo = params.sts : this.popupInfo = '';
+    })
   }
 
 }

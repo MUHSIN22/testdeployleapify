@@ -1,0 +1,45 @@
+.test-card{
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: -3px 2px 24px rgba(120, 137, 165, 0.3);
+}
+.test-thumbnail{
+    width: 100%;
+    height: 10vw;
+    border-radius: 15px 15px 0 0;
+    object-fit: cover;
+}
+.test-title{
+    font-size: 1rem;
+    font-weight: 600;
+    align-items: center;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.btn-test{
+    width: max-content;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    background: var(--bg-primary);
+    color: #fff;
+    border: none;
+    margin-top: 3rem;
+}
+@media only screen and (max-width:1250px) {
+    .test-thumbnail{
+        height:9rem;
+    }
+}
+@media only screen and (max-width:500px) {
+    .test-title{
+        font-size: 14px;
+    }
+    .btn-test{
+        margin-top: 2rem;
+        font-size: 0.9rem;
+    }
+}

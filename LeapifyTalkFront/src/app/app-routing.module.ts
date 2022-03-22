@@ -64,6 +64,7 @@ import { CompanionExamComponent } from './Companion/companion-exam/companion-exa
 import { CompanionStartupComponent } from './Companion/companion-startup/companion-startup.component';
 import { CompanionDashboardComponent } from './Companion/companion-dashboard/companion-dashboard.component';
 import { CompanionHomeComponent } from './Companion/companion-home/companion-home.component';
+import { CompanionExamResultComponent } from './Companion/companion-exam-result/companion-exam-result.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -154,6 +155,7 @@ const routes: Routes = [
   { path: 'companion-signup', component: CompanionSignupComponent },
   { path: 'companion-exam', component: CompanionExamComponent },
   { path: 'companion-startup',component: CompanionStartupComponent},
+  { path: 'companion-result/:state',component: CompanionExamResultComponent},
   { path: 'companion', component: CompanionDashboardComponent,
     children: [
       { path: 'home', component: CompanionHomeComponent}

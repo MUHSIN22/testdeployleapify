@@ -120,6 +120,11 @@ import { CompanionStartupComponent } from './Companion/companion-startup/compani
 import { StartupQuestionComponent } from './Companion/startup-question/startup-question.component';
 import { CompanionDashboardComponent } from './Companion/companion-dashboard/companion-dashboard.component';
 import { CompanionHomeComponent } from './Companion/companion-home/companion-home.component';
+import { CompanionCourseCardComponent } from './Companion/companion-course-card/companion-course-card.component';
+import { TestCardComponent } from './Companion/test-card/test-card.component';
+import { CompanionExamDialogComponent } from './Companion/companion-exam-dialog/companion-exam-dialog.component';
+import { CompanionExamResultComponent } from './Companion/companion-exam-result/companion-exam-result.component';
+import { CompanionProfileComponent } from './components/companion-profile/companion-profile.component';
 
 
 @NgModule({
@@ -225,6 +230,11 @@ import { CompanionHomeComponent } from './Companion/companion-home/companion-hom
     StartupQuestionComponent,
     CompanionDashboardComponent,
     CompanionHomeComponent,
+    CompanionCourseCardComponent,
+    TestCardComponent,
+    CompanionExamDialogComponent,
+    CompanionExamResultComponent,
+    CompanionProfileComponent,
     // ----------------------------------
   ],
   imports: [

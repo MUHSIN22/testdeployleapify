@@ -1,10 +1,16 @@
 <main class="companion-home--wrapper">
-    <h1 class="title">My Courses</h1>
-    <ul class="navigator">
-        <li class="navigate">Ongoing Courses</li>
-        <li class="navigate">Completed Courses</li>
-    </ul>
-    <div class="course--card">
-        
+    <h1 class="title">Companion Courses</h1>
+    <div class="navigation-wrapper">
+        <ul class="navigation">
+            <li class="navigation-active">Ongoing Courses</li>
+            <li>Completed Courses</li>
+        </ul>
+    </div>
+    <app-companion-course-card></app-companion-course-card>
+
+    <div class="test-wrapper">
+        <h1 class="title">Test</h1>
+        <app-test-card></app-test-card>
     </div>
 </main>
+<app-companion-exam-dialog [hidden]="popupInfo == ''"></app-companion-exam-dialog>

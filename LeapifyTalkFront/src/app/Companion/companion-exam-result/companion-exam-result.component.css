@@ -1,0 +1,36 @@
+@media only screen and (max-width:768px) {
+    .exam-dialog-container{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .exam-dialog-wrapper{
+        background: #fff;
+        color: #000;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        width: 100%;
+        height: 100%;
+    }
+    .status--title{
+        margin: 1rem 0;
+    }
+    .status--description{
+        text-align: center;
+    }
+    .btn-next{
+        color: #fff;
+        background: var(--bg-primary);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+    }
+}
+@media only screen and (min-width: 769px) {
+    .exam-dialog-container{
+        display: none;
+    }
+}

@@ -14,4 +14,8 @@ export class CompanionService {
   companionSignup = (body:companionSignup): Observable<any>=> {
     return this.http.post<any>(`${this.apiUrl}/companion/sign-up`, body); 
   }
+
+  getCompanionCourse = ():Observable<any> => {
+    return this.http.get<any>(`${this.apiUrl}/courses/get-courses/61d9bf60df187b50e001f3f1`);
+  }
 }

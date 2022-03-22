@@ -71,18 +71,18 @@ export class SigninComponent implements OnInit {
                 
               }
             )
-            // if (this.loggedInUser.role == 'Doctor') {
-            //   this.router.navigate(['/doctor-profile']);
-            // }
-            // if (this.loggedInUser.role == 'Patient') {
-            //   this.router.navigate(['/patient-dashboard']);
-            // }
-            // if (this.loggedInUser.role == 'therapist') {
-            //   this.router.navigate(['/therapist/dashboard']);
-            // }
-            // if (this.loggedInUser.role == 'companion') {
-            //   this.router.navigate(['/companion/dashboard']);
-            // }
+            if (this.loggedInUser.role == 'Doctor') {
+              this.router.navigate(['/doctor-profile']);
+            }
+            if (this.loggedInUser.role == 'Patient') {
+              this.router.navigate(['/patient-dashboard']);
+            }
+            if (this.loggedInUser.role == 'therapist') {
+              this.router.navigate(['/therapist/dashboard']);
+            }
+            if (this.loggedInUser.role == 'companion') {
+              this.router.navigate(['/companion/home']);
+            }
           }
         },
         (err) => {
