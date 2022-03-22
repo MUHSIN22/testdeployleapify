@@ -1079,14 +1079,11 @@ exports.login = async (req, res) => {
         email: user.email,
         name: user.name,
         username: user.username,
-<<<<<<< HEAD
         // dname : user.first_name+' '+user.last_name,
         role: user.role,
         // user: "therapist",
-=======
-        dname : user.first_name+' '+user.last_name,
-        role : user.role,
->>>>>>> b61b6b7a962edfb48d8f6abefd507480255bc246
+        dname: user.first_name + " " + user.last_name,
+        role: user.role,
       },
       process.env.JWT_SECRET,
       { expiresIn: "15d" }

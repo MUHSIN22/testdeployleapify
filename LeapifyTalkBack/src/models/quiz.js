@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 var quizSchema = mongoose.Schema({
   questions: [
     {
@@ -13,4 +14,6 @@ var quizSchema = mongoose.Schema({
     type: String,
   },
 });
-module.exports = mongoose.model("quiz", quizSchema);
+
+const quizs = mongoose.model("quiz", quizSchema);
+module.exports = quizs;
