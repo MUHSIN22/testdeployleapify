@@ -1,0 +1,26 @@
+<section class="companion-profile">
+    <div class="avatar--wrapper">
+        <img src="/assets/images/temp/profile-c.png" class="avatar" alt="">
+    </div>
+    <h2 class="companion-name">Luis Philippe</h2>
+    <div class="companion-rating-wrapper">
+        <strong class="companion-rate--title">Companion Rating</strong>
+        <div class="rates--wrapper">
+            <fa-icon [icon]="faStar" class="star"></fa-icon>
+            <fa-icon [icon]="faStar" class="star"></fa-icon>
+            <fa-icon [icon]="faStar" class="star"></fa-icon>
+            <fa-icon [icon]="faStar" class="star"></fa-icon>
+            <fa-icon [icon]="faStar" class="star"></fa-icon>
+        </div>
+    </div>
+    <button class="btn-chat">Chat Now</button>
+    <p class="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <hr class="divider">
+    <div class="companion-details" *ngFor="let part of companionDetails;let index = index" [ngClass]="{'second-details':index==1}">
+        <div class="details--wrapper" *ngFor="let item of part">
+            <h3 class="details-title">{{item.title}}</h3>
+            <strong class="detail">{{item.detail}}</strong>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

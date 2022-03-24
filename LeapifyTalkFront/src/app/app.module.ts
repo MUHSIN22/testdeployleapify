@@ -116,6 +116,7 @@ import { CompanionListComponent } from './components/companion-list/companion-li
 import { CompanionCardComponent } from './components/companion-card/companion-card.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CompanionExamComponent } from './Companion/companion-exam/companion-exam.component';
+import { CompanionProfileComponent } from './components/companion-profile/companion-profile.component';
 
 
 @NgModule({
@@ -217,6 +218,7 @@ import { CompanionExamComponent } from './Companion/companion-exam/companion-exa
     CompanionListComponent,
     CompanionCardComponent,
     CompanionExamComponent,
+    CompanionProfileComponent,
     // ----------------------------------
   ],
   imports: [
