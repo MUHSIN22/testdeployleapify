@@ -93,10 +93,8 @@ exports.mapping = async(req, res) => {
 
 exports.userdata = async(req, res) => {
   const { email } = req.body;
-  // console.log(email,'Res');
   try{
       const data = await User.findOne({ email }).lean();
-      // console.log(data,'UserData');
       return res.json(data);
   }catch(error){
       console.log(error);
@@ -110,8 +108,6 @@ exports.userdata = async(req, res) => {
 exports.doctorupdate = async(req, res) => {
   const {email, mobile, experience, youtubelink, googlemeetlink, zoomlink, skypelink, facebooklink, instagramlink, twitterlink, }= req.body;
   const fileinfo = req.file;
-  // console.log(fileinfo);
-  // console.log(fileinfo.location);
   try{
       if(req.file == undefined)
       {
@@ -125,9 +121,7 @@ exports.doctorupdate = async(req, res) => {
           facebooklink: facebooklink,
           instagramlink: instagramlink,
           twitterlink: twitterlink,
-          // image: fileinfo.location,
       }})
-      // console.log(update,'Update');
       }
       else
       {
@@ -143,11 +137,9 @@ exports.doctorupdate = async(req, res) => {
           twitterlink: twitterlink,
           image: fileinfo.location,
       }})
-      // console.log(update,'Update With Image');
       }
       return res.json({status: 'ok', msg: 'Update Successfully'})
   }catch(error){
-      // console.log(error);
       return res.json({status: 'error', msg: 'error'})
   }
 }
@@ -157,8 +149,6 @@ exports.doctorupdate = async(req, res) => {
 exports.patientupdate = async(req, res) => {
   const { email, gender, mobile, address, }= req.body;
   const fileinfo = req.file;
-  // console.log(fileinfo);
-  // console.log(fileinfo.location);
   try{
       if(req.file == undefined)
       {
@@ -166,9 +156,7 @@ exports.patientupdate = async(req, res) => {
           mobile: mobile,
           gender: gender,
           address: address,
-          // image: fileinfo.location,
       }})
-      // console.log(update,'Update');
       }
       else
       {
@@ -177,7 +165,6 @@ exports.patientupdate = async(req, res) => {
           address: address,
           image: fileinfo.location,
       }})
-      // console.log(update,'Update With Image');
       }
       return res.json({status: 'ok', msg: 'Update Successfully'})
   }catch(error){
@@ -219,8 +206,6 @@ exports.assessment = async(req, res) => {
 exports.addblog = async(req, res) => {
   const {email, name, date, blogtitle, blogcontent }= req.body;
   const fileinfo = req.file;
-  // console.log(fileinfo);
-  // console.log(fileinfo.location);
   try{
         const blog = await Blog.create({
         email, name, date, blogtitle, blogcontent,
@@ -238,10 +223,8 @@ exports.addblog = async(req, res) => {
 
 exports.blogdata = async(req, res) => {
   const { email } = req.body;
-  // console.log(email,'Res');
   try{
       const data = await Blog.find({ email }).lean();
-      // console.log(data,'UserData');
       return res.json(data);
   }catch(error){
       console.log(error);
@@ -254,11 +237,9 @@ exports.blogdata = async(req, res) => {
 
 exports.deleteblog = async(req, res) => {
   var myquery = { _id: req.body.id };
-  // console.log(myquery,'Res');
   try{
       const deletedata = await Blog.deleteOne(myquery)
       return res.json({status: 'ok', msg: 'Delete Successfully'})
-      // res.json(deletedata);
   }catch(error){
       console.log(error);
       return res.json({status: 'error', msg: 'error'})
@@ -268,7 +249,6 @@ exports.deleteblog = async(req, res) => {
 // --------------------------- Doctor AboutMe Update Start -------------------------------------
 exports.aboutmeupdate = async(req, res) => {
   const {email, aboutMe }= req.body;
-  // console.log(email,'Res');
   try{
       const update = await User.findOneAndUpdate({email: email}, {$set: {
           aboutMe: aboutMe,
@@ -305,10 +285,8 @@ exports.task = async (req, res) => {
 
 exports.taskdata = async(req, res) => {
   const { email } = req.body;
-  // console.log(email,'Res');
   try{
       const data = await Task.find({ email }).lean();
-      // console.log(data,'TaskData');
       return res.json(data);
   }catch(error){
       console.log(error);
@@ -321,7 +299,6 @@ exports.taskdata = async(req, res) => {
 
 exports.updatetask = async(req, res) => {
   const {_id, check }= req.body;
-  // console.log(req.body,'Res');
   try{
       const update = await Task.findOneAndUpdate({_id : _id}, {$set: {
           check: check,
