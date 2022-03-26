@@ -61,7 +61,14 @@ import { PatientDashboardComponent } from './Patient/patient-dashboard/patient-d
 import { CompanionSignupComponent } from './Companion/companion-signup/companion-signup.component';
 import { CompanionListComponent } from './components/companion-list/companion-list.component';
 import { CompanionExamComponent } from './Companion/companion-exam/companion-exam.component';
+<<<<<<< HEAD
 import { CompanionProfileComponent } from './components/companion-profile/companion-profile.component';
+=======
+import { CompanionStartupComponent } from './Companion/companion-startup/companion-startup.component';
+import { CompanionDashboardComponent } from './Companion/companion-dashboard/companion-dashboard.component';
+import { CompanionHomeComponent } from './Companion/companion-home/companion-home.component';
+import { CompanionExamResultComponent } from './Companion/companion-exam-result/companion-exam-result.component';
+>>>>>>> e59f2b9b612b84bae0dfdc06e571763d3fdad0da
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -151,8 +158,18 @@ const routes: Routes = [
   // Companion Routes Start-------------------------------------------------------------------------------
   { path: 'companion-signup', component: CompanionSignupComponent },
   { path: 'companion-exam', component: CompanionExamComponent },
+<<<<<<< HEAD
   { path: 'companion-profile/:id', component: CompanionProfileComponent},
 
+=======
+  { path: 'companion-startup',component: CompanionStartupComponent},
+  { path: 'companion-result/:state',component: CompanionExamResultComponent},
+  { path: 'companion', component: CompanionDashboardComponent,
+    children: [
+      { path: 'home', component: CompanionHomeComponent}
+    ]
+  },
+>>>>>>> e59f2b9b612b84bae0dfdc06e571763d3fdad0da
   
   { path: '**', component: PageNotFoundComponent },
   // -----------------------------------------------------------------------------------------------------

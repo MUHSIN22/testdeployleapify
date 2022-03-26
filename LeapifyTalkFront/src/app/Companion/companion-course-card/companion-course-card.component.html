@@ -1,0 +1,58 @@
+<div class="course--card">
+    <img src="/assets/images//temp/course-thumbnail.jpg" alt="" class="course--thumbnail">
+    <div class="card--body">
+        <h2 class="course--title">CBT for Depression, Anxiety, Phobias and Panic Attacks</h2>
+        <p class="course--provider">Espanol Heck</p>
+        <div class="progress--container">
+            <span class="progress--wrapper">
+                <span class="progress"></span>
+            </span>
+            <p class="progress--count">30%</p>
+        </div>
+        <div class="rate-the-course">
+            <p>Leave a rating</p>
+            <div class="stars">
+                <i 
+                    [ngClass]="{'star-filled':starHover>=1}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(1)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',1)"    
+                >
+                </i>
+                <i 
+                    [ngClass]="{'star-filled':starHover>=2}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(2)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',2)"    
+                >
+                </i>
+                <i 
+                    [ngClass]="{'star-filled':starHover>=3}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(3)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',3)"    
+                >
+                </i>
+                <i 
+                    [ngClass]="{'star-filled':starHover>=4}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(4)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',4)"    
+                >
+                </i>
+                <i 
+                    [ngClass]="{'star-filled':starHover>=5}" 
+                    class="fas fa-star" 
+                    (mouseover)="onMouseOverStar(5)" 
+                    (mouseout)="onMouseOutStar()"
+                    (click)="rateTheCourse('thisisId',5)"    
+                >
+                </i>
+            </div>
+        </div>
+    </div>
+</div>

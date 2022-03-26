@@ -1,0 +1,10 @@
+<div class="question--wrapper">
+    <h2 class="question">{{data.question}}</h2>
+    <ul class="answer--wrapper">
+        <li *ngFor="let answer of data.answers;let indexOfElement = index" class="answer">
+            <input type="checkbox" [name]="answer" [value]="answer" [id]="indexOfElement+data.question" (change)="handleCheckbox($event)">
+            <label [for]="indexOfElement+data.question">{{answer}}</label>
+        </li>
+    </ul>
+    <p class="question-description">{{data.description?data.description:null}}</p>
+</div>
