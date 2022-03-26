@@ -19,6 +19,7 @@ const { customAlphabet } = require("nanoid");
 const { truncateSync } = require("fs");
 const course = require("../models/course");
 const nanoid = customAlphabet("1234567890", 4);
+const nanoid_uname = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 8);
 const client = require("twilio")(
   process.env.TWILIO_ACCOUNT_SID,
   process.env.TWILIO_AUTH_TOKEN
@@ -36,10 +37,11 @@ exports.createTherapist = async (req, res) => {
       const hashPassword = bcrypt.hash(password, salt).then(async (rec) => {
         const account = await therapist.create({
           name,
+          username: nanoid_uname(),
           email,
           password: rec,
           registerToken,
-          role,
+          role: "therapist",
         });
         let x = account.name;
       });
