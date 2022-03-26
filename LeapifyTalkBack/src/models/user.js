@@ -31,6 +31,9 @@ const UserSchema = new mongoose.Schema(
 
     role: { type: String },
 
+    quizID: { type: String },
+    quizStatus: { type: String },
+
     headline: {
       type: String,
       default: "",
