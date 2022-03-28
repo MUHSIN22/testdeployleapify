@@ -70,6 +70,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "UGC",
     },
+    lastAttempted: {
+      type: Schema.Types.ObjectId,
+      ref: "question",
+    },
     students: [
       {
         type: Schema.Types.ObjectId,
