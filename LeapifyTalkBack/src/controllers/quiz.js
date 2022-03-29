@@ -63,10 +63,7 @@ exports.getQuiz = async (req, res) => {
         res.json({ status: "ok", sendQuiz });
       }
     } catch (e) {
-      const sendQuiz = await quiz
-        .findById(id)
-        .populate(["questions", "lastAttempted"])
-        .exec();
+      const sendQuiz = await quiz.findById(id).populate("questions").exec();
       if (!sendQuiz) {
         res.json({ status: "error", msg: "Wrong id" });
       } else {
