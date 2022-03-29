@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const quiz = require("../models/quiz");
 const question = require("../models/questions");
+const jwt = require("jsonwebtoken");
 const user = require("../models/user");
 
 exports.makeQuiz = async (req, res) => {
@@ -124,7 +125,7 @@ exports.finishQuiz = async (req, res) => {
 exports.checkAnswer = async (req, res) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  const findToken = await therapist.findOne({ tokens: token }).exec();
+  const findToken = await user.findOne({ tokens: token }).exec();
   const decoded = jwt.decode(findToken.tokens, { complete: true });
   const userID = decoded.payload.id;
 

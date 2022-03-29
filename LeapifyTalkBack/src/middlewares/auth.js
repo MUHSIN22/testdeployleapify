@@ -15,7 +15,7 @@ const auth = async (req, res, next) => {
       res.status(401).send({ error: "Please authenticate." });
     } else {
       req.token = token;
-      req.user = user;
+      req.role = user;
       next();
     }
   } catch (e) {
@@ -37,7 +37,7 @@ const adminAuth = async (req, res, next) => {
       res.status(401).send({ error: "Please authenticate." });
     } else {
       req.token = token;
-      req.admin = admin;
+      req.role = admin;
       next();
     }
   } catch (e) {
@@ -57,7 +57,7 @@ const adminAuthLeapify = async (req, res, next) => {
       res.status(401).send({ error: "Please authenticate." });
     } else {
       req.token = token;
-      req.adminLeapify = admin1;
+      req.role = admin1;
       next();
     }
   } catch (e) {

@@ -76,6 +76,7 @@ const UserSchema = new mongoose.Schema(
     },
     currentScore: {
       type: Number,
+      default: 0,
     },
     students: [
       {
