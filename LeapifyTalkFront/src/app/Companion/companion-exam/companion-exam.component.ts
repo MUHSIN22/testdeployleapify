@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {faCheck,faXmark} from '@fortawesome/free-solid-svg-icons'
+import { CompanionService } from 'src/app/services/companion.service';
 @Component({
   selector: 'app-companion-exam',
   templateUrl: './companion-exam.component.html',
@@ -8,48 +10,39 @@ import {faCheck,faXmark} from '@fortawesome/free-solid-svg-icons'
 export class CompanionExamComponent implements OnInit {
   faCheck = faCheck;
   faXmark = faXmark;
-  questions: any = [
-    {
-      scenario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit lectus ac vestibulum. Auctor et leo non nisi tempor vitae nibh eu mauris. Tincidunt mauris et in tempus volutpat. Pellentesque senectus ultrices venenatis senectus vulputate nec. Arcu, nullam mauris ut consectetur scelerisque ipsum.",
-      question: "This is question one",
-      options: ['Wrong1','Wrong2','Right','Wrong3'], 
-      correct: 2
-    },
-    {
-      scenario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit lectus ac vestibulum. Auctor et leo non nisi tempor vitae nibh eu mauris. Tincidunt mauris et in tempus volutpat. Pellentesque senectus ultrices venenatis senectus vulputate nec. Arcu, nullam mauris ut consectetur scelerisque ipsum.",
-      question: "This is question 2",
-      options: ['Right','Wrong2','Wrong1','Wrong3'], 
-      correct: 1
-    },
-    {
-      scenario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit lectus ac vestibulum. Auctor et leo non nisi tempor vitae nibh eu mauris. Tincidunt mauris et in tempus volutpat. Pellentesque senectus ultrices venenatis senectus vulputate nec. Arcu, nullam mauris ut consectetur scelerisque ipsum.",
-      question: "This is question 3",
-      options: ['Wrong1','Wrong2','Wrong3','Right'], 
-      correct: 3
-    },
-    {
-      scenario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit lectus ac vestibulum. Auctor et leo non nisi tempor vitae nibh eu mauris. Tincidunt mauris et in tempus volutpat. Pellentesque senectus ultrices venenatis senectus vulputate nec. Arcu, nullam mauris ut consectetur scelerisque ipsum.",
-      question: "This is question 4",
-      options: ['Right','Wrong2','Wrong1','Wrong3'], 
-      correct: 0
-    },
-    {
-      scenario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit lectus ac vestibulum. Auctor et leo non nisi tempor vitae nibh eu mauris. Tincidunt mauris et in tempus volutpat. Pellentesque senectus ultrices venenatis senectus vulputate nec. Arcu, nullam mauris ut consectetur scelerisque ipsum.",
-      question: "This is question 5",
-      options: ['Wrong1','Wrong2','Right','Wrong3'], 
-      correct: 2
-    }
-  ];
+  questions: any = [];
+  optionSelected: any;
 
   currentIndex:number = 0;
-  constructor() { }
+  constructor(
+    private companionService:CompanionService,
+    private router:Router  
+  ) { }
 
   ngOnInit(): void {
+    
+    this.companionService.getExam().subscribe((res:any) => {
+      console.log(res);
+      
+      this.questions = res.sendQuiz.questions
+      this.router.navigate([],{
+        queryParams:{
+          question:this.currentIndex
+        }
+      })
+    })
   }
 
 
   handleAnswerSelection = (event:any) => {
-    console.log(event.target.id,this.questions[this.currentIndex].correct);
+    !this.optionSelected? this.optionSelected = event.target.id : null
+    
+    console.log(this.questions[this.currentIndex]);
+    this.companionService.checkAnswer(this.questions[this.currentIndex].id,this.optionSelected).subscribe(res => {
+      console.log(res);
+      
+    })
+    
     if(event.target.id == this.questions[this.currentIndex].correct) {
       event.target.style.backgroundColor = " #00B879";
       event.target.querySelector(".option-true").hidden = false;
@@ -58,4 +51,5 @@ export class CompanionExamComponent implements OnInit {
       event.target.querySelector(".option-false") ? event.target.querySelector(".option-false").hidden = false:null;
     }
   }
+
 }

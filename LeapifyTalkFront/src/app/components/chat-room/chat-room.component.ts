@@ -40,54 +40,54 @@ export class ChatRoomComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       (route) => {
         this.roomId = route.id;
-        this.initialize();
+        // this.initialize();
       }
     )
   }
   ngOnInit(): void {
   }
 
-  initialize() {
+  // initialize() {
 
-    this.subscribeMessages()
+  //   this.subscribeMessages()
 
-    this.chatService.getAllgroups(this.httpService.loggedInUser.id).then(
-      (res) => {
-        let groups: Group[] = res.data.rooms;
-        groups.forEach(
-          (group) => {
-            if (group._id == this.roomId) {
-              this.group = group;
-              this.groupsLoaded = true;
-            }
-          }
-        )
-      }
-    )
-  }
+  //   this.chatService.getAllgroups(this.httpService.loggedInUser.id).then(
+  //     (res) => {
+  //       let groups: Group[] = res.data.rooms;
+  //       groups.forEach(
+  //         (group) => {
+  //           if (group._id == this.roomId) {
+  //             this.group = group;
+  //             this.groupsLoaded = true;
+  //           }
+  //         }
+  //       )
+  //     }
+  //   )
+  // }
 
-  subscribeMessages() {
-    if (this.chatService.allMessagesLoaded) {
-      this.chatService.allMessagesSubject.subscribe(
-        (groups) => {
-          groups.forEach(
-            (group) => {
-              if (group._id == this.roomId) {
-                this.messages = group.messages;
-                this.chatsLoaded = true;
-                this.scrollDown();
-              }
-            }
-          )
-        }
-      )
-    }
-    else {
-      setTimeout(() => {
-        this.subscribeMessages();
-      }, 100);
-    }
-  }
+  // subscribeMessages() {
+  //   if (this.chatService.allMessagesLoaded) {
+  //     this.chatService.allMessagesSubject.subscribe(
+  //       (groups) => {
+  //         groups.forEach(
+  //           (group) => {
+  //             if (group._id == this.roomId) {
+  //               this.messages = group.messages;
+  //               this.chatsLoaded = true;
+  //               this.scrollDown();
+  //             }
+  //           }
+  //         )
+  //       }
+  //     )
+  //   }
+  //   else {
+  //     setTimeout(() => {
+  //       this.subscribeMessages();
+  //     }, 100);
+  //   }
+  // }
 
   handleImage(e: any) {
     this.images.push(e);
