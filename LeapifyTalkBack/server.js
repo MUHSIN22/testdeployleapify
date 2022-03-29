@@ -22,14 +22,6 @@ const io = socketio(server, {
   },
 });
 
-io.on('connection',(socket)=>{
-  console.log("connected to socket")
-
-  socket.on('setup',(userData)=>{
-    
-  })
-})
-
 // Connect to Database
 mongoose
   .connect(process.env.dbURI, {

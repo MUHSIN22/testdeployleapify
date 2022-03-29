@@ -90,13 +90,15 @@ exports.getQuestion = async (req, res) => {
 exports.finishQuiz = async (req, res) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  const findToken = await therapist.findOne({ tokens: token }).exec();
+  const findToken = await user.findOne({ tokens: token }).exec();
   const decoded = jwt.decode(findToken.tokens, { complete: true });
   const userID = decoded.payload.id;
 
   try {
-    const { result } = req.body;
-    if (result == "passed") {
+    const { id } = req.params;
+    const forQuiz = await question.findById(id).populate("quizID");
+    const result = findToken.currentScore / forQuiz.quizID.questions.length;
+    if (result >= 0.5) {
       const updateUser = await user
         .findByIdAndUpdate(userID, { quizStatus: "passed" })
         .exec();
@@ -129,17 +131,20 @@ exports.checkAnswer = async (req, res) => {
   const { id } = req.params;
   const { answer } = req.body;
 
-  const updateAttempted = await user.findByIdAndUpdate(userID, {
-    lastAttempted: id,
-  });
-
   try {
+    const updateAttempted = await user.findById(userID).exec();
     const findQuestion = await question.findById(id).exec();
     if (!findQuestion) {
       return res.json({ status: "error", msg: "wrong id" });
     } else if (findQuestion.answer == answer) {
+      updateAttempted.lastAttempted = id;
+      updateAttempted.currentScore += 1;
+      await updateAttempted.save();
       return res.json({ status: "ok", msg: "correct answer" });
     } else {
+      updateAttempted.lastAttempted = id;
+      // updateAttempted.currentScore += 0;
+      await updateAttempted.save();
       return res.json({ status: "ok", msg: "incorrect answer" });
     }
   } catch (e) {
