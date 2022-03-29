@@ -74,6 +74,9 @@ const UserSchema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "question",
     },
+    currentScore: {
+      type: Number,
+    },
     students: [
       {
         type: Schema.Types.ObjectId,

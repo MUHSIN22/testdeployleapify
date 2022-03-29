@@ -143,7 +143,7 @@ exports.checkAnswer = async (req, res) => {
       return res.json({ status: "ok", msg: "correct answer" });
     } else {
       updateAttempted.lastAttempted = id;
-      updateAttempted.currentScore += 0;
+      // updateAttempted.currentScore += 0;
       await updateAttempted.save();
       return res.json({ status: "ok", msg: "incorrect answer" });
     }
