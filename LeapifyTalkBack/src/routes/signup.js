@@ -11,6 +11,7 @@ const {
   verifyMail,
   logout,
   companionHome,
+  getCompanions,
 } = require("../controllers/companion");
 const { auth } = require("../middlewares/auth");
 
@@ -21,6 +22,7 @@ router.get("/verify-email/:token", verifyMail);
 router.post("/forgot-password", forgotPassword);
 router.get("/forgot-password/:token", forgotPasswordVerify);
 router.post("/reset-password", resetPassword);
+router.get("/get-companions", getCompanions);
 router.post("/login", login);
 router.post("/logout", auth, logout);
 

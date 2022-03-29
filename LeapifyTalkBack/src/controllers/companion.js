@@ -545,6 +545,19 @@ exports.companionHome = async (req, res) => {
 
 // ==================Dashboard=======================
 
+// ================Send companions=================
+
+exports.getCompanions = async (req, res) => {
+  try {
+    const allCompanion = await User.find({ role: "companion" }).exec();
+
+    res.json({ status: "ok", allCompanion });
+  } catch (e) {
+    console.log(e);
+    res.json({ status: "error", msg: "am error occured" });
+  }
+};
+
 //=================== Logout ===========================================
 exports.logout = async (req, res) => {
   try {
