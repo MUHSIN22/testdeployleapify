@@ -116,7 +116,11 @@ exports.finishQuiz = async (req, res) => {
       });
     } else {
       const updateUser = await user
-        .findByIdAndUpdate(userID, { quizStatus: "failed" })
+        .findByIdAndUpdate(userID, {
+          quizStatus: "failed",
+          lastAttempted: null,
+          currentScore: 0,
+        })
         .exec();
       return res.json({
         status: "ok",
@@ -140,15 +144,18 @@ exports.checkAnswer = async (req, res) => {
   const { answer } = req.body;
 
   try {
-    const updateAttempted = await user.findById(userID).exec();
+    // const updateAttempted = await user.findById(userID).exec();
     const findQuestion = await question.findById(id).exec();
     if (!findQuestion) {
       return res.json({ status: "error", msg: "wrong id" });
     } else if (findQuestion.answer == answer) {
-      updateAttempted.lastAttempted = id;
-      updateAttempted.currentScore += 1;
-      await updateAttempted.save();
+      findToken.lastAttempted = id;
+      findToken.currentScore += 1;
+      await findToken.save();
       return res.json({ status: "ok", msg: "correct answer" });
+    } else if (answer == null) {
+      findToken.lastAttempted = id;
+      return res.json({ status: "ok", msg: "timeout" });
     } else {
       updateAttempted.lastAttempted = id;
       // updateAttempted.currentScore += 0;
