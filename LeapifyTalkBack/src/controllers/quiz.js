@@ -52,7 +52,7 @@ exports.getQuiz = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const sendQuiz = await quiz.findById(id).populate("question").exec();
+    const sendQuiz = await quiz.findById(id).populate("questions").exec();
 
     if (!sendQuiz) {
       res.json({ status: "error", msg: "Wrong id" });
