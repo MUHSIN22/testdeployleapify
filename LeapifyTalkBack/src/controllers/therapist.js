@@ -118,7 +118,7 @@ exports.loginTherapist = async (req, res) => {
                 id: emailValidation._id,
                 email: emailValidation.email,
                 name: emailValidation.name,
-                user: emailValidation.role,
+                role: emailValidation.role,
               },
               process.env.JWT_SECRET,
               { expiresIn: "1d" }
