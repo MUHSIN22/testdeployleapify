@@ -52,7 +52,10 @@ exports.getQuiz = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const sendQuiz = await quiz.findById(id).populate("questions").exec();
+    const sendQuiz = await quiz
+      .findById(id)
+      .populate(["questions", "lastAttempted"])
+      .exec();
 
     if (!sendQuiz) {
       res.json({ status: "error", msg: "Wrong id" });
@@ -117,8 +120,18 @@ exports.finishQuiz = async (req, res) => {
 };
 
 exports.checkAnswer = async (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  const findToken = await therapist.findOne({ tokens: token }).exec();
+  const decoded = jwt.decode(findToken.tokens, { complete: true });
+  const userID = decoded.payload.id;
+
   const { id } = req.params;
   const { answer } = req.body;
+
+  const updateAttempted = await user.findByIdAndUpdate(userID, {
+    lastAttempted: id,
+  });
 
   try {
     const findQuestion = await question.findById(id).exec();

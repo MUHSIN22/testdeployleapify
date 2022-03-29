@@ -1029,6 +1029,7 @@ exports.login = async (req, res) => {
     return res.json({
       status: "ok",
       msg: "Logged in Successfully",
+      role: user.role,
       token: token,
     });
   } catch (error) {
