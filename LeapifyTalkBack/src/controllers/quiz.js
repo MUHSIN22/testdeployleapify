@@ -53,12 +53,26 @@ exports.getQuiz = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const sendQuiz = await quiz.findById(id).populate("question").exec();
-
-    if (!sendQuiz) {
-      res.json({ status: "error", msg: "Wrong id" });
-    } else {
-      res.json({ status: "ok", sendQuiz });
+    try {
+      const sendQuiz = await quiz
+        .findById(id)
+        .populate(["questions", "lastAttempted"])
+        .exec();
+      if (!sendQuiz) {
+        res.json({ status: "error", msg: "Wrong id" });
+      } else {
+        res.json({ status: "ok", sendQuiz });
+      }
+    } catch (e) {
+      const sendQuiz = await quiz
+        .findById(id)
+        .populate(["questions", "lastAttempted"])
+        .exec();
+      if (!sendQuiz) {
+        res.json({ status: "error", msg: "Wrong id" });
+      } else {
+        res.json({ status: "ok", sendQuiz });
+      }
     }
   } catch (e) {
     console.log(e);
