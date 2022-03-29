@@ -23,7 +23,6 @@ export class CompanionExamComponent implements OnInit {
     
     this.companionService.getExam().subscribe((res:any) => {
       console.log(res);
-      
       this.questions = res.sendQuiz.questions
       this.router.navigate([],{
         queryParams:{

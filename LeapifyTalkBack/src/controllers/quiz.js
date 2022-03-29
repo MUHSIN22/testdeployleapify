@@ -19,7 +19,6 @@ exports.makeQuiz = async (req, res) => {
     res.json({ status: "error", msg: "an error occured" });
   }
 };
-
 exports.makeQuestion = async (req, res) => {
   const quizID = req.params.quizID;
   const { comprehension, question_no, questionText, answer, options } =
