@@ -17,6 +17,8 @@ export class CompanionService {
     private httpService:HttpService
   ) { 
     this.header = new HttpHeaders({'Authorization':`Bearer ${localStorage.getItem('id_token')}`})
+    console.log(localStorage.getItem('id_token'));
+    
   }
 
   companionSignup = (body:companionSignup): Observable<any>=> {
