@@ -14,7 +14,7 @@ router.post("/make-quiz", makeQuiz);
 router.post("/make-question/:quizID", makeQuestion);
 router.get("/get-question/:id", getQuestion);
 router.get("/get-quiz/:id", getQuiz);
-router.post("/finish-quiz/:id", auth, finishQuiz);
+router.get("/finish-quiz/:id", auth, finishQuiz);
 router.post("/check-answer/:id", auth, checkAnswer);
 
 module.exports = router;
