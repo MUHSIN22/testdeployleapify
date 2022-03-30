@@ -2,11 +2,11 @@
     <div class="timer-and-score">
         <div class="timer">
             <strong class="timer--title">Time Left:</strong>
-            <strong class="time-left" [ngStyle]="{'color':timer<10&&'red'}">00:{{timer}}:00</strong>
+            <strong class="time-left" [ngStyle]="{'color':timer<10?'red':'#00B879'}">00:{{timer}}:00</strong>
         </div>
         <div class="score">
             <strong class="score--title">Score:</strong> 
-            <strong class="current-score">20/100</strong>
+            <strong class="current-score">{{currentScore}}/{{totalQuestions}}</strong>
         </div>
     </div>
     <div class="scenario--wrapper">
@@ -19,8 +19,8 @@
     </div>
     <div class="options-wrapper">
         <h2 class="option--title exam--title">Options</h2>
-        <div class="option--selectors">
-            <label for="option--one" class="option" id="0" (click)="handleAnswerSelection($event)" #option >
+        <div class="option--selectors" *ngIf="isToggle">
+            <label for="option--one" class="option"  id="0" (click)="handleAnswerSelection($event)" #option >
                 <input type="radio" name="option--radio" id="option--one" class="option--radio" #radio >
                 <span class="custom-check" id="custom-check--one"></span>
                 <span class="answer" class="answer">{{question.options[0]}}</span>
@@ -60,7 +60,7 @@
                 </p>
             </div>
         </div>
-        <button class="btn-next-question" [routerLink]="['/companion/home']" [queryParams]="{sts:'success'}">
+        <button class="btn-next-question" (click)="handleNextQuestion()" >
             <span>{{isLastQuestion?"Finish Exam":"Next Question"}}</span> 
             <mat-icon class="question-arrow">arrow_right_alt</mat-icon>
         </button>
