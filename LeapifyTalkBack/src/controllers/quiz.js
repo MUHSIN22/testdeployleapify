@@ -153,15 +153,27 @@ exports.checkAnswer = async (req, res) => {
       findToken.lastAttempted = id;
       findToken.currentScore += 1;
       await findToken.save();
-      return res.json({ status: "ok", msg: "correct answer" });
+      return res.json({
+        status: "ok",
+        msg: "correct answer",
+        currentScore: findToken.currentScore,
+      });
     } else if (answer == null) {
       findToken.lastAttempted = id;
-      return res.json({ status: "ok", msg: "timeout" });
+      return res.json({
+        status: "ok",
+        msg: "timeout",
+        currentScore: findToken.currentScore,
+      });
     } else {
       findToken.lastAttempted = id;
       // updateAttempted.currentScore += 0;
       await findToken.save();
-      return res.json({ status: "ok", msg: "incorrect answer" });
+      return res.json({
+        status: "ok",
+        msg: "incorrect answer",
+        currentScore: findToken.currentScore,
+      });
     }
   } catch (e) {
     console.log(e);
