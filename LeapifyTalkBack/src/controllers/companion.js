@@ -62,6 +62,52 @@ exports.signUpCompanion = async (req, res) => {
   }
 };
 
+exports.signUpTherapist=async(req,res)=>{
+  try {
+    const { name, email, password } = req.body;
+    const validateEmail = await User.findOne({ email }).exec();
+    if (validateEmail) {
+      res.json({ status: "error", msg: "Email ID already taken" });
+    } else {
+      const salt = bcrypt.genSaltSync(10);
+      let registerToken = crypto.randomBytes(64).toString("hex");
+      const hashPassword = bcrypt.hash(password, salt).then(async (rec) => {
+        const account = await User.create({
+          name,
+          username: nanoid(),
+          email,
+          password: rec,
+          registerToken,
+          role: "therapist",
+        });
+      });
+      const msg = {
+        from: `Banao <${process.env.EMAIL_USERNAME}>`,
+        to: email,
+        subject: "Banao Verify Link",
+        text: `
+            Hello  , your request for reactivation is confirmed
+            please click on the link to verify your email
+            ${process.env.CLIENT_URI}/verify-reset-password/${registerToken}
+            `,
+        html: `
+            hello, your request for reactivation is confirmed
+            please click on the link to verify your email
+            <a href="http://localhost:5000/api/companion/verify-email/${registerToken}">Verify Email</a>
+            `,
+      };
+      sendmail(msg);
+      res.json({
+        status: "ok",
+        msg: "Check you email to confirm registration",
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    res.json({ e });
+  }
+}
+
 exports.signUpDoctor = async (req, res) => {
   try {
     const { name, email, password } = req.body;
