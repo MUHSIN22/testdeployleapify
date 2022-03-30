@@ -105,7 +105,10 @@ exports.loginTherapist = async (req, res) => {
         res.json({ status: "error", msg: "Please Verify your Email" });
       } else {
         if (emailValidation.approved == false) {
-          res.json({ status: "ok", msg: "You aren't approved by the admin" });
+          res.json({
+            status: "error",
+            msg: "You aren't approved by the admin",
+          });
         } else {
           const passwordValidation = await bcrypt.compare(
             password,

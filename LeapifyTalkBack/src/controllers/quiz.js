@@ -157,9 +157,9 @@ exports.checkAnswer = async (req, res) => {
       findToken.lastAttempted = id;
       return res.json({ status: "ok", msg: "timeout" });
     } else {
-      updateAttempted.lastAttempted = id;
+      findToken.lastAttempted = id;
       // updateAttempted.currentScore += 0;
-      await updateAttempted.save();
+      await findToken.save();
       return res.json({ status: "ok", msg: "incorrect answer" });
     }
   } catch (e) {
