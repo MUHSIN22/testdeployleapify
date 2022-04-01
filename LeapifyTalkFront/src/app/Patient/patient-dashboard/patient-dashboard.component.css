@@ -1,0 +1,35 @@
+.badge
+{
+    background-color: #0EA5C6;
+    /* color: #0EA5C6; */
+    font-size: 15px;
+}
+.left
+{
+    margin-left: 85%;
+}
+.userimg
+{
+    height: 50px;
+    width: 50px;
+    border: 1px solid #0EA5C6;
+    border-radius: 50%;
+}
+.courseimg
+{
+    width:100%;
+    height:25vh;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.progress
+{
+    margin-top: 10px;
+    height: 5px;
+}
+.progress-bar
+{
+    background-color: #0EA5C6 !important;
+    width: 76%;
+    height: 5px;
+}

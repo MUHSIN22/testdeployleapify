@@ -60,7 +60,7 @@ hr{color: #0EA5C6 !important; border: 1px solid !important;}
 }
 .size_sidebar
 {
-    min-width: 170px !important;
+    min-width: 180px !important;
     background: #79C4D5;
 }
 .mid
@@ -90,6 +90,12 @@ hr{color: #0EA5C6 !important; border: 1px solid !important;}
     background-color: #fefefe !important;
     color: #0EA5C6 !important;
     border: 1px solid !important;
+}
+.btn-f2efb6
+{
+    background-color: #f2efb6 !important;
+    color: #0EA5C6 !important;
+    border: 1px solid #f2efb6 !important;
 }
 .btnn
 {

@@ -30,7 +30,8 @@
 {
     transform: translate(-1%,-1%);
     font-size: 15px;
-    color: #0EA5C6;
+    /* color: #0EA5C6; */
+    color: #fff;
     text-shadow: 0 0 20px #79C4D5;
 }
 .navigation ul li.active:hover a
@@ -51,8 +52,9 @@
 }
 .navigation ul li.nav-item.active
 {
-    background: #fff;
-    border: 2px solid #0EA5C6;
+    /* background: #fff; */
+    /* border: 2px solid #0EA5C6; */
+    border: 2px solid #ffff;
     width: 100%;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
