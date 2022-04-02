@@ -19,6 +19,7 @@ const { customAlphabet } = require("nanoid");
 const { truncateSync } = require("fs");
 const course = require("../models/course");
 const nanoid = customAlphabet("1234567890", 4);
+const nanoid_uname = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 8);
 const client = require("twilio")(
   process.env.TWILIO_ACCOUNT_SID,
   process.env.TWILIO_AUTH_TOKEN
@@ -36,10 +37,11 @@ exports.createTherapist = async (req, res) => {
       const hashPassword = bcrypt.hash(password, salt).then(async (rec) => {
         const account = await therapist.create({
           name,
+          username: nanoid_uname(),
           email,
           password: rec,
           registerToken,
-          role,
+          role: "therapist",
         });
         let x = account.name;
       });
@@ -103,7 +105,10 @@ exports.loginTherapist = async (req, res) => {
         res.json({ status: "error", msg: "Please Verify your Email" });
       } else {
         if (emailValidation.approved == false) {
-          res.json({ status: "ok", msg: "You aren't approved by the admin" });
+          res.json({
+            status: "error",
+            msg: "You aren't approved by the admin",
+          });
         } else {
           const passwordValidation = await bcrypt.compare(
             password,
@@ -116,7 +121,7 @@ exports.loginTherapist = async (req, res) => {
                 id: emailValidation._id,
                 email: emailValidation.email,
                 name: emailValidation.name,
-                user: emailValidation.role,
+                role: emailValidation.role,
               },
               process.env.JWT_SECRET,
               { expiresIn: "1d" }

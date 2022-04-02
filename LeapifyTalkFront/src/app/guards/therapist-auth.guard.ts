@@ -32,7 +32,7 @@ export class TherapistAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.init()
-    if (this.isLoggedIn && this.user.user === "therapist") {  
+    if (this.isLoggedIn && this.user.role === "therapist") {  
       return true;
     }
     else {

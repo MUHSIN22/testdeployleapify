@@ -21,16 +21,19 @@ const UserSchema = new mongoose.Schema(
     specialitiesDetails: {},
     therapyDetails: {},
     // youtubelink: { type: String},
-    googlemeetlink: { type: String},
-    zoomlink: { type: String},
-    skypelink: { type: String},
-    facebooklink: { type: String},
-    instagramlink: { type: String},
-    twitterlink: { type: String},
-    result:{ type: Array},
+    googlemeetlink: { type: String },
+    zoomlink: { type: String },
+    skypelink: { type: String },
+    facebooklink: { type: String },
+    instagramlink: { type: String },
+    twitterlink: { type: String },
+    result: { type: Array },
 
     role: { type: String },
-    
+
+    quizID: { type: String },
+    quizStatus: { type: String },
+
     headline: {
       type: String,
       default: "",
@@ -66,6 +69,14 @@ const UserSchema = new mongoose.Schema(
     certification: {
       type: String,
       default: "UGC",
+    },
+    lastAttempted: {
+      type: Schema.Types.ObjectId,
+      ref: "question",
+    },
+    currentScore: {
+      type: Number,
+      default: 0,
     },
     students: [
       {
@@ -104,9 +115,6 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-
-
-
     username: {
       type: String,
       unique: true,

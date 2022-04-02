@@ -55,6 +55,7 @@
     width: 0;
     height: 0;
     opacity: 0;
+    pointer-events: none;
 }
 
 .custom-check{
@@ -65,6 +66,7 @@
     background: var(--bg-primary);
     box-shadow: 0 0 0 1px #fff;
     border: 3px solid var(--bg-primary);
+    pointer-events: none;
 }
 #option--one:checked + #custom-check--one,
 #option--two:checked + #custom-check--two,
@@ -126,6 +128,9 @@
     color: #fff;
     font-weight: 600;
     margin-left: 1rem;
+}
+.option-status{
+    margin-left: auto;
 }
 
 @media only screen and (max-width: 550px){

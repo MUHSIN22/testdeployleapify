@@ -69,7 +69,7 @@ hr{color: #0EA5C6 !important; border: 1px solid !important;}
     /* top: 80px; */
     /* margin-left: 65px; */
     min-width: calc(100% - 65px);
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - 85px);
     /* background-color: crimson; */
 }
 .midsize
@@ -488,6 +488,12 @@ body {
   .most-popular-courses .owl-theme .owl-prev{
     display: none;
   }  
+  .sidebar{
+    display: none;
+  }
+  .midsize{
+    margin: 0 !important;
+  }
 }
 @media screen and (max-width: 992px) {
   body{

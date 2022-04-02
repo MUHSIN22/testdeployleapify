@@ -65,6 +65,13 @@ export class NavbarComponent implements OnInit {
         edit: '/therapist/edit-profile',
         group: '/therapist/group/id'
       }
+    }else if(this.httpService.loggedInUser.user&&this.httpService.loggedInUser.user === "companion"){
+      this.navigation = {
+        dashboard: '/companion/home',
+        learning: '/courses', 
+        edit: '/student/edit-profile',
+        group: '/student/group/id'
+      }
     }else{
       this.navigation = {
         dashboard: '/student/course',
@@ -101,10 +108,12 @@ export class NavbarComponent implements OnInit {
   }
 
   navigateToDashboard = () => {
-    if(this.loggedInUser && this.loggedInUser.user !== 'therapist'){
-      this.router.navigate(['/student/course'])
-    }else if(this.loggedInUser && this.loggedInUser.user === 'therapist'){
+    if(this.loggedInUser && this.loggedInUser.user === 'therapist'){
       this.router.navigate(['/therapist/dashboard'])
+    }else if(this.loggedInUser && this.loggedInUser.role === "companion"){
+
+    }else{
+      this.router.navigate(['/student/course'])
     }
   }
 

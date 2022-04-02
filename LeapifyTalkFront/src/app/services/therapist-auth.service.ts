@@ -16,7 +16,7 @@ export class TherapistAuthService {
   constructor(private http: HttpClient,private jwtHelper: JwtHelperService,private httpService: HttpService) { }
   
   regitsterUser = (data:any): Observable<any> =>{
-    return this.http.post<any>(`${this.apiUrl}/therapist/register`,data);
+    return this.http.post<any>(`${this.apiUrl}/companion/therapist`,data);
   }
 
   sendOtpToUser = (data:any): Observable<any> =>{

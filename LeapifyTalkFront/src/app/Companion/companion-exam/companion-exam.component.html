@@ -1,59 +1,67 @@
-<main class="companion-exam--wrapper">
+<main class="companion-exam--wrapper" *ngIf="question">
     <div class="timer-and-score">
         <div class="timer">
             <strong class="timer--title">Time Left:</strong>
-            <strong class="time-left">00:45:00</strong>
+            <strong class="time-left" [ngStyle]="{'color':timer<10?'red':'#00B879'}">00:{{timer}}:00</strong>
         </div>
         <div class="score">
             <strong class="score--title">Score:</strong> 
-            <strong class="current-score">20/100</strong>
+            <strong class="current-score">{{currentScore}}/{{totalQuestions}}</strong>
         </div>
     </div>
     <div class="scenario--wrapper">
         <h2 class="scenario--title exam--title">Scenario</h2>
-        <p class="scenario">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit lectus ac vestibulum. Auctor et leo non nisi tempor vitae nibh eu mauris. Tincidunt mauris et in tempus volutpat. Pellentesque senectus ultrices venenatis senectus vulputate nec. Arcu, nullam mauris ut consectetur scelerisque ipsum.</p>
+        <p class="scenario">{{question.comprehension}}</p>
     </div>
     <div class="question-wrapper">
         <h2 class="question--title exam--title">Question</h2>
-        <p class="question">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit lectus ac vestibulum?</p>
+        <p class="question">{{question.questionText}}</p>
     </div>
     <div class="options-wrapper">
         <h2 class="option--title exam--title">Options</h2>
-        <div class="option--selectors">
-            <label for="option--one" class="option">
-                <input type="radio" name="option--radio" id="option--one" class="option--radio">
+        <div class="option--selectors" *ngIf="isToggle">
+            <label for="option--one" class="option"  id="0" (click)="handleAnswerSelection($event)" #option >
+                <input type="radio" name="option--radio" id="option--one" class="option--radio" #radio >
                 <span class="custom-check" id="custom-check--one"></span>
-                <span>Option 1</span>
+                <span class="answer" class="answer">{{question.options[0]}}</span>
+                <fa-icon class="option-status option-true" [hidden]="true" [icon]="faCheck"></fa-icon>
+                <fa-icon class="option-status option-false" [hidden]="true" [icon]="faXmark"></fa-icon>
             </label>
-            <label for="option--two" class="option">
-                <input type="radio" name="option--radio" id="option--two" class="option--radio">
+            <label for="option--two" id="1"  class="option" (click)="handleAnswerSelection($event)" #option>
+                <input type="radio" name="option--radio" id="option--two" class="option--radio" #radio>
                 <span class="custom-check" id="custom-check--two"></span>
-                <span>Option 1</span>
+                <span class="answer">{{question.options[1]}}</span>
+                <fa-icon class="option-status option-true" [hidden]="true" [icon]="faCheck"></fa-icon>
+                <fa-icon class="option-status option-false" [hidden]="true" [icon]="faXmark"></fa-icon>
             </label>
-            <label for="option--three" class="option">
-                <input type="radio" name="option--radio" id="option--three" class="option--radio">
+            <label for="option--three" id="2" class="option" (click)="handleAnswerSelection($event)" #option>
+                <input type="radio" name="option--radio" id="option--three" class="option--radio" #radio>
                 <span class="custom-check" id="custom-check--three"></span>
-                <span>Option 1</span>
+                <span class="answer">{{question.options[2]}}</span>
+                <fa-icon class="option-status option-true" [hidden]="true" [icon]="faCheck"></fa-icon>
+                <fa-icon class="option-status option-false" [hidden]="true" [icon]="faXmark"></fa-icon>
             </label>
-            <label for="option--four" class="option">
-                <input type="radio" name="option--radio" id="option--four" class="option--radio">
+            <label for="option--four" id="3" class="option" (click)="handleAnswerSelection($event)" #option>
+                <input type="radio" name="option--radio" id="option--four" class="option--radio" #radio>
                 <span class="custom-check" id="custom-check--four"></span>
-                <span>Option 1</span>
+                <span class="answer">{{question.options[3]}}</span>
+                <fa-icon class="option-status option-true" [hidden]="true" [icon]="faCheck"></fa-icon>
+                <fa-icon class="option-status option-false" [hidden]="true" [icon]="faXmark"></fa-icon>
             </label>
         </div>
     </div>
 
     <div class="question-progress--wrapper">
         <div class="question-progress">
-            <div class="progress-bar">
-                <p class="progress-message">
-                    24% Completed. Great going!
+            <div class="progress-bar" [ngStyle]="{'width':progress+'%'}">
+                <p class="progress-message" [ngStyle]="{'color':'#fff'}">
+                    {{progress}}% Completed. {{progress > 10 ? "Great going!":null}}
                     <span class="tag"></span>
                 </p>
             </div>
         </div>
-        <button class="btn-next-question">
-            <span>Next Question</span> 
+        <button class="btn-next-question" (click)="handleNextQuestion()" >
+            <span>{{isLastQuestion?"Finish Exam":"Next Question"}}</span> 
             <mat-icon class="question-arrow">arrow_right_alt</mat-icon>
         </button>
     </div>
