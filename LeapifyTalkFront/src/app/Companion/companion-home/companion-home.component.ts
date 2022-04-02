@@ -23,6 +23,9 @@ export class CompanionHomeComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.companionServices.getHomeData().subscribe((res:any)=>{
+      console.log('home',res);
+    })
     this.companionServices.getCompanionCourse().subscribe((res:any) => {
       console.log(res);
     })

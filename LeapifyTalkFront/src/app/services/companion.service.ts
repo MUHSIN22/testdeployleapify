@@ -36,4 +36,12 @@ export class CompanionService {
   checkAnswer = (id:any,answer:any):Observable<any> => {
     return this.http.post<any>(`${this.apiUrl}/quiz/check-answer/${id}`,{answer:answer},{headers:this.header})
   }
+
+  finishQuiz = (id:any):Observable<any> => {
+    return this.http.get<any>(`${this.apiUrl}/quiz/finish-quiz/${id}`,{headers:this.header})
+  }
+
+  getHomeData = ():Observable<any> => {
+    return this.http.get<any>(`${this.apiUrl}/courses/ongoing-courses`,{headers:this.header})
+  }
 }

@@ -29,6 +29,7 @@ export class CompanionExamComponent implements OnInit {
   progress: number = 0;
   interval: any;
   isCorrect:boolean = false;
+  quizID:any;
   constructor(
     private companionService: CompanionService,
     private router: Router,
@@ -39,6 +40,7 @@ export class CompanionExamComponent implements OnInit {
   ngOnInit(): void {
     this.companionService.getExam().subscribe((res: any) => {
       this.questions = res.sendQuiz.questions;
+      this.quizID = res.sendQuiz._id
       this.totalQuestions = this.questions.length
       this.setParams();
       this.getParams();
@@ -108,14 +110,18 @@ export class CompanionExamComponent implements OnInit {
   }
 
   handleNextQuestion = () => {
-    if(this.noOfAttempt === 0){
+    if(this.noOfAttempt === 0 && !this.isLastQuestion){
       this._snackBar.openFromComponent(ToastComponent,{data:{type:"error",message:"Please attempt the question"}})
     }else if(this.isLastQuestion){
-      this.router.navigate(['/companion/home'],{
-        queryParams:{
-          sts:'success'
-        }
+      this.companionService.finishQuiz(this.quizID)
+      .subscribe((res:any) => {
+        console.log(res);
       })
+      // this.router.navigate(['/companion/home'],{
+      //   queryParams:{
+      //     sts:'success'
+      //   }
+      // })
     }else{
       this.getNextQuestion()
     }
@@ -142,6 +148,8 @@ export class CompanionExamComponent implements OnInit {
       this.companionService.checkAnswer(this.questions[this.currentIndex]._id, answer).subscribe((res: any) => {
         if (res.status === "ok") {
           resolve(res)
+          console.log(res);
+          this.currentScore = res.currentScore;
         } else {
           reject(res)
         }
