@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema(
     result: { type: Array },
 
     role: { type: String },
-
+    ready_for_quiz: { type: Boolean, default: false },
     quizID: { type: String },
     quizStatus: { type: String },
 
@@ -50,12 +50,10 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    courses: [
-      {
-        ref: "courses",
-        type: Schema.Types.ObjectId,
-      },
-    ],
+    companion_course: {
+      ref: "courses",
+      type: Schema.Types.ObjectId,
+    },
     about_instructor: {
       type: String,
     },
