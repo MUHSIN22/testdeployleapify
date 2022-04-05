@@ -104,8 +104,8 @@ exports.finishQuiz = async (req, res) => {
 
   try {
     const { id } = req.params;
-    const forQuiz = await question.findById(id).populate("quizID");
-    const result = findToken.currentScore / forQuiz.quizID.questions.length;
+    const forQuiz = await quiz.findById(id);
+    const result = findToken.currentScore / forQuiz.questions.length;
     if (result >= 0.5) {
       const updateUser = await user
         .findByIdAndUpdate(userID, { quizStatus: "passed" })
