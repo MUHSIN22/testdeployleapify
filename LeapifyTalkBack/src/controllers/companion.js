@@ -418,32 +418,36 @@ exports.login = async (req, res) => {
 // ==================Dashboard=======================
 
 exports.companionHome = async (req, res) => {
-  const courseID = "61d9bf60df187b50e001f3f1";
+  // const courseID = "61d9bf60df187b50e001f3f1";
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   // console.log(token);
   const findToken = await User.findOne({ tokens: token }).exec();
   const decoded = jwt.decode(findToken.tokens, { complete: true });
   const userID = decoded.payload.id;
+  const instructorCourseAll = await course
+    .findById(findToken.companion_course, { approved: 0 })
+    .populate(["instructor", "ratings", "sections"])
+    .exec();
   try {
     const findComplete = await complete.findOne({ userID }).exec();
     const findOngoing = await ongoing.findOne({ userID }).exec();
     if (!findOngoing && !findComplete) {
-      const instructorCourseAll = await course
-        .findById(findToken.companion_course, { approved: 0 })
-        .populate(["instructor", "ratings", "sections"])
-        .exec();
       // instructorCourseAll.forEach((course) => {
       //   let comp = {};
       let sum = 0;
       //   let toPush = {};
       let instructorCourse = [];
-      instructorCourseAll.ratings.forEach((rate) => {
-        sum += rate.rates;
-      });
+      try {
+        instructorCourseAll.ratings.forEach((rate) => {
+          sum += rate.rates;
+        });
+        instructorCourseAll.rates = avgRate;
+      } catch (e) {
+        instructorCourseAll.rates = 0;
+      }
       avgRate = sum / instructorCourseAll.ratings.length;
       console.log(avgRate);
-      instructorCourseAll.rates = avgRate;
       let newObj = {
         _id: instructorCourseAll._id,
         instructor: instructorCourseAll.instructor.name,
@@ -459,7 +463,6 @@ exports.companionHome = async (req, res) => {
         rates: instructorCourseAll.rates,
         last_updated: instructorCourseAll.last_updated,
         what_youll_learn: instructorCourseAll.what_youll_learn,
-        ratings: instructorCourseAll.ratings,
         sub_heading: instructorCourseAll.sub_heading,
         description: instructorCourseAll.description,
       };
@@ -494,14 +497,23 @@ exports.companionHome = async (req, res) => {
           .findOne({ _id: oneCourse.courseID.instructor }, { name: 1 })
           .exec();
         const oneArray = {};
-        const ratings = await rating
-          .findOne({ courseID: oneCourse.courseID, userID })
-          .exec();
+        try {
+          instructorCourseAll.ratings.forEach((rate) => {
+            sum += rate.rates;
+          });
+          instructorCourseAll.rates = avgRate;
+        } catch (e) {
+          instructorCourseAll.rates = 0;
+        }
+        // const ratings = await rating
+        //   .findOne({ courseID: oneCourse.courseID, userID })
+        //   .exec();
+
         // const courses = await course.findOne({ _id: oneCourse.courseID });
-        oneArray.ratings = ratings;
+        // oneArray.ratings = ratings;
         let newObj = {
           _id: oneCourse.courseID._id,
-          instructor: instructor.name,
+          instructor: instructorCourseAll.instructor.name,
           category: oneCourse.courseID.category,
           course_title: oneCourse.courseID.course_title,
           video: oneCourse.courseID.video,
@@ -512,10 +524,9 @@ exports.companionHome = async (req, res) => {
           progress: oneCourse.progress,
           tags: oneCourse.courseID.tags,
           language: oneCourse.courseID.language,
-          rates: oneCourse.courseID.rates,
+          rates: instructorCourseAll.rates,
           last_updated: oneCourse.courseID.last_updated,
           what_youll_learn: oneCourse.courseID.what_youll_learn,
-          ratings: oneCourse.courseID.ratings,
           sub_heading: oneCourse.courseID.sub_heading,
           description: oneCourse.courseID.description,
         };
