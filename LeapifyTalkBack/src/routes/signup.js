@@ -27,6 +27,7 @@ router.post("/reset-password", resetPassword);
 router.get("/get-companions", getCompanions);
 router.post("/login", login);
 router.post("/logout", auth, logout);
+router.get("/companion-dashboard", auth, companionHome);
 
 router.get("/home", auth, companionHome);
 

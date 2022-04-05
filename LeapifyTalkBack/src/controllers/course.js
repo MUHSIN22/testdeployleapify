@@ -1051,6 +1051,8 @@ exports.ongoingCourse = async (req, res) => {
               courseID,
               userID,
             });
+            findToken.ready_for_quiz = true;
+            await findToken.save();
             console.log("752 ", addToCompleted);
             res.json({
               status: "ok",
@@ -1112,6 +1114,8 @@ exports.ongoingCourse = async (req, res) => {
               courseID,
               userID,
             });
+            findToken.ready_for_quiz = true;
+            await findToken.save();
             console.log("752 ", addToCompleted);
             res.json({
               status: "ok",
@@ -1126,6 +1130,8 @@ exports.ongoingCourse = async (req, res) => {
             const updateCompleted = await completed
               .findOneAndUpdate({ userID }, { $addToSet: { courseID } })
               .exec();
+            findToken.ready_for_quiz = true;
+            await findToken.save();
             res.json({
               status: "ok",
               msg: {

@@ -19,6 +19,7 @@ const course = require("../models/course");
 exports.signUpCompanion = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    const courseID = "61d9bf60df187b50e001f3f1";
     const validateEmail = await User.findOne({ email }).exec();
     if (validateEmail) {
       res.json({ status: "error", msg: "Email ID already taken" });
@@ -33,6 +34,8 @@ exports.signUpCompanion = async (req, res) => {
           password: rec,
           registerToken,
           role: "companion",
+          companion_course: mongoose.Types.ObjectId(courseID),
+          ready_for_quiz: false,
         });
       });
       const msg = {
@@ -62,7 +65,7 @@ exports.signUpCompanion = async (req, res) => {
   }
 };
 
-exports.signUpTherapist=async(req,res)=>{
+exports.signUpTherapist = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const validateEmail = await User.findOne({ email }).exec();
@@ -106,7 +109,7 @@ exports.signUpTherapist=async(req,res)=>{
     console.log(e);
     res.json({ e });
   }
-}
+};
 
 exports.signUpDoctor = async (req, res) => {
   try {
@@ -418,22 +421,16 @@ exports.companionHome = async (req, res) => {
   const courseID = "61d9bf60df187b50e001f3f1";
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  console.log(token);
+  // console.log(token);
   const findToken = await User.findOne({ tokens: token }).exec();
   const decoded = jwt.decode(findToken.tokens, { complete: true });
   const userID = decoded.payload.id;
   try {
-    const findOngoing = await ongoing.findOne({ userID }).exec();
     const findComplete = await complete.findOne({ userID }).exec();
-    const findPurchased = await purchased.findOne({ userID }).exec();
-    // new user
-    if (!findOngoing && !findComplete && !findPurchased) {
-      const pushToPurchase = await purchased.create({
-        userID,
-        courseID: mongoose.Types.ObjectId(courseID),
-      });
+    const findOngoing = await ongoing.findOne({ userID }).exec();
+    if (!findOngoing && !findComplete) {
       const instructorCourseAll = await course
-        .findById(courseID, { approved: 0 })
+        .findById(findToken.companion_course, { approved: 0 })
         .populate(["instructor", "ratings", "sections"])
         .exec();
       // instructorCourseAll.forEach((course) => {
@@ -449,7 +446,7 @@ exports.companionHome = async (req, res) => {
       instructorCourseAll.rates = avgRate;
       let newObj = {
         _id: instructorCourseAll._id,
-        instructor: instructorCourseAll.instructor,
+        instructor: instructorCourseAll.instructor.name,
         category: instructorCourseAll.category,
         course_title: instructorCourseAll.course_title,
         video: instructorCourseAll.video,
@@ -471,14 +468,26 @@ exports.companionHome = async (req, res) => {
 
       return res.json({
         status: "ok",
-        first: { instructorCourse: instructorCourse[0] },
+        // first: { instructorCourse: instructorCourse[0] },
+        course: instructorCourse[0],
+        testAvailable: false,
       });
-    } else if (findOngoing) {
+    }
+    // const findPurchased = await purchased.findOne({ userID }).exec();
+    //   // new user
+    //   if (!findOngoing && !findComplete && !findPurchased) {
+    //     const pushToPurchase = await purchased.create({
+    //       userID,
+    //       courseID: mongoose.Types.ObjectId(courseID),
+    //     });
+
+    // }
+    else if (findOngoing) {
       const theCourses = await ongoing
         .find({ userID })
         .populate("courseID")
         .exec();
-      // res.json({ theCourses });
+      //     // res.json({ theCourses });
       let finalArray = [];
       for (const oneCourse of theCourses) {
         const instructor = await therapist
@@ -492,7 +501,7 @@ exports.companionHome = async (req, res) => {
         oneArray.ratings = ratings;
         let newObj = {
           _id: oneCourse.courseID._id,
-          instructor: instructor,
+          instructor: instructor.name,
           category: oneCourse.courseID.category,
           course_title: oneCourse.courseID.course_title,
           video: oneCourse.courseID.video,
@@ -506,7 +515,7 @@ exports.companionHome = async (req, res) => {
           rates: oneCourse.courseID.rates,
           last_updated: oneCourse.courseID.last_updated,
           what_youll_learn: oneCourse.courseID.what_youll_learn,
-          // ratings: oneCourse.courseID.ratings,
+          ratings: oneCourse.courseID.ratings,
           sub_heading: oneCourse.courseID.sub_heading,
           description: oneCourse.courseID.description,
         };
@@ -514,75 +523,82 @@ exports.companionHome = async (req, res) => {
         oneArray.courses = newObj;
         finalArray.push(oneArray);
       }
-      return res.json({ status: "ok", second: finalArray });
-    } else if (!findOngoing && findPurchased && !findComplete) {
-      const instructorCourseAll = await course
-        .findById(courseID, { approved: 0 })
-        .populate(["instructor", "ratings", "sections"])
-        .exec();
-      // instructorCourseAll.forEach((course) => {
-      //   let comp = {};
-      let sum = 0;
-      //   let toPush = {};
-      let instructorCourse = [];
-      instructorCourseAll.ratings.forEach((rate) => {
-        sum += rate.rates;
-      });
-      avgRate = sum / instructorCourseAll.ratings.length;
-      console.log(avgRate);
-      instructorCourseAll.rates = avgRate;
-      let newObj = {
-        _id: instructorCourseAll._id,
-        instructor: instructorCourseAll.instructor,
-        category: instructorCourseAll.category,
-        course_title: instructorCourseAll.course_title,
-        video: instructorCourseAll.video,
-        sections: instructorCourseAll.sections,
-        photo: instructorCourseAll.photo,
-        offer_price: instructorCourseAll.offer_price,
-        original_price: instructorCourseAll.original_price,
-        tags: instructorCourseAll.tags,
-        language: instructorCourseAll.language,
-        rates: instructorCourseAll.rates,
-        last_updated: instructorCourseAll.last_updated,
-        what_youll_learn: instructorCourseAll.what_youll_learn,
-        ratings: instructorCourseAll.ratings,
-        sub_heading: instructorCourseAll.sub_heading,
-        description: instructorCourseAll.description,
-      };
-
-      instructorCourse.push(newObj);
-
       return res.json({
         status: "ok",
-        third: { instructorCourse: instructorCourse[0] },
+        course: finalArray[0],
+        testAvailable: false,
       });
+    } else if (findComplete) {
+      return res.json({ status: "ok", course: "done", testAvailable: true });
     }
-    // completed course
-    else if (findComplete) {
-      const myCourses = await complete.find({ userID }).exec();
-      let courseArray = myCourses[0].courseID;
-      let finalArray = [];
-      courseArray.forEach(async (one) => {
-        let oneArray = {};
-        let ratings = await rating.findOne({ userID, courseID: one }).exec();
-        let courses = await course
-          .findOne({ _id: one })
-          .populate("instructor", "name")
-          .exec();
-        // console.log(courses);
-        oneArray.ratings = ratings;
-        oneArray.courses = courses;
-        finalArray.push(oneArray);
-        if (finalArray.length == myCourses.length) {
-          return res.json({
-            status: "ok",
-            test_send: finalArray,
-            test: "test sent",
-          });
-        }
-      });
-    }
+    // else if (!findOngoing && findPurchased && !findComplete) {
+    //     const instructorCourseAll = await course
+    //       .findById(courseID, { approved: 0 })
+    //       .populate(["instructor", "ratings", "sections"])
+    //       .exec();
+    //     // instructorCourseAll.forEach((course) => {
+    //     //   let comp = {};
+    //     let sum = 0;
+    //     //   let toPush = {};
+    //     let instructorCourse = [];
+    //     instructorCourseAll.ratings.forEach((rate) => {
+    //       sum += rate.rates;
+    //     });
+    //     avgRate = sum / instructorCourseAll.ratings.length;
+    //     console.log(avgRate);
+    //     instructorCourseAll.rates = avgRate;
+    //     let newObj = {
+    //       _id: instructorCourseAll._id,
+    //       instructor: instructorCourseAll.instructor,
+    //       category: instructorCourseAll.category,
+    //       course_title: instructorCourseAll.course_title,
+    //       video: instructorCourseAll.video,
+    //       sections: instructorCourseAll.sections,
+    //       photo: instructorCourseAll.photo,
+    //       offer_price: instructorCourseAll.offer_price,
+    //       original_price: instructorCourseAll.original_price,
+    //       tags: instructorCourseAll.tags,
+    //       language: instructorCourseAll.language,
+    //       rates: instructorCourseAll.rates,
+    //       last_updated: instructorCourseAll.last_updated,
+    //       what_youll_learn: instructorCourseAll.what_youll_learn,
+    //       ratings: instructorCourseAll.ratings,
+    //       sub_heading: instructorCourseAll.sub_heading,
+    //       description: instructorCourseAll.description,
+    //     };
+
+    //     instructorCourse.push(newObj);
+
+    //     return res.json({
+    //       status: "ok",
+    //       third: { instructorCourse: instructorCourse[0] },
+    //     });
+    //   }
+    //   // completed course
+    //   else if (findComplete) {
+    //     const myCourses = await complete.find({ userID }).exec();
+    //     let courseArray = myCourses[0].courseID;
+    //     let finalArray = [];
+    //     courseArray.forEach(async (one) => {
+    //       let oneArray = {};
+    //       let ratings = await rating.findOne({ userID, courseID: one }).exec();
+    //       let courses = await course
+    //         .findOne({ _id: one })
+    //         .populate("instructor", "name")
+    //         .exec();
+    //       // console.log(courses);
+    //       oneArray.ratings = ratings;
+    //       oneArray.courses = courses;
+    //       finalArray.push(oneArray);
+    //       if (finalArray.length == myCourses.length) {
+    //         return res.json({
+    //           status: "ok",
+    //           test_send: finalArray,
+    //           test: "test sent",
+    //         });
+    //       }
+    //     });
+    //   }
   } catch (e) {
     console.log(e);
     res.json({ status: "error", msg: "an error occured" });
