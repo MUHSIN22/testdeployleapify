@@ -436,11 +436,11 @@ exports.companionHome = async (req, res) => {
     if (!findOngoing && !findComplete) {
       // instructorCourseAll.forEach((course) => {
       //   let comp = {};
-      let sum = 0;
       //   let toPush = {};
       let instructorCourse = [];
       let instCourse = {};
       try {
+        let sum = 0;
         instructorCourseAll.ratings.forEach((rate) => {
           sum += rate.rates;
         });
@@ -501,13 +501,15 @@ exports.companionHome = async (req, res) => {
           .exec();
         let instCourse = {};
         try {
+          let sum = 0;
           instructorCourseAll.ratings.forEach((rate) => {
             sum += rate.rates;
           });
           avgRate = sum / instructorCourseAll.ratings.length;
           instCourse.rates = avgRate;
-        } catch (e) {
+        } catch (e1) {
           // let instCourse = {};
+          console.log(e1);
           instCourse.rates = 0;
         }
         // const ratings = await rating
