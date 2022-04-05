@@ -429,6 +429,7 @@ exports.companionHome = async (req, res) => {
     .findById(findToken.companion_course, { approved: 0 })
     .populate(["instructor", "ratings", "sections"])
     .exec();
+  // console.log("instructorCourseAll", instructorCourseAll);
   try {
     const findComplete = await complete.findOne({ userID }).exec();
     const findOngoing = await ongoing.findOne({ userID }).exec();
@@ -438,16 +439,18 @@ exports.companionHome = async (req, res) => {
       let sum = 0;
       //   let toPush = {};
       let instructorCourse = [];
+      let instCourse = {};
       try {
         instructorCourseAll.ratings.forEach((rate) => {
           sum += rate.rates;
         });
-        instructorCourseAll.rates = avgRate;
+        avgRate = sum / instructorCourseAll.ratings.length;
+        instCourse.rates = avgRate;
       } catch (e) {
-        instructorCourseAll.rates = 0;
+        // let instCourse = {};
+        instCourse.rates = 0;
       }
-      avgRate = sum / instructorCourseAll.ratings.length;
-      console.log(avgRate);
+      // console.log(avgRate);
       let newObj = {
         _id: instructorCourseAll._id,
         instructor: instructorCourseAll.instructor.name,
@@ -460,7 +463,7 @@ exports.companionHome = async (req, res) => {
         original_price: instructorCourseAll.original_price,
         tags: instructorCourseAll.tags,
         language: instructorCourseAll.language,
-        rates: instructorCourseAll.rates,
+        rates: instCourse.rates,
         last_updated: instructorCourseAll.last_updated,
         what_youll_learn: instructorCourseAll.what_youll_learn,
         sub_heading: instructorCourseAll.sub_heading,
@@ -496,14 +499,16 @@ exports.companionHome = async (req, res) => {
         const instructor = await therapist
           .findOne({ _id: oneCourse.courseID.instructor }, { name: 1 })
           .exec();
-        const oneArray = {};
+        let instCourse = {};
         try {
           instructorCourseAll.ratings.forEach((rate) => {
             sum += rate.rates;
           });
-          instructorCourseAll.rates = avgRate;
+          avgRate = sum / instructorCourseAll.ratings.length;
+          instCourse.rates = avgRate;
         } catch (e) {
-          instructorCourseAll.rates = 0;
+          // let instCourse = {};
+          instCourse.rates = 0;
         }
         // const ratings = await rating
         //   .findOne({ courseID: oneCourse.courseID, userID })
@@ -511,6 +516,7 @@ exports.companionHome = async (req, res) => {
 
         // const courses = await course.findOne({ _id: oneCourse.courseID });
         // oneArray.ratings = ratings;
+        let oneArray = {};
         let newObj = {
           _id: oneCourse.courseID._id,
           instructor: instructorCourseAll.instructor.name,
@@ -524,7 +530,7 @@ exports.companionHome = async (req, res) => {
           progress: oneCourse.progress,
           tags: oneCourse.courseID.tags,
           language: oneCourse.courseID.language,
-          rates: instructorCourseAll.rates,
+          rates: instCourse.rates,
           last_updated: oneCourse.courseID.last_updated,
           what_youll_learn: oneCourse.courseID.what_youll_learn,
           sub_heading: oneCourse.courseID.sub_heading,
