@@ -431,8 +431,14 @@ exports.companionHome = async (req, res) => {
     .exec();
   // console.log("instructorCourseAll", instructorCourseAll);
   try {
-    const findComplete = await complete.findOne({ userID }).exec();
-    const findOngoing = await ongoing.findOne({ userID }).exec();
+    const findComplete = await complete
+      .findOne({ userID })
+      .populate("courseID")
+      .exec();
+    const findOngoing = await ongoing
+      .findOne({ userID })
+      .populate("courseID")
+      .exec();
     if (!findOngoing && !findComplete) {
       // instructorCourseAll.forEach((course) => {
       //   let comp = {};
@@ -455,6 +461,7 @@ exports.companionHome = async (req, res) => {
         _id: instructorCourseAll._id,
         instructor: instructorCourseAll.instructor.name,
         category: instructorCourseAll.category,
+        sections: instructorCourseAll.sections,
         course_title: instructorCourseAll.course_title,
         video: instructorCourseAll.video,
         sections: instructorCourseAll.sections,
@@ -523,6 +530,7 @@ exports.companionHome = async (req, res) => {
           _id: oneCourse.courseID._id,
           instructor: instructorCourseAll.instructor.name,
           category: oneCourse.courseID.category,
+          sections: instructorCourseAll.sections,
           course_title: oneCourse.courseID.course_title,
           video: oneCourse.courseID.video,
           photo: oneCourse.courseID.photo,
