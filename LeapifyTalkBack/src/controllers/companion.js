@@ -431,16 +431,22 @@ exports.companionHome = async (req, res) => {
     .exec();
   // console.log("instructorCourseAll", instructorCourseAll);
   try {
-    const findComplete = await complete.findOne({ userID }).exec();
-    const findOngoing = await ongoing.findOne({ userID }).exec();
+    const findComplete = await complete
+      .findOne({ userID })
+      .populate("courseID")
+      .exec();
+    const findOngoing = await ongoing
+      .findOne({ userID })
+      .populate("courseID")
+      .exec();
     if (!findOngoing && !findComplete) {
       // instructorCourseAll.forEach((course) => {
       //   let comp = {};
-      let sum = 0;
       //   let toPush = {};
       let instructorCourse = [];
       let instCourse = {};
       try {
+        let sum = 0;
         instructorCourseAll.ratings.forEach((rate) => {
           sum += rate.rates;
         });
@@ -455,6 +461,7 @@ exports.companionHome = async (req, res) => {
         _id: instructorCourseAll._id,
         instructor: instructorCourseAll.instructor.name,
         category: instructorCourseAll.category,
+        sections: instructorCourseAll.sections,
         course_title: instructorCourseAll.course_title,
         video: instructorCourseAll.video,
         sections: instructorCourseAll.sections,
@@ -501,13 +508,15 @@ exports.companionHome = async (req, res) => {
           .exec();
         let instCourse = {};
         try {
+          let sum = 0;
           instructorCourseAll.ratings.forEach((rate) => {
             sum += rate.rates;
           });
           avgRate = sum / instructorCourseAll.ratings.length;
           instCourse.rates = avgRate;
-        } catch (e) {
+        } catch (e1) {
           // let instCourse = {};
+          console.log(e1);
           instCourse.rates = 0;
         }
         // const ratings = await rating
@@ -521,6 +530,7 @@ exports.companionHome = async (req, res) => {
           _id: oneCourse.courseID._id,
           instructor: instructorCourseAll.instructor.name,
           category: oneCourse.courseID.category,
+          sections: instructorCourseAll.sections,
           course_title: oneCourse.courseID.course_title,
           video: oneCourse.courseID.video,
           photo: oneCourse.courseID.photo,
