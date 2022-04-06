@@ -429,6 +429,7 @@ exports.companionHome = async (req, res) => {
     .findById(findToken.companion_course, { approved: 0 })
     .populate(["instructor", "ratings", "sections"])
     .exec();
+  // console.log(instructorCourseAll.sections)
   // console.log("instructorCourseAll", instructorCourseAll);
   try {
     const findComplete = await complete
@@ -464,7 +465,7 @@ exports.companionHome = async (req, res) => {
         sections: instructorCourseAll.sections,
         course_title: instructorCourseAll.course_title,
         video: instructorCourseAll.video,
-        sections: instructorCourseAll.sections,
+        sections: instructorCourseAll.sections[0],
         photo: instructorCourseAll.photo,
         offer_price: instructorCourseAll.offer_price,
         original_price: instructorCourseAll.original_price,
@@ -476,9 +477,9 @@ exports.companionHome = async (req, res) => {
         sub_heading: instructorCourseAll.sub_heading,
         description: instructorCourseAll.description,
       };
-
+      newObj.sections = instructorCourseAll.sections;
       instructorCourse.push(newObj);
-
+      console.log(newObj.sections);
       return res.json({
         status: "ok",
         // first: { instructorCourse: instructorCourse[0] },
@@ -530,13 +531,13 @@ exports.companionHome = async (req, res) => {
           _id: oneCourse.courseID._id,
           instructor: instructorCourseAll.instructor.name,
           category: oneCourse.courseID.category,
-          sections: instructorCourseAll.sections,
+          sections: instructorCourseAll.sections[0],
           course_title: oneCourse.courseID.course_title,
           video: oneCourse.courseID.video,
           photo: oneCourse.courseID.photo,
           offer_price: oneCourse.courseID.offer_price,
           original_price: oneCourse.courseID.original_price,
-          sections: oneCourse.sectionID,
+          // sections: oneCourse.sectionID,
           progress: oneCourse.progress,
           tags: oneCourse.courseID.tags,
           language: oneCourse.courseID.language,
