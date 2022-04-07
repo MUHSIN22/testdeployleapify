@@ -467,6 +467,7 @@ exports.companionHome = async (req, res) => {
         video: instructorCourseAll.video,
         sections: instructorCourseAll.sections[0],
         photo: instructorCourseAll.photo,
+        progress: 0,
         offer_price: instructorCourseAll.offer_price,
         original_price: instructorCourseAll.original_price,
         tags: instructorCourseAll.tags,

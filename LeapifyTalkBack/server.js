@@ -27,8 +27,14 @@ io.on("connection", (socket) => {
   console.log("connected to socket io ", socket);
 
   socket.on("join", (room) => {
-    socket.join(room);
+    socket.join(room._id);
+    socket.emit("connected")
   });
+
+  socket.on('join chat',(room)=>{
+    socket.join(room)
+    console.log('User conneccted to ',room)
+  })
 });
 
 // Connect to Database
