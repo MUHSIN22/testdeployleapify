@@ -3,6 +3,8 @@ const quiz = require("../models/quiz");
 const question = require("../models/questions");
 const jwt = require("jsonwebtoken");
 const user = require("../models/user");
+const complete = require("../models/completed");
+const preference = require("../models/preference");
 
 exports.makeQuiz = async (req, res) => {
   const { name } = req.body;
@@ -30,10 +32,10 @@ exports.makeQuestion = async (req, res) => {
 
     const newQuestion = await question.create({
       quizID,
-      comprehension,
+      // comprehension,
       question_no,
       questionText,
-      answer,
+      // answer,
       options: split_options,
     });
 
@@ -70,6 +72,35 @@ exports.getQuiz = async (req, res) => {
         res.json({ status: "ok", sendQuiz });
       }
     }
+  } catch (e) {
+    console.log(e);
+    res.json({ status: "error", msg: "an error occured" });
+  }
+};
+
+exports.postPreference = async (req, res) => {
+  const quizID = req.body.id;
+
+  try {
+    const { data } = req.body;
+    // const newQuiz = await preference.create({
+    for (const qn of data) {
+      const answer = qn.answers;
+      const questionID = qn.id;
+      const newPref = await preference.create({
+        answer,
+        questionID,
+        quizID,
+      });
+    }
+    res.json({ status: "ok", msg: "Form Submitted" });
+    // }
+    //     name,
+    //   });
+
+    //   console.log(newQuiz);
+
+    //   res.json({ status: "ok", msg: "Preference form created" });
   } catch (e) {
     console.log(e);
     res.json({ status: "error", msg: "an error occured" });
@@ -122,9 +153,12 @@ exports.finishQuiz = async (req, res) => {
           currentScore: 0,
         })
         .exec();
+      const removeFromCompleted = await complete
+        .findOneAndDelete({ courseID: findToken.companion_course, userID })
+        .exec();
       return res.json({
-        status: "ok",
-        msg: "Please attempt the test again, you have failed",
+        status: "failed",
+        testAvailability: false,
       });
     }
   } catch (e) {
