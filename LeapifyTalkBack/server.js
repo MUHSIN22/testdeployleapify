@@ -15,11 +15,20 @@ const fs = require("fs");
 
 const app = express();
 app.use(express.json());
+// socket io
 const server = http.createServer(app);
 const io = socketio(server, {
   cors: {
     origins: ["http://localhost:4200"],
   },
+});
+
+io.on("connection", (socket) => {
+  console.log("connected to socket io ", socket);
+
+  socket.on("join", (room) => {
+    socket.join(room);
+  });
 });
 
 // Connect to Database
