@@ -80,17 +80,18 @@ exports.getQuiz = async (req, res) => {
 };
 
 exports.postPreference = async (req, res) => {
-  const { zero, one, two, three } = req.body;
-  res.json({ zero, one, two, three });
+  const { answer } = req.body;
 
   try {
-    const newQuiz = await preference.create({
-      name,
-    });
+    //   const newQuiz = await preference.create({
+    console.log(req.body);
+    res.json({ status: "ok" });
+    //     name,
+    //   });
 
-    console.log(newQuiz);
+    //   console.log(newQuiz);
 
-    res.json({ status: "ok", msg: "Preference form created" });
+    //   res.json({ status: "ok", msg: "Preference form created" });
   } catch (e) {
     console.log(e);
     res.json({ status: "error", msg: "an error occured" });
