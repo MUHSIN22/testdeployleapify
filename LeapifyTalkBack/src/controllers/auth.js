@@ -1010,6 +1010,7 @@ exports.login = async (req, res) => {
         email: user.email,
         name: user.name,
         username: user.username,
+        isPreferenceAdded: user.isPreferenceAdded,
         // dname : user.first_name+' '+user.last_name,
         role: user.role,
         // user: "therapist",

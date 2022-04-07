@@ -117,6 +117,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    isPreferenceAdded: { type: Boolean, default: false },
     rooms: [
       {
         type: Schema.Types.ObjectId,

@@ -79,6 +79,11 @@ exports.getQuiz = async (req, res) => {
 };
 
 exports.postPreference = async (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  const findToken = await user.findOne({ tokens: token }).exec();
+  const decoded = jwt.decode(findToken.tokens, { complete: true });
+  const userID = decoded.payload.id;
   const quizID = req.body.id;
 
   try {
@@ -91,8 +96,11 @@ exports.postPreference = async (req, res) => {
         answer,
         questionID,
         quizID,
+        userID,
       });
     }
+    findToken.isPreferenceAdded = true;
+    await findToken.save();
     res.json({ status: "ok", msg: "Form Submitted" });
     // }
     //     name,
