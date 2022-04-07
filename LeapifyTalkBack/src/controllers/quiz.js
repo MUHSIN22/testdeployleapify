@@ -4,7 +4,7 @@ const question = require("../models/questions");
 const jwt = require("jsonwebtoken");
 const user = require("../models/user");
 const complete = require("../models/completed");
-// const preference = require("../models/preference");
+const preference = require("../models/preference");
 
 exports.makeQuiz = async (req, res) => {
   const { name } = req.body;
@@ -80,12 +80,22 @@ exports.getQuiz = async (req, res) => {
 };
 
 exports.postPreference = async (req, res) => {
-  const { answer } = req.body;
+  const quizID = req.body.id;
 
   try {
-    //   const newQuiz = await preference.create({
-    console.log(req.body);
-    res.json({ status: "ok" });
+    const { data } = req.body;
+    // const newQuiz = await preference.create({
+    for (const qn of data) {
+      const answer = qn.answers;
+      const questionID = qn.id;
+      const newPref = await preference.create({
+        answer,
+        questionID,
+        quizID,
+      });
+    }
+    res.json({ status: "ok", msg: "Form Submitted" });
+    // }
     //     name,
     //   });
 

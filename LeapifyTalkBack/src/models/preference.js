@@ -12,26 +12,13 @@ const preferenceSchema = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "quiz",
     },
-    0: [
-      {
-        type: String,
-      },
-    ],
-    1: [
-      {
-        type: String,
-      },
-    ],
-    2: [
-      {
-        type: String,
-      },
-    ],
-    3: [
-      {
-        type: String,
-      },
-    ],
+    questionID: {
+      type: Schema.Types.ObjectId,
+      ref: "question",
+    },
+    answer: {
+      type: Array,
+    },
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
