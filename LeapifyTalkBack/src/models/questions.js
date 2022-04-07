@@ -17,7 +17,7 @@ var questionSchema = mongoose.Schema({
   },
   answer: {
     type: Number,
-    required: true,
+    // required: true,
   },
   options: {
     type: Array,
