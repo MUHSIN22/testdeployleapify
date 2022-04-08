@@ -8,13 +8,8 @@ import { CompanionService } from 'src/app/services/companion.service';
   styleUrls: ['./companion-home.component.css']
 })
 export class CompanionHomeComponent implements OnInit {
-  course:any  = {
-    courses:{
-      photo: 'https://www.geeksforgeeks.org/web-thumbnail/',
-      course_title: 'Therapy course for test',
-      instructorDetails:[{name:"Muhsin"}],
-    }
-  };
+  course:any;
+  isTestAvailable:boolean = false;
   popupInfo:string = "";
 
   constructor(
@@ -24,7 +19,8 @@ export class CompanionHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.companionServices.getHomeData().subscribe((res:any)=>{
-      console.log('home',res);
+      this.course = res.course.courses
+      this.isTestAvailable = res.testAvailable
     })
     this.companionServices.getCompanionCourse().subscribe((res:any) => {
       console.log(res);

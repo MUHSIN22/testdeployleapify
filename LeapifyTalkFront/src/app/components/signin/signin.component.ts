@@ -81,7 +81,11 @@ export class SigninComponent implements OnInit {
               this.router.navigate(['/therapist/dashboard']);
             }
             if (this.loggedInUser.role == 'companion') {
-              this.router.navigate(['/companion/home']);
+              if(this.loggedInUser.isPreferenceAdded){
+                this.router.navigate(['/companion/home']);
+              }else{
+                this.router.navigate(['/companion-startup']);
+              }
             }
           }
         },

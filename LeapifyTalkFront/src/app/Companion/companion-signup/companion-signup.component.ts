@@ -38,7 +38,6 @@ export class CompanionSignupComponent implements OnInit {
 
   onSubmit = (): void => {
     this.companionService.companionSignup(this.data).subscribe((res:any) => {
-      console.log(res);
       if(res.status === "ok"){
         this._snackBar.openFromComponent(ToastComponent,{data:{type: "success", message:res.msg}})
         this.route.navigate(['/signin'])

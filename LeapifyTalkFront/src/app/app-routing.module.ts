@@ -163,6 +163,7 @@ const routes: Routes = [
   { path: 'companion', component: CompanionDashboardComponent,
     children: [
       { path: 'home', component: CompanionHomeComponent},
+      { path: 'course-view/:id', component:VideoViewComponent},
       { path: 'chat', component: GroupsComponent, 
         children:[
           { path: ':id',component: ChatRoomComponent }

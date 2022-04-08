@@ -2,6 +2,7 @@
     width: 100%;
     border-radius: 15px;
     box-shadow: -3px 2px 24px rgba(120, 137, 165, 0.3);
+    cursor: pointer;
 }
 .course--thumbnail{
     width: 100%;

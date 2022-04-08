@@ -59,6 +59,9 @@ export class ChatService {
 
     this.socket = io(this.socketUrl);
 
+    // console.log(this.socket);
+    
+
     this.getAllgroups(this.loggedInUser.id).then(
       (res) => {
 

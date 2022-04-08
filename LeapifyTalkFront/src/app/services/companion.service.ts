@@ -16,8 +16,12 @@ export class CompanionService {
     private http:HttpClient,
     private httpService:HttpService
   ) { 
-    this.header = new HttpHeaders({'Authorization':`Bearer ${localStorage.getItem('id_token')}`})
-    console.log(localStorage.getItem('id_token'));
+    this.httpService.userToken.subscribe((token:any) => {
+      console.log(token,"token1232");
+      this.header = new HttpHeaders({'Authorization':`Bearer ${token}`})
+    })
+    
+    console.log(localStorage.getItem('id_token'),'token1');
     
   }
 
@@ -27,6 +31,14 @@ export class CompanionService {
 
   getCompanionCourse = ():Observable<any> => {
     return this.http.get<any>(`${this.apiUrl}/courses/get-courses/61d9bf60df187b50e001f3f1`);
+  }
+
+  getPreferences = ():Observable<any> => {
+    return this.http.get<any>(`${this.apiUrl}/quiz/get-quiz/624de06ca55e7003663d9912`,{headers:this.header})
+  }
+
+  uploadPreferences = (data:any):Observable<any> => {
+    return this.http.post<any>(`${this.apiUrl}/quiz/preference`,data,{headers:this.header})
   }
 
   getExam = ():Observable<any> => {
@@ -42,6 +54,6 @@ export class CompanionService {
   }
 
   getHomeData = ():Observable<any> => {
-    return this.http.get<any>(`${this.apiUrl}/courses/ongoing-courses`,{headers:this.header})
+    return this.http.get<any>(`${this.apiUrl}/companion/companion-dashboard`,{headers:this.header})
   }
 }

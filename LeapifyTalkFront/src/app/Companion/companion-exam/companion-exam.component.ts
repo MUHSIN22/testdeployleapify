@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { ToastComponent } from 'src/app/components/toast/toast.component';
 import { CompanionService } from 'src/app/services/companion.service';
+import { getAllJSDocTagsOfKind } from 'typescript';
 @Component({
   selector: 'app-companion-exam',
   templateUrl: './companion-exam.component.html',
@@ -86,12 +87,13 @@ export class CompanionExamComponent implements OnInit {
   }
 
   getNextQuestion = () => {    
-    this.prepareForNewQuestion();
     if (this.currentIndex < this.totalQuestions-1) {
+      this.prepareForNewQuestion();
       this.currentIndex++;
       this.setParams();
       this.setTimer();
     }else{
+      this.setTimer();
       this.progress = 100;
       this.isLastQuestion = true;
     }
@@ -116,12 +118,24 @@ export class CompanionExamComponent implements OnInit {
       this.companionService.finishQuiz(this.quizID)
       .subscribe((res:any) => {
         console.log(res);
+        if(res.status === 'ok'){
+          this._snackBar.openFromComponent(ToastComponent,{data:{type:'success',message:res.msg}})
+          this.router.navigate(['/companion/home'],{
+            queryParams:{
+              sts:'success'
+            }
+          })
+        }else{
+          this._snackBar.openFromComponent(ToastComponent,{data:{type:'error',message:res.msg}})
+          this.router.navigate(['/companion/home'],{
+            queryParams:{
+              sts:'failed'
+            }
+          })
+        }
       })
-      // this.router.navigate(['/companion/home'],{
-      //   queryParams:{
-      //     sts:'success'
-      //   }
-      // })
+      clearInterval(this.interval)
+      
     }else{
       this.getNextQuestion()
     }
@@ -175,74 +189,4 @@ export class CompanionExamComponent implements OnInit {
       }
     },1000)
   }
-
-  // startTimer = (limit: number) => {
-  //   this.timer = limit;
-  //   this.timeOutFlag = false;
-  //   const interval = setInterval(() => {
-  //     if (this.timer <= 0) {
-  //       this.timeOutFlag = true;
-  //       this.companionService.checkAnswer(this.questions[this.currentIndex]._id, null).subscribe(res => {
-  //         if (this.currentIndex < (this.questions.length - 2)) {
-  //           this.currentIndex++;
-  //           this.question = this.questions[this.currentIndex]
-  //           clearInterval(interval)
-  //           this.startTimer(30)
-  //           this.setProgress();
-  //           console.log(this.currentIndex);
-  //           this.setParams()
-  //         } else {
-  //           clearInterval(interval)
-  //           this.isLastQuestion = true;
-  //           this.setProgress(100);
-  //         }
-  //       })
-  //     } else {
-  //       this.timer--;
-  //     }
-  //   }, 1000)
-
-  // }
-
-
-  // handleAnswerSelection = (event: any) => {
-  //   if (event.target.className === "option") {
-  //     if (this.noOfAttempt < 2) {
-  //       this.optionSelected = event.target.id;
-  //       this.companionService.checkAnswer(this.questions[this.currentIndex]._id, this.optionSelected).subscribe(res => {
-  //         this.optionSelected = null
-  //         if (res.status === "ok") {
-  //           if (res.msg === "correct answer") {
-  //             event.target.style.backgroundColor = " #00B879";
-  //             event.target.querySelector(".option-true").hidden = false;
-  //             event.target.classList.add('selected')
-  //           } else {
-  //             event.target.style.backgroundColor = " #FF6273";
-  //             event.target.querySelector(".option-false") ? event.target.querySelector(".option-false").hidden = false : null;
-  //             event.target.classList.add('selected')
-  //           }
-  //         }
-  //       })
-  //       this.noOfAttempt++;
-  //     } else {
-  //       this.currentIndex++;
-  //       this.noOfAttempt = 0;
-  //       this.setParams();
-  //       this.setProgress();
-  //       this.startTimer(30);
-  //       this.radioRef?.forEach(radio => {
-  //         radio.nativeElement.checked = false
-  //       })
-  //       this.optionRef?.forEach(option => {
-  //         option.nativeElement.querySelector('.option-true') ? option.nativeElement.querySelector('.option-true').hidden = true : null;
-  //         option.nativeElement.querySelector('.option-false') ? option.nativeElement.querySelector('.option-false').hidden = true : null;
-  //         option.nativeElement.style.backgroundColor = "var(--bg-primary)"
-  //         console.log(option.nativeElement);
-  //       })
-  //     }
-  //   }
-  //   console.log(this.noOfAttempt);
-
-  // }
-
 }

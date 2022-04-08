@@ -42,6 +42,7 @@ export class GroupsComponent implements OnInit {
     this.subscribeGroups();
     this.subscribeLastmessages();
 
+    
     this.chatService.notificationSubject.subscribe(
       (e)=>{
         this.notifications = e;
@@ -69,6 +70,29 @@ export class GroupsComponent implements OnInit {
         this.subscribeGroups();
       }, 500)
     }
+
+    this.groups = [
+      {
+        _id: "6432sa234ase234jkl",
+        name: "Muhsin",
+        chats: 'abc'
+      },
+      {
+        _id: "6432sa234ase234jkl",
+        name: "Muhsin",
+        chats: 'abc'
+      },
+      {
+        _id: "6432sa234ase234jkl",
+        name: "Muhsin",
+        chats: 'abc'
+      },
+      {
+        _id: "6432sa234ase234jkl",
+        name: "Muhsin",
+        chats: 'abc'
+      }
+    ]
   }
 
   subscribeLastmessages() {

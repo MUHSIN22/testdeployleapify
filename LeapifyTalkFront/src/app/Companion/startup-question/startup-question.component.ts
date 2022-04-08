@@ -16,10 +16,16 @@ export class StartupQuestionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.answer.questionId = this.elemAt;
+    this.answer.id = this.data._id;
+    this.answer.index = this.elemAt;
   }
   handleCheckbox = (event:any) => {
-    this.answer.answers.push(event.target.value)
+    if(this.answer.answers.indexOf(event.target.value) === -1){
+      this.answer.answers.push(event.target.value)
+    }else{
+      let index = this.answer.answers.indexOf(event.target.value);
+      this.answer.answers.splice(index,1);
+    }
     this.answerEmitter.emit(this.answer)
   }
 

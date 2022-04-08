@@ -1,13 +1,13 @@
-<div class="course--card">
-    <img src="/assets/images//temp/course-thumbnail.jpg" alt="" class="course--thumbnail">
+<div class="course--card" *ngIf="course" (click)="navigateToCourse($event)">
+    <img [src]="course.photo" alt="" class="course--thumbnail">
     <div class="card--body">
-        <h2 class="course--title">CBT for Depression, Anxiety, Phobias and Panic Attacks</h2>
-        <p class="course--provider">Espanol Heck</p>
+        <h2 class="course--title">{{course.course_title}}</h2>
+        <p class="course--provider">{{course.instructor}}</p>
         <div class="progress--container">
             <span class="progress--wrapper">
-                <span class="progress"></span>
+                <span class="progress" [ngStyle]="{'width':course.progress[0]+'%'}"></span>
             </span>
-            <p class="progress--count">30%</p>
+            <p class="progress--count">{{course.progress[0]}}%</p>
         </div>
         <div class="rate-the-course">
             <p>Leave a rating</p>

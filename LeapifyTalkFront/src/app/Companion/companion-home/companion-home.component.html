@@ -6,9 +6,9 @@
             <li>Completed Courses</li>
         </ul>
     </div>
-    <app-companion-course-card></app-companion-course-card>
+    <app-companion-course-card [course]="course"></app-companion-course-card>
 
-    <div class="test-wrapper">
+    <div class="test-wrapper" *ngIf="isTestAvailable">
         <h1 class="title">Test</h1>
         <app-test-card></app-test-card>
     </div>

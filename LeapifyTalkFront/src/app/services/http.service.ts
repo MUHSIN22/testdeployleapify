@@ -21,6 +21,7 @@ export class HttpService {
   isloggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   loggedInUser!: LoggedInUser;
   userSubject = new BehaviorSubject({});
+  userToken = new BehaviorSubject('');
 
   constructor(
     // --------------------------------------------
@@ -245,6 +246,7 @@ export class HttpService {
 
   setUser(token: string) {
     this.id_token = token;
+    this.userToken.next(token);
     this.loggedIn = true;
     this.isloggedIn.next(true);
     this.loggedInUser = this.jwtHelper.decodeToken(this.id_token);

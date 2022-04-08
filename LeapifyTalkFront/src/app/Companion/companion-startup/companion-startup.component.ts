@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { ToastComponent } from 'src/app/components/toast/toast.component';
+import { CompanionService } from 'src/app/services/companion.service';
 
 @Component({
   selector: 'app-companion-startup',
@@ -36,10 +40,24 @@ export class CompanionStartupComponent implements OnInit {
   }
   active:any = 0;
   btnInput:String = "Submit";
-  answers:any = []
-  constructor() { }
+  answers:any = {
+    data: []
+  }
+
+  constructor(
+    private companionServices:CompanionService,
+    private _snackBar:MatSnackBar,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
+    this.companionServices.getPreferences().subscribe((res:any) => {
+      console.log(res);
+      this.answers.id = res.sendQuiz._id;
+      this.questionAndAnswers = res.sendQuiz.questions
+      console.log(this.questionAndAnswers);
+      
+    })
     if(window.innerWidth <= 800){
       this.flags = {
         0:true,
@@ -75,11 +93,32 @@ export class CompanionStartupComponent implements OnInit {
   }
 
   questionSubmit = () =>{
-    console.log(this.answers);
+    if(this.answers.data.length === 4){
+      this.companionServices.uploadPreferences(this.answers).subscribe((res:any) => {
+        if(res.status === 'ok'){
+          this.openToast('success',res.msg)
+          this.router.navigateByUrl('/companion/home')
+        }else{
+          this.openToast('error',res.msg)
+        }
+      })
+    }else{
+      this.openToast('error',"Please answer all the questions!!");
+    }
   }
 
   getAnswer = (answer:any) => {
-    this.answers[answer.questionId] = answer;
+    if(answer.answers.length === 0){
+      this.answers.data.splice(answer.index,1)
+    }else{
+      this.answers.data[answer.index] = {
+        id: answer.id,
+        answers: answer.answers
+      }
+    }
   }
 
+  openToast = (type:string,message:string) => {
+    this._snackBar.openFromComponent(ToastComponent,{data:{type:type,message:message}})
+  }
 }
